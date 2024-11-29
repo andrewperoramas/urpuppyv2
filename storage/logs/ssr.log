@@ -1,0 +1,81 @@
+Starting SSR server on port 13714...
+Inertia SSR server started.
+Starting SSR server on port 13714...
+Inertia SSR server started.
+Starting SSR server on port 13714...
+Inertia SSR server started.
+Starting SSR server on port 13714...
+Inertia SSR server started.
+Starting SSR server on port 13714...
+Inertia SSR server started.
+Starting SSR server on port 13714...
+Inertia SSR server started.
+Starting SSR server on port 13714...
+Inertia SSR server started.
+Starting SSR server on port 13714...
+Inertia SSR server started.
+ReferenceError: route is not defined
+    at Login (file:///var/www/html/bootstrap/ssr/assets/Login-sptE8ArF.js:100:19)
+    at renderWithHooks (file:///var/www/html/bootstrap/ssr/ssr.js:30186:22)
+    at renderIndeterminateComponent (file:///var/www/html/bootstrap/ssr/ssr.js:30244:21)
+    at renderElement (file:///var/www/html/bootstrap/ssr/ssr.js:30411:13)
+    at renderNodeDestructiveImpl (file:///var/www/html/bootstrap/ssr/ssr.js:30515:15)
+    at renderNodeDestructive (file:///var/www/html/bootstrap/ssr/ssr.js:30496:20)
+    at renderContextProvider (file:///var/www/html/bootstrap/ssr/ssr.js:30388:9)
+    at renderElement (file:///var/www/html/bootstrap/ssr/ssr.js:30455:15)
+    at renderNodeDestructiveImpl (file:///var/www/html/bootstrap/ssr/ssr.js:30515:15)
+    at renderNodeDestructive (file:///var/www/html/bootstrap/ssr/ssr.js:30496:20)
+ReferenceError: route is not defined
+    at Login (file:///var/www/html/bootstrap/ssr/assets/Login-sptE8ArF.js:100:19)
+    at renderWithHooks (file:///var/www/html/bootstrap/ssr/ssr.js:30186:22)
+    at renderIndeterminateComponent (file:///var/www/html/bootstrap/ssr/ssr.js:30244:21)
+    at renderElement (file:///var/www/html/bootstrap/ssr/ssr.js:30411:13)
+    at renderNodeDestructiveImpl (file:///var/www/html/bootstrap/ssr/ssr.js:30515:15)
+    at renderNodeDestructive (file:///var/www/html/bootstrap/ssr/ssr.js:30496:20)
+    at renderContextProvider (file:///var/www/html/bootstrap/ssr/ssr.js:30388:9)
+    at renderElement (file:///var/www/html/bootstrap/ssr/ssr.js:30455:15)
+    at renderNodeDestructiveImpl (file:///var/www/html/bootstrap/ssr/ssr.js:30515:15)
+    at renderNodeDestructive (file:///var/www/html/bootstrap/ssr/ssr.js:30496:20)
+ReferenceError: route is not defined
+    at Login (file:///var/www/html/bootstrap/ssr/assets/Login-sptE8ArF.js:100:19)
+    at renderWithHooks (file:///var/www/html/bootstrap/ssr/ssr.js:30186:22)
+    at renderIndeterminateComponent (file:///var/www/html/bootstrap/ssr/ssr.js:30244:21)
+    at renderElement (file:///var/www/html/bootstrap/ssr/ssr.js:30411:13)
+    at renderNodeDestructiveImpl (file:///var/www/html/bootstrap/ssr/ssr.js:30515:15)
+    at renderNodeDestructive (file:///var/www/html/bootstrap/ssr/ssr.js:30496:20)
+    at renderContextProvider (file:///var/www/html/bootstrap/ssr/ssr.js:30388:9)
+    at renderElement (file:///var/www/html/bootstrap/ssr/ssr.js:30455:15)
+    at renderNodeDestructiveImpl (file:///var/www/html/bootstrap/ssr/ssr.js:30515:15)
+    at renderNodeDestructive (file:///var/www/html/bootstrap/ssr/ssr.js:30496:20)
+Starting SSR server on port 13714...
+Inertia SSR server started.
+ReferenceError: route is not defined
+    at Login (file:///var/www/html/bootstrap/ssr/assets/Login-sptE8ArF.js:100:19)
+    at renderWithHooks (file:///var/www/html/bootstrap/ssr/ssr.js:30186:22)
+    at renderIndeterminateComponent (file:///var/www/html/bootstrap/ssr/ssr.js:30244:21)
+    at renderElement (file:///var/www/html/bootstrap/ssr/ssr.js:30411:13)
+    at renderNodeDestructiveImpl (file:///var/www/html/bootstrap/ssr/ssr.js:30515:15)
+    at renderNodeDestructive (file:///var/www/html/bootstrap/ssr/ssr.js:30496:20)
+    at renderContextProvider (file:///var/www/html/bootstrap/ssr/ssr.js:30388:9)
+    at renderElement (file:///var/www/html/bootstrap/ssr/ssr.js:30455:15)
+    at renderNodeDestructiveImpl (file:///var/www/html/bootstrap/ssr/ssr.js:30515:15)
+    at renderNodeDestructive (file:///var/www/html/bootstrap/ssr/ssr.js:30496:20)
+ReferenceError: route is not defined
+    at Login (file:///var/www/html/bootstrap/ssr/assets/Login-sptE8ArF.js:100:19)
+    at renderWithHooks (file:///var/www/html/bootstrap/ssr/ssr.js:30186:22)
+    at renderIndeterminateComponent (file:///var/www/html/bootstrap/ssr/ssr.js:30244:21)
+    at renderElement (file:///var/www/html/bootstrap/ssr/ssr.js:30411:13)
+    at renderNodeDestructiveImpl (file:///var/www/html/bootstrap/ssr/ssr.js:30515:15)
+    at renderNodeDestructive (file:///var/www/html/bootstrap/ssr/ssr.js:30496:20)
+    at renderContextProvider (file:///var/www/html/bootstrap/ssr/ssr.js:30388:9)
+    at renderElement (file:///var/www/html/bootstrap/ssr/ssr.js:30455:15)
+    at renderNodeDestructiveImpl (file:///var/www/html/bootstrap/ssr/ssr.js:30515:15)
+    at renderNodeDestructive (file:///var/www/html/bootstrap/ssr/ssr.js:30496:20)
+Starting SSR server on port 13714...
+Inertia SSR server started.
+Starting SSR server on port 13714...
+Inertia SSR server started.
+Starting SSR server on port 13714...
+Inertia SSR server started.
+Starting SSR server on port 13714...
+Inertia SSR server started.

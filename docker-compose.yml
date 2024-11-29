@@ -1,0 +1,88 @@
+services:
+    urpuppy:
+        # build: .
+        image: puppy
+        ports:
+            - "8000:8000"
+            # - "13714:13714"
+        environment:
+            WITH_SSR: true
+        volumes:
+          - .:/var/www/html
+          - /var/run/docker.sock:/var/run/docker.sock
+
+    postgres:
+        image: postgres:16-alpine
+        ports:
+            - "5443:5432"
+        volumes:
+         - pgalpine:/var/lib/postgresql/data
+         - /var/run/docker.sock:/var/run/docker.sock
+        environment:
+          - POSTGRES_PASSWORD=Asakaboi35
+          - POSTGRES_USER=urpuppy
+          - POSTGRES_DB=urpuppy
+
+    pgadmin:
+        image: dpage/pgadmin4
+        container_name: pgadmin
+        depends_on:
+          - postgres
+        restart: always
+        ports:
+          - "7777:80"
+        volumes:
+          - pgadmin_datanew:/var/lib/pgadmin
+        environment:
+          PGADMIN_DEFAULT_EMAIL: mobistyle35@gmail.com
+          PGADMIN_DEFAULT_PASSWORD: Asakaboi35
+
+    mailpit:
+        image: axllent/mailpit
+        container_name: mailpit
+        restart: unless-stopped
+        volumes:
+          - ./data:/data
+        ports:
+          - 7025:8025
+
+    typesense:
+        image: typesense/typesense:27.0.rc21
+        environment:
+          TYPESENSE_DATA_DIR: /data
+          TYPESENSE_API_KEY: masterKey
+        volumes:
+          - ./typesense:/data
+          - /var/run/docker.sock:/var/run/docker.sock
+        ports:
+          - 8108:8108
+        restart: 'always'
+        deploy:
+          resources:
+            limits:
+              cpus: "2.0" # 2 cores
+              memory: "1g" # 1GB RAM
+        ulimits:
+           nproc: 50
+
+volumes:
+  storage:
+  pgalpine:
+  pgadmin_datanew:
+
+
+
+
+    # ssr:
+        # build: .
+        # command: php artisan inertia:start-ssr
+        # volumes:
+          # - ./:/var/www/html
+        # ports:
+            # - "13714:13714"
+        # environment:
+            # CONTAINER_MODE: worker
+            # WORKER_COMMAND: php /var/www/html/artisan inertia:start-ssr --runtime=bun
+        # volumes:
+          # - /var/run/docker.sock:/var/run/docker.sock
+            #
