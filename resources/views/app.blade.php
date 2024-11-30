@@ -4,8 +4,6 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title inertia>{{ config('app.name', 'Laravel') }}</title>
-
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
@@ -17,5 +15,8 @@
     </head>
     <body class="font-sans antialiased">
         @inertia
+
+        <script type="application/ld+json">{"@context":"https:\/\/schema.org","@type":"LocalBusiness","name":"Urpuppy.com","email":"admin@urpuppy.com","contactPoint":{"@type":"ContactPoint","areaServed":"US"},"image":"http:\/\/localhost:8000\/logo.png"}</script>
+
     </body>
 </html>

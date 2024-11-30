@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+
+use Spatie\SchemaOrg\Schema;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\ServiceProvider;
 
