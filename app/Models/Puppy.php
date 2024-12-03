@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model; // Correct Media class
 use Laravel\Scout\Searchable;
-use Milwad\LaravelAttributes\Traits\Attributable;
+/* use Milwad\LaravelAttributes\Traits\Attributable; */
 use Overtrue\LaravelFavorite\Traits\Favoriteable;
 use Spatie\Image\Enums\Fit;
 use Spatie\MediaLibrary\HasMedia;
@@ -23,7 +23,7 @@ use Spatie\Sitemap\Tags\Url;
 #[ObservedBy([PuppyObserver::class])]
 class Puppy extends Model implements HasMedia, Sitemapable
 {
-    use Attributable;
+    /* use Attributable; */
     use Favoriteable;
 
     /** @use HasFactory<\Database\Factories\PuppyFactory> */

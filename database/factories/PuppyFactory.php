@@ -46,6 +46,9 @@ class PuppyFactory extends Factory
             } catch (Exception $e) {
                 Log::error('Failed to add media: ' . $e->getMessage());
             }
+
+            $breed = Breed::factory()->times(5)->create();
+            $puppy->breeds()->attach($breed);
         });
     }
 

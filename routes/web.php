@@ -1,6 +1,13 @@
 <?php
 
+use App\Http\Controllers\BreedController;
+use App\Http\Controllers\BreederController;
+use App\Http\Controllers\BreederListingController;
+use App\Http\Controllers\SubscriptionController;
+use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\PlanController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PuppyController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -16,6 +23,51 @@ Route::get('/', function () {
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
+});
+
+Route::group(['prefix' => 'puppies'], function () {
+    Route::get('/', [PuppyController::class, 'index'])->name('puppies.index');
+    Route::get('/{slug}', [PuppyController::class, 'show'])->name('puppies.show');
+});
+
+Route::group(['prefix' => 'plans'], function () {
+    Route::get('/', [PlanController::class, 'index'])->name('plans.index');
+    /* Route::get('/{slug}', [BreedController::class, 'show'])->name('breeds.show'); */
+});
+
+Route::group(['prefix' => 'breeds'], function () {
+    Route::get('/', [BreedController::class, 'index'])->name('breeds.index');
+    Route::get('/{slug}', [BreedController::class, 'show'])->name('breeds.show');
+});
+
+Route::group(['prefix' => 'breeders'], function () {
+    Route::get('/', [BreederController::class, 'index'])->name('breeders.index');
+    Route::get('/{slug}', [BreederController::class, 'show'])->name('breeders.show');
+});
+
+Route::group(['prefix' => 'favorites'], function () {
+
+    Route::get('/', [FavoriteController::class, 'index'])->name('favorites.index');
+
+});
+
+Route::group(['prefix' => 'subscriptions'], function () {
+
+    Route::get('/', [SubscriptionController::class, 'index'])->name('subscriptions.index');
+
+});
+
+Route::group(['prefix' => 'breeder-listings'], function () {
+    Route::get('/', [BreederListingController::class, 'index'])->name('breeder_listings.index');
+
+    Route::get('/create', [BreederListingController::class, 'create'])->name('breeder_listings.create');
+
+    Route::post('/', [BreederListingController::class, 'store'])->name('breeder_listings.store');
+
+    Route::put('/', [BreederListingController::class, 'update'])->name('breeder_listings.update');
+
+    Route::get('/{slug}', [BreederListingController::class, 'show'])->name('breeder_listings.show');
+
 });
 
 Route::get('/dashboard', function () {
