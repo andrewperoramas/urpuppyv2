@@ -4,6 +4,9 @@ namespace App\Models;
 
 use App\Observers\UserObserver;
 use Fico7489\Laravel\Pivot\Traits\PivotEventTrait;
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Models\Contracts\HasName;
+use Filament\Panel;
 /* use Filament\Models\Contracts\FilamentUser; */
 /* use Filament\Models\Contracts\HasName; */
 /* use Filament\Panel; */
@@ -24,7 +27,7 @@ use Spatie\Sitemap\Contracts\Sitemapable;
 use Spatie\Sitemap\Tags\Url;
 
 #[ObservedBy([UserObserver::class])]
-class User extends Authenticatable implements  HasMedia,  MustVerifyEmail, Sitemapable
+class User extends Authenticatable implements  HasMedia,  MustVerifyEmail, Sitemapable, HasName, FilamentUser
 {
     //FilamentUser
     //HasName
@@ -143,10 +146,12 @@ class User extends Authenticatable implements  HasMedia,  MustVerifyEmail, Sitem
         return "{$this->first_name} {$this->last_name}";
     }
 
-    /* public function canAccessPanel(Panel $panel): bool */
-    /* { */
-    /*     return str_ends_with($this->email, '@urpuppy.com'); */
-    /* } */
+    public function canAccessPanel(Panel $panel): bool
+    {
+        return true;
+        return str_ends_with($this->email, '@urpuppy.com');
+        /* return str_ends_with($this->email, '@urpuppy.com'); */
+    }
 
     public function scopeBreeders($query)
     {

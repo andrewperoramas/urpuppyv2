@@ -46,6 +46,26 @@ export const Primary: Story = {
 
 }
 
+export const White: Story = {
+    args: {
+        variant: 'white',
+        size: 'md',
+        children: 'Button'
+    },
+      parameters: {
+    backgrounds: { default: 'dark' },
+  },
+
+    render: (args) => {
+        return  <Button
+          onClick={(e) => e.preventDefault()} // Disable navigation
+            {...args} />
+    }
+
+}
+
+
+
 export const Secondary: Story = {
     args: {
         variant: 'secondary',

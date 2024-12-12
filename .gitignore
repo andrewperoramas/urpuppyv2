@@ -1,7 +1,9 @@
 /.phpunit.cache
 /bootstrap/ssr
 /node_modules
-typesense
+/typesense/*
+/typesense/db
+/storage/debugbar
 /public/build
 /public/hot
 /public/storage

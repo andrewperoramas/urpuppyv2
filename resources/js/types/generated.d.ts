@@ -1,7 +1,6 @@
 declare namespace App.Data {
 export type BreedData = {
-first_name: string;
-last_name: string;
+name: string;
 slug: string;
 };
 export type BreederData = {

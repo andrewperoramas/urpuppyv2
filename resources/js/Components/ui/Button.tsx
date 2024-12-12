@@ -5,7 +5,7 @@ import React from 'react'
 
 type ButtonProps = React.HTMLAttributes<HTMLButtonElement> & {
     href: string
-    variant?: 'primary' | 'secondary',
+    variant?: 'primary' | 'secondary' | 'white',
     size?: 'sm' | 'md' | 'lg'
     type?: 'button' | 'a'
 }
@@ -20,14 +20,16 @@ export default Button
 
 const buttonVariants = cva(
   // Base styles shared by all variants
-  "py-2 px-4 rounded-md  justify-center inline-flex items-center border border-transparent px-4 py-2  tracking-tight transition duration-500 ease-in-out hover:opacity-75 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2",
+  "",
   {
     variants: {
       variant: {
+        white:
+          "btn btn-white text-dark bg-white",
         primary:
-          "bg-primary text-white font-redhat hover:opacity-75 focus:bg-gray-700 active:bg-secondary",
+          "btn btn-primary ",
         secondary:
-          "bg-secondary text-white font-redhat hover:opacity-75 focus:bg-gray-700 active:bg-secondary",
+          "btn btn-secondary text-white font-redhat hover:opacity-75 focus:bg-gray-700 active:bg-secondary",
       },
        size: {
            sm: "text-[0.7em] px-2 py-1 font-semibold",

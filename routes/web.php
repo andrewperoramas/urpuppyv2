@@ -18,12 +18,32 @@ Route::get('adi', function () {
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
+        'users' => Inertia::optional(
+            function () {
+                sleep(10);
+                return 'bertud';
+            }
+        ),
+
+
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
 });
+
+Route::get('/ui/{path?}', function ($path = null) {
+    $storybookPath = public_path();
+
+    $filePath = $storybookPath . ($path ? '/' . $path : '/index.html');
+
+    if (! file_exists($filePath)) {
+        abort(404);
+    }
+
+    return response()->file($filePath);
+})->where('path', '.*');
 
 Route::group(['prefix' => 'puppies'], function () {
     Route::get('/', [PuppyController::class, 'index'])->name('puppies.index');
@@ -81,3 +101,7 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+/* Auth::routes(); */
+
+/* Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home'); */

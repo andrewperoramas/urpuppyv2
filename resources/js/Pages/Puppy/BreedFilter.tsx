@@ -1,8 +1,11 @@
 import { router } from '@inertiajs/react';
 import React from 'react';
 
-const BreedFilter = ({ query, setQuery }) => {
-    const handleBreedChange = (breed) => {
+const BreedFilter = ({ query, setQuery }: {
+    query: any,
+    setQuery: any
+}) => {
+    const handleBreedChange = (breed: string) => {
         // Ensure the breeds array remains unique
         const updatedBreeds = new Set(query?.filter?.breeds || []);
         updatedBreeds.add(breed);

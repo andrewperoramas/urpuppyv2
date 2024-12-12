@@ -2,8 +2,11 @@ import { router } from '@inertiajs/react';
 import { debounce } from 'lodash';
 import React, { useEffect, useState } from 'react';
 import BreedFilter from './BreedFilter';
+import { PaginatedCollection } from '@/types/global';
 
-const Index = ({ puppies }) => {
+const Index = ({ puppies }: {
+    puppies: PaginatedCollection<App.Data.PuppyData>
+}) => {
     const [query, setQuery] = useState(null);
 
     useEffect(() => {
