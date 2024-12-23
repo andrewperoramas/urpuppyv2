@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Observers\UserObserver;
+use Carbon\Carbon;
 use Fico7489\Laravel\Pivot\Traits\PivotEventTrait;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Models\Contracts\HasName;
@@ -63,6 +64,10 @@ class User extends Authenticatable implements  HasMedia,  MustVerifyEmail, Sitem
         'zip_code',
         'is_breeder',
         'stripe_id',
+
+        'company_name',
+        'company_address',
+        'company_established_on',
     ];
 
     /**
@@ -202,7 +207,8 @@ class User extends Authenticatable implements  HasMedia,  MustVerifyEmail, Sitem
 
     public function getAddressAttribute()
     {
-        return $this->city?->name ? "{$this->city->name}, {$this->state->name}, US" : $this->state?->name.', US';
+        $state = $this->state?->abbreviation ?? $this->state?->name;
+        return $this->city?->name . ', ' . $state ;
     }
 
     public function isSubscribed()
@@ -233,6 +239,27 @@ class User extends Authenticatable implements  HasMedia,  MustVerifyEmail, Sitem
     public function getFullNameAttribute()
     {
         return "{$this->first_name} {$this->last_name}";
+    }
+
+    public function getCompanyEstablishedOnLabelAttribute()
+    {
+        $establishedDate = Carbon::parse($this->company_established_on);
+
+        if (!$establishedDate) {
+            return null;
+        }
+
+        $now = now();
+        $years = $establishedDate->diffInYears($now);
+        $months = $establishedDate->copy()->addYears($years)->diffInMonths($now);
+
+        if ($years > 0) {
+            return (int)$years . ' year' . ($years > 1 ? 's' : '');
+        } elseif ($months > 0) {
+            return (int)$months . ' month' . ($months > 1 ? 's' : '');
+        }
+
+        return 'Less than a month';
     }
 
     /*      static::pivotUpdated(function ($model, $relationName, $pivotIds, $pivotIdsAttributes) { */

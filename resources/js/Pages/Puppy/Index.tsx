@@ -1,53 +1,36 @@
-import { router } from '@inertiajs/react';
-import { debounce } from 'lodash';
-import React, { useEffect, useState } from 'react';
-import BreedFilter from './BreedFilter';
-import { PaginatedCollection } from '@/types/global';
+import Navbarv2 from '@/Components/Navigation/Navbarv2'
+import React from 'react'
+import Banner from '../Home/Sections/Banner'
+import { PaginatedCollection } from '@/types/global'
+import PuppyCard from '@/Components/Puppy/Card'
+import BannerLayout from '@/Layouts/BannerLayout'
+import Pagination from '@/Components/Pagination'
 
-const Index = ({ puppies }: {
+const Index = ({puppies, states, breeds} : {
     puppies: PaginatedCollection<App.Data.PuppyData>
+    states: App.Data.StateData[],
+    breeds: App.Data.BreedData[]
 }) => {
-    const [query, setQuery] = useState(null);
+    console.log(states);
+    console.log(breeds);
+  return (
+    <BannerLayout header="" headerLabel={`${puppies.total} Results`} subheaderLabel="Below the search bar, you can filter your preferred breeds." >
+        <section className="puppy-spotlight py-7 py-md-5 py-xl-9" id="scroll-target">
+          <div className="container" >
+            <div className="row mb-4 mb-lg-8">
+                {
+                    puppies?.data && puppies?.data.map((puppy: App.Data.PuppyData) => (
+                        <PuppyCard puppy={puppy}/>
+                    ))
+                }
 
-    useEffect(() => {
-        const debouncedVisit = debounce(() => {
-            if (query == null) {
-                return;
-            }
+                </div>
+                </div>
 
-            router.visit('/puppies', {
-                data: query,
-                preserveState: true,
-                preserveScroll: true,
-                onSuccess: () => {
-                    console.log('Filter applied:', query);
-                    // console.log(puppies.data)
-                },
-            });
-        }, 300);
+                <Pagination links={puppies.links}/>
+                </section>
+    </BannerLayout>
+  )
+}
 
-        debouncedVisit();
-
-        return () => {
-            debouncedVisit.cancel();
-        };
-
-
-    }, [query]);
-
-    return (
-        <div>
-            <BreedFilter query={query} setQuery={setQuery} />
-            {
-                puppies?.data && puppies?.data.map((puppy: App.Data.PuppyData) => (
-                    <div>
-                        {puppy.name}
-                    </div>
-                ))
-            }
-        </div>
-    );
-};
-
-export default Index;
-
+export default Index

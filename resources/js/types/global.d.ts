@@ -18,6 +18,7 @@ declare module '@inertiajs/core' {
 
 type PaginatedCollection<T extends object> = {
     data: Array<T>;
+    links: any,
     // meta: {
     current_page: number;
     first_page_url: string | null;

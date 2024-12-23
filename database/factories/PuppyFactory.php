@@ -37,30 +37,52 @@ class PuppyFactory extends Factory
                 return;
             }
 
-            $avatar = $petImages[array_rand($petImages)];
+
+            for($i = 0; $i < 5; $i++){
+                $avatar = $petImages[array_rand($petImages)];
+
+                try {
+                    $puppy->addMedia($avatar->getPathname())
+                        ->preservingOriginal()
+                        ->toMediaCollection('puppy_files');
+                } catch (Exception $e) {
+                    Log::error('Failed to add media: ' . $e->getMessage());
+                }
+            }
+
+
+            $breed = Breed::query()->inRandomOrder()->first();
 
             try {
-                $puppy->addMedia($avatar->getPathname())
-                    ->preservingOriginal()
-                    ->toMediaCollection('puppy_files');
+                /* $randnew = $petImages[array_rand($petImages)]; */
+                /* $test = $breed->addMedia($randnew->getPathname()) */
+                /*     ->preservingOriginal() */
+                /*     ->toMediaCollection('media'); */
+                /* dd($test); */
             } catch (Exception $e) {
                 Log::error('Failed to add media: ' . $e->getMessage());
             }
 
-            $breed = Breed::factory()->times(5)->create();
             $puppy->breeds()->attach($breed);
         });
     }
 
     public function definition(): array
     {
+            $dogNames = [
+        'Buddy', 'Max', 'Bella', 'Charlie', 'Luna', 'Lucy', 'Rocky', 'Cooper',
+        'Daisy', 'Sadie', 'Milo', 'Bailey', 'Oliver', 'Toby', 'Chloe', 'Zoe',
+        'Duke', 'Rex', 'Leo', 'Scout', 'Jack', 'Shadow', 'Ruby', 'Samson',
+        'Frankie', 'Gizmo', 'Ollie', 'Finn', 'Penny', 'Bear', 'Harley', 'Rusty'
+    ];
         return [
-            'name' => fake()->name(),
+            'name' => $this->faker->randomElement($dogNames),
             'gender' => collect(['Female', 'Male'])->random(),
             'is_ready_to_travel' => false,
+            'birth_date' => $this->faker->dateTimeBetween('-2 years', 'now'), // Birthdate within the last 2 years
             'user_id' => User::factory()->create()->id,
-            'price' => fake()->numberBetween(100000, 200000),
-            'description' => fake()->paragraph(3, true),
+            'price' => (int) fake()->numberBetween(10, 50000),
+            'description' => fake()->paragraph(5, true),
         ];
     }
 }

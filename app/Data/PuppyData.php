@@ -4,6 +4,8 @@ namespace App\Data;
 
 use Spatie\LaravelData\DataCollection;
 use App\Enum\PuppyStatus;
+use Illuminate\Support\Collection;
+use Spatie\LaravelData\Attributes\MapInputName;
 use Spatie\LaravelData\Data;
 use Spatie\TypeScriptTransformer\Attributes\TypeScript;
 
@@ -19,12 +21,15 @@ class PuppyData extends Data
         /** @var \App\Data\BreedData[] */
         public DataCollection $breeds,
         public string $image,
+        /** @var string[] */
+        public Collection $preview_images,
         public string $description,
-        public \Cknow\Money\Money $price,
-        public string $birth_date,
-        public BreederData $breeder
+        public string $formatted_price,
+        public int $view_count,
+        public string $age,
+        public BreederData $breeder,
+        public ?string $published_at
     ) {
-
 
     }
 }

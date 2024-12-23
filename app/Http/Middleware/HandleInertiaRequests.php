@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Puppy;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 use Tighten\Ziggy\Ziggy;
@@ -23,6 +24,7 @@ class HandleInertiaRequests extends Middleware
         return parent::version($request);
     }
 
+
     /**
      * Define the props that are shared by default.
      *
@@ -30,11 +32,17 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+
+    $min = Puppy::min('price') ?? 1;
+    $max = Puppy::max('price') ?? 500;
+    /* $min--; */
+    /* $max++; */
         return [
             ...parent::share($request),
             'auth' => [
                 'user' => $request->user(),
             ],
+            'price_filter_range' => [$min, $max]
             /* 'ziggy' => fn () => [ */
             /*     ...(new Ziggy)->toArray(), */
             /*     'location' => $request->url(), */

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Formatter\NoDecimal;
 use App\Models\Traits\LogsView;
 use App\Observers\PuppyObserver;
 use Carbon\Carbon;
@@ -31,10 +32,10 @@ class Puppy extends Model implements HasMedia, Sitemapable
 
     use InteractsWithMedia;
     use LogsView;
-    use Searchable;
+    /* use Searchable; */
     use Sluggable;
 
-    protected $appends = ['image', 'images', 'video', 'listed_on', 'age', 'short_description', 'is_favorited_by_current_user', 'thumbnails', 'preview_images'];
+    protected $appends = ['image', 'images', 'video', 'listed_on', 'age', 'short_description', 'is_favorited_by_current_user', 'thumbnails', 'preview_images', 'formatted_price', 'published_at'];
 
     protected $hidden = ['media'];
 
@@ -89,27 +90,33 @@ class Puppy extends Model implements HasMedia, Sitemapable
             ->sharpen(3);
     }
 
-    public function toSearchableArray()
-    {
-        $array = $this->toArray();
+/*     public function toSearchableArray() */
+/*     { */
+/*         $array = $this->toArray(); */
 
-        // Convert `id` and `breed_id` to strings for consistency
-        $array['id'] = (string) $array['id'];
-        /* $array['breed_id'] = (string) $array['breed_id']; */
+/*         // Convert `id` and `breed_id` to strings for consistency */
+/*         $array['id'] = (string) $array['id']; */
+/*         /1* $array['breed_id'] = (string) $array['breed_id']; *1/ */
 
-        // Get all associated breeds and extract their names
-        $array['breeds'] = $this->breeds->pluck('name')->toArray();
+/*         // Get all associated breeds and extract their names */
+/*         $array['breeds'] = $this->breeds->pluck('name')->toArray(); */
 
-        // Ensure `price` and `created_at` are in the desired format
-        $array['price'] = isset($array['price']['amount']) ? (string) $array['price']['amount'] : null;
-        $array['created_at'] = (int) Carbon::parse($array['created_at'])->timestamp;
+/*         // Ensure `price` and `created_at` are in the desired format */
+/*         $array['price'] = isset($array['price']['amount']) ? (string) $array['price']['amount'] : null; */
+/*         $array['created_at'] = (int) Carbon::parse($array['created_at'])->timestamp; */
 
-        return $array;
-    }
+/*         return $array; */
+/*     } */
 
     public function toSitemapTag(): Url|string|array
     {
         return route('puppies.show', $this->slug);
+    }
+
+                                            public function getPublishedAtAttribute()
+    {
+        return $this->created_at->diffForHumans();
+
     }
 
     /* public function getCollectionSchema(): array */
@@ -138,10 +145,16 @@ class Puppy extends Model implements HasMedia, Sitemapable
     /*     ]; */
     /* } */
 
-    public function getPriceAttribute($price)
+    public function getFormattedPriceAttribute()
     {
-        return Money::USD($price);
-    }
+        return '$'. number_format($this->price);
+         /* $price = intdiv($price, 100); // Convert cents to dollars */
+        /* $mon = Money::USD($price,['precision' => 0]) */
+            /* ; */
+        /* dd($mon); */
+   }
+
+
 
     public function getImagesAttribute()
     {
@@ -197,15 +210,15 @@ class Puppy extends Model implements HasMedia, Sitemapable
         // Check for 'grid' URL, then 'preview', then return null
         if ($mediaItem) {
             try {
-                return $mediaItem?->getUrl('grid') ?? $mediaItem?->getUrl('preview') ?? $mediaItem->getUrl();
+                return $mediaItem?->getUrl('grid') ?? $mediaItem?->getUrl('preview') ?? $mediaItem->getUrl() ?? "";
             } catch (\Spatie\MediaLibrary\Exceptions\ConversionDoesNotExist $e) {
                 // Handle the case where the conversion does not exist
-                return null; // or handle as needed
+                return ""; // or handle as needed
             }
 
         }
 
-        return null; // Return null if no media item exists
+        return ""; // Return null if no media item exists
     }
 
     public function getPreviewImagesAttribute()
@@ -215,15 +228,15 @@ class Puppy extends Model implements HasMedia, Sitemapable
         if ($mediaItems->isNotEmpty()) {
             return $mediaItems->map(function ($item) {
                 try {
-                    return $item->getUrl('preview');
+                    return $item->getUrl('preview') ?? "";
                 } catch (\Spatie\MediaLibrary\Exceptions\ConversionDoesNotExist $e) {
                     // Handle the case where the conversion does not exist
-                    return null; // or handle as needed
+                    return []; // or handle as needed
                 }
             });
         }
 
-        return null; // Return null if no media items found
+        return []; // Return null if no media items found
     }
 
     public function getThumbnailsAttribute()
@@ -261,13 +274,13 @@ class Puppy extends Model implements HasMedia, Sitemapable
         if ($days < 7) {
             $dayWord = $days === 1 ? 'day' : 'days';
 
-            return "{$days} {$dayWord} old";
+            return "{$days} {$dayWord}";
         }
 
         $weeks = (int) floor($days / 7);
         $weekWord = $weeks === 1 ? 'week' : 'weeks';
 
-        return "{$weeks} {$weekWord} old";
+        return "{$weeks} {$weekWord}";
     }
 
     public function getShortDescriptionAttribute()

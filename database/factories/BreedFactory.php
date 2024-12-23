@@ -2,6 +2,9 @@
 
 namespace Database\Factories;
 
+
+use App\Models\Breed;
+use Illuminate\Support\Facades\File;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**

@@ -9,7 +9,7 @@ const Footer = () => {
           <div className="col-md-4 col-lg-2 mb-7 pb-1 pb-lg-0 mb-lg-0">
             <div className="footer-logo">
               <a href="index.html">
-                <img loading="lazy" src="./logo.svg" alt="" />
+                <img loading="lazy" src="/logo.svg" alt="" />
               </a>
             </div>
           </div>
@@ -68,17 +68,17 @@ const Footer = () => {
             <ul className="list-unstyled d-flex align-items-center gap-6 social-icon mb-0">
               <li>
                 <a href="#" data-bs-toggle="tooltip" data-bs-title="Twitter" className="bg-white bg-opacity-10 d-flex align-items-center justify-content-center round-40 rounded-circle">
-                  <img loading="lazy" src="./icon-twitter.svg" alt="" />
+                  <img loading="lazy" src="/images/svgs/icon-twitter.svg" alt="" />
                 </a>
               </li>
               <li>
                 <a href="#" data-bs-toggle="tooltip" data-bs-title="Facebook" className="bg-white bg-opacity-10 d-flex align-items-center justify-content-center round-40 rounded-circle">
-                  <img loading="lazy" src="./icon-facebook.svg" alt="" />
+                  <img loading="lazy" src="/images/svgs/icon-facebook.svg" alt="" />
                 </a>
               </li>
               <li>
                 <a href="#" data-bs-toggle="tooltip" data-bs-title="Instagram" className="bg-white bg-opacity-10 d-flex align-items-center justify-content-center round-40 rounded-circle">
-                  <img loading="lazy" src="./icon-instagram.svg" alt="" />
+                  <img loading="lazy" src="/images/svgs/icon-instagram.svg" alt="" />
                 </a>
               </li>
             </ul>
@@ -87,7 +87,7 @@ const Footer = () => {
       </div>
       <div className="border-top border-white border-opacity-10 py-3 d-md-flex align-items-center justify-content-between">
         <p className="mb-md-0 text-white fw-normal opacity-50">© 2024 urpuppy. All rights reserved.</p>
-        <p className="mb-0 text-white fw-normal opacity-50 d-flex align-items-center gap-2"><img src="./icon-mail.svg" alt="" /> support@urpuppy.com</p>
+        <p className="mb-0 text-white fw-normal opacity-50 d-flex align-items-center gap-2"><img src="/images/svgs/icon-mail.svg" alt="" /> support@urpuppy.com</p>
       </div>
     </div>
   </footer>

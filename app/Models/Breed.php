@@ -25,6 +25,7 @@ class Breed extends Model implements HasMedia, Sitemapable
 
     protected $appends = [
         'thumbnail',
+        'image',
     ];
 
     public function toSitemapTag(): Url|string|array
@@ -57,6 +58,13 @@ class Breed extends Model implements HasMedia, Sitemapable
         $mediaItem = $this->getFirstMedia('media');
 
         return $mediaItem ? $mediaItem->getUrl('thumbnail') : @$this->media[0]?->getUrl();
+    }
+
+    public function getImageAttribute()
+    {
+        $mediaItem = $this->getFirstMedia();
+
+        return $mediaItem ? $mediaItem->getUrl('thumbnail') : @$this->media[0]?->getUrl() ?? '';
     }
 
     public function media(): MorphMany

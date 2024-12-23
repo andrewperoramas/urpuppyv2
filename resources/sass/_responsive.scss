@@ -1,0 +1,41 @@
+@include media-breakpoint-down(lg) {
+    .main-header {
+        padding: 20px 0;
+    }
+
+    .hero-section {
+        padding: 200px 0 100px;
+    }
+
+    .hero-section-inner-slider .owl-carousel .owl-dots {
+        position: absolute;
+        bottom: 30px;
+        right: inherit;
+        justify-content: center;
+        margin: 0 auto;
+        width: 100%;
+    }
+}
+
+@include media-breakpoint-down(md) {
+
+    .top-picks-slider #sync2 .owl-item,
+    .top-picks-slider #sync2 .item {
+        width: 64px !important;
+        height: 64px !important;
+        margin-right: 12px;
+    }
+
+    .hero-section {
+        padding: 130px 0 50px;
+    }
+
+    .hero-section-inner-slider .owl-carousel .owl-item .item {
+        min-height: 450px;
+    }
+
+    .pagination .page-item .page-link {
+        width: 40px;
+        height: 40px;
+    }
+}

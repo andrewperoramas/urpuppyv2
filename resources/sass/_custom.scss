@@ -1,0 +1,82 @@
+
+
+.product-card-responsive-height {
+  height: 225px;
+
+  @media (max-width: 1199px) {
+    height: 310px;
+  }
+}
+
+.swiper-thumbs .swiper-slide img {
+    border: unset;
+}
+
+.swiper-thumbs .swiper-slide-thumb-active img {
+    border: 3px solid $primary;
+}
+
+.responsive-big-image {
+    height: 530px!important;
+
+    @media (max-width: 768px) {
+        height: 400px !important;
+    }
+
+
+}
+
+.banner-slider .swiper-pagination-bullet {
+    background: rgba(255, 255, 255, 0.6) !important;
+    opacity: 1!important;
+    margin: 0 2px !important;
+}
+
+.banner-slider .swiper-pagination-bullet-active {
+    background: $primary!important;
+    margin: 0 2px !important;
+}
+
+.swiper-pagination-horizontal {
+}
+
+.banner-slider .swiper-pagination {
+  right: -32.6%!important;
+    bottom: 44px!important;
+
+  left: auto!important;
+  transform: none!important;
+}
+
+
+.breadcrumb {
+  --bs-breadcrumb-divider: url('/images/svgs/icon-chev-right.svg');
+}
+
+
+.card-rating .rr--svg
+{
+    stroke: unset!important;
+}
+
+#review-bullets {
+
+      display: flex; /* Apply flexbox to pagination */
+    justify-content: center; /* Center dots horizontally */
+    align-items: center; /* Center dots vertically if needed */
+    background: rgba(8, 49, 78, 0.1);
+    border-radius: 999px;
+    margin: 0 auto; /* Centers the entire element */
+    padding: 8px 11px;
+    gap: 2px;
+    width: fit-content; /* Constrain width to content */
+
+}
+
+#review-bullets .swiper-pagination-bullet {
+    background: $secondary;
+
+}
+
+
+

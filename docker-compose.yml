@@ -4,8 +4,6 @@ services:
             context: .
         ports:
             - "8000:8000"
-        networks:
-          urpuppy-network:
         environment:
             WITH_SSR: true
             WITH_HORIZON: true
@@ -15,15 +13,11 @@ services:
           - /var/run/docker.sock:/var/run/docker.sock
     selenium-hub:
           image: selenium/hub:latest
-          networks:
-            urpuppy-network:
           container_name: selenium-hub
           ports:
             - "4444:4444"
     chrome:
         image: selenium/node-chrome:latest
-        networks:
-            urpuppy-network:
         depends_on:
           - selenium-hub
         environment:
@@ -31,8 +25,6 @@ services:
           - HUB_PORT=4444
     firefox:
         image: selenium/node-firefox:latest
-        networks:
-            urpuppy-network:
         depends_on:
           - selenium-hub
         environment:
@@ -43,8 +35,6 @@ services:
         image: postgres:16-alpine
         ports:
             - "5443:5432"
-        networks:
-          urpuppy-network:
         volumes:
           - pgalpine:/var/lib/postgresql/data
           - /var/run/docker.sock:/var/run/docker.sock
@@ -55,8 +45,6 @@ services:
 
     redis:
         image: redis:alpine
-        networks:
-          urpuppy-network:
 
     pgadmin:
         image: dpage/pgadmin4
@@ -67,19 +55,14 @@ services:
           - "7777:80"
         volumes:
           - pgadmin_datanew:/var/lib/pgadmin
-        networks:
-          urpuppy-network:
         environment:
           PGADMIN_DEFAULT_EMAIL: mobistyle35@gmail.com
           PGADMIN_DEFAULT_PASSWORD: Asakaboi35
 
     mailpit:
         image: axllent/mailpit
-        container_name: mailpit
         volumes:
           - ./data:/data
-        networks:
-          urpuppy-network:
         ports:
           - 7025:8025
 
@@ -93,8 +76,6 @@ services:
           - /var/run/docker.sock:/var/run/docker.sock
         ports:
           - 8108:8108
-        networks:
-          urpuppy-network:
         deploy:
           resources:
             limits:
@@ -108,5 +89,3 @@ volumes:
   pgalpine:
   pgadmin_datanew:
 
-networks:
-  urpuppy-network:

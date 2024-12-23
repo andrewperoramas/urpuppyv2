@@ -16,12 +16,22 @@ class Comment extends Model
 
     protected $appends = ['date'];
 
-    public function breeder()
+    /* public function breeder() */
+    /* { */
+    /*     return $this->belongsTo(User::class, 'user_id', 'id'); */
+    /* } */
+
+    public function getDateAttribute()
+    {
+        return $this->created_at->diffForHumans();
+    }
+
+    public function reviewer()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    public function getDateAttribute()
+    public function getReviewOnAttribute()
     {
         return $this->created_at->diffForHumans();
     }

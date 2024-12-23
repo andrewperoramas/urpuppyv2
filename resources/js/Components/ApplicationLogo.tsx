@@ -1,10 +1,11 @@
+import { Link } from '@inertiajs/react';
 import { SVGAttributes } from 'react';
 import { FaPaw } from 'react-icons/fa';
 
 export default function ApplicationLogo(props: SVGAttributes<SVGElement>) {
     return (
-    <div className="text-xl flex items-center gap-1 md:mb-1">
-           <FaPaw className="text-orange-400"/> <span className="font-semibold text-white"> Urpuppy </span>
-        </div>
+        <Link prefetch cacheFor="30s" className="navbar-brand py-0 me-0" href="/">
+          <img src="/logo.svg" alt="" />
+        </Link>
     );
 }

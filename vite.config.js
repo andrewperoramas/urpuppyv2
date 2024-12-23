@@ -2,6 +2,7 @@ import { defineConfig } from 'vite';
 import path from 'path';
 import laravel from 'laravel-vite-plugin';
 import react from '@vitejs/plugin-react';
+import { compression } from 'vite-plugin-compression2'
 
 export default defineConfig({
     plugins: [
@@ -10,6 +11,7 @@ export default defineConfig({
             ssr:  'resources/js/ssr.tsx',
             refresh: true,
         }),
+        compression(),
         react(),
     ],
      ssr: {

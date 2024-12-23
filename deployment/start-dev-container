@@ -11,11 +11,12 @@ echo "Container mode: $container_mode"
 initialStuff() {
 
     if [ "${artisan_cache}" = "true" ]; then
+      php artisan migrate:fresh --force; \
       php artisan storage:link; \
-      php artisan optimize:clear; \
-      php artisan event:cache; \
-      php artisan config:cache; \
-      php artisan route:cache;
+      # php artisan optimize:clear; \
+      # php artisan event:cache; \
+      # php artisan config:cache; \
+      # php artisan route:cache;
     fi
 
     if [ "${running_migrations_and_seeders}" = "true" ]; then

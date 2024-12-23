@@ -1,5 +1,9 @@
 <?php
 
+use App\Data\BreedData;
+use App\Data\BreederData;
+use App\Data\BreederFullData;
+use App\Data\PuppyData;
 use App\Http\Controllers\BreedController;
 use App\Http\Controllers\BreederController;
 use App\Http\Controllers\BreederListingController;
@@ -8,23 +12,47 @@ use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PuppyController;
+use App\Models\Breed;
+use App\Models\Puppy;
+use App\Models\State;
+use App\Models\User;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('adi', function () {
-    dd('adixhanxx');
+    dd(State::first());
 });
 
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
+
+    $top_picks = Puppy::with('breeds', 'breeder')->inRandomOrder()->first();
+
+    if ($top_picks != null) {
+      $top_picks = PuppyData::from($top_picks);
+    }
+
+
+    return Inertia::render('Home/Index', [
         'users' => Inertia::optional(
             function () {
                 sleep(10);
                 return 'bertud';
             }
         ),
+        'breed_filter_list' => inertia()->optional(fn () =>
+                Breed::select(['name'])->distinct()->orderBy('name')->pluck('name')
+            ) ,
 
+        'state_filter_list' => inertia()->optional(fn () =>
+                State::select(['name'])->distinct()->orderBy('name')->pluck('name')
+
+            ) ,
+        'top_pick_puppy' => $top_picks,
+        'puppy_spotlights' => PuppyData::collect(Puppy::with('breeds', 'breeder')->inRandomOrder()->take(4)->get()),
+        'trusted_breeders' => BreederFullData::collect(User::with(['breeds' => fn ($q) => $q->select('name') ])->take(4)->inRandomOrder()->get()),
+        'new_arrivals' => PuppyData::collect(Puppy::with('breeds:name,slug', 'breeder')->inRandomOrder()->take(4)->get()),
+        'featured_breeds' => BreedData::collect(Breed::with('media')->inRandomOrder()->take(8)->get()),
 
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),

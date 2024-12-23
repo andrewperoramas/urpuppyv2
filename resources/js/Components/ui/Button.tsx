@@ -6,7 +6,7 @@ import React from 'react'
 type ButtonProps = React.HTMLAttributes<HTMLButtonElement> & {
     href: string
     variant?: 'primary' | 'secondary' | 'white',
-    size?: 'sm' | 'md' | 'lg'
+    size?: 'sm' | 'md' | 'lg' | 'full'
     type?: 'button' | 'a'
 }
 
@@ -35,6 +35,7 @@ const buttonVariants = cva(
            sm: "text-[0.7em] px-2 py-1 font-semibold",
            md: "text-[0.8em] px-3 py-2 font-semibold rounded-full",
            lg: "text-[0.9em] px-3 py-2 font-semibold",
+           full: "w-100",
        }
     },
 

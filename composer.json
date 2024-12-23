@@ -15,6 +15,7 @@
         "cknow/laravel-money": "^8.1",
         "cms-multi/filament-clear-cache": "^2.0",
         "cviebrock/eloquent-sluggable": "^11.0",
+        "fakerphp/faker": "^1.24",
         "filament/filament": "^3.2",
         "filament/spatie-laravel-media-library-plugin": "*",
         "glhd/gretel": "^1.8",
@@ -52,7 +53,6 @@
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.14",
-        "fakerphp/faker": "^1.23",
         "laravel/breeze": "^2.2",
         "laravel/dusk": "^8.2",
         "laravel/pail": "^1.1",

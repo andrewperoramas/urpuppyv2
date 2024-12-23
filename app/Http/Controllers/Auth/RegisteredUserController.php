@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Data\PuppyData;
 use App\Http\Controllers\Controller;
+use App\Models\Puppy;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -20,7 +22,9 @@ class RegisteredUserController extends Controller
      */
     public function create(): Response
     {
-        return Inertia::render('Auth/Register');
+        return Inertia::render('Auth/Register', [
+            'puppy'  => PuppyData::from(Puppy::with(['breeds', 'breeder'])->inRandomOrder()->first())
+        ]);
     }
 
     /**

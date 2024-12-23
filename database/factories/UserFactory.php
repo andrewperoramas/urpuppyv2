@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Breed;
 use App\Models\City;
 use App\Models\Country;
 use App\Models\State;
@@ -30,23 +31,35 @@ class UserFactory extends Factory
         try {
 
             return $this->afterCreating(function (User $user) {
-                // Use base_path() to access root-level directories
-                $avatars = File::files(base_path('tests/test-avatars'));
+    $avatars = File::files(base_path('tests/test-avatars'));
 
-                if (empty($avatars)) {
-                    /* $this->command->warn('No avatars found in test/test-avatars'); */
-                    return;
-                }
+    if (!empty($avatars)) {
+        $avatar = $avatars[array_rand($avatars)];
+        $user->addMedia($avatar->getPathname())
+             ->preservingOriginal()
+             ->toMediaCollection('avatars');
+    }
 
-                $avatar = $avatars[array_rand($avatars)];
+    $breeds = Breed::inRandomOrder()->limit(4)->get();
+    $user->breeds()->saveMany($breeds);
 
-                $user->addMedia($avatar->getPathname())
-                    ->preservingOriginal()
-                    ->toMediaCollection('avatars');
+    $initial = rand(2, 3);
 
-                /* $user->assignRole('seller'); */
-                /* $user->assignRole('buyer'); */
-            });
+    for ($count = 0; $count < $initial; $count++) {
+        $comment = $user->comments()->make([
+            'rating' => rand(1, 5),
+            'body' => fake()->paragraphs(2, true),
+        ]);
+
+        $reviewer = User::inRandomOrder()->where('id', '!=', $user->id)->first();
+        if ($reviewer != null) {
+            $comment->reviewer()->associate($reviewer);
+            $comment->save();
+        }
+
+    }
+    });
+
 
         } catch (Exception $e) {
 
@@ -73,15 +86,43 @@ class UserFactory extends Factory
 
         /* } */
 
+        $state = State::query()->inRandomOrder()->first();
+        $city = City::query()->inRandomOrder()->where('state_id', $state->id)->first();
+        while(!$state->cities()->count() && $city == null) {
+
+            $state = State::query()->inRandomOrder()->first();
+            $city = City::query()->inRandomOrder()->where('state_id', $state->id)->first();
+
+        }
+
+        /* if ($state->cities()->count()) { */
+        /* } */
+
+        /* while ($city != null) { */
+        /*     $city = $city */
+        /* } */
+
+
         return [
             'first_name' => fake()->firstName(),
             'last_name' => fake()->lastName(),
+            'company_name' => fake()->company(),
+            'company_address' => fake()->address(),
+            'company_established_on' => fake()->dateTimeBetween('-10 years', 'now'),
+            'last_name' => fake()->lastName(),
             'email' => fake()->unique()->safeEmail(),
+            'phone' => fake()->unique()->phoneNumber(),
             'email_verified_at' => now(),
-            'state_id' => null,
-            /* 'city_id' => , */
+            'city_id' => $city->id,
+            'description' => fake()->paragraphs(5, true),
+            'state_id' => $state->id,
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
+            'website' => fake()->unique()->url,
+            'social_fb' => fake()->unique()->url,
+            'social_tiktok' => fake()->unique()->url,
+            'social_x' => fake()->unique()->url,
+            'social_ig' => fake()->unique()->url,
         ];
     }
 

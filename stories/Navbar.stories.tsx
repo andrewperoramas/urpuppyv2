@@ -21,12 +21,7 @@ const meta: Meta<StoryProps> = {
     title: 'Components/Navigation',
 
     argTypes: {
-        variant: {
-            options: ['primary', 'secondary'],
-            control: {
-                type: 'select'
-            }
-        }
+
     }
 }
 
@@ -36,8 +31,7 @@ type Story = StoryObj<StoryProps>;
 
 export const NavigationBar: Story = {
     args: {
-        variant: 'primary',
-        children: 'Button'
+        type: 'secondary',
     },
     render: (args) => {
         return <Navbarv2 />
@@ -47,11 +41,10 @@ export const NavigationBar: Story = {
 
 export const NavigationTransparentBar: Story = {
     args: {
-        variant: 'primary',
-        children: 'Button'
+        type: 'secondary',
     },
     render: (args) => {
-        return <> <Navbarv2/>
+        return <> <Navbarv2 type="transparent"/>
 
             <div className="page-wrapper position-relative overflow-hidden">
 

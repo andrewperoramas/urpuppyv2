@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Data\BreedData;
 use App\Data\BreederData;
+use App\Data\BreederFullData;
 use App\Models\User;
 
 class BreederController extends Controller
@@ -11,6 +12,7 @@ class BreederController extends Controller
     public function index()
     {
         $breeders = User::with([
+            'breeds:name',
             'media',
             'state',
             'city',
@@ -31,9 +33,10 @@ class BreederController extends Controller
         $userId = User::decodeSlug($slug);
 
         $breeder = User::with([
-            'breeds',
+            'breeds:name',
             'comments',
-            'comments.breeder.media',
+            'comments.reviewer',
+            'comments.reviewer.media',
             'media',
             /* 'attributes' => function ($query) { */
             /*     $query->select('title', 'value', 'attributable_id'); */
@@ -45,6 +48,8 @@ class BreederController extends Controller
         /*         ->mapWithKeys(fn ($attribute) => (object)[$attribute->title => $attribute->value]); */
         /* } */
 
+        /* dd($breeder->comments->first(), $breeder->comments[1]); */
+
         if (!auth()->user()) {
 
             /* $breeder->attr['public_email'] = null; */
@@ -53,12 +58,12 @@ class BreederController extends Controller
         }
         /* dd($breeder->attr); */
 
-        $puppies = $breeder->puppies()->with(['breeds','breeder', 'media', 'favorites'])->limit(4)->get();
+        $puppies = $breeder->puppies()->with(['breeds:id,name,slug','breeder', 'media', 'favorites'])->limit(4)->get();
 
         return inertia('Breeders/Show', [
             'rating_count' => $breeder->comments->count(),
             'rating_average' => $breeder->comments->pluck('rating')->avg(),
-            'breeder' => BreederData::from($breeder),
+            'breeder' => BreederFullData::from($breeder),
             'puppies' => $puppies,
         ]);
             /* ->title('Breeder: '.$breeder->name) */

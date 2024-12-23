@@ -39,8 +39,8 @@ LABEL org.opencontainers.image.description="Production-ready Dockerfile for Lara
 LABEL org.opencontainers.image.source=https://github.com/exaco/laravel-octane-dockerfile
 LABEL org.opencontainers.image.licenses=MIT
 
-ARG WWWUSER=1001
-ARG WWWGROUP=1001
+ARG WWWUSER=1000
+ARG WWWGROUP=1000
 ARG TZ=UTC
 
 ENV DEBIAN_FRONTEND=noninteractive \
@@ -142,8 +142,8 @@ RUN composer install \
     --no-interaction \
     --no-autoloader \
     --no-ansi \
-    --no-scripts \
-    --audit
+    --no-scripts
+    # --audit
 
 COPY --link --chown=${WWWUSER}:${WWWUSER} . .
 COPY --link --chown=${WWWUSER}:${WWWUSER} --from=build ${ROOT}/public public
