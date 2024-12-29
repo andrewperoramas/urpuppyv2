@@ -13,6 +13,7 @@ class BreederController extends Controller
     {
         $breeders = User::with([
             'breeds:name',
+
             'media',
             'state',
             'city',
@@ -20,9 +21,14 @@ class BreederController extends Controller
         ])->breeders()->paginate(10);
 
         return inertia()->render('Breeders/Index', [
-            'breeders' => BreedData::collect($breeders),
+            'breeders' => BreederFullData::collect($breeders),
         ]);
 
+    }
+
+    public function create()
+    {
+        return inertia('Breeders/Registration');
     }
 
     public function show($slug = null)
@@ -58,7 +64,7 @@ class BreederController extends Controller
         }
         /* dd($breeder->attr); */
 
-        $puppies = $breeder->puppies()->with(['breeds:id,name,slug','breeder', 'media', 'favorites'])->limit(4)->get();
+        $puppies = $breeder->puppies()->with(['breeds:id,name,slug','breeder', 'media', 'favorites'])->limit(3)->get();
 
         return inertia('Breeders/Show', [
             'rating_count' => $breeder->comments->count(),

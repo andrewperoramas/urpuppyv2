@@ -13,10 +13,19 @@ class PlanController extends Controller
             return redirect()->route('subscription.index');
         }
 
-        $plans = Plan::ordered()->active()->get();
+        $plans = Plan::ordered()->active()->where('is_featured', false)->get();
 
         return inertia()->render('Plan/Index', [
             'plans' => $plans,
         ]);
     }
+
+    public function breeder()
+    {
+        $plan = Plan::ordered()->active()->where('is_featured', true)->first();
+        return inertia()->render('Plan/Breeder', [
+            'plan' => $plan
+        ]);
+    }
+
 }

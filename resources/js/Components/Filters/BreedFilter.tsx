@@ -4,9 +4,10 @@ import { usePage, WhenVisible } from '@inertiajs/react';
 
 interface BreedFilterProps {
   setBreed: React.Dispatch<React.SetStateAction<FilterBoxProps>>;
+  title?: string
 }
 
-const BreedFilter: React.FC<BreedFilterProps> = ({ setBreed }) => {
+const BreedFilter: React.FC<BreedFilterProps> = ({ setBreed, title = "Breed" }) => {
 
     const breed_filter_list = usePage().props.breed_filter_list as string[];
 
@@ -23,7 +24,7 @@ const BreedFilter: React.FC<BreedFilterProps> = ({ setBreed }) => {
         <img src="/images/svgs/icon-breed.svg" alt="Breed Icon" />
       </span>
       <div>
-        <h6 className="font-work-sans mb-0">Breed</h6>
+        <h6 className="font-work-sans mb-0">{title}</h6>
         <input
           className="form-control p-0 shadow-none border-0 fs-2"
           list="breed-options"

@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Breed;
 use App\Models\Puppy;
+use App\Models\State;
 use App\Models\User;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 use Exception;
@@ -49,9 +50,78 @@ class DevelopmentSeeder extends Seeder
     {
 
         $this->call(WorldSeeder::class);
+
+$stateAbbreviations = [
+    "Alabama" => "AL",
+    "Alaska" => "AK",
+    "American Samoa" => "AS",
+    "Arizona" => "AZ",
+    "Arkansas" => "AR",
+    "California" => "CA",
+    "Colorado" => "CO",
+    "Connecticut" => "CT",
+    "Delaware" => "DE",
+    "District of Columbia" => "DC",
+    "Florida" => "FL",
+    "Georgia" => "GA",
+    "Guam" => "GU",
+    "Hawaii" => "HI",
+    "Idaho" => "ID",
+    "Illinois" => "IL",
+    "Indiana" => "IN",
+    "Iowa" => "IA",
+    "Kansas" => "KS",
+    "Kentucky" => "KY",
+    "Louisiana" => "LA",
+    "Maine" => "ME",
+    "Maryland" => "MD",
+    "Massachusetts" => "MA",
+    "Michigan" => "MI",
+    "Minnesota" => "MN",
+    "Mississippi" => "MS",
+    "Missouri" => "MO",
+    "Montana" => "MT",
+    "Nebraska" => "NE",
+    "Nevada" => "NV",
+    "New Hampshire" => "NH",
+    "New Jersey" => "NJ",
+    "New Mexico" => "NM",
+    "New York" => "NY",
+    "North Carolina" => "NC",
+    "North Dakota" => "ND",
+    "Ohio" => "OH",
+    "Oklahoma" => "OK",
+    "Oregon" => "OR",
+    "Pennsylvania" => "PA",
+    "Puerto Rico" => "PR",
+    "Rhode Island" => "RI",
+    "South Carolina" => "SC",
+    "South Dakota" => "SD",
+    "Tennessee" => "TN",
+    "Texas" => "TX",
+    "Utah" => "UT",
+    "Vermont" => "VT",
+    "Virginia" => "VA",
+    "Washington" => "WA",
+    "West Virginia" => "WV",
+    "Wisconsin" => "WI",
+    "Wyoming" => "WY",
+];
+
+// Retrieve all states and update abbreviations
+State::all()->each(function ($state) use ($stateAbbreviations) {
+    if (isset($stateAbbreviations[$state->name])) {
+        $state->abbreviation = $stateAbbreviations[$state->name];
+        $state->save();
+    }
+});
+
+        $this->call(MediaTableSeeder::class);
         $this->call(RoleSeeder::class);
-        $this->call(BreedSeeder::class);
+        $this->call(BreedsTableSeeder::class);
+        $this->call(PlanSeeder::class);
         $this->call(SettingSeeder::class);
+        Artisan::call('media-library:clean');
 
         /* $this->call(CountryStateCityTableSeeder::class); */
         // Create admin user if not exists
@@ -69,10 +139,24 @@ class DevelopmentSeeder extends Seeder
         $this->call(NavigationSeeder::class);
         $this->call(CustomPageSeeder::class);
 
-        Puppy::factory()->times(20)->create();
+        /* $users = collect(); */
+        /* for ($i = 0; $i < 4; $i++) { */
+        /*     $users->push(User::factory()->create([ */
+        /*         'id' => rand(10000000, 99999999), */
+        /*         'is_breeder' => true, */
+        /*     ])); */
+        /* } */
 
+        /* dd($users); */
+        /* $users = User::factory()->times(4)->create([ */
+        /*     'is_breeder' => true, */
+        /* ]); */
 
-
+        /* $users->each(function ($user) { */
+        /*     Puppy::factory()->times(4)->create([ */
+        /*         'user_id' => $user->id */
+        /*     ]); */
+        /* }); */
 
 
 

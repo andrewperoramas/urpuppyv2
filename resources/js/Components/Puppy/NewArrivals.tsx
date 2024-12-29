@@ -13,7 +13,7 @@ const NewArrivals = ({new_arrivals}: { new_arrivals: App.Data.PuppyData[] }) => 
         </div>
         <div className="row">
             {new_arrivals.map((puppy: App.Data.PuppyData) => (
-                <PuppyCard className="col-md-6 col-xl-3 mb-4 mb-xl-0" puppy={puppy} height="310px" />
+                <PuppyCard  key={puppy.slug} className="col-md-6 col-xl-3 mb-4 mb-xl-0" puppy={puppy} height="310px" />
             ))}
 
         </div>

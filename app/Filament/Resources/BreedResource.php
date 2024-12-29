@@ -37,7 +37,7 @@ class BreedResource extends Resource
 
             ])->schema([
                 TextInput::make('name'),
-                TextInput::make('slug')->nullable()->unique(),
+                TextInput::make('slug')->nullable(),
                 Textarea::make('description'),
                 RichEditor::make('history_description'),
                 RichEditor::make('size_description'),
@@ -47,7 +47,8 @@ class BreedResource extends Resource
                 RichEditor::make('activities_description'),
                 RichEditor::make('content'),
                 SpatieMediaLibraryFileUpload::make('image')
-                    ->collection('breeds'),
+                    ->disk('media')
+                    ->collection('media'),
             ])]);
     }
 

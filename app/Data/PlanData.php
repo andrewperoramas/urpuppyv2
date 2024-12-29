@@ -3,6 +3,7 @@
 namespace App\Data;
 
 use App\PuppyStatus;
+use Illuminate\Support\Collection;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\DataCollection;
 use Spatie\TypeScriptTransformer\Attributes\TypeScript;
@@ -15,13 +16,24 @@ class PlanData extends Data
         public int $id,
         public string $name,
         public string $price,
+        public string $money_formatted,
+        public string $savings_label,
         public int $trial_days,
         public string $interval,
+        public string $type,
+        public string $is_highlight,
+        public string $plan_days,
+        public string $logo,
         public int $interval_count,
         /** @var \App\Data\PlanDetail[] */
         public DataCollection  $details,
         /** @var \App\Data\PlanFeature[] */
-        public DataCollection $special_features
+        public DataCollection $special_features,
+        /** @var string[] */
+        public Collection $features,
+
+        public string $badge_color,
+        public string $badge_title,
     ) {
 
 

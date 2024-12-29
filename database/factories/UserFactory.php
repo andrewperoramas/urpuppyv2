@@ -71,12 +71,12 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
-        $country = Country::query()->where('iso2', 'US')->first();
-        if ($country == null) {
+        /* $country = Country::query()->where('iso2', 'US')->first(); */
+        /* if ($country == null) { */
             /* $country = Country::factory()->create([ */
             /*     'name' => 'united states', */
             /* ]); */
-        }
+        /* } */
         /* $state = State::query()->where('country_id', $country->id)->inRandomOrder()->first(); */
 
         /* if ($state == null) { */
@@ -87,11 +87,23 @@ class UserFactory extends Factory
         /* } */
 
         $state = State::query()->inRandomOrder()->first();
-        $city = City::query()->inRandomOrder()->where('state_id', $state->id)->first();
-        while(!$state->cities()->count() && $city == null) {
+        $city = City::query()->inRandomOrder()->where('state_id', $state?->id)->first();
+        while(!$state?->cities()->count() && $city == null) {
 
             $state = State::query()->inRandomOrder()->first();
-            $city = City::query()->inRandomOrder()->where('state_id', $state->id)->first();
+            $city = City::query()->inRandomOrder()->where('state_id', $state?->id)->first();
+
+            if ($city == null) {
+                break;
+                /* State::factory()->create([ */
+
+                /* ]); */
+                /* City::factory()->create([ */
+
+                /* ]); */
+            }
+
+
 
         }
 
@@ -104,6 +116,7 @@ class UserFactory extends Factory
 
 
         return [
+            'id' => rand(10000, 20000),
             'first_name' => fake()->firstName(),
             'last_name' => fake()->lastName(),
             'company_name' => fake()->company(),
@@ -113,9 +126,9 @@ class UserFactory extends Factory
             'email' => fake()->unique()->safeEmail(),
             'phone' => fake()->unique()->phoneNumber(),
             'email_verified_at' => now(),
-            'city_id' => $city->id,
+            'city_id' => $city?->id,
             'description' => fake()->paragraphs(5, true),
-            'state_id' => $state->id,
+            'state_id' => $state?->id,
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
             'website' => fake()->unique()->url,

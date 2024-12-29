@@ -32,6 +32,11 @@ abstract class DuskTestCase extends BaseTestCase
             '--disable-search-engine-choice-screen',
         ])->unless($this->hasHeadlessDisabled(), function (Collection $items) {
             return $items->merge([
+                '--no-sandbox',
+                '--ignore-ssl-errors',
+                '--whitelisted-ips=""',
+                /* '--whitelisted-ips=""', */
+               /* '--disable-dev-shm-usage', */
                 '--disable-gpu',
                 '--headless=new',
             ]);

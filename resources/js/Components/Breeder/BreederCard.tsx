@@ -3,15 +3,14 @@ import { Link } from '@inertiajs/react'
 import React from 'react'
 
 
-const BreederCard = ({breeder }: { breeder: App.Data.BreederFullData }) => {
-    console.log(breeder)
+const BreederCard = ({breeder, hasBorder=false }: { breeder: App.Data.BreederFullData, hasBorder?: boolean }) => {
   return (
           <div className="col-lg-6">
-            <div className="card position-relative overflow-hidden" data-aos="fade-up" data-aos-delay="300"
+            <div className={`card position-relative overflow-hidden ${hasBorder && 'border'}`} data-aos="fade-up" data-aos-delay="300"
               data-aos-duration="1000">
               <div className="row">
                 <div className="col-xl-4 d-flex align-items-lg-stretch">
-                  <Link preserveScroll preserveState href={`/breeders/${breeder.slug}`} className="trusted-breeders-img position-relative overflow-hidden w-100">
+                  <Link preserveState href={`/breeders/${breeder.slug}`} className="trusted-breeders-img position-relative overflow-hidden w-100">
                     <img className="w-100 h-100 object-fit-cover"
                       src={breeder.avatar} alt="" />
                   </Link>
@@ -20,7 +19,7 @@ const BreederCard = ({breeder }: { breeder: App.Data.BreederFullData }) => {
                   <div
                     className="trusted-breeders-details card-body ps-xl-0 pe-4 d-flex align-items-start justify-content-between gap-3">
                     <div>
-                      <Link preserveScroll preserveState href={`/breeders/${breeder.slug}`}>
+                      <Link preserveState href={`/breeders/${breeder.slug}`}>
                         <h6 className="btn-link fs-5 font-work-sans mb-6">{breeder.company_name}</h6>
                       </Link>
                         {breeder.breeds.length &&

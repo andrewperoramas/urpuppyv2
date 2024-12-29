@@ -1,5 +1,4 @@
 
-
 .product-card-responsive-height {
   height: 225px;
 
@@ -78,5 +77,30 @@
 
 }
 
+.space-y-4 > * + * {
+  margin-top: 1.5rem; /* Adjust to your desired spacing */
+}
 
+html {
+    scroll-behavior: smooth;
+}
+
+.swiper-button-prev {
+    display: none!important;
+}
+
+
+.swiper-button-next {
+    display: none!important;
+}
+
+// .ease-up {
+//   opacity: 1;
+//   transform: translateY(0);
+//   transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+// }
+
+:root {
+    scroll-behavior: inherit !important;
+}
 

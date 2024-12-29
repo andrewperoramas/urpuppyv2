@@ -14,7 +14,7 @@ const TrustedBreeders = ({breeders} : { breeders: App.Data.BreederFullData[] }) 
         <div className="row">
             {
                         breeders.map((breeder: App.Data.BreederFullData) => (
-                            <BreederCard breeder={breeder} />
+                            <BreederCard key={breeder.slug} breeder={breeder} />
                         ))
                     }
         </div>

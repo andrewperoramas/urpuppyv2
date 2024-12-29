@@ -22,8 +22,7 @@ const GenderFilter: React.FC<GenderFilterProps> = ({setGender}) => {
                   <span className="flex-shrink-0"><img src="/images/svgs/icon-gender.svg" alt="" /></span>
                   <div>
                     <h6 className="font-work-sans mb-0">Sex</h6>
-                    <select onChange={handleInputChange} className="form-select p-0 shadow-none border-0 fs-2" aria-label="Default select example">
-                      <option selected>e.g. (Male, Female)</option>
+                    <select value="Male"  onChange={handleInputChange} className="form-select p-0 shadow-none border-0 fs-2" aria-label="Default select example">
                       <option value="Male">Male</option>
                       <option value="Female">Female</option>
                     </select>

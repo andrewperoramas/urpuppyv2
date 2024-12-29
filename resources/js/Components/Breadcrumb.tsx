@@ -2,10 +2,7 @@ import React from 'react'
 
 const Breadcrumb = () => {
   return (
-                <nav
-                className="breadcrumb"
-
-          aria-label="breadcrumb">
+                <nav aria-label="breadcrumb">
           <ol className="breadcrumb align-items-center mb-4">
             <li className="breadcrumb-item fw-semibold d-flex align-items-center"><a
                 className="text-dark d-flex align-items-center" href="index.html"><img

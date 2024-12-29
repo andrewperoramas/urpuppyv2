@@ -10,12 +10,15 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Log;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\EloquentSortable\SortableTrait;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 use Stripe\Plan as StripePlan;
 use Stripe\Stripe;
 
-class Plan extends Model implements Sortable
+class Plan extends Model implements HasMedia, Sortable
 {
     use HasFactory, SortableTrait;
+    use InteractsWithMedia;
 
     protected $fillable = [
         'name',
@@ -28,7 +31,11 @@ class Plan extends Model implements Sortable
         'is_featured',
         'is_highlight',
         'type',
+        'features',
+        'badge_title',
+        'badge_color',
         'is_breeder',
+        'savings_label',
         'order_column',
         'image_per_listing',
         'video_per_listing',
@@ -36,10 +43,13 @@ class Plan extends Model implements Sortable
 
     protected $casts = [
         'interval' => 'json',
+        'features' => 'json',
     ];
 
     protected $appends = [
         'money_formatted',
+        'logo',
+        'plan_days'
         /* 'plan_id', */
     ];
 
@@ -75,6 +85,22 @@ class Plan extends Model implements Sortable
         });
     }
 
+    public function getPlanDaysAttribute()
+    {
+        if ($this->type == 'free') {
+            return 'FREE';
+        }
+
+        $total = 0;
+        if ($this->interval === 'year') {
+           $total =  $this->interval_count * 365 ;
+        } else if ($this->interval === 'month') {
+           $total =  $this->interval_count * 30 ;
+        }
+
+        return $total . " Days";
+    }
+
     protected static function createStripePlan(self $plan): StripePlan
     {
         $lastCreatedPlan = null;
@@ -88,6 +114,11 @@ class Plan extends Model implements Sortable
         ]);
 
         return $lastCreatedPlan;
+    }
+
+    public function getLogoAttribute()
+    {
+        return $this->getFirstMedia('logo')?->getUrl();
     }
 
     protected static function updateStripePlan(self $plan): void

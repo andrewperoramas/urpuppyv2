@@ -1,9 +1,4 @@
-import { router } from '@inertiajs/react';
-import { debounce } from 'lodash';
-import React, { useEffect, useState } from 'react';
-import { PaginatedCollection } from '@/types/global';
-import Navbarv2 from '@/Components/Navigation/Navbarv2';
-import Slider from '@/Components/Slider';
+import React from 'react';
 import ImageSlider from '@/Components/ImageSlider';
 import PuppyCard from '@/Components/Puppy/Card';
 import Layout from '@/Layouts/Layout';
@@ -14,39 +9,39 @@ const Show = ({ related_puppies, puppy, siblings }: {
     puppy: App.Data.PuppyData,
     siblings: App.Data.PuppyData[]
 }) => {
-    const [query, setQuery] = useState(null);
+    // useEffect(() => {
+    //     const debouncedVisit = debounce(() => {
 
-    useEffect(() => {
-        const debouncedVisit = debounce(() => {
-            if (query == null) {
-                return;
-            }
+    //         // alert('wew');
+    //         if (query == null) {
+    //             return;
+    //         }
 
-            router.visit('/puppies', {
-                data: query,
-                preserveState: true,
-                preserveScroll: true,
-                onSuccess: () => {
-                    console.log('Filter applied:', query);
-                    // console.log(puppies.data)
-                },
-            });
-        }, 300);
+    //         router.visit('/puppies', {
+    //             data: query,
+    //             preserveState: true,
+    //             onSuccess: () => {
+    //                 console.log('Filter applied:', query);
+    //                 // console.log(puppies.data)
+    //             },
+    //         });
+    //     }, 300);
 
-        debouncedVisit();
+    //     debouncedVisit();
 
-        return () => {
-            debouncedVisit.cancel();
-        };
+    //     return () => {
+    //         debouncedVisit.cancel();
+    //     };
 
 
-    }, [query]);
+    // }, [query]);
 
     return (
             <Layout>
   <div className="page-wrapper position-relative overflow-hidden">
 
-    <section className="hero-section position-relative d-flex align-items-center pt-11 pb-10">
+    <section
+                    className="hero-section position-relative d-flex align-items-center pt-11 pb-10">
       <div className="container position-relative z-1 pt-lg-1 mt-lg-3 mb-lg-4">
         <div className="row justify-content-center">
           <div className="col-xl-10">
@@ -254,7 +249,7 @@ const Show = ({ related_puppies, puppy, siblings }: {
                 <div className="row">
                                             {
                                                 siblings.map((sibling: App.Data.PuppyData) => (
-                                                <SiblingCard puppy={sibling} />
+                                                <SiblingCard key={sibling.slug} puppy={sibling} />
 
                                                 ))
                                             }
@@ -275,7 +270,7 @@ const Show = ({ related_puppies, puppy, siblings }: {
         <div className="row">
             {
                                 related_puppies && related_puppies.map((puppy: App.Data.PuppyData) => (
-                                    <PuppyCard className="col-md-6 col-xl-3 mb-4 mb-xl-0" puppy={puppy}/>
+                                    <PuppyCard key={puppy.slug} className="col-md-6 col-xl-3 mb-4 mb-xl-0" puppy={puppy}/>
 
                                 ))
                             }

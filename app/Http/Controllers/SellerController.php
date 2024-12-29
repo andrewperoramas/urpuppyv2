@@ -8,4 +8,16 @@ class SellerController extends Controller
     {
         return inertia('Seller/Dashboard');
     }
+
+    public function create()
+    {
+        return inertia('Seller/Registration');
+    }
+
+    public function store()
+    {
+
+        /* dd(request()->all()); */
+
+    }
 }

@@ -102,6 +102,12 @@ RUN apt-get update; \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
     && rm /var/log/lastlog /var/log/faillog
 
+RUN apt-get update && apt-get install -y \
+    libzip-dev libpng-dev libjpeg-dev libfreetype6-dev zip unzip \
+    chromium chromium-driver
+
+RUN apt-get install -y libx11-xcb1 libxcomposite1 libxi6 libgconf-2-4 libxss1 libxtst6 fonts-liberation libappindicator3-1 libnss3 lsb-release xdg-utils
+
 # RUN mkdir -p /usr/local/bin \
 #     && curl -fsSL https://bun.sh/install | bash \
 #     && mv /root/.bun/bin/bun /usr/local/bin/bun

@@ -15,7 +15,7 @@ class Country extends ModelsCountry
     /* use SoftDeletes; */
 
     protected $fillable = [
-        'id', 'name', 'status',
+        'id', 'name', 'status', 'iso2', 'phone_code', 'iso3', 'region', 'subregion'
     ];
 
     public function states(): HasMany

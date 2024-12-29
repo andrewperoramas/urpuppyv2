@@ -53,7 +53,7 @@ const Show = ({breed} : {
                       <div id="flush-collapseOne" className="accordion-collapse collapse show"
                         data-bs-parent="#accordionFlushExample">
                         <div className="accordion-body pt-0">
-                          <p className="mb-0">{breed.history_description}</p>
+                          <p className="mb-0" dangerouslySetInnerHTML={{__html: breed.history_description ?? ''}} ></p>
                         </div>
                       </div>
                     </div>
@@ -68,7 +68,7 @@ const Show = ({breed} : {
                       <div id="flush-collapseTwo" className="accordion-collapse collapse"
                         data-bs-parent="#accordionFlushExample">
                         <div className="accordion-body pt-0">
-                          <p className="mb-0">{breed.size_description}</p>
+                          <p className="mb-0" dangerouslySetInnerHTML={{__html: breed.size_description ?? ''}}></p>
                         </div>
                       </div>
                     </div>
@@ -83,7 +83,7 @@ const Show = ({breed} : {
                       <div id="flush-collapseThree" className="accordion-collapse collapse"
                         data-bs-parent="#accordionFlushExample">
                         <div className="accordion-body pt-0">
-                          <p className="mb-0">{breed.temperament_description}</p>
+                          <p className="mb-0" dangerouslySetInnerHTML={{__html: breed.temperament_description ?? ''}}></p>
                         </div>
                       </div>
                     </div>
@@ -98,7 +98,7 @@ const Show = ({breed} : {
                       <div id="flush-collapsefour" className="accordion-collapse collapse"
                         data-bs-parent="#accordionFlushExample">
                         <div className="accordion-body pt-0">
-                          <p className="mb-0">{breed.coat_description}</p>
+                          <p className="mb-0" dangerouslySetInnerHTML={{__html: breed.coat_description ?? ''}}></p>
                         </div>
                       </div>
                     </div>
@@ -113,7 +113,7 @@ const Show = ({breed} : {
                       <div id="flush-collapsefive" className="accordion-collapse collapse"
                         data-bs-parent="#accordionFlushExample">
                         <div className="accordion-body pt-0">
-                          <p className="mb-0">{breed.lifestyle_description}</p>
+                          <p className="mb-0" dangerouslySetInnerHTML={{__html: breed.lifestyle_description ?? ''}}></p>
                         </div>
                       </div>
                     </div>
@@ -128,7 +128,7 @@ const Show = ({breed} : {
                       <div id="flush-collapsesix" className="accordion-collapse collapse"
                         data-bs-parent="#accordionFlushExample">
                         <div className="accordion-body pt-0">
-                          <p className="mb-0">{breed.activities_description}</p>
+                          <p className="mb-0" dangerouslySetInnerHTML={{__html: breed.activities_description ?? ''}}></p>
                         </div>
                       </div>
                     </div>
@@ -143,7 +143,6 @@ const Show = ({breed} : {
             </section>
 
             </div>
-            <Footer />
 </Layout>
 
         </>

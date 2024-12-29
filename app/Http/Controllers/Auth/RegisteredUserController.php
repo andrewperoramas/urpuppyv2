@@ -39,7 +39,7 @@ class RegisteredUserController extends Controller
             'last_name' => 'required|string|max:40',
             'state_id' => '',
             'city_id' => '',
-            'avatar' => 'required',
+            /* 'avatar' => 'required', */
             'email' => 'required|string|lowercase|email|max:255|unique:' . User::class,
             'password' => ['required', 'confirmed', Password::defaults()],
             /* 'captcha' => 'required|captcha' */
@@ -61,8 +61,8 @@ class RegisteredUserController extends Controller
             $user->getFirstMedia('avatars')->delete();
         }
 
-        $user->addMedia($request->file('avatar'))
-            ->toMediaCollection('avatars');
+/*         $user->addMedia($request->file('avatar')) */
+/*             ->toMediaCollection('avatars'); */
 
 
         /* $user->assignRole('seller'); */
@@ -72,10 +72,10 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        /* if ($request->is_seller) { */
+        if ($request?->is_seller) {
             return redirect(route('plans.index', absolute: false))->with('message.success', 'You have to purchase a plan to start selling');
-        /* } */
+        }
 
-        return redirect(route('dashboard', absolute: false))->with('message.success', 'You have been registered successfully');
+        return redirect(route('home', absolute: false))->with('message.success', 'You have been registered successfully');
     }
 }

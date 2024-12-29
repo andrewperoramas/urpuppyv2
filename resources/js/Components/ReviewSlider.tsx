@@ -5,7 +5,7 @@ import "swiper/css";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 
 interface SliderProps {
-    children: React.ReactNode[]; // Expect an array of React nodes
+    children: React.ReactNode[] | undefined; // Expect an array of React nodes
     slidesPerView?: number
 }
 

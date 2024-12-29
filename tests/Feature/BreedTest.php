@@ -7,12 +7,31 @@ use function Pest\Laravel\get;
 
 test('shows the breeds page', function () {
 
-    Breed::factory()->times(20)->create();
+    Breed::query()->delete();
+    Breed::factory()->create([
+        'name' => 'Pomeranian',
+    ]);
+
+    Breed::factory()->create([
+        'name' => 'Bameranian',
+    ]);
+
+    Breed::factory()->create([
+        'name' => 'Aameranian',
+    ]);
+
+    Breed::factory()->create([
+        'name' => 'Axmeranian',
+    ]);
+
+    Breed::factory()->create([
+        'name' => 'Axveranian',
+    ]);
 
     get('/breeds')
         ->assertInertia(function (Assert $page) {
             $page->component('Breed/Index');
-            $page->has('breeds.data', 20);
+            $page->has('breeds', 3);
     });
 });
 

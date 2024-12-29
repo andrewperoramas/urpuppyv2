@@ -16,24 +16,13 @@ const Banner = ({
         <div className="row justify-content-center">
           <div className="col-xl-10">
 
-                        <EaseUpContainer>
-
-                        <EaseUp>
-            <h1 className="text-white text-center fs-11 mb-1" data-aos="fade-up" data-aos-delay="100"
+            <h1 className="aos-init aos-animate text-white text-center fs-11 mb-1" data-aos="fade-up" data-aos-delay="100"
               data-aos-duration="1000">{header}</h1>
-                        </EaseUp>
 
-                        <EaseUp>
-            <p className="text-white text-center fs-7 mb-4 mb-lg-5" data-aos="fade-up" data-aos-delay="200"
+            <p className=" aos-init aos-animate text-white text-center fs-7 mb-4 mb-lg-5" data-aos="fade-up" data-aos-delay="200"
               data-aos-duration="1000">{subheader}</p>
-                        </EaseUp>
-
-
-                        <EaseUp>
 
                         <FilterBox/>
-                        </EaseUp>
-</EaseUpContainer>
           </div>
         </div>
       </div>

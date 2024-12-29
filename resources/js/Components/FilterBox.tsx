@@ -87,7 +87,7 @@ const FilterBox = () => {
               </div>
             </div>
 
-            <div className="grid-filter-mobile dropdown d-grid d-lg-none" data-aos="fade-up" data-aos-delay="300"
+            <div className="grid-filter-mobile aos-init aos-animate dropdown d-grid d-lg-none" data-aos="fade-up" data-aos-delay="300"
               data-aos-duration="1000">
               <button type="button"
                 className="btn btn-white bg-white py-6 d-flex align-items-center justify-content-between gap-4"

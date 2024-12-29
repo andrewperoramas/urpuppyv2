@@ -69,7 +69,7 @@ const Index = ({breeds, letter_param = 'A'} : {
 <li className="nav-item" role="presentation">
                                         <Link
                                             preserveState
-                                            preserveScroll
+
                                             prefetch
                                             cacheFor="1m"
 
@@ -87,7 +87,7 @@ const Index = ({breeds, letter_param = 'A'} : {
 
             </ul>
 
-                                  <div className="tab-content" id="pills-tabContent"
+                                  <div className="tab-content tab-content" data-aos="fade-up"  data-aos-duration="1000" data-aos-delay="300" id="pills-tabContent"
            >
             <div className="tab-pane active" id="pills-a" role="tabpanel" aria-labelledby="pills-a-tab" >
               <div className="row">

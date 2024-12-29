@@ -1,6 +1,7 @@
 import { Link } from "@inertiajs/react";
 import React from "react";
 import PaginationButton from "./PaginationButton";
+import { runOnClient } from "@/utils/runOnClient";
 
 interface PaginationProps {
     links: Array<{
@@ -12,6 +13,8 @@ interface PaginationProps {
 
 const Pagination: React.FC<PaginationProps> = ({ links }) => {
     const handlePaginationClick = (event: React.MouseEvent) => {
+        runOnClient(() => {
+
         const scrollTarget = document.getElementById("scroll-target");
 
         if (scrollTarget) {
@@ -24,6 +27,8 @@ const Pagination: React.FC<PaginationProps> = ({ links }) => {
                 behavior: "smooth",
             });
         }
+
+        })
     };
 
     const mergeQueryParams = (url: string) => {
@@ -58,7 +63,6 @@ const Pagination: React.FC<PaginationProps> = ({ links }) => {
                                 <Link
                                     href={mergeQueryParams(link.url)}
                                     preserveState={true}
-                                    preserveScroll={true}
                                     prefetch cacheFor="10s"
                                     onClick={handlePaginationClick}
                                 >

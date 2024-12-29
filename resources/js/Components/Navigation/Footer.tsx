@@ -1,3 +1,4 @@
+import { Link } from '@inertiajs/react'
 import React from 'react'
 
 const Footer = () => {
@@ -31,7 +32,7 @@ const Footer = () => {
                 <a href="#" className="fs-3 d-block fw-normal">Support</a>
               </li>
               <li>
-                <a href="#" className="fs-3 d-block fw-normal">Breeder Login</a>
+               <Link href="/breeders/create" className="fs-3 d-block fw-normal">Breeder Login</Link>
               </li>
             </ul>
           </div>
@@ -42,7 +43,7 @@ const Footer = () => {
                 <a href="#" className="fs-3 d-block fw-normal">About Us</a>
               </li>
               <li>
-                <a href="#" className="fs-3 d-block fw-normal">Contact Us</a>
+                <Link href="/contact-us" className="fs-3 d-block fw-normal">Contact Us</Link>
               </li>
               <li>
                 <a href="#" className="fs-3 d-block fw-normal">Dog Registration</a>
@@ -53,10 +54,10 @@ const Footer = () => {
             <h6 className="fw-semibold font-work-sans mb-6 text-white">Other</h6>
             <ul className="list-unstyled footer-memu mb-0">
               <li className="mb-6">
-                <a href="#" className="fs-3 d-block fw-normal">Privacy Policy</a>
+                <Link href="/privacy-policy" className="fs-3 d-block fw-normal">Privacy Policy</Link>
               </li>
               <li className="mb-6">
-                <a href="#" className="fs-3 d-block fw-normal">Terms of Use</a>
+                <Link href="/terms-of-use" className="fs-3 d-block fw-normal">Terms of Use</Link>
               </li>
               <li>
                 <a href="#" className="fs-3 d-block fw-normal">Sitemap</a>

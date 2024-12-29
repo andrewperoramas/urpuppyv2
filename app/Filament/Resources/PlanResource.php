@@ -7,7 +7,9 @@ use App\Filament\Resources\PlanResource\Pages\EditPlan;
 use App\Filament\Resources\PlanResource\Pages\ListPlans;
 use App\Models\Plan;
 use Filament\Forms\Components\Checkbox;
+use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -48,6 +50,19 @@ class PlanResource extends Resource
                 TextInput::make('video_per_listing')->required()->integer(),
 
                 Checkbox::make('is_breeder')->default(false),
+                SpatieMediaLibraryFileUpload::make('logo')
+                    ->disk('media')
+                    ->collection('logo'),
+                Repeater::make('features')
+                ->schema([
+                    TextInput::make('name')->required(),
+                ]),
+                TextInput::make('badge_title'),
+                Select::make('badge_color')->options([
+                    'primary' => 'primary',
+                    'secondary' => 'secondary',
+                ])->nullable(),
+                TextInput::make('savings_label'),
                 Checkbox::make('is_highlight')->default(false),
                 Checkbox::make('is_featured')->default(false),
                 Checkbox::make('active')->default(true),
@@ -58,7 +73,6 @@ class PlanResource extends Resource
     {
         return $table
             ->columns([
-
                 TextColumn::make('name')->searchable(),
                 TextColumn::make('money_formatted')->searchable(),
                 TextColumn::make('order_column', '#')->searchable()->toggleable()->sortable(),

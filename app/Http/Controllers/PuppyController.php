@@ -46,7 +46,7 @@ class PuppyController extends Controller
                 'breeder:id,first_name,last_name,state_id,city_id,created_at,slug',
                 'favorites',
                 'media',
-                'breeder.state:id,name',
+                'breeder.state:id,name,abbreviation',
                 'breeder.city:id,name',
             ])
             ->allowedFilters([

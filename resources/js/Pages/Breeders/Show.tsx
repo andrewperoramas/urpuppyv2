@@ -70,7 +70,7 @@ const Show = ({breeder, puppies} : {
             <div className="andrews-listings mb-xl-4">
               <h5 className="mb-6 fs-5 mb-3 pb-1">{breeder.full_name} Listings</h5>
               <div className="row">
-                {puppies.length &&
+                {puppies.length > 0 &&
                     puppies.map((puppy: App.Data.PuppyData, index: number) => (
                         <PuppyCard className="col-md-6 col-xl-4 mb-4 mb-xl-0" key={index} puppy={puppy} />
                     ))}
@@ -82,7 +82,7 @@ const Show = ({breeder, puppies} : {
                 <div className="andrews-reviews-sloder position-relative">
                   <div className="owl-carousel owl-theme">
                                                 <ReviewSlider children={
-                                                    breeder.comments.map((comment: App.Data.CommentData, index: number) => (
+                                                    breeder.comments?.map((comment: App.Data.CommentData, index: number) => (
                                                         <ReviewCard comment={comment} />
                                                     ))
                                                 }

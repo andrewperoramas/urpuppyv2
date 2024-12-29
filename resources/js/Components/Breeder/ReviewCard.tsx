@@ -27,7 +27,7 @@ const ReviewCard = ({comment}: {comment: App.Data.CommentData}) => {
 
                             style={{ maxWidth: 120 }}  readOnly value={comment.rating} />
 </div>
-                          <p className="text-dark">
+                          <p className="text-dark swiper-no-swiping">
                                 {comment.body}
                           </p>
                           <div className="d-flex align-items-center gap-6">
@@ -35,8 +35,8 @@ const ReviewCard = ({comment}: {comment: App.Data.CommentData}) => {
                               <img src={comment.reviewer.avatar} alt="" className="object-fit-cover"/>
                             </div>
                             <div>
-                              <h6 className="fs-3 mb-0">{comment.reviewer.full_name}</h6>
-                              <p className="mb-0 fs-2">{comment.review_on}</p>
+                              <h6 className="fs-3 mb-0 swiper-no-swiping ">{comment.reviewer.full_name}</h6>
+                              <p className="mb-0 fs-2 swiper-no-swiping">{comment.review_on}</p>
                             </div>
                           </div>
                         </div>

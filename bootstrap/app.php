@@ -17,6 +17,18 @@ return Application::configure(basePath: dirname(__DIR__))
             \Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets::class,
         ]);
 
+
+        $middleware->validateCsrfTokens(except: [
+            'stripe/*',
+        ]);
+
+        $middleware->alias([
+            'role' => \App\Http\Middleware\CheckRole::class,
+            'admin' => IsSuperAdmin::class,
+            'subscriber.only' => RedirectIfNotSubscribed::class,
+            'redirect.external' => RedirectExternalUrl::class,
+        ]);
+
         //
     })
     ->withExceptions(function (Exceptions $exceptions) {

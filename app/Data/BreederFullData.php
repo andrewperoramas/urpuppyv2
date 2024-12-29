@@ -21,9 +21,9 @@ class BreederFullData extends Data
         public string $member_since,
 
 
-        public string $company_name,
-        public string $company_address,
-        public string $company_established_on_label,
+        public ?string $company_name,
+        public ?string $company_address,
+        public ?string $company_established_on_label,
 
         public ?string $website,
         public ?string $phone,

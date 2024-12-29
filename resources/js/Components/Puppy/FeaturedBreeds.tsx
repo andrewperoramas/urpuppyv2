@@ -19,7 +19,7 @@ const FeaturedBreeds = ({featured_breeds}: { featured_breeds: App.Data.BreedData
 
             <Slider slidesPerView={1} children={
                         featured_breeds.map((breed: App.Data.BreedData) => (
-                            <BreedCard breed={breed} />
+                            <BreedCard key={breed.slug} breed={breed} />
                         ))
                         }/>
 

@@ -49,6 +49,7 @@ class User extends Authenticatable implements  HasMedia,  MustVerifyEmail, Sitem
      * @var array<int, string>
      */
     protected $fillable = [
+        'id',
         'first_name',
         'last_name',
         'has_federal_license',
@@ -243,6 +244,9 @@ class User extends Authenticatable implements  HasMedia,  MustVerifyEmail, Sitem
 
     public function getCompanyEstablishedOnLabelAttribute()
     {
+        if ($this->company_established_on == null) {
+            return '';
+        }
         $establishedDate = Carbon::parse($this->company_established_on);
 
         if (!$establishedDate) {

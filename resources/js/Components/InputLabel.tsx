@@ -1,12 +1,14 @@
-import { LabelHTMLAttributes } from 'react';
+import { LabelHTMLAttributes, ReactNode } from 'react';
 
 export default function InputLabel({
     value,
     className = '',
+    isRequired = false,
     children,
     ...props
-}: LabelHTMLAttributes<HTMLLabelElement> & { value?: string }) {
+}: LabelHTMLAttributes<HTMLLabelElement> & { value?: string | ReactNode, isRequired?: boolean }) {
     return (
+        <>
         <label
             {...props}
             className={
@@ -16,5 +18,7 @@ export default function InputLabel({
         >
             {value ? value : children}
         </label>
+        {isRequired && <span className="text-danger"> *</span>}
+        </>
     );
 }

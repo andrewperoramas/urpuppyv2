@@ -11,7 +11,13 @@ type ButtonProps = React.HTMLAttributes<HTMLButtonElement> & {
 }
 
 const Button = ({ type = 'a', className, size = 'md', variant, ...props }: ButtonProps) => {
-  return (
+
+  return  type == 'button' ? (
+    <>
+    <button className={cn(buttonVariants({variant, size}), className )} {...props}>{props.children}</button>
+            </>
+    ):
+    (
         <Link href={props.href} as={type} className={cn(buttonVariants({variant, size}), className )}>{props.children}</Link>
   )
 }

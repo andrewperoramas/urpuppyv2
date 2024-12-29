@@ -5,11 +5,14 @@ use App\Data\BreederData;
 use App\Data\BreederFullData;
 use App\Data\PuppyData;
 use App\Http\Controllers\BreedController;
+use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\BreederController;
 use App\Http\Controllers\BreederListingController;
 use App\Http\Controllers\SubscriptionController;
+use App\Http\Controllers\SellerController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\PlanController;
+use App\Http\Controllers\PrivacyPolicyController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PuppyController;
 use App\Models\Breed;
@@ -50,7 +53,7 @@ Route::get('/', function () {
             ) ,
         'top_pick_puppy' => $top_picks,
         'puppy_spotlights' => PuppyData::collect(Puppy::with('breeds', 'breeder')->inRandomOrder()->take(4)->get()),
-        'trusted_breeders' => BreederFullData::collect(User::with(['breeds' => fn ($q) => $q->select('name') ])->take(4)->inRandomOrder()->get()),
+        'trusted_breeders' => BreederFullData::collect(User::with(['breeds' => fn ($q) => $q->select('name') ])->breeders()->take(4)->inRandomOrder()->get()),
         'new_arrivals' => PuppyData::collect(Puppy::with('breeds:name,slug', 'breeder')->inRandomOrder()->take(4)->get()),
         'featured_breeds' => BreedData::collect(Breed::with('media')->inRandomOrder()->take(8)->get()),
 
@@ -59,7 +62,7 @@ Route::get('/', function () {
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
-});
+})->name('home');
 
 Route::get('/ui/{path?}', function ($path = null) {
     $storybookPath = public_path();
@@ -80,6 +83,7 @@ Route::group(['prefix' => 'puppies'], function () {
 
 Route::group(['prefix' => 'plans'], function () {
     Route::get('/', [PlanController::class, 'index'])->name('plans.index');
+    Route::get('/breeder', [PlanController::class, 'breeder'])->name('plans.breeder');
     /* Route::get('/{slug}', [BreedController::class, 'show'])->name('breeds.show'); */
 });
 
@@ -90,6 +94,7 @@ Route::group(['prefix' => 'breeds'], function () {
 
 Route::group(['prefix' => 'breeders'], function () {
     Route::get('/', [BreederController::class, 'index'])->name('breeders.index');
+    Route::get('create', [BreederController::class, 'create'])->name('breeders.create');
     Route::get('/{slug}', [BreederController::class, 'show'])->name('breeders.show');
 });
 
@@ -105,6 +110,19 @@ Route::group(['prefix' => 'subscriptions'], function () {
 
 });
 
+Route::group(['prefix' => 'seller'], function () {
+    Route::get('create', [SellerController::class, 'create'])->name('seller.create');
+    Route::post('store', [SellerController::class, 'store'])->name('seller.store');
+});
+
+Route::middleware(['auth', 'role:super_admin'])->group(function () {
+
+    Route::get('filemanager', function () {
+        return view('filemanager');
+    });
+
+});
+
 Route::group(['prefix' => 'breeder-listings'], function () {
     Route::get('/', [BreederListingController::class, 'index'])->name('breeder_listings.index');
 
@@ -117,6 +135,11 @@ Route::group(['prefix' => 'breeder-listings'], function () {
     Route::get('/{slug}', [BreederListingController::class, 'show'])->name('breeder_listings.show');
 
 });
+
+
+Route::get('/contact-us', [ContactUsController::class, 'index']);
+Route::get('/privacy-policy', [PrivacyPolicyController::class, 'index']);
+Route::get('/terms-of-use', [PrivacyPolicyController::class, 'terms']);
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
