@@ -12,3 +12,5 @@ tinker() {
 alias ..="cd .."
 alias ...="cd ../.."
 alias art="php artisan"
+alias dusk="php artisan pest:dusk"
+alias test="php artisan test"

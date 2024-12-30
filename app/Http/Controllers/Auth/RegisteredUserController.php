@@ -23,7 +23,7 @@ class RegisteredUserController extends Controller
     public function create(): Response
     {
         return Inertia::render('Auth/Register', [
-            'puppy'  => PuppyData::from(Puppy::with(['breeds', 'breeder'])->inRandomOrder()->first())
+            'puppy'  => PuppyData::optional(Puppy::with(['breeds', 'breeder'])->inRandomOrder()->first())
         ]);
     }
 

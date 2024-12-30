@@ -9,6 +9,10 @@ const PuppyCard = ({puppy, className="col-md-6 col-lg-4 col-xl-3 mb-4", height="
         height?: string
     }) => {
 
+    if (!puppy) {
+        return null
+    }
+
     // useEffect(() => {
     //     window.scrollTo(0, 0);
     // }, []);
