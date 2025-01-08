@@ -33,7 +33,7 @@ class UserFactory extends Factory
             return $this->afterCreating(function (User $user) {
     $avatars = File::files(base_path('tests/test-avatars'));
 
-    if (!empty($avatars)) {
+    if (!empty($avatars) && config('app.env') != 'testing') {
         $avatar = $avatars[array_rand($avatars)];
         $user->addMedia($avatar->getPathname())
              ->preservingOriginal()
@@ -44,6 +44,8 @@ class UserFactory extends Factory
     $user->breeds()->saveMany($breeds);
 
     $initial = rand(2, 3);
+
+    if (config('app.env') != 'testing') {
 
     for ($count = 0; $count < $initial; $count++) {
         $comment = $user->comments()->make([
@@ -57,6 +59,7 @@ class UserFactory extends Factory
             $comment->save();
         }
 
+    }
     }
     });
 
@@ -116,7 +119,7 @@ class UserFactory extends Factory
 
 
         return [
-            'id' => rand(10000, 20000),
+            /* 'id' => rand(10000, 20000), */
             'first_name' => fake()->firstName(),
             'last_name' => fake()->lastName(),
             'company_name' => fake()->company(),

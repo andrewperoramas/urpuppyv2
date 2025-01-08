@@ -104,3 +104,67 @@ html {
     scroll-behavior: inherit !important;
 }
 
+.swiper {
+    z-index: 0!important;
+}
+
+body {
+    overflow: auto!important;
+}
+
+.react-date-picker {
+    width: 100%;
+}
+
+.react-date-picker__wrapper {
+    padding: 4px 10px;
+    border-radius: 100px;
+    border: 1px solid rgba(8, 49, 78, 0.2)!important;
+}
+
+.react-date-picker__wrapper:focus-within {
+    // padding: 8px 16px;
+    // border-radius: 100px;
+    border: 1px solid $primary!important;
+}
+
+input[type="number"] {
+    border: none!important;
+}
+
+
+.react-calendar__tile--active {
+    background: $primary !important;
+    color: $white !important;
+    border-radius: 10px;
+}
+
+abbr {
+      text-decoration: none!important;
+}
+
+.react-calendar__tile  {
+    // color: $secondary !important;
+}
+
+.react-calendar__navigation__label__labelText  {
+    color: $secondary !important;
+    font-weight: 500;
+    font-size: 1rem;
+}
+
+.react-calendar {
+    margin-top: 10px!important;
+    padding: 2px 4px;
+    border-radius: 10px;
+    border: 1px solid rgba(8, 49, 78, 0.2)!important;
+}
+
+.icon-tabler-calendar {
+    color: $secondary !important;
+}
+
+.react-date-picker__inputGroup__input:invalid {
+    background: transparent!important;
+
+}

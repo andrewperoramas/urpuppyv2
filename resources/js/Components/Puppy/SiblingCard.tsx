@@ -1,7 +1,7 @@
 import { Link } from '@inertiajs/react'
 import React from 'react'
 
-const SiblingCard = ({puppy} : { puppy: App.Data.PuppyData }) => {
+const SiblingCard = ({puppy} : { puppy: App.Data.PuppySiblingData }) => {
   return (
                   <div className="col-6 mb-3 pb-1">
                     <div className="charlies-siblings">

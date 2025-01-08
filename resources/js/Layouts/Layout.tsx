@@ -12,7 +12,7 @@ export default function Layout({
     navType ,
 }: PropsWithChildren<{ header?: ReactNode, headerLabel?: string, subheaderLabel?: string, navType?: string }>) {
     return (
-    <div className="overflow-auto">
+    <div >
             <AOSInit />
             <Navbarv2 type={navType}/>
             <main  >

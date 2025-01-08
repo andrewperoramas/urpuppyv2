@@ -35,7 +35,7 @@ class Puppy extends Model implements HasMedia, Sitemapable
     /* use Searchable; */
     use Sluggable;
 
-    protected $appends = ['image', 'images', 'video', 'listed_on', 'age', 'short_description', 'is_favorited_by_current_user', 'thumbnails', 'preview_images', 'formatted_price', 'published_at'];
+    protected $appends = ['patterns', 'image', 'images', 'video', 'listed_on', 'age', 'short_description', 'is_favorited_by_current_user', 'thumbnails', 'preview_images', 'formatted_price', 'published_at'];
 
     protected $hidden = ['media'];
 
@@ -231,12 +231,12 @@ class Puppy extends Model implements HasMedia, Sitemapable
                     return $item->getUrl('preview') ?? "";
                 } catch (\Spatie\MediaLibrary\Exceptions\ConversionDoesNotExist $e) {
                     // Handle the case where the conversion does not exist
-                    return []; // or handle as needed
+                    return collect([]); // or handle as needed
                 }
             });
         }
 
-        return []; // Return null if no media items found
+        return collect([]);
     }
 
     public function getThumbnailsAttribute()
@@ -342,5 +342,33 @@ class Puppy extends Model implements HasMedia, Sitemapable
     public function reports()
     {
         return $this->hasMany(Report::class);
+    }
+
+    public function siblings()
+    {
+        return $this->belongsToMany(
+            self::class,
+            'puppy_sibling',
+            'puppy_id',
+            'sibling_id'
+        );
+    }
+
+    public function getPatternsAttribute()
+    {
+        return "patterns";
+    }
+
+    public function attachSiblings($siblings)
+    {
+        $this->siblings()->syncWithoutDetaching($siblings);
+
+        foreach ($siblings as $sibling) {
+            if ($sibling instanceof self) {
+                $sibling->siblings()->syncWithoutDetaching([$this->id]);
+            } else {
+                self::find($sibling)->siblings()->syncWithoutDetaching([$this->id]);
+            }
+        }
     }
 }

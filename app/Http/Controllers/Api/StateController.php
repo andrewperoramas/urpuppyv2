@@ -19,8 +19,8 @@ class StateController extends Controller
             $states = $countryState->select('id', 'name');
 
             if ($request->filled('search')) {
-                $stateIds = State::search($request->search)->keys();
-                $states = $countryState->whereIn('id', $stateIds);
+                $searchTerm = strtolower($request->search);
+                $states = $countryState->whereRaw('LOWER(name) LIKE ?', ['%' . $searchTerm . '%']);
             }
 
             $states = $states->paginate(10);

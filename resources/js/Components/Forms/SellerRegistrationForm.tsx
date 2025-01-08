@@ -4,35 +4,69 @@ import InputLabel from '../InputLabel'
 import IconInput from '../IconInput'
 import SemiHeading from '../SemiHeading'
 import YesOrNoRadioInput from '../YesOrNoRadioInput'
-import { useForm } from '@inertiajs/react'
+import { useForm, usePage } from '@inertiajs/react'
 import Dropzone from 'react-dropzone'
 import FileUpload from '../FileUpload'
+import DateInput from '../DateInput'
+import StateCityDropdown from '../StateCityDropdown'
+import SelectInput, { Option } from '../SelectInput'
+
+
 
 const SellerRegistrationForm = () => {
 
+    const patterns = usePage().props.patterns as App.Data.PatternData[];
+    const colors = usePage().props.colors as App.Data.ColorData[];
+    const siblings = usePage().props.siblings as App.Data.SiblingData[];
+    const breeds = usePage().props.breeds as App.Data.BreedOptionData[];
+    const puppy_count = usePage().props.puppy_count as number;
+    const user = usePage().props.auth.user;
+
+
    const { data, setData, post } = useForm({
-    health_certificate: 'yes',
-    vaccinated: 'yes',
-    vet_exam: 'yes',
-    travel_ready: 'yes',
-    delivery_included: 'yes',
-    are_you_a_breeder: 'yes',
+        first_name: user.first_name,
+        last_name: user.last_name,
+        email: user.email,
+        website: null,
+        phone: '',
+        images: [],
+        videos: [],
+        has_vaccine: 'no',
+        has_health_certificate: 'no',
+        has_vet_exam: 'no',
+        are_you_a_breeder: 'no',
+        has_delivery_included: 'no',
+        has_travel_ready: 'no',
+        puppy_price: '',
+        social_fb: null,
+        social_ig: null,
+        social_tiktok: null,
+        social_x: null,
+        zip_code: '',
+        puppy_name: '',
+        puppy_gender: 'Male',
+        puppy_about: '',
+        puppy_patterns: [],
+        puppy_colors: [],
+        puppy_birth_date: '',
+        puppy_siblings: [],
+        image_upload: [],
    })
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const formData = new FormData(e.currentTarget);
+    // const formData = new FormData(e.currentTarget);
 
-    const updatedData = {
-        ...Object.fromEntries(formData.entries()),
-        image_upload: formData.getAll('files')
-    };
+    // const updatedData = {
+    //     ...Object.fromEntries(formData.entries()),
+    //     image_upload: formData.getAll('files')
+    // };
 
-    setData((previous) => ({
-        ...previous,
-        ...updatedData,
-    }));
+//     setData((previous: any) => ({
+//         ...previous,
+//         ...updatedData,
+//     }));
 
     post('/seller/store');
 };
@@ -41,40 +75,43 @@ const SellerRegistrationForm = () => {
 
 
   return (
-                <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit}>
           <div className="card border">
             <div className="card-body">
+
+                    {  !puppy_count &&
+                    <>
               <div className="contact-details border-bottom mb-4">
                 <h6 className="fs-5 mb-3 pb-1">Contact Details</h6>
                 <div className="row">
                   <div className="col-lg-4">
                     <div className="mb-4">
                      <InputLabel isRequired={true} value="First Name "/>
-                     <TextInput />
+                     <TextInput  value={data.first_name}/>
                     </div>
                   </div>
                   <div className="col-lg-4">
                     <div className="mb-4">
                       <InputLabel isRequired={true} value="Last Name"/>
-                      <TextInput />
+                     <TextInput  value={data.last_name}/>
                     </div>
                   </div>
                   <div className="col-lg-4">
                     <div className="mb-4">
                       <InputLabel isRequired={true} value="Email"/>
-                      <TextInput type="email" />
+                     <TextInput  value={data.email}/>
                     </div>
                   </div>
                   <div className="col-lg-4">
                     <div className="mb-4">
                       <InputLabel isRequired={true} value="Phone"/>
-                      <TextInput type="text" />
+                      <TextInput type="text" onChange={(e: any) => setData('phone', e.target.value)} />
                     </div>
                   </div>
                   <div className="col-lg-4">
                     <div className="mb-4">
                       <InputLabel value="Website (Optional)"/>
-                      <TextInput type="text" />
+                      <TextInput type="text" onChange={(e: any) => setData('website', e.target.value)}  />
                     </div>
                   </div>
                   <div className="col-lg-4">
@@ -82,16 +119,16 @@ const SellerRegistrationForm = () => {
                       <InputLabel value="Social Links (Optional)"/>
                       <ul className="list-unstyled d-flex align-items-center gap-6 social-icon mb-0">
                         <li>
-                            <IconInput icon="/images/svgs/icon-facebook-dark.svg" />
+                            <IconInput onChange={(e: any) => setData('social_fb', e.target.value)} icon="/images/svgs/icon-facebook-dark.svg" />
                         </li>
                         <li>
-                            <IconInput icon="/images/svgs/icon-twitter-dark.svg" />
+                            <IconInput onChange={(e: any) => setData('social_x', e.target.value)} icon="/images/svgs/icon-twitter-dark.svg" />
                         </li>
                         <li>
-                            <IconInput icon="/images/svgs/icon-tiktok-dark.svg" />
+                            <IconInput onChange={(e: any) => setData('social_tiktok', e.target.value)} icon="/images/svgs/icon-tiktok-dark.svg" />
                         </li>
                         <li>
-                            <IconInput icon="/images/svgs/icon-instagram-dark.svg" />
+                            <IconInput onChange={(e: any) => setData('social_ig', e.target.value)} icon="/images/svgs/icon-instagram-dark.svg" />
                         </li>
                       </ul>
                     </div>
@@ -100,83 +137,70 @@ const SellerRegistrationForm = () => {
               </div>
               <div className="location-details border-bottom mb-4">
                 <SemiHeading title="Location Details"/>
-                <div className="row">
-                  <div className="col-lg-4">
-                    <div className="mb-4">
-                      <InputLabel value="City" isRequired={true}/>
-                        <TextInput />
-                    </div>
-                  </div>
-                  <div className="col-lg-4">
-                    <div className="mb-4">
-                      <InputLabel value="State" isRequired={true}/>
-                        <TextInput />
-                    </div>
-                  </div>
-                  <div className="col-lg-4">
-                    <div className="mb-4">
-                      <InputLabel value="Zip Code" isRequired={true}/>
-                        <TextInput />
-                    </div>
-                  </div>
-                </div>
+                <StateCityDropdown setFormData={setData}/>
               </div>
+                    </> }
               <div className="puppy-details border-bottom mb-4">
                 <SemiHeading title="Puppy Details"/>
                 <div className="row">
                   <div className="col-lg-6">
                     <div className="mb-4">
                       <InputLabel value="Puppy Name" isRequired={true}/>
-                        <TextInput />
+                        <TextInput onChange={(e) => setData('puppy_name', e.target.value)} />
+                    </div>
+                  </div>
+                  <div className="col-lg-6">
+                    <div className="mb-4">
+                      <InputLabel value="Puppy Price" isRequired={true}/>
+                        <TextInput onChange={(e) => setData('puppy_price', e.target.value)} />
                     </div>
                   </div>
                   <div className="col-lg-6">
                     <div className="mb-4">
                       <InputLabel value="Gender" isRequired={true}/>
-                      <select className="form-select shadow-none" aria-label="Default select example">
-                        <option >Male</option>
-                        <option value="1">Female</option>
+                      <select onChange={(e) => setData('puppy_gender', e.target.value)} className="form-select shadow-none" aria-label="Default select example">
+                        <option value="Male" >Male</option>
+                        <option value="Female">Female</option>
                       </select>
+                    </div>
+                  </div>
+                  <div className="col-lg-6">
+                    <div className="mb-4">
+                      <InputLabel value="Date of Birth" isRequired={true}/>
+                      <DateInput name="puppy_birth_date" setData={setData} value={data.puppy_birth_date}  />
                     </div>
                   </div>
                   <div className="col-12">
                     <div className="mb-4">
                       <InputLabel value="About (Puppy Profile)" isRequired={true}/>
-                      <textarea className="form-control rounded-1" id="About" rows={3} placeholder=""></textarea>
+                      <textarea onChange={(e) => setData('puppy_about', e.target.value)} className="form-control rounded-1" id="About" rows={3} placeholder=""></textarea>
                     </div>
                   </div>
-                  <div className="col-lg-4">
+                  <div className="col-lg-6">
+                    <div className="mb-4">
+                      <InputLabel value="Breeds" isRequired={true}/>
+                      <SelectInput setData={setData} multiple={true} name="puppy_breeds" options={breeds} />
+                    </div>
+                  </div>
+                  <div className="col-lg-6">
                     <div className="mb-4">
                       <InputLabel value="Pattern/Coat " isRequired={true}/>
-                      <select className="form-select shadow-none" aria-label="Default select example">
-                        <option >Pattern</option>
-                        <option value="1">Pattern2</option>
-                      </select>
+                      <SelectInput setData={setData} multiple={true} name="puppy_patterns" options={patterns} />
                     </div>
                   </div>
-                  <div className="col-lg-4">
+                  <div className="col-lg-6">
                     <div className="mb-4">
-                      <InputLabel value="Date of Birth" isRequired={true}/>
-                      <input type="text" name="DateBirth" id="DateBirth" className="form-control" />
+                      <InputLabel value="Color" isRequired={true}/>
+                      <SelectInput setData={setData} multiple={true} name="puppy_colors" options={colors} />
                     </div>
                   </div>
-                  <div className="col-lg-4">
+
+                  <div className="col-lg-6">
                     <div className="mb-4">
                       <label  className="form-label d-block">
                         Siblings Of
                       </label>
-                      <select className="form-control" id="mySelect2" multiple={false}>
-                        <option value="Option1">None</option>
-                        <option value="Option2">Max</option>
-                        <option value="Option3">Charlie</option>
-                        <option value="Option4">Lucy</option>
-                        <option value="Option5">Daisy</option>
-                        <option value="Option6">Luna</option>
-                        <option value="Option7">Bella</option>
-                        <option value="Option8">Bailey</option>
-                        <option value="Option9">Cooper</option>
-                        <option value="Option10">Buddy</option>
-                      </select>
+                     <SelectInput setData={setData} multiple={true} name="puppy_siblings" options={siblings} />
                     </div>
                   </div>
                 </div>
@@ -185,31 +209,33 @@ const SellerRegistrationForm = () => {
                 <SemiHeading title="Why I Stand Out"/>
                 <div className="row">
                   <div className="col-md-6 col-lg-4 col-xxl">
-                    <YesOrNoRadioInput title="Health Certificate" value={data.health_certificate} onChange={(value) => setData('health_certificate', value)} />
+                    <YesOrNoRadioInput title="Health Certificate" value={data.has_health_certificate} name="has_health_certificate" setData={setData}  />
                   </div>
                   <div className="col-md-6 col-lg-4 col-xxl">
                     <YesOrNoRadioInput title="Vaccinated"
-value={data.vaccinated} onChange={(value) => setData('vaccinated', value)}
+value={data.has_vaccine} name="has_vaccine" setData={setData}
                                 />
                   </div>
                   <div className="col-md-6 col-lg-4 col-xxl">
                     <YesOrNoRadioInput title="Vet Exam"
-value={data.vet_exam} onChange={(value) => setData('vet_exam', value)}
+value={data.has_vet_exam} name="has_vet_exam" setData={setData}
                                 />
                   </div>
                   <div className="col-md-6 col-lg-4 col-xxl">
                     <YesOrNoRadioInput title="Travel Ready"
-value={data.travel_ready} onChange={(value) => setData('travel_ready', value)}
+value={data.has_travel_ready} name="has_travel_ready" setData={setData}
                                 />
                   </div>
                   <div className="col-md-6 col-lg-4 col-xxl">
                     <YesOrNoRadioInput title="Delivery Included"
-value={data.delivery_included} onChange={(value) => setData('delivery_included', value)}
+                                    name="has_delivery_included"
+value={data.has_delivery_included} setData={setData}
                                 />
                   </div>
                   <div className="col-md-6 col-lg-4 col-xxl">
                     <YesOrNoRadioInput title="Are You a Breeder"
-value={data.are_you_a_breeder} onChange={(value) => setData('are_you_a_breeder', value)}
+                           name="are_you_a_breeder"
+value={data.are_you_a_breeder}  setData={setData}
                                 />
                   </div>
                 </div>
@@ -218,12 +244,17 @@ value={data.are_you_a_breeder} onChange={(value) => setData('are_you_a_breeder',
                 <div className="row">
                   <div className="col-lg-6 mb-4 mb-lg-0">
                     <h6 className="fs-5 mb-3 pb-1">Upload a Image</h6>
-                    <FileUpload name="files" required={true} />
+                    <FileUpload
+                             setData={(name, files: any) => setData('images', files)}
+                                    name="images" required={true} />
 
                   </div>
                   <div className="col-lg-6">
                     <h6 className="fs-5 mb-3 pb-1">Upload a Video</h6>
-                    <FileUpload name="video" required={true} />
+                    <FileUpload
+                                    name="videos"
+                             setData={(name, files: any) => setData('videos', files)}
+                                     required={true} />
                   </div>
                 </div>
               </div>

@@ -56,6 +56,10 @@ export default function Register({puppy}: {
                         onChange={(e) => setData('first_name', e.target.value)}
                         required
                     />
+                                            {
+                        errors.first_name &&
+                    <InputError message={errors.first_name} />
+                                            }
 
                     </div>
                   </div>
@@ -72,6 +76,10 @@ export default function Register({puppy}: {
                         onChange={(e) => setData('last_name', e.target.value)}
                         required
                     />
+                                            {
+                        errors.last_name &&
+                    <InputError message={errors.last_name} />
+                                            }
                     </div>
                   </div>
                 </div>
@@ -87,6 +95,11 @@ export default function Register({puppy}: {
                         onChange={(e) => setData('email', e.target.value)}
                         required
                     />
+
+                                            {
+                        errors.email &&
+                    <InputError message={errors.email} />
+                                            }
                 </div>
                 <div className="mb-4">
 <InputLabel htmlFor="email_confirmation" value="Confirm Email" />
@@ -117,6 +130,11 @@ export default function Register({puppy}: {
                         onChange={(e) => setData('password', e.target.value)}
                         required
                     />
+                                            {
+                        errors.password &&
+                    <InputError message={errors.password} />
+                                            }
+
                     </div>
                   </div>
                   <div className="col-lg-6">

@@ -19,15 +19,15 @@ export default function BannerLayout({
       //   window.scrollTo(0, 0);
     // }, [url]);
     return (
-    <div className="overflow-auto">
+    < >
             <AOSInit />
             <Navbarv2 />
             <Banner header={headerLabel} subheader={subheaderLabel}/>
-            <main >
+            <main className="z-10">
             {children}
             </main>
             <Footer/>
 
-</div>)
+</>)
 }
 

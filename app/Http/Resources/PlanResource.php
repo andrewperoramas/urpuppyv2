@@ -35,16 +35,16 @@ class PlanResource extends JsonResource
                     'count' => $this->video_per_listing,
                 ],
             ],
-            'special_features' => [
-                [
-                    'name' => 'Featured post',
-                    'active' => $this->is_featured,
-                ],
-                [
-                    'name' => 'Breeders directory',
-                    'active' => $this->is_breeder,
-                ],
-            ],
+            /* 'special_features' => [ */
+            /*     [ */
+            /*         'name' => 'Featured post', */
+            /*         'active' => $this->is_featured, */
+            /*     ], */
+            /*     [ */
+            /*         'name' => 'Breeders directory', */
+            /*         'active' => $this->is_breeder, */
+            /*     ], */
+            /* ], */
         ];
     }
 }

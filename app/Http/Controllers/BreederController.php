@@ -40,7 +40,9 @@ class BreederController extends Controller
 
         $breeder = User::with([
             'breeds:name',
-            'comments',
+            'comments' => function ($query) {
+                $query->orderBy('created_at', 'desc');
+            },
             'comments.reviewer',
             'comments.reviewer.media',
             'media',

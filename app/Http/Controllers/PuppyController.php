@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Data\BreedData;
+use App\Data\PuppyCardData;
 use App\Data\PuppyData;
+use App\Data\PuppySiblingData;
 use App\Data\StateData;
 use App\Filter\FilterAge;
 use App\Filter\FilterBreeds;
@@ -38,7 +40,7 @@ class PuppyController extends Controller
         $puppies = QueryBuilder::for(Puppy::class)
             ->select([
                 'id', 'user_id', 'name', 'price', 'birth_date', 'slug',
-                'is_ready_to_travel', 'gender', 'created_at',
+                'gender', 'created_at',
                 'view_count', 'is_featured', 'description',
             ])
             ->with([
@@ -112,6 +114,7 @@ class PuppyController extends Controller
             'breeder.state',
             'puppy_colors',
             'puppy_traits',
+            'siblings',
             'puppy_patterns',
             'breeder.city',
             'comments' => function ($query) {
@@ -148,18 +151,18 @@ class PuppyController extends Controller
                 ->get();
         }
 
-            $siblings = Puppy::with('breeds', 'media', 'breeder')
-                ->where('id', '!=', $puppy->id)
-                ->inRandomOrder()
-                ->limit(4)
-                ->get();
+/*             $siblings = Puppy::with('breeds', 'media', 'breeder') */
+/*                 ->where('id', '!=', $puppy->id) */
+/*                 ->inRandomOrder() */
+/*                 ->limit(4) */
+/*                 ->get(); */
 
 
         return inertia()->render('Puppy/Show', [
             'featured_puppies' => $featuredPuppies,
-            'siblings'  => PuppyData::collect($siblings),
+            'siblings'  => PuppySiblingData::collect($puppy->siblings()->with('media')->get()),
             'featured_breeds' => $featured_breeds,
-            'related_puppies' => PuppyData::collect(Puppy::with('breeds', 'media', 'breeder')->where('id', '!=', $puppy->id)->inRandomOrder()->limit(4)->get()),
+            'related_puppies' => PuppyCardData::collect(Puppy::with('breeds', 'media', 'breeder')->where('id', '!=', $puppy->id)->inRandomOrder()->limit(4)->get()),
             'puppy' => PuppyData::from($puppy),
         ]);
 

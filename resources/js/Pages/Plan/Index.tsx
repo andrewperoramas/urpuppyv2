@@ -9,6 +9,9 @@ import React from 'react'
 const Index = ({plans} : {
     plans: App.Data.PlanData[]
 }) => {
+
+
+
   return (
   <Layout>
             <Hero title="Join the Pack" bgImage="/images/subscription-plans/subscription-plans-bg.jpg" description="Exclusive Subscription Plans for Pet Lovers. "/>

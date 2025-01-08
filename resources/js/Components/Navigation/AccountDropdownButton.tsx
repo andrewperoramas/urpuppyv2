@@ -26,10 +26,13 @@ const AccountDropdownButton = ({user} : { user: App.Data.UserData }) => {
                   </p>
                 </div>
               </div>
-              <li><a className="dropdown-item rounded py-2" href="#">Settings</a></li>
-              <li><a className="dropdown-item rounded py-2" href="#">My Subscriptions</a></li>
-              <li><a className="dropdown-item rounded py-2" href="#">Saved Search</a></li>
-              <li><a className="dropdown-item rounded py-2" href="#">Change Password </a></li>
+              <li><Link prefetch className="dropdown-item rounded py-2" href="/profile">Settings</Link></li>
+              <li><Link className="dropdown-item rounded py-2" href="/profile" data={{
+                    tab: 'My Subscription'
+                }}>My Subscriptions</Link></li>
+              <li><Link className="dropdown-item rounded py-2" href="/profile" data={{
+                    tab: 'Saved Search'
+                }} >Saved Search</Link></li>
               <div className="mt-3">
                                                                         <Link
                                                                             method="post"

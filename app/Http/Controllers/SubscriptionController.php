@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Subscription;
 use Carbon\Carbon;
 use Cknow\Money\Money;
 use Illuminate\Http\Request;
@@ -52,5 +53,10 @@ class SubscriptionController extends Controller
     public function portal(Request $request)
     {
         return Inertia::location($request->user()->redirectToBillingPortal(route('subscription.index')));
+    }
+
+    public function destroy()
+    {
+        auth()->user()->getActiveSubscriptions()->first()->cancel();
     }
 }

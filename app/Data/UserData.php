@@ -17,9 +17,13 @@ class UserData extends Data
 
     public function __construct(
         public string $full_name,
+        public string $first_name,
+        public string $last_name,
         public string $avatar,
         public string $slug,
         public string $email,
+        public CityData $city,
+        public StateData $state,
         public string $address,
         public ?string $email_verified_at,
         public string $member_since,

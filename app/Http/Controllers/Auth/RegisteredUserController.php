@@ -40,7 +40,7 @@ class RegisteredUserController extends Controller
             'state_id' => '',
             'city_id' => '',
             /* 'avatar' => 'required', */
-            'email' => 'required|string|lowercase|email|max:255|unique:' . User::class,
+            'email' => 'confirmed|required|string|lowercase|email|max:255|unique:' . User::class,
             'password' => ['required', 'confirmed', Password::defaults()],
             /* 'captcha' => 'required|captcha' */
         ]);
@@ -57,9 +57,9 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        if ($user->hasMedia('avatars')) {
-            $user->getFirstMedia('avatars')->delete();
-        }
+        /* if ($user->hasMedia('avatars')) { */
+        /*     $user->getFirstMedia('avatars')->delete(); */
+        /* } */
 
 /*         $user->addMedia($request->file('avatar')) */
 /*             ->toMediaCollection('avatars'); */

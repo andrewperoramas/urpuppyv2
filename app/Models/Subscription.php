@@ -20,4 +20,9 @@ class Subscription extends CashierSubscription
     {
         return $this->trial_ends_at ? Carbon::parse($this->trial_ends_at)->diffForHumans() : null;
     }
+
+    public function cancelSubscription()
+    {
+        return $this->cancel();
+    }
 }

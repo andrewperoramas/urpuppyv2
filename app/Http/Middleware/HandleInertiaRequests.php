@@ -42,7 +42,10 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $request->user(),
             ],
-            'price_filter_range' => [$min, $max]
+            'price_filter_range' => [$min, $max],
+            'csrf_token' => csrf_token(),
+
+
             /* 'ziggy' => fn () => [ */
             /*     ...(new Ziggy)->toArray(), */
             /*     'location' => $request->url(), */

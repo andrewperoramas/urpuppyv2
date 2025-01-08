@@ -23,7 +23,7 @@ const TopPicks = ({puppy}: { puppy: App.Data.PuppyData }) => {
             <div className="top-picks-details ms-xl-8" data-aos="fade-left" data-aos-delay="200" data-aos-duration="1000">
               <div className="d-flex align-items-start justify-content-between">
                 <div>
-                  <p className="mb-1 text-uppercase fw-medium text-muted">{puppy.breeds[0].name}</p>
+                  <p className="mb-1 text-uppercase fw-medium text-muted">{puppy.breeds[0]?.name}</p>
                   <h2 className="fs-10">{puppy.name}</h2>
                 </div>
                 <div className="d-flex align-items-center gap-6">

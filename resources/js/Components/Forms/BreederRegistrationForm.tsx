@@ -17,6 +17,8 @@ const BreederRegistrationForm = () => {
     travel_ready: 'yes',
     delivery_included: 'yes',
     are_you_a_breeder: 'yes',
+    images: [],
+    videos: []
    })
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -89,19 +91,19 @@ const BreederRegistrationForm = () => {
                       <InputLabel value="Social Links (Optional)"/>
                       <ul className="list-unstyled d-flex align-items-center gap-6 social-icon mb-0">
                         <li>
-                            <IconInput icon="/images/svgs/icon-facebook-dark.svg" />
+                            <IconInput onChange={() => {}} icon="/images/svgs/icon-facebook-dark.svg" />
                         </li>
                         <li>
-                            <IconInput icon="/images/svgs/icon-twitter-dark.svg" />
+                            <IconInput  onChange={() => {}} icon="/images/svgs/icon-twitter-dark.svg" />
                         </li>
                         <li>
-                            <IconInput icon="/images/svgs/icon-tiktok-dark.svg" />
+                            <IconInput  onChange={() => {}} icon="/images/svgs/icon-tiktok-dark.svg" />
                         </li>
                         <li>
-                            <IconInput icon="/images/svgs/icon-instagram-dark.svg" />
+                            <IconInput  onChange={() => {}} icon="/images/svgs/icon-instagram-dark.svg" />
                         </li>
                         <li>
-                            <IconInput icon="/images/svgs/icon-globe-dark.svg" />
+                            <IconInput  onChange={() => {}} icon="/images/svgs/icon-globe-dark.svg" />
                         </li>
                       </ul>
                     </div>
@@ -164,7 +166,6 @@ const BreederRegistrationForm = () => {
               <div className="why-stand-out border-bottom mb-4">
                 <div className="row">
                   <div className="col-md-6 col-lg-4 col-xxl">
-                    <YesOrNoRadioInput title="USDA Registered" value={data.health_certificate} onChange={(value) => setData('health_certificate', value)} />
                   </div>
                 </div>
               </div>
@@ -172,12 +173,19 @@ const BreederRegistrationForm = () => {
                 <div className="row">
                   <div className="col-lg-6 mb-4 mb-lg-0">
                     <h6 className="fs-5 mb-3 pb-1">Upload a Image (Max - 7)</h6>
-                    <FileUpload name="files" required={true} />
+
+
+                    <FileUpload
+                     setData={(name, files: any) => setData('images', files)}
+                    name="files" required={true} />
+
 
                   </div>
                   <div className="col-lg-6">
                     <h6 className="fs-5 mb-3 pb-1">Upload a Video (Max - 1)</h6>
-                    <FileUpload name="video" required={true} />
+                    <FileUpload
+                             setData={(name, files: any) => setData('videos', files)}
+                                    name="video" required={true} />
                   </div>
                 </div>
               </div>

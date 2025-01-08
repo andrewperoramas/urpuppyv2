@@ -23,7 +23,7 @@ const Breeder = ({plan} : {
                   <div className="card mb-lg-0 h-100">
                     <div className="card-body py-lg-7 d-flex flex-column justify-content-between h-100">
                       <div>
-                        <img src={plan.logo} alt="" />
+                        <img src={plan.logo ?? ''} alt="" />
                         <h4 className="fs-8 mt-6">{plan.name}</h4>
                         <p>Designed to meet the needs of all dog breeders, this plan gives you everything you need to succeed on Urpuppy.com</p>
                       </div>

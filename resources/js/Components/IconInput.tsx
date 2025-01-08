@@ -1,6 +1,6 @@
 import React from 'react'
 
-const IconInput = ({icon} : {icon: string}) => {
+const IconInput = ({icon, onChange} : {icon: string, onChange: any}) => {
   return (
   <div className="dropdown">
     <button type="button"
@@ -10,7 +10,7 @@ const IconInput = ({icon} : {icon: string}) => {
     </button>
     <ul className="dropdown-menu dropdown-menu-end social-icon px-6 shadow-sm"
                     style={{minWidth: "max-content"}}>
-      <input type="text" name="ContactPerson" id="ContactPerson" className="form-control" />
+      <input onChange={onChange} type="text" name="ContactPerson" id="ContactPerson" className="form-control" />
     </ul>
   </div>
   )

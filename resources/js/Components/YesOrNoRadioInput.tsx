@@ -3,12 +3,16 @@ import { useForm } from '@inertiajs/react'
 
 interface YesOrNoRadioInputProps {
   title: string
-  name?: string  // Form field name
-  value: string // Current value from form
-  onChange: (value: string) => void  // Handle change
+  name: string  // Form field name (required for useForm)
+  value: string // Current value from form (useForm data binding)
+  setData: (name: string, value: string) => void  // useForm's setData function
 }
 
-const YesOrNoRadioInput = ({ title, name, value, onChange }: YesOrNoRadioInputProps) => {
+const YesOrNoRadioInput = ({ title, name, value, setData }: YesOrNoRadioInputProps) => {
+  const handleChange = (newValue: string) => {
+    setData(name, newValue) // Update form state
+  }
+
   return (
     <div className="card border round">
       <div className="card-body p-3">
@@ -21,9 +25,14 @@ const YesOrNoRadioInput = ({ title, name, value, onChange }: YesOrNoRadioInputPr
               name={name}
               value="yes"
               checked={value === 'yes'}
-              onChange={(e) => onChange(e.target.value)}
+              onChange={() => handleChange('yes')}
             />
-            <label className="form-check-label fs-2">Yes</label>
+            <label
+              onClick={() => handleChange('yes')}
+              className="form-check-label fs-2"
+            >
+              Yes
+            </label>
           </div>
           <div className="form-check form-check-inline mb-0">
             <input
@@ -32,9 +41,14 @@ const YesOrNoRadioInput = ({ title, name, value, onChange }: YesOrNoRadioInputPr
               name={name}
               value="no"
               checked={value === 'no'}
-              onChange={(e) => onChange(e.target.value)}
+              onChange={() => handleChange('no')}
             />
-            <label className="form-check-label fs-2">No</label>
+            <label
+              onClick={() => handleChange('no')}
+              className="form-check-label fs-2"
+            >
+              No
+            </label>
           </div>
         </div>
       </div>
@@ -42,5 +56,5 @@ const YesOrNoRadioInput = ({ title, name, value, onChange }: YesOrNoRadioInputPr
   )
 }
 
-
 export default YesOrNoRadioInput
+

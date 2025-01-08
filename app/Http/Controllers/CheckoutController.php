@@ -4,12 +4,66 @@ namespace App\Http\Controllers;
 
 use App\Models\Plan;
 use Illuminate\Http\Request;
+use Stripe\Stripe;
 
 class CheckoutController extends Controller
 {
-    public function index(Request $request)
+    public function __invoke()
+    {
+        dd('adi');
+    }
+
+    public function payment_methods(Request $request)
 {
-    $plan = Plan::find($request->get('plan_id'));
+
+/*         return inertia()->render('Subscription/PaymentMethod', [ */
+/*             'payment_methods' => '', */
+/*         ]); */
+/*         dd($request->user()->paymentMethods()); */
+    try {
+        /* Stripe::setApiKey(env('STRIPE_SECRET')); */
+
+        /* dd('adi'); */
+        $user = $request->user();
+            /* dd($user); */
+
+        $payment_methods = $user->paymentMethods();
+
+        return inertia()->render('Subscription/PaymentMethod', [
+            'payment_methods' => $payment_methods,
+        ]);
+    } catch (\Exception $e) {
+        return inertia()->render('Subscription/PaymentMethod', [
+            'error' => $e->getMessage(),
+        ]);
+    }
+}
+
+    public function complete(Request $request)
+    {
+        $plan = Plan::find($request->plan_id);
+
+        if (! $plan) {
+            return response()->json([
+                'message' => 'Plan not found',
+            ]);
+        }
+
+        /* $subscription = $request->user()->newSubscription('standard', $plan->stripe_plan_id); */
+
+        /* if ($plan->trial_days > 0) { */
+        /*     $subscription = $subscription->trialDays($plan->trial_days); */
+        /* } */
+
+       $request->user()->newSubscription('standard', $plan->stripe_plan_id)->create($request->paymentMethod);
+
+        return inertia()->render('Checkout/Success');
+    }
+
+
+    public function index(int $plan_id, Request $request)
+    {
+    $plan = Plan::find($plan_id);
 
     if (! $plan) {
         return response()->json([
@@ -17,12 +71,10 @@ class CheckoutController extends Controller
         ]);
     }
 
-    $subscription = $request->user()->newSubscription('standard', $plan->stripe_plan_id);
-
-    if ($plan->trial_days > 0) {
-        $subscription = $subscription->trialDays($plan->trial_days);
-    }
-        /* dd($plan->type); */
+    return inertia()->render('Subscription/Checkout', [
+            'plan_id' => $plan->id,
+            'intent' => auth()->user()->createSetupIntent()
+    ]);
 
     return $subscription->checkout([
         'success_url' => route('subscription.success'),
@@ -46,6 +98,6 @@ class CheckoutController extends Controller
     {
         return inertia()->render('Checkout/Success', [
 
-        ])->title('Success');
+        ]);
     }
 }

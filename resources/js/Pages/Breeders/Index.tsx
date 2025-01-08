@@ -26,9 +26,9 @@ const Index = ({breeders} : {
         <Layout>
 
             <BannerSlider slidesPerView={1} children={[
-                <SmallBannerWithContent />,
-                <SmallBannerWithContent />,
-                <SmallBannerWithContent />
+                <SmallBannerWithContent key={1} />,
+                <SmallBannerWithContent key={2} />,
+                <SmallBannerWithContent key={3} />
             ]} />
 
                 <section className="find-ur-breeds bg-extralight position-relative z-1 py-7 py-md-5 py-xl-9">

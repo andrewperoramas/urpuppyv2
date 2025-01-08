@@ -67,6 +67,7 @@ $spacers: (
   10: 80px,
   11: 145px,
   12: 215px,
+  13: 20px,
 ) !default;
 
 // Font Sizes
@@ -208,7 +209,7 @@ $form-check-label-color:                  $dark;
 $breadcrumb-font-size:              14px;
 $breadcrumb-active-color:           rgba(8, 49, 78, 0.6);
 $breadcrumb-item-padding-x:         12px;
-$breadcrumb-divider: url("../../images/svgs/icon-chev-right.svg");
+$breadcrumb-divider: url("/images/svgs/icon-chev-right.svg");
 
 
 $accordion-color:                         $dark;
@@ -223,5 +224,5 @@ $accordion-button-active-bg:              $white;
 $accordion-button-active-color:           $dark;
 $accordion-button-focus-border-color:     inherit;
 $accordion-button-focus-box-shadow:       inherit;
-$accordion-button-icon:         url("../../images/svgs/icon-chev-down.svg");
-$accordion-button-active-icon:  url("../../images/svgs/icon-chev-down.svg");
+$accordion-button-icon:         url("/images/svgs/icon-chev-down.svg");
+$accordion-button-active-icon:  url("/images/svgs/icon-chev-down.svg");

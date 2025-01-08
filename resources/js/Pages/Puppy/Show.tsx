@@ -3,6 +3,10 @@ import ImageSlider from '@/Components/ImageSlider';
 import PuppyCard from '@/Components/Puppy/Card';
 import Layout from '@/Layouts/Layout';
 import SiblingCard from '@/Components/Puppy/SiblingCard';
+import SocialMediaButtons from '@/Components/SocialMediaButtons';
+import FavoriteButton from '@/Components/FavoriteButton';
+import ShareButton from '@/Components/ShareButton';
+import SellerCard from '@/Components/SellerCard';
 
 const Show = ({ related_puppies, puppy, siblings }: {
     related_puppies: App.Data.PuppyData[]
@@ -46,7 +50,7 @@ const Show = ({ related_puppies, puppy, siblings }: {
         <div className="row justify-content-center">
           <div className="col-xl-10">
             <h1 className="text-white text-center fs-11 mb-1" data-aos="fade-up" data-aos-delay="100"
-              data-aos-duration="1000">{puppy.breeds[0].name}</h1>
+              data-aos-duration="1000">{puppy?.breeds[0]?.name}</h1>
           </div>
         </div>
       </div>
@@ -74,20 +78,55 @@ const Show = ({ related_puppies, puppy, siblings }: {
                       <div className="d-flex align-items-start justify-content-between mb-4">
                         <h2 className="fs-10 mb-0">{puppy.name}</h2>
                         <div className="d-flex align-items-center gap-2">
-                          <a href="my-favourite-puppies.html" data-bs-toggle="tooltip" data-bs-title="Add To Favourite"
-                            className="bg-white border d-flex align-items-center justify-content-center round-40 rounded-circle">
-                            <img src="/images/svgs/icon-heart.svg" alt="" />
-                          </a>
-                          <a href="#" data-bs-toggle="tooltip" data-bs-title="Print"
+
+                            <FavoriteButton puppyId={puppy.id} isFavorite={puppy.is_favorite} />
+
+                          <a onClick={window.print} href="#" data-bs-toggle="tooltip" data-bs-title="Print"
                             className="bg-white border d-flex align-items-center justify-content-center round-40 rounded-circle">
                             <img src="/images/svgs/icon-print.svg" alt="" />
                           </a>
-                          <a href="#" data-bs-toggle="tooltip" data-bs-title="Share"
-                            className="bg-white border d-flex align-items-center justify-content-center round-40 rounded-circle">
-                            <img src="/images/svgs/icon-share.svg" alt="" />
-                          </a>
+
+                                                                                <ShareButton
+                                                                xUrl="#"
+                                                                fbUrl="#"
+                                                            />
+
                         </div>
                       </div>
+                                                                          <div className="row mb-2">
+                        <div className="col-6 col-md-4 mb-6 border-end">
+                          <div className="d-flex align-items-center gap-2">
+                            <img src="../images/svgs/icon-time.svg" alt="" width="18" height="18" />
+                            <p className="mb-0 fs-2">{puppy.published_at}</p>
+                          </div>
+                        </div>
+                        <div className="col-6 col-md-4 mb-6 border-end">
+                          <div className="d-flex align-items-center gap-2">
+                            <img src="../images/svgs/icon-map-pin.svg" alt="" width="18" height="18" />
+                            <p className="mb-0 fs-2">{puppy.breeder.address}</p>
+                          </div>
+                        </div>
+                        <div className="col-6 col-md-4 mb-6 border-end">
+                          <div className="d-flex align-items-center gap-2">
+                            <img src="../images/svgs/icon-calendar.svg" alt="" width="18" height="18" />
+                            <p className="mb-0 fs-2">{puppy.age}</p>
+                          </div>
+                        </div>
+                        <div className="col-6 col-md-4 mb-6 border-end">
+                          <div className="d-flex align-items-center gap-2">
+                            <img src="../images/svgs/icon-female.svg" alt="" width="18" height="18" />
+                            <p className="mb-0 fs-2">{puppy.gender}</p>
+                          </div>
+                        </div>
+                        <div className="col-6 col-md-4 mb-6">
+                          <div className="d-flex align-items-center gap-2">
+                            <img src="../images/svgs/icon-eye.svg" alt="" width="18" height="18" />
+                            <p className="mb-0 fs-2">{puppy.view_count} Views</p>
+                          </div>
+                        </div>
+                        </div>
+
+{/*
                       <div className="d-flex align-items-center flex-wrap mb-2">
                         <div className="d-flex align-items-center gap-2 mb-3 border-end pe-6">
                           <img src="/images/svgs/icon-time.svg" alt="" width="20" height="20" />
@@ -110,23 +149,24 @@ const Show = ({ related_puppies, puppy, siblings }: {
                           <p className="mb-0">{puppy.view_count} Views</p>
                         </div>
                       </div>
+*/}
+
+
                       <p className="mb-1 fs-2 fw-medium">Our price</p>
                       <h2 className="mb-4">{puppy.formatted_price}</h2>
                       <div className="hstack gap-6 mb-3">
                         <p className="mb-0 fw-medium">Pattern:</p>
-                        <p className="mb-0">Solid Black, Ticked</p>
+                        <p className="mb-0">{puppy.patterns}</p>
                       </div>
                       <div className="colors hstack gap-6 mb-4 pb-4 border-bottom">
                         <p className="mb-0 fw-medium">Colors:</p>
                         <div className="hstack gap-6">
-                          <div className="hstack gap-1">
-                            <span className="flex-shrink-0 d-block round-20 rounded-circle bg-dark"></span>
-                            <p className="mb-0">Black</p>
-                          </div>
-                          <div className="hstack gap-1">
-                            <span className="flex-shrink-0 d-block round-20 rounded-circle bg-primary"></span>
-                            <p className="mb-0">Orange</p>
-                          </div>
+                            {puppy.puppy_colors && puppy.puppy_colors.map((color: App.Data.PuppyColorData) => (
+                              <div className="hstack gap-1">
+                                <span className="flex-shrink-0 d-block round-20 rounded-circle" style={{background: color.color}}></span>
+                                <p className="mb-0">{color.name}</p>
+                              </div>
+                            ))}
                         </div>
                       </div>
                       <h3 className="mb-3 fs-8">About Charlie</h3>
@@ -177,78 +217,13 @@ const Show = ({ related_puppies, puppy, siblings }: {
             </div>
           </div>
           <div className="col-lg-4 col-xl-3">
-            <div className="card shadow">
-              <div className="card-body">
-                <div className="text-center position-relative mb-6 mx-auto d-table">
-                  <div className="round-96 object-fit-cover rounded-circle position-relative overflow-hidden">
-                    <img src={puppy.breeder.avatar} alt=""
-                      className="object-fit-cover w-100 h-100" />
-                  </div>
-                  <span
-                    className="position-absolute bottom-0 end-0 d-block round-24 rounded-circle bg-primary d-flex align-items-center justify-content-center">
-                    <img src="/images/svgs/icon-paws.svg" alt="" width="16" height="16" />
-                  </span>
-                </div>
-                <h5 className="fs-5 text-center">{puppy.breeder.full_name}</h5>
-                <div className="d-flex align-items-center justify-content-center gap-2 mb-1">
-                  <img src="/images/svgs/icon-map-pin.svg" alt="" width="20" height="20" />
-                  <p className="mb-0 fs-2">{puppy.breeder.address}</p>
-                </div>
-                <div className="d-flex align-items-center justify-content-center gap-2 mb-4">
-                  <img src="/images/svgs/icon-user-dark.svg" alt="" width="14" height="14" />
-                  <p className="mb-0 fs-2">Member since: {puppy.breeder.member_since}</p>
-                </div>
-                <a className="btn btn-outline-extralight btn-white text-dark hstack justify-content-center gap-2 mb-6"
-                  href="login.html">
-                  <img src="/images/svgs/icon-mail-dark.svg" alt="" />
-                  Show Email Address
-                </a>
-                <a className="btn btn-outline-extralight btn-white text-dark hstack justify-content-center gap-2 mb-4"
-                  href="#">
-                  <img src="/images/svgs/icon-call.svg" alt="" />
-                  Show Phone Number
-                </a>
-                <p className="text-center">Follow me:</p>
-                <ul className="list-unstyled d-flex align-items-center justify-content-center gap-6 social-icon mb-0">
-                  <li>
-                    <a href="#" data-bs-toggle="tooltip" data-bs-title="Facebook"
-                      className="border d-flex align-items-center justify-content-center round-36 rounded-circle">
-                      <img src="/images/svgs/icon-facebook-dark.svg" alt="" />
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" data-bs-toggle="tooltip" data-bs-title="Twitter"
-                      className="border d-flex align-items-center justify-content-center round-36 rounded-circle">
-                      <img src="/images/svgs/icon-twitter-dark.svg" alt=""/>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" data-bs-toggle="tooltip" data-bs-title="Tiktok"
-                      className="border d-flex align-items-center justify-content-center round-36 rounded-circle">
-                      <img src="/images/svgs/icon-tiktok-dark.svg" alt="" />
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" data-bs-toggle="tooltip" data-bs-title="Instagram"
-                      className="border d-flex align-items-center justify-content-center round-36 rounded-circle">
-                      <img src="/images/svgs/icon-instagram-dark.svg" alt="" />
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" data-bs-toggle="tooltip" data-bs-title="Website"
-                      className="border d-flex align-items-center justify-content-center round-36 rounded-circle">
-                      <img src="/images/svgs/icon-globe-dark.svg" alt="" />
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
+            <SellerCard seller={puppy.breeder} />
             <div className="card border">
               <div className="card-body">
                 <h5 className="fs-5 mb-3 pb-1">Charlie’s Siblings</h5>
                 <div className="row">
                                             {
-                                                siblings.map((sibling: App.Data.PuppyData) => (
+                                                siblings.map((sibling: App.Data.PuppySiblingData) => (
                                                 <SiblingCard key={sibling.slug} puppy={sibling} />
 
                                                 ))
@@ -264,7 +239,7 @@ const Show = ({ related_puppies, puppy, siblings }: {
     <section className="bringing-through-puppies bg-extralight py-7 py-md-5 py-xl-9">
       <div className="container">
         <div className="d-flex align-items-center justify-content-between mb-4 mb-lg-8">
-          <h2 className="mb-0" data-aos="fade-right" data-aos-delay="100" data-aos-duration="1000">Other {puppy.breeds[0].name } List</h2>
+          <h2 className="mb-0" data-aos="fade-right" data-aos-delay="100" data-aos-duration="1000">Other {puppy?.breeds[0]?.name } List</h2>
         </div>
 
         <div className="row">

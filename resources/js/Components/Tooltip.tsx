@@ -1,17 +1,35 @@
-import { Tooltip as BsTooltip } from "bootstrap"
-import React, { useEffect, useRef } from "react"
+import { Tooltip as ReactTooltip } from "react-tooltip";
 
-export const Tooltip = (p: {children: JSX.Element, text: string}) => {
-    const childRef = useRef(undefined as unknown as Element)
-
-    useEffect(() => {
-        const t = new BsTooltip(childRef.current, {
-            title: p.text,
-            placement: "top",
-            trigger: "hover"
-        })
-        return () => t.dispose()
-    }, [p.text])
-
-    return React.cloneElement(p.children, { ref: childRef })
+// Define the props interface for TypeScript
+interface TooltipProps {
+  id: string;
+  tooltipMessage: string;
+  content: React.ReactNode;
 }
+
+const Tooltip: React.FC<TooltipProps> = ({ id, tooltipMessage, content }) => {
+  return (
+    <div className="example-container">
+      {/* The tooltip will be attached automatically using these attributes */}
+      <div data-tooltip-id={id} data-tooltip-html={tooltipMessage}>
+        {content}
+      </div>
+
+      {/* Tooltip is initialized globally and will be automatically rendered */}
+      <ReactTooltip
+        clickable={true}
+        id={id}
+        place="top" // This ensures the tooltip shows above the element
+        className="example-rounded transition-opacity duration-300 ease-in-out"
+        style={{
+         background: 'var(--bs-primary)',
+         borderRadius: "6px",
+        padding: "5px"
+        }}
+      />
+    </div>
+  );
+};
+
+export default Tooltip;
+

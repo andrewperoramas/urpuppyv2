@@ -69,7 +69,7 @@ const Index = ({breeds, letter_param = 'A'} : {
 <li className="nav-item" role="presentation">
                                         <Link
                                             preserveState
-
+                                            preserveScroll
                                             prefetch
                                             cacheFor="1m"
 

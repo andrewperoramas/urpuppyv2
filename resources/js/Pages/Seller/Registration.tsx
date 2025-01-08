@@ -4,7 +4,7 @@ import Heading from '@/Components/Heading'
 import Layout from '@/Layouts/Layout'
 import React from 'react'
 
-const Registration = () => {
+const Registration = ({puppy_count}: {puppy_count: number}) => {
   return (
   <Layout navType="secondary">
               <div className="page-wrapper position-relative overflow-hidden">
@@ -14,8 +14,11 @@ const Registration = () => {
                         <Breadcrumb />
                         <div className="space-y-4">
 
-                            <Heading title="Seller Registration" description="Create your seller profile to connect with buyers and showcase your listings."/>
-
+                        {!puppy_count ?
+                        <Heading title="Seller Registration" description="Create your seller profile to connect with buyers and showcase your listings."/>
+                        :
+                        <Heading title="List your puppy" description="Create a new listing for your puppy." />
+}
                         <SellerRegistrationForm />
 </div>
 

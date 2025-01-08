@@ -108,6 +108,7 @@ class Plan extends Model implements HasMedia, Sortable
             'amount' => $plan->money,
             'currency' => $plan->currency_code,
             'interval' => $plan->interval,
+            'interval_count' => $plan->interval_count,
             'product' => [
                 'name' => $plan->name,
             ],

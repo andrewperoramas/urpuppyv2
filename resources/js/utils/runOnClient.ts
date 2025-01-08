@@ -1,5 +1,5 @@
 export function runOnClient(callback: () => void) {
-  if (typeof document !== 'undefined') {
+  if (typeof document !== 'undefined' && typeof window !== 'undefined') {
     callback();
   }
 }

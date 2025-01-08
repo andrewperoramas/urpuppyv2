@@ -118,9 +118,11 @@ State::all()->each(function ($state) use ($stateAbbreviations) {
 
         $this->call(MediaTableSeeder::class);
         $this->call(RoleSeeder::class);
-        $this->call(BreedsTableSeeder::class);
+        /* $this->call(BreedsTableSeeder::class); */
         $this->call(PlanSeeder::class);
         $this->call(SettingSeeder::class);
+        $this->call(PuppyPatternsSeeder::class);
+        $this->call(PuppyColorsSeeder::class);
         Artisan::call('media-library:clean');
 
         /* $this->call(CountryStateCityTableSeeder::class); */
@@ -139,6 +141,11 @@ State::all()->each(function ($state) use ($stateAbbreviations) {
         $this->call(NavigationSeeder::class);
         $this->call(CustomPageSeeder::class);
 
+        DB::statement("ALTER SEQUENCE media_id_seq RESTART WITH 1000");
+
+        Breed::factory()->times(10)->create();
+        /* Puppy */
+
         /* $users = collect(); */
         /* for ($i = 0; $i < 4; $i++) { */
         /*     $users->push(User::factory()->create([ */
@@ -148,15 +155,15 @@ State::all()->each(function ($state) use ($stateAbbreviations) {
         /* } */
 
         /* dd($users); */
-        /* $users = User::factory()->times(4)->create([ */
-        /*     'is_breeder' => true, */
-        /* ]); */
+        $users = User::factory()->times(4)->create([
+            'is_breeder' => true,
+        ]);
 
-        /* $users->each(function ($user) { */
-        /*     Puppy::factory()->times(4)->create([ */
-        /*         'user_id' => $user->id */
-        /*     ]); */
-        /* }); */
+        $users->each(function ($user) {
+            Puppy::factory()->times(4)->create([
+                'user_id' => $user->id
+            ]);
+        });
 
 
 

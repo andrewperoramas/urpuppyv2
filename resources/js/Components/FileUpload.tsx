@@ -1,51 +1,67 @@
-import React, { useRef, useCallback, useState } from 'react'
+import React, { useRef, useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 
-function FileUpload({ required, name }: {
-  required: boolean,
-  name: string
+function FileUpload({
+  required,
+  name,
+  setData,
+}: {
+  required: boolean;
+  name: string;
+  setData: (key: string, value: File[]) => void;
 }) {
   const hiddenInputRef = useRef<HTMLInputElement>(null);
   const [files, setFiles] = useState<File[]>([]);
 
-  const onDrop = useCallback((incomingFiles: File[]) => {
-    const newFiles = [...files, ...incomingFiles];
-    setFiles(newFiles);
+  const onDrop = useCallback(
+    (incomingFiles: File[]) => {
+      const newFiles = [...files, ...incomingFiles];
+      setFiles(newFiles);
 
-    if (hiddenInputRef.current) {
-      const dataTransfer = new DataTransfer();
-      newFiles.forEach((v) => {
-        dataTransfer.items.add(v);
-      });
-      hiddenInputRef.current.files = dataTransfer.files;
-    }
-  }, [files]);
+      // Update the `useForm` state using `setData`
+      setData(name, newFiles);
+
+      if (hiddenInputRef.current) {
+        const dataTransfer = new DataTransfer();
+        newFiles.forEach((v) => {
+          dataTransfer.items.add(v);
+        });
+        hiddenInputRef.current.files = dataTransfer.files;
+      }
+    },
+    [files, name, setData]
+  );
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
-    multiple: true
+    multiple: true,
   });
 
-  const handleRemove = useCallback((fileToRemove: File, e: React.MouseEvent) => {
-    e.stopPropagation();
-    const newFiles = files.filter(f => f !== fileToRemove);
-    setFiles(newFiles);
+  const handleRemove = useCallback(
+    (fileToRemove: File, e: React.MouseEvent) => {
+      e.stopPropagation();
+      const newFiles = files.filter((f) => f !== fileToRemove);
+      setFiles(newFiles);
 
-    if (hiddenInputRef.current) {
-      const dataTransfer = new DataTransfer();
-      newFiles.forEach((v) => {
-        dataTransfer.items.add(v);
-      });
-      hiddenInputRef.current.files = dataTransfer.files;
-    }
-  }, [files]);
+      // Update the `useForm` state using `setData`
+      setData(name, newFiles);
+
+      if (hiddenInputRef.current) {
+        const dataTransfer = new DataTransfer();
+        newFiles.forEach((v) => {
+          dataTransfer.items.add(v);
+        });
+        hiddenInputRef.current.files = dataTransfer.files;
+      }
+    },
+    [files, name, setData]
+  );
 
   return (
     <div {...getRootProps()} className={`dropzone ${isDragActive ? 'dz-drag-hover' : ''}`}>
       <input
         type="file"
         name={name}
-        required={required}
         style={{ opacity: 0, position: 'absolute' }}
         ref={hiddenInputRef}
         multiple
@@ -59,7 +75,7 @@ function FileUpload({ required, name }: {
         </div>
       ) : (
         <div className="dz-preview-container">
-          {files.map(file => (
+          {files.map((file) => (
             <div key={file.name + file.size} className="dz-preview dz-file-preview">
               <div className="dz-image">
                 {file.type.startsWith('image/') ? (
@@ -69,21 +85,26 @@ function FileUpload({ required, name }: {
                 )}
               </div>
               <div className="dz-details">
-                <div className="dz-filename"><span>{file.name}</span></div>
-                <div className="dz-size"><span>{(file.size / 1024).toFixed(1)} KB</span></div>
+                <div className="dz-filename">
+                  <span>{file.name}</span>
+                </div>
+                <div className="dz-size">
+                  <span>{(file.size / 1024).toFixed(1)} KB</span>
+                </div>
               </div>
               <div
                 className="dz-remove"
                 onClick={(e) => handleRemove(file, e)}
                 role="button"
                 tabIndex={0}
-              >✕</div>
+              >
+                ✕
+              </div>
             </div>
           ))}
         </div>
       )}
-
-                <style>{`
+ <style>{`
         .dropzone {
           border: 2px dashed #0087F7;
           border-radius: 5px;
@@ -187,8 +208,21 @@ function FileUpload({ required, name }: {
         }
       `}</style>
 
+
     </div>
   );
 }
 
-export default FileUpload
+export default FileUpload;
+
+
+
+
+
+
+
+
+
+
+
+

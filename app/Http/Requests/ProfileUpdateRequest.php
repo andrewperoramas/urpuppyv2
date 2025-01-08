@@ -19,6 +19,9 @@ class ProfileUpdateRequest extends FormRequest
             'first_name' => ['required', 'string', 'max:40'],
             'last_name' => ['required', 'string', 'max:40'],
             'state_id' => [''],
+            'avatar' => [''],
+            'current_password' => ['nullable',  'current_password'],
+            'new_password' => ['nullable', 'string', 'min:8', 'confirmed'],
             'city_id' => [''],
             'zip_code' => [''],
             'email' => [

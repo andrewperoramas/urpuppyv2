@@ -3,8 +3,8 @@ import ReviewCard from '@/Components/Breeder/ReviewCard'
 import ReviewForm from '@/Components/Breeder/ReviewForm'
 import PuppyCard from '@/Components/Puppy/Card'
 import ReviewSlider from '@/Components/ReviewSlider'
+import SellerCard from '@/Components/SellerCard'
 import Slider from '@/Components/Slider'
-import { Tooltip } from '@/Components/Tooltip'
 import Layout from '@/Layouts/Layout'
 import React from 'react'
 
@@ -93,90 +93,11 @@ const Show = ({breeder, puppies} : {
                 </div>
               </div>
             </div>
-                        <ReviewForm />
+                        <ReviewForm breeder_id={breeder.id} />
           </div>
           <div className="col-lg-4 col-xl-3">
-            <div className="card shadow">
-              <div className="card-body">
-                <div className="text-center position-relative mb-6 mx-auto d-table">
-                  <div className="round-96 object-fit-cover rounded-circle position-relative overflow-hidden">
-                    <img src={breeder.avatar} alt=""
-                      className="object-fit-cover w-100 h-100"/>
-                  </div>
-                  <span
-                    className="position-absolute bottom-0 end-0 d-block round-24 rounded-circle bg-primary d-flex align-items-center justify-content-center">
-                    <img src="/images/svgs/icon-paws.svg" alt="" width="16" height="16"/>
-                  </span>
-                </div>
-                <h5 className="fs-5 text-center">{breeder.full_name}</h5>
-                <div className="d-flex align-items-center justify-content-center gap-2 mb-1">
-                  <img src="/images/svgs/icon-map-pin.svg" alt="" width="20" height="20"/>
-                  <p className="mb-0 fs-2">{breeder.address}</p>
-                </div>
-                <div className="d-flex align-items-center justify-content-center gap-2 mb-4">
-                  <img src="/images/svgs/icon-user-dark.svg" alt="" width="14" height="14"/>
-                  <p className="mb-0 fs-2">{breeder.member_since}</p>
-                </div>
-                <a className="btn btn-outline-extralight btn-white text-dark hstack justify-content-center gap-2 mb-6"
-                  href="login.html">
-                  <img src="/images/svgs/icon-mail-dark.svg" alt=""/>
-                  Show Email Address
-                </a>
-                <a className="btn btn-outline-extralight btn-white text-dark hstack justify-content-center gap-2 mb-4"
-                  href="#">
-                  <img src="/images/svgs/icon-call.svg" alt=""/>
-                  Show Phone Number
-                </a>
-                <p className="text-center">Follow me:</p>
-                <ul className="list-unstyled d-flex align-items-center justify-content-center gap-6 social-icon mb-0">
-                  <li>
-                <Tooltip text="Facebook">
-                    <a href={breeder?.social_fb ?? ''}
-                      className="border d-flex align-items-center justify-content-center round-36 rounded-circle">
-                      <img src="/images/svgs/icon-facebook-dark.svg" alt=""/>
-                    </a>
-                </Tooltip>
-                  </li>
-                  <li>
+            <SellerCard seller={breeder} />
 
-                <Tooltip text="Twitter">
-                    <a href={breeder.social_x ?? ''} data-bs-toggle="tooltip" data-bs-title="Twitter"
-                      className="border d-flex align-items-center justify-content-center round-36 rounded-circle">
-                      <img src="/images/svgs/icon-twitter-dark.svg" alt=""/>
-                    </a>
-                </Tooltip>
-                  </li>
-                  <li>
-                <Tooltip text="Tiktok">
-                    <a href={breeder.social_tiktok ?? ''} data-bs-toggle="tooltip" data-bs-title="Tiktok"
-                      className="border d-flex align-items-center justify-content-center round-36 rounded-circle">
-                      <img src="/images/svgs/icon-tiktok-dark.svg" alt=""/>
-                    </a>
-
-                </Tooltip>
-                  </li>
-                  <li>
-
-                <Tooltip text="Instagram">
-                    <a href={breeder.social_ig ?? ''} data-bs-toggle="tooltip" data-bs-title="Instagram"
-                      className="border d-flex align-items-center justify-content-center round-36 rounded-circle">
-                      <img src="/images/svgs/icon-instagram-dark.svg" alt=""/>
-                    </a>
-                </Tooltip>
-                  </li>
-                  <li>
-
-                <Tooltip text="Website">
-                    <a href={breeder.website ?? ''} data-bs-toggle="tooltip" data-bs-title="Website"
-                      className="border d-flex align-items-center justify-content-center round-36 rounded-circle">
-                      <img src="/images/svgs/icon-globe-dark.svg" alt="" />
-                    </a>
-
-                </Tooltip>
-                  </li>
-                </ul>
-              </div>
-            </div>
             <div className="card border">
               <div className="card-body">
                 <h5 className="fs-5 mb-3 pb-1">Breeder’s Insight</h5>

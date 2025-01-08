@@ -70,9 +70,11 @@ class DatabaseSeeder extends Seeder
         $this->call(NavigationSeeder::class);
         $this->call(CustomPageSeeder::class);
 
+        Breed::factory()->times(20)->create();
+
         // Use try-catch for BreedSeeder
         /* try { */
-        Artisan::call('fetch:breeds');
+        /* Artisan::call('fetch:breeds'); */
         Artisan::call('add-slug');
         /* } catch (Exception $e) { */
         /*     report($e); */

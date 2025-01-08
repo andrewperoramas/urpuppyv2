@@ -94,7 +94,7 @@ class BreederListingController extends Controller
 
         if ($request->has('misc') && $misc = $request->get('misc')) {
 
-            $puppy->deleteAttribute('is_ready_to_travel', 'has_passport', 'has_vaccination', 'has_vet_exam', 'is_registered', 'delivery_included');
+            $puppy->deleteAttribute( 'has_passport', 'has_vaccination', 'has_vet_exam', 'is_registered', 'delivery_included');
 
             foreach ($misc as $key => $value) {
                 $puppy->attachAttribute($key, $value);
@@ -176,7 +176,7 @@ class BreederListingController extends Controller
 
         if ($request->has('misc') && $misc = $request->get('misc')) {
 
-            $puppy->deleteAttribute('is_ready_to_travel', 'has_passport', 'has_vaccination', 'has_vet_exam', 'is_registered', 'delivery_included');
+            $puppy->deleteAttribute( 'has_passport', 'has_vaccination', 'has_vet_exam', 'is_registered', 'delivery_included');
 
             foreach ($misc as $key => $value) {
                 if ($value == '0') {

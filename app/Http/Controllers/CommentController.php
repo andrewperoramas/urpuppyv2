@@ -7,20 +7,22 @@ use App\Models\User;
 
 class CommentController extends Controller
 {
-    public function store(CommentRequest $request, $breeder_id)
+    public function store(CommentRequest $request, User $seller)
     {
-        $breeder = User::find($breeder_id);
+        if ($request->user() == null) {
+            return redirect()->back()->with('message.error', 'You have to login first');
+        }
 
-        if ($breeder->id == auth()->user()->id) {
+        if ($seller->id == $request->user()->id) {
             return redirect()->back()->with('message.error', 'You cannot review yourself');
         }
 
-        if ($breeder->comments()->where('user_id', auth()->user()->id)->count()) {
+        if ($seller->comments()->where('user_id', $request->user()->id)->exists()) {
             return redirect()->back()->with('message.error', 'You can only submit one review per breeder');
         }
 
-        $comment = $breeder->comments()->make($request->validated());
-        $comment->breeder()->associate(auth()->user());
+        $comment = $seller->comments()->make($request->validated());
+        $comment->seller()->associate($request->user());
         $comment->save();
 
         return redirect()->back()->with('message.success', 'Review submitted successfully');

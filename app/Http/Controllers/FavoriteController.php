@@ -30,7 +30,7 @@ class FavoriteController extends Controller
         /* $user->save(); */
 
 
-        $cacheKeys = Cache::getRedis()->keys('*');
+        /* $cacheKeys = Cache::getRedis()->keys('*'); */
         return redirect()->back()->with('message.success', $message);
 
         /* dd($check); */

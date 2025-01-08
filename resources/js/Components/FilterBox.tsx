@@ -114,7 +114,9 @@ Object.keys(filter)[index] !== 'state'  && Object.keys(filter)[index] !== 'price
                   <img src="/images/svgs/icon-search.svg" alt="" />
                 </a>
               </button>
-              <div className="dropdown-menu px-4 py-3 w-100 mt-n1">
+              <div className="dropdown-menu px-4 py-3 w-100 mt-n1" style={{
+                    zIndex: '999999999!important'
+                }}>
                 <div className="breed d-flex gap-2 border-bottom py-6">
                         <BreedFilter setBreed={setFilter}/>
                 </div>

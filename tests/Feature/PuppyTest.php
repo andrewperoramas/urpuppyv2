@@ -7,6 +7,7 @@ use App\Models\State;
 use Inertia\Testing\AssertableInertia as Assert;
 
 use function Pest\Laravel\get;
+use function PHPUnit\Framework\assertTrue;
 
 test('shows the puppies page', function () {
 
@@ -147,3 +148,16 @@ test('can filter by state', function () {
     });
 });
 
+
+test('puppy siblings are bidirectional', function () {
+
+     $puppy1 = Puppy::factory()->create(['name' => 'Puppy 1']);
+     $puppy2 = Puppy::factory()->create(['name' => 'Puppy 2']);
+     $puppy3 = Puppy::factory()->create(['name' => 'Puppy 3']);
+
+    $puppy1->attachSiblings([$puppy2, $puppy3]);
+
+    assertTrue($puppy2->siblings->contains($puppy1));
+    assertTrue($puppy3->siblings->contains($puppy1));
+    assertTrue($puppy1->siblings->contains($puppy2));
+});

@@ -17,21 +17,14 @@ class CityController extends Controller
             return response()->json(['message' => 'Country not found'], 404);
         }
 
-        /* $selectedStateId = (int) $request->input('state', null); */
         $citiesQuery = City::query();
 
-
-
-        /* dd($citiesQuery->get()->first()); */
-
         if ($request->filled('search')) {
-            $cityIds = City::search($request->search)->keys();
-            $citiesQuery->whereIn('id', $cityIds);
+            $searchTerm = strtolower($request->search);
+            $cities = $citiesQuery->whereRaw('LOWER(name) LIKE ?', ['%' . $searchTerm . '%']);
         }
 
         $cities = $citiesQuery->select('id', 'name')->paginate(10);
-
-        /* dd($cities); */
 
         $cities->getCollection()->transform(function ($city) {
             return [

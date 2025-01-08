@@ -16,10 +16,10 @@ class Comment extends Model
 
     protected $appends = ['date'];
 
-    /* public function breeder() */
-    /* { */
-    /*     return $this->belongsTo(User::class, 'user_id', 'id'); */
-    /* } */
+    public function seller()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
 
     public function getDateAttribute()
     {

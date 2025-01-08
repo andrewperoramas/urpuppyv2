@@ -4,7 +4,11 @@ const PlanCard = (
     {plan} : {
     plan: App.Data.PlanData
     }) => {
-    console.log(plan)
+
+    // const handleSubscribe = (plan: App.Data.PlanData) => {
+    //     window.location.href = '/checkout/' + plan.id;
+    // };
+
   return (
 
                     <div className="card subscription-plans-box border border-2 position-relative w-100">
@@ -19,7 +23,7 @@ const PlanCard = (
               <div className="card-body">
                 <div className="d-flex align-items-center justify-content-between mb-6">
                   <p className="text-dark fs-5 mb-0">{plan.name}</p>
-                  <img src={plan.logo} alt="" width="48" height="48" />
+                  <img src={plan.logo ?? ''} alt="" width="48" height="48" />
                 </div>
                 {
                     plan.type == 'free' ? (<>
@@ -34,8 +38,8 @@ const PlanCard = (
                 }
 
                 {
-                    plan.is_highlight ? <a className="btn btn-primary w-100 mb-7" href="#">Select plan</a>
-                    : <a className="btn btn-outline-extralight border btn-white text-dark w-100 mb-7" href="#">Select plan</a>
+                    plan.is_highlight ? <a className="btn btn-primary w-100 mb-7" href={`/checkout/${plan.id}`} >Select plan</a>
+                    : <a className="btn btn-outline-extralight border btn-white text-dark w-100 mb-7" href={`/checkout/${plan.id}`}>Select plan</a>
                 }
                 <div className="pt-1">
                 { plan.features.length > 0 &&

@@ -18,6 +18,10 @@ temperament_description: string | null;
 lifestyle_description: string | null;
 activities_description: string | null;
 };
+export type BreedOptionData = {
+value: number;
+label: string;
+};
 export type BreederData = {
 full_name: string;
 avatar: string;
@@ -27,6 +31,7 @@ member_since: string;
 breeds: Array<App.Data.BreedDataCollection> | null;
 };
 export type BreederFullData = {
+id: number;
 full_name: string;
 first_name: string;
 avatar: string;
@@ -47,11 +52,23 @@ description: string | null;
 breeds: Array<any>;
 comments: Array<App.Data.CommentData> | null;
 };
+export type CityData = {
+id: number;
+name: string;
+};
+export type ColorData = {
+value: number;
+label: string;
+};
 export type CommentData = {
 rating: number;
 body: string;
 reviewer: App.Data.UserCommentData;
 review_on: string;
+};
+export type PatternData = {
+value: number;
+label: string;
 };
 export type PlanData = {
 id: number;
@@ -64,10 +81,9 @@ interval: string;
 type: string;
 is_highlight: string;
 plan_days: string;
-logo: string;
+logo: string | null;
 interval_count: number;
-details: Array<App.Data.PlanDetail>;
-special_features: Array<App.Data.PlanFeature>;
+details: Array<App.Data.PlanDetail> | null;
 features: Array<string>;
 badge_color: string;
 badge_title: string;
@@ -85,19 +101,43 @@ amount: number;
 currency: string;
 formatted: string;
 };
+export type PuppyColorData = {
+color: string;
+name: string;
+};
 export type PuppyData = {
+id: number;
 name: string;
 slug: string;
 gender: string;
+is_favorite: boolean | null;
 breeds: Array<App.Data.BreedData>;
 image: string;
 preview_images: Array<string>;
 description: string;
 formatted_price: string;
+patterns: string;
 view_count: number;
 age: string;
 breeder: App.Data.BreederData;
+puppy_colors: Array<App.Data.PuppyColorData> | null;
 published_at: string | null;
+};
+export type PuppyPatternData = {
+amount: number;
+currency: string;
+formatted: string;
+};
+export type PuppySiblingData = {
+id: number;
+name: string;
+slug: string;
+image: string;
+gender: string;
+};
+export type SiblingData = {
+value: number;
+label: string;
 };
 export type StateData = {
 id: number;
@@ -109,9 +149,13 @@ avatar: string;
 };
 export type UserData = {
 full_name: string;
+first_name: string;
+last_name: string;
 avatar: string;
 slug: string;
 email: string;
+city: App.Data.CityData;
+state: App.Data.StateData;
 address: string;
 email_verified_at: string | null;
 member_since: string;

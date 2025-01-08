@@ -2,14 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Data\PlanData;
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Http\Resources\BreedResource;
 use App\Models\Breed;
 use App\Models\Country;
+use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -52,9 +55,15 @@ class ProfileController extends Controller
         $breed_query = Breed::select('id', 'name');
         $breeds = BreedResource::collection($breed_query->orderBy('name')->get());
 
+        $subscription = auth()->user()?->getActiveSubscriptions()?->first();
+
         return Inertia::render('Profile/Edit', [
             'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
             'status' => session('status'),
+            'plan' => PlanData::optional($subscription?->plan),
+            'next_billing' => $subscription != null ? Carbon::parse($subscription?->asStripeSubscription()?->current_period_end)->format('d M Y') : null,
+            /* 'subscription' => $subscription, */
+            'tab' => $request->tab ?? 'Account Settings',
             'breeds' => $breeds,
             'states' => $states ?? [],
             'cities' => $cities ?? [],
@@ -81,6 +90,16 @@ class ProfileController extends Controller
             $request->user()->email_verified_at = null;
         }
 
+        if ($input['avatar']) {
+            $request->user()->clearMediaCollection('avatars');
+            $request->user()->addMedia($input['avatar'])->toMediaCollection('avatars');
+        }
+
+        if ($input['current_password'] != null && $input['new_password']) {
+            $request->user()->password = Hash::make($input['new_password']);
+        }
+
+
         $request->user()->save();
 
         return Redirect::route('profile.edit');
@@ -100,6 +119,8 @@ class ProfileController extends Controller
         Auth::logout();
 
         $user->delete();
+
+        inertia()->clearHistory();
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();

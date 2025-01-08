@@ -32,10 +32,12 @@ const Pagination: React.FC<PaginationProps> = ({ links }) => {
     };
 
     const mergeQueryParams = (url: string) => {
+
+        if (typeof window === "undefined") return url;
+
         const currentParams = new URLSearchParams(window.location.search);
         const urlObj = new URL(url, window.location.origin);
 
-        // Prevent duplicate query parameters by deleting existing ones from the new URL.
         currentParams.forEach((value, key) => {
             if (!urlObj.searchParams.has(key)) {
                 urlObj.searchParams.append(key, value);
@@ -47,7 +49,7 @@ const Pagination: React.FC<PaginationProps> = ({ links }) => {
 
     return (
         <nav className="table-responsive pb-3 pb-lg-0">
-            <ul className="pagination mb-0 align-items-center justify-content-center gap-6">
+            <ul className="pagination mb-0 align-items-center justify-content-center ">
                 {links && links.length > 3 &&
                     links.map((link, index) => {
                         if (!link.url) return null;

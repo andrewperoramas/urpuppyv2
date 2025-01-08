@@ -14,9 +14,11 @@ class PuppyData extends Data
 {
 
     public function __construct(
+        public int $id,
         public string $name,
         public string $slug,
         public string $gender,
+        public ?bool $is_favorite,
         /* public string $breed, */
         /** @var \App\Data\BreedData[] */
         public DataCollection $breeds,
@@ -25,9 +27,12 @@ class PuppyData extends Data
         public Collection $preview_images,
         public string $description,
         public string $formatted_price,
+        public string $patterns,
         public int $view_count,
         public string $age,
         public BreederData $breeder,
+        /** @var \App\Data\PuppyColorData[] */
+        public ?DataCollection $puppy_colors,
         public ?string $published_at
     ) {
 

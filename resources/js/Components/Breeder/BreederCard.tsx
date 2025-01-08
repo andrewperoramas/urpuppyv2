@@ -11,7 +11,7 @@ const BreederCard = ({breeder, hasBorder=false }: { breeder: App.Data.BreederFul
               <div className="row">
                 <div className="col-xl-4 d-flex align-items-lg-stretch">
                   <Link preserveState href={`/breeders/${breeder.slug}`} className="trusted-breeders-img position-relative overflow-hidden w-100">
-                    <img className="w-100 h-100 object-fit-cover"
+                    <img loading="lazy" className="w-100 h-100 object-fit-cover"
                       src={breeder.avatar} alt="" />
                   </Link>
                 </div>
@@ -24,29 +24,29 @@ const BreederCard = ({breeder, hasBorder=false }: { breeder: App.Data.BreederFul
                       </Link>
                         {breeder.breeds.length &&
                       <div className="d-flex align-items-center gap-6 mb-6">
-                        <img src="/images/svgs/icon-paws-dark.svg" alt="" width="24" height="24" />
+                        <img loading="lazy" src="/images/svgs/icon-paws-dark.svg" alt="" width="24" height="24" />
                         <p className="mb-0">{breeder?.breeds[0]?.name}</p>
                       </div>
     }
                       <div className="d-flex align-items-center gap-6 mb-6">
-                        <img src="/images/svgs/icon-map-pin.svg" alt="" width="24" height="24" />
+                        <img loading="lazy" src="/images/svgs/icon-map-pin.svg" alt="" width="24" height="24" />
                         <p className="mb-0 flex-xl-shrink-0">{breeder.address}</p>
                       </div>
                       <div className="d-flex align-items-center gap-6">
-                        <img src="/images/svgs/icon-user-dark.svg" alt="" width="24" height="24"/>
+                        <img loading="lazy" src="/images/svgs/icon-user-dark.svg" alt="" width="24" height="24"/>
                         <p className="mb-0">{breeder.full_name}</p>
                       </div>
                     </div>
                     <div className="d-flex align-items-center gap-2">
                       <a href="my-favourite-puppies.html" data-bs-toggle="tooltip" data-bs-title="Add To Favourite"
                         className="bg-white border d-flex align-items-center justify-content-center round-40 rounded-circle flex-shrink-0">
-                        <img src="/images/svgs/icon-heart.svg" alt=""/>
+                        <img loading="lazy" src="/images/svgs/icon-heart.svg" alt=""/>
                       </a>
                       <div className="dropdown">
                         <button type="button"
                           className="btn btn-secondary p-0 shadow-none bg-white border d-flex align-items-center justify-content-center round-40 rounded-circle flex-shrink-0"
                           data-bs-toggle="dropdown" aria-expanded="false">
-                          <img src="/images/svgs/icon-share.svg" alt=""/>
+                          <img loading="lazy" src="/images/svgs/icon-share.svg" alt=""/>
                         </button>
                         <ul className="dropdown-menu dropdown-menu-end bg-primary social-icon px-6"
                           style={{minWidth: 'auto'}}>
@@ -54,19 +54,19 @@ const BreederCard = ({breeder, hasBorder=false }: { breeder: App.Data.BreederFul
                             <li>
                               <a href="#"
                                 className="dropdown-item p-0 bg-white bg-opacity-25 d-flex align-items-center justify-content-center round-35 rounded-circle">
-                                <img src="/images/svgs/icon-twitter.svg" alt="" width="16" height="16"/>
+                                <img loading="lazy" src="/images/svgs/icon-twitter.svg" alt="" width="16" height="16"/>
                               </a>
                             </li>
                             <li>
                               <a href="#"
                                 className="dropdown-item p-0 bg-white bg-opacity-25 d-flex align-items-center justify-content-center round-35 rounded-circle">
-                                <img src="/images/svgs/icon-facebook.svg" alt="" width="16" height="16" />
+                                <img loading="lazy" src="/images/svgs/icon-facebook.svg" alt="" width="16" height="16" />
                               </a>
                             </li>
                             <li>
                               <a href="#"
                                 className="dropdown-item p-0 bg-white bg-opacity-25 d-flex align-items-center justify-content-center round-35 rounded-circle">
-                                <img src="/images/svgs/icon-instagram.svg" alt="" width="16" height="16"/>
+                                <img loading="lazy" src="/images/svgs/icon-instagram.svg" alt="" width="16" height="16"/>
                               </a>
                             </li>
                           </div>

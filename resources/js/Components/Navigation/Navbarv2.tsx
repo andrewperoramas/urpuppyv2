@@ -21,16 +21,15 @@ const Navbarv2 = ({type} : {type?: string|undefined}) => {
     }
   }, []); // This effect runs only once when the component mounts
 
-      const toggleOffcanvas = () => {
+   const toggleOffcanvas = () => {
     if (typeof document !== 'undefined') {
       const sidebar = document.getElementById('offcanvasSidebar');
       if (!sidebar) {
         return;
       }
 
-      // Defer Offcanvas initialization to the client
       // import('bootstrap').then(({ Offcanvas }) => {
-      //   Offcanvas.getOrCreateInstance(sidebar);
+        // Offcanvas.getOrCreateInstance(sidebar);
       // });
 
       setIsOffcanvasVisible((prev) => !prev);
@@ -59,7 +58,7 @@ const Navbarv2 = ({type} : {type?: string|undefined}) => {
     const user = usePage().props.auth.user;
 
   return (
-    <header className={`main-header ${type == 'secondary' ? 'information-header' : ''} ${isSticky && type != 'secondary' ? 'sticky' : ''}`}>
+    <header className={`main-header ${type == 'secondary' ? 'information-header' : ''} ${isSticky ? 'sticky' : ''}`}>
       <div className="container">
         <nav className="navbar navbar-expand-xl py-0">
           <div className="logo">
@@ -83,7 +82,7 @@ const Navbarv2 = ({type} : {type?: string|undefined}) => {
               data-bs-toggle="offcanvas"
               data-bs-target="#offcanvasSidebar"
               aria-controls="offcanvasSidebar"
-                  onClick={toggleOffcanvas}
+              onClick={toggleOffcanvas}
             >
             <i className="ti ti-menu-2"></i>
             </span>
@@ -102,7 +101,7 @@ const Navbarv2 = ({type} : {type?: string|undefined}) => {
               </Link>
               </li>
               <li className="nav-item">
-                <Link prefetch cacheFor="5m" className="nav-link" href="/breeders">
+                <Link className="nav-link" href="/breeders">
                   Breeders
                 </Link>
               </li>
@@ -129,10 +128,10 @@ const Navbarv2 = ({type} : {type?: string|undefined}) => {
                 ) : (
                                     <>
               {!user && <>
-              <Link className="btn btn-white bg-white text-dark" href="/login">
+              <Link preserveScroll={false} prefetch  className="btn btn-white bg-white text-dark" href="/login">
                 Login
               </Link>
-              <Link className="btn btn-primary d-flex align-items-center gap-2" href="/register">
+              <Link preserveScroll={false} prefetch className="btn btn-primary d-flex align-items-center gap-2" href="/register">
                 <img src="/icon-user.svg" alt="" /> Sign Up
               </Link>
 
@@ -178,7 +177,7 @@ const Navbarv2 = ({type} : {type?: string|undefined}) => {
               </Link>
             </li>
             <li className="nav-item">
-              <Link prefetch cacheFor="5m" className="nav-link text-white" href="/breeders">
+              <Link  className="nav-link text-white" href="/breeders">
                 Breeders
               </Link>
             </li>
@@ -191,10 +190,10 @@ const Navbarv2 = ({type} : {type?: string|undefined}) => {
 
           <div className="d-flex align-items-center flex-column gap-3 mt-4">
 
-            <Link prefetch cacheFor="5m" className="btn btn-white bg-white text-dark w-100" href="/login">
+            <Link preserveScroll={false} prefetch cacheFor="5m" className="btn btn-white bg-white text-dark w-100" href="/login">
               Login
             </Link>
-            <Link prefetch cacheFor="5m" className="btn btn-primary d-flex align-items-center justify-content-center gap-2 w-100" href="/register">
+            <Link preserveScroll={false} prefetch cacheFor="5m" className="btn btn-primary d-flex align-items-center justify-content-center gap-2 w-100" href="/register">
               <img src="/icon-user.svg" alt="" /> Sign Up
             </Link>
           </div>

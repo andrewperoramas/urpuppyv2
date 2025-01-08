@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FilterBoxProps } from '../FilterBox';
 
 interface AgeFilterProps {
@@ -6,8 +6,13 @@ interface AgeFilterProps {
 }
 
 const AgeFilter: React.FC<AgeFilterProps> = ({ setAge }) => {
+
+  const [value, setValue] = useState("1");
   const handleInputChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+
+
     const selectedOption = e.target.selectedOptions[0];
+    setValue(selectedOption.value)
     const label = selectedOption.textContent || '';
     setAge((prev) => ({
       ...prev,
@@ -24,7 +29,7 @@ const AgeFilter: React.FC<AgeFilterProps> = ({ setAge }) => {
         <h6 className="font-work-sans mb-0">Age</h6>
         <select
           onChange={handleInputChange}
-          value="1"
+          value={value}
           className="form-select p-0 shadow-none border-0 fs-2"
           aria-label="Default select example"
         >

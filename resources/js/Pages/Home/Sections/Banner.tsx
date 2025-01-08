@@ -11,7 +11,7 @@ const Banner = ({
         subheader?: string | undefined
     }) => {
   return (
-                    <section className="hero-section position-relative d-flex align-items-center">
+                    <section className="z-30 hero-section position-relative d-flex align-items-center">
       <div className="container position-relative z-1">
         <div className="row justify-content-center">
           <div className="col-xl-10">

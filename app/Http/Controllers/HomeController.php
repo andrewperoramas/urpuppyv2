@@ -77,7 +77,7 @@ class HomeController extends Controller
         ) {
 
             return Puppy::query()
-                ->select(['id', 'user_id', 'name', 'price', 'birth_date', 'slug', 'is_ready_to_travel', 'gender', 'created_at', 'view_count', 'is_featured', 'description'])
+                ->select(['id', 'user_id', 'name', 'price', 'birth_date', 'slug', 'gender', 'created_at', 'view_count', 'is_featured', 'description'])
                 ->with([
                     'breeds:id,name,slug',
                     'breeder:id,first_name,last_name,state_id,city_id,created_at,slug',
@@ -111,7 +111,6 @@ class HomeController extends Controller
                         default => $query->orderBy('is_featured', 'desc')->orderBy('created_at', 'desc'),
                     };
                 })
-                ->when($travelFilter, fn ($query) => $query->where('is_ready_to_travel', $travelFilter))
                 ->when($ageFilter, function ($query, $ageFilter) {
                     $back = now()->subWeeks($ageFilter === 'old' ? 100000 : $ageFilter);
                     $query->whereBetween('birth_date', [$back, now()]);

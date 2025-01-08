@@ -10,7 +10,9 @@ class PlanController extends Controller
     public function index(Request $request)
     {
         if ($request->user()?->isSubscribed()) {
-            return redirect()->route('subscription.index');
+            return redirect()->route('profile.edit', [
+                'tab' => 'My Subscription'
+            ]);
         }
 
         $plans = Plan::ordered()->active()->where('is_featured', false)->get();

@@ -23,17 +23,15 @@ class PlanData extends Data
         public string $type,
         public string $is_highlight,
         public string $plan_days,
-        public string $logo,
+        public ?string $logo,
         public int $interval_count,
         /** @var \App\Data\PlanDetail[] */
-        public DataCollection  $details,
-        /** @var \App\Data\PlanFeature[] */
-        public DataCollection $special_features,
+        public ?DataCollection  $details,
         /** @var string[] */
-        public Collection $features,
+        public array $features,
 
-        public string $badge_color,
-        public string $badge_title,
+        public ?string $badge_color,
+        public ?string $badge_title,
     ) {
 
 

@@ -28,7 +28,7 @@ class ListingRequest extends FormRequest
             'birth_date' => ['required', 'date', 'before:today'],
             'colors' => ['required'],
             /* 'captcha' => 'required|captcha', */
-            'is_ready_to_travel' => [''],
+            /* 'is_ready_to_travel' => [''], */
             'file' => ['required'],
             'video' => [''],
             'characteristics' => [''],
