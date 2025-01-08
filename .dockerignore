@@ -1,6 +1,6 @@
 /.phpunit.cache
 /node_modules
-/public/media
+/public/build
 /public/hot
 /public/storage
 /storage/*.key
@@ -33,3 +33,4 @@ rr
 frankenphp
 .config
 .data
+.git
