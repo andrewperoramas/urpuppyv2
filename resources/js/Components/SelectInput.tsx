@@ -43,6 +43,28 @@ const SelectInput: React.FC<SelectInputProps> = ({ multiple = false, options, se
                             },
                             padding: '3px 4px'
                         }),
+                     multiValue: (baseStyles) => ({
+          ...baseStyles,
+          backgroundColor: 'var(--bs-primary)', // Background color for selected items
+          borderRadius: '50px', // Makes the selected items pill-shaped
+          color: 'white', // Text color
+        }),
+                    multiValueLabel: (baseStyles) => ({
+          ...baseStyles,
+          color: 'white', // Text color for selected items
+          // fontWeight: 'bold', // Bold text for labels
+        }),
+                  multiValueRemove: (baseStyles) => ({
+          ...baseStyles,
+          color: 'white', // Color for the remove "x" icon
+          cursor: 'pointer',
+          ':hover': {
+            borderTopRightRadius: '50px',
+            borderBottomRightRadius: '50px',
+            backgroundColor: '#f54242', // Red background on hover
+            color: '#fff',
+          },
+        }),
                     }}
       onChange={(val) => handleChange(val)}
       isMulti={multiple}

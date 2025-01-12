@@ -27,7 +27,6 @@ const CheckoutElement = ({plan_id, intent: clientSecret}: {
 
 
   if (!elements || !stripe) {
-    // setErrorMessage("Stripe has not loaded yet.");
     return;
   }
 
@@ -40,8 +39,6 @@ const CheckoutElement = ({plan_id, intent: clientSecret}: {
       return;
     }
 
-
-
     const adi = await stripe.confirmSetup({
       elements,
       confirmParams: {
@@ -51,10 +48,6 @@ const CheckoutElement = ({plan_id, intent: clientSecret}: {
 
     console.log(adi)
 
-    // adi.
-
-
-    // console.log(adi)
 
     const res = await fetch('/checkout/complete', {
       body: JSON.stringify({ plan_id }),
@@ -65,18 +58,7 @@ const CheckoutElement = ({plan_id, intent: clientSecret}: {
       },
     });
 
-    // if (!res.ok) {
-      // throw new Error('Failed to fetch client secret');
-    // }
-
-    // const { client_secret: clientSecret } = await res.json();
-
-
-
-      // console.log(setupIntent)
-
     if (adi.error) {
-      // console.error(error.message);
     console.log('Fail')
       setErrorMessage(adi.error.message as any);
     } else {
@@ -84,11 +66,8 @@ const CheckoutElement = ({plan_id, intent: clientSecret}: {
     }
   } catch (err) {
     console.error(err);
-    // setErrorMessage("An error occurred during payment processing.");
   }
     };
-
-
 
   return (
     <form onSubmit={handleSubmit}>
@@ -102,14 +81,6 @@ const CheckoutElement = ({plan_id, intent: clientSecret}: {
 };
 
 const stripePromise = loadStripe('pk_test_51Q8Qm3CLBiXa7V6ipLsyAZoGS5TmgpRuFwAxiT0nQzePjkyICHQn8mForFcLOlus2DMrEjVVlvfXIwAvARTIWDpA00HsFtZ171');
-
-const options: any = {
-  mode: 'payment',
-  amount: 1099,
-  currency: 'usd',
-  appearance: {
-  },
-};
 
 const CheckoutForm = ({plan_id, intent}: any) => (
   <Elements stripe={stripePromise}>

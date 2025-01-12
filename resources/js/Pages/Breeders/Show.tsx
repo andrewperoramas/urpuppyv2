@@ -12,6 +12,8 @@ const Show = ({breeder, puppies} : {
     breeder: App.Data.BreederFullData
     puppies: App.Data.PuppyData[]
 }) => {
+
+        console.log(breeder);
   return (
             <Layout>
   <div className="page-wrapper position-relative overflow-hidden">
@@ -36,7 +38,7 @@ const Show = ({breeder, puppies} : {
                 <div className="row">
                   <div className="col-xl-7 mb-4 mb-md-5 mb-xl-0">
                     <div className="breeders-detail-img position-relative overflow-hidden rounded-1 me-xl-4">
-                      <img src="/images/top-picks/top-picks-slider-3.jpg" alt="" className="w-100 h-100"/>
+                      <img src={breeder?.company_logo ?? ""} alt="" className="w-100 h-100"/>
                     </div>
                   </div>
                   <div className="col-xl-5">
@@ -44,7 +46,7 @@ const Show = ({breeder, puppies} : {
                       <div className="about-golden-paws-breeders mb-4 pb-4 border-bottom">
                         <h3 className="mb-3 fs-8">About {breeder.company_name}</h3>
                         <p className="mb-6">
-                             {breeder.description}
+                             {breeder.company_about}
                         </p>
                       </div>
                       <div className="company-details">
@@ -76,6 +78,8 @@ const Show = ({breeder, puppies} : {
                     ))}
               </div>
             </div>
+
+            {breeder.comments && breeder.comments.length > 0 &&
             <div className="card border andrews-reviews">
               <div className="card-body">
                 <h5 className="mb-6 fs-5 mb-3 pb-1">{breeder.first_name}'s reviews</h5>
@@ -93,16 +97,28 @@ const Show = ({breeder, puppies} : {
                 </div>
               </div>
             </div>
+
+                            }
                         <ReviewForm breeder_id={breeder.id} />
           </div>
           <div className="col-lg-4 col-xl-3">
-            <SellerCard seller={breeder} />
+            <SellerCard seller={{
+                                    slug: breeder.slug,
+                                    full_name: breeder.full_name,
+                                    email: breeder.email,
+                                    avatar: breeder.avatar,
+                                    phone: breeder?.phone ?? "",
+                                    address: breeder.address,
+                                    member_since: breeder.member_since,
+                                }as App.Data.BreederData} />
+
+                                {breeder.video &&
 
             <div className="card border">
               <div className="card-body">
                 <h5 className="fs-5 mb-3 pb-1">Breeder’s Insight</h5>
                 <div className="breeders-insight position-relative rounded-1 overflow-hidden">
-                  <img src="/images/top-picks/top-picks-slider-4.jpg" alt=""
+                  <img src={breeder.video} alt=""
                     className="w-100 h-100 object-fit-cover"/>
                   <button type="button"
                     className="position-absolute top-50 start-50 translate-middle z-2 btn btn-primary p-2 d-flex align-items-center justify-content-center round-72 rounded-circle flex-shrink-0"
@@ -112,41 +128,62 @@ const Show = ({breeder, puppies} : {
                 </div>
               </div>
             </div>
+}
+
             <div className="card border">
               <div className="card-body">
                 <h5 className="fs-5 mb-3 pb-1">{breeder.first_name}'s Gallery</h5>
                 <div className="row gx-6">
-                  <div className="col-12 mb-6">
-                    <div className="gallery position-relative overflow-hidden rounded-1">
-                      <img src="/images/gallery/gallery-1.jpg" alt="" className="object-fit-cover w-100 h-100"/>
-                    </div>
-                  </div>
-                  <div className="col-6 mb-6">
-                    <div className="gallery position-relative overflow-hidden rounded-1">
-                      <img src="/images/gallery/gallery-2.jpg" alt="" className="object-fit-cover w-100 h-100"/>
-                    </div>
-                  </div>
-                  <div className="col-6 mb-6">
-                    <div className="gallery position-relative overflow-hidden rounded-1">
-                      <img src="/images/gallery/gallery-3.jpg" alt="" className="object-fit-cover w-100 h-100"/>
-                    </div>
-                  </div>
-                  <div className="col-12 mb-6">
-                    <div className="gallery position-relative overflow-hidden rounded-1">
-                      <img src="/images/gallery/gallery-4.jpg" alt="" className="object-fit-cover w-100 h-100"/>
-                    </div>
-                  </div>
-                  <div className="col-6 mb-6">
-                    <div className="gallery position-relative overflow-hidden rounded-1">
-                      <img src="/images/gallery/gallery-5.jpg" alt="" className="object-fit-cover w-100 h-100"/>
-                    </div>
-                  </div>
-                  <div className="col-6 mb-6">
-                    <div className="gallery position-relative overflow-hidden rounded-1">
-                      <img src="/images/gallery/gallery-6.jpg" alt="" className="object-fit-cover w-100 h-100"/>
-                    </div>
-                  </div>
-                </div>
+
+                                            {breeder.gallery &&
+  breeder.gallery.map((image, index) => {
+    // Check if the image index is even or odd
+    const isSingleRow = index % 2 === 0; // Every 3rd item starts a new single-row (col-12)
+
+    return isSingleRow ? (
+      // Render col-12 for every third item
+      <div className="row" key={`row-${index}`}>
+        <div className="col-12 mb-3">
+          <div className="gallery position-relative overflow-hidden rounded-1">
+            <img
+              src={image}
+              alt={`Gallery image ${index}`}
+              className="object-fit-cover w-100 h-100"
+            />
+          </div>
+        </div>
+      </div>
+    ) : (
+      // Render col-6 for the rest
+      <div className="row" key={`row-${index}`}>
+        <div className="col-6 mb-3">
+          <div className="gallery position-relative overflow-hidden rounded-1">
+            <img
+              src={image}
+              alt={`Gallery image ${index}`}
+              className="object-fit-cover w-100 h-100"
+            />
+          </div>
+        </div>
+        {/* Check if there's a next image to pair with */}
+        {breeder.gallery[index + 1] && (
+          <div className="col-6 mb-3">
+            <div className="gallery position-relative overflow-hidden rounded-1">
+              <img
+                src={breeder.gallery[index + 1]}
+                alt={`Gallery image ${index + 1}`}
+                className="object-fit-cover w-100 h-100"
+              />
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  })}
+
+
+                 </div>
+
               </div>
             </div>
           </div>

@@ -19,12 +19,22 @@ class BreederFullData extends Data
         public string $avatar,
         public string $slug,
         public string $address,
+        public ?string $company_logo,
+        public ?string $video,
         public string $member_since,
 
 
         public ?string $company_name,
         public ?string $company_address,
+        public ?string $company_about,
+        public ?string $company_email_address,
+        public ?string $company_phone,
+        /* public ?CityData $company_city, */
+        /* public ?StateData $company_state, */
+        public ?string $company_zip_code,
+        public ?string $company_established_on,
         public ?string $company_established_on_label,
+        public ?bool $has_usda_registration,
 
         public ?string $website,
         public ?string $phone,
@@ -38,6 +48,9 @@ class BreederFullData extends Data
 
         /* @var string[] */
         public Collection $breeds,
+
+        /* @var string[] */
+        public Collection $gallery,
 
         /** @var \App\Data\CommentData[] */
         public ?DataCollection $comments

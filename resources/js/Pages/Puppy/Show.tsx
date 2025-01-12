@@ -7,6 +7,7 @@ import SocialMediaButtons from '@/Components/SocialMediaButtons';
 import FavoriteButton from '@/Components/FavoriteButton';
 import ShareButton from '@/Components/ShareButton';
 import SellerCard from '@/Components/SellerCard';
+import List from '@/Components/List';
 
 const Show = ({ related_puppies, puppy, siblings }: {
     related_puppies: App.Data.PuppyData[]
@@ -103,7 +104,7 @@ const Show = ({ related_puppies, puppy, siblings }: {
                         <div className="col-6 col-md-4 mb-6 border-end">
                           <div className="d-flex align-items-center gap-2">
                             <img src="../images/svgs/icon-map-pin.svg" alt="" width="18" height="18" />
-                            <p className="mb-0 fs-2">{puppy.breeder.address}</p>
+                            <p className="mb-0 fs-2">{puppy.seller.address}</p>
                           </div>
                         </div>
                         <div className="col-6 col-md-4 mb-6 border-end">
@@ -183,41 +184,34 @@ const Show = ({ related_puppies, puppy, siblings }: {
             </div>
             <div className="card border">
               <div className="card-body">
+{puppy.characteristics && puppy.characteristics?.length > 0 &&
                 <div className="charlies-characteristics pb-3 border-bottom">
                   <h5 className="mb-3 pb-1 fs-5">Charlie’s Characteristics</h5>
                   <div className="d-flex align-items-center flex-wrap gap-4 pb-1">
-                    <div className="hstack gap-3">
-                      <img src="/images/svgs/icon-check.svg" alt="" />
-                      <p className="mb-0">Champion Sired</p>
-                    </div>
-                    <div className="hstack gap-3">
-                      <img src="/images/svgs/icon-check.svg" alt="" />
-                      <p className="mb-0">Champion Bloodline</p>
-                    </div>
-                    <div className="hstack gap-3">
-                      <img src="/images/svgs/icon-check.svg" alt="" />
-                      <p className="mb-0">Current Vaccinations</p>
-                    </div>
+                  {
+                     puppy.characteristics.map((characteristic: string) => (
+                    <List label={characteristic} />
+                    ))}
                   </div>
                 </div>
+                                        }
+
+{puppy.features && puppy.features?.length > 0 &&
                 <div className="charlies-features mt-3 pt-1">
                   <h5 className="mb-3 pb-1 fs-5">Charlie’s Features</h5>
                   <div className="d-flex align-items-center flex-wrap gap-4">
-                    <div className="hstack gap-3">
-                      <img src="/images/svgs/icon-check.svg" alt="" />
-                      <p className="mb-0">Vaccinated</p>
-                    </div>
-                    <div className="hstack gap-3">
-                      <img src="/images/svgs/icon-check.svg" alt="" />
-                      <p className="mb-0">Passport</p>
-                    </div>
+                    {puppy.features && puppy.features.map((feature: string) => (
+                    <List label={feature} />
+                    ))}
                   </div>
                 </div>
+}
               </div>
             </div>
+
           </div>
           <div className="col-lg-4 col-xl-3">
-            <SellerCard seller={puppy.breeder} />
+            <SellerCard seller={puppy.seller} />
             <div className="card border">
               <div className="card-body">
                 <h5 className="fs-5 mb-3 pb-1">Charlie’s Siblings</h5>

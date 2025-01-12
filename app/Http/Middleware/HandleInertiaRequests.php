@@ -44,6 +44,9 @@ class HandleInertiaRequests extends Middleware
             ],
             'price_filter_range' => [$min, $max],
             'csrf_token' => csrf_token(),
+            'flash' => [
+                'message' => fn () => $request->session()->get('message'),
+            ],
 
 
             /* 'ziggy' => fn () => [ */

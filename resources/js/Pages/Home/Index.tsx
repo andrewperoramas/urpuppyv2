@@ -12,7 +12,7 @@ import TopPicks from '@/Components/Puppy/TopPicks';
 import TrustedBreeders from '@/Components/Puppy/TrustedBreeders';
 import NewArrivals from '@/Components/Puppy/NewArrivals';
 import FooterVideos from '@/Components/Puppy/FooterVideos';
-import BannerLayout from '@/Layouts/BannerLayout';
+import Layout from '@/Layouts/Layout';
 
 
 export default function Index({
@@ -24,8 +24,10 @@ export default function Index({
     top_pick_puppy,
     trusted_breeders,
     new_arrivals,
-    featured_breeds
-}: PageProps<{ laravelVersion: string; phpVersion: string; users: string, puppy_spotlights: App.Data.PuppyData[], top_pick_puppy: App.Data.PuppyData, trusted_breeders: App.Data.BreederFullData[] , new_arrivals: App.Data.PuppyData[], featured_breeds: App.Data.BreedData[]}>) {
+    featured_breeds,
+    header_label,
+    subheader_label,
+}: PageProps<{ laravelVersion: string; phpVersion: string; users: string, puppy_spotlights: App.Data.PuppyData[], top_pick_puppy: App.Data.PuppyData, trusted_breeders: App.Data.BreederFullData[] , new_arrivals: App.Data.PuppyData[], featured_breeds: App.Data.BreedData[], header_label: string, subheader_label: string }>) {
 
     const [userState, setUserState] = useState('');
 
@@ -35,7 +37,8 @@ export default function Index({
 
     return (
         <>
-            <BannerLayout>
+            <Layout>
+            <Banner header={header_label} subheader={subheader_label}/>
             <Head title="Welcome" />
             <div className="page-wrapper position-relative overflow-hidden">
             <FeaturedBreeds featured_breeds={featured_breeds}/>
@@ -47,7 +50,7 @@ export default function Index({
             <NewArrivals new_arrivals={new_arrivals}/>
             <FooterVideos />
             </div>
-            </BannerLayout>
+            </Layout>
         </>
     );
 }

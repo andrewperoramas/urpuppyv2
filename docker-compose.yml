@@ -1,5 +1,5 @@
 services:
-    urpuppy:
+    app:
         build:
             context: .
         ports:
@@ -18,6 +18,19 @@ services:
         ports:
           - "4444:4444"
           - "7900:7900"
+    minio:
+        image: 'minio/minio:latest'
+        environment:
+          MINIO_ROOT_USER: 'mobi35'
+          MINIO_ROOT_PASSWORD: 'Asakaboi35'
+        ports:
+          - "8098:9000"
+          - "8099:8900"
+        volumes:
+          - 'stack-minio:/data/minio'
+        command: 'minio server /data/minio --console-address ":8900"'
+        restart: always
+
     postgres:
         image: postgres:16-alpine
         ports:
@@ -53,6 +66,17 @@ services:
         ports:
           - 7025:8025
 
+    glances:
+        image: nicolargo/glances:latest-full
+        pid: host
+        ports:
+          - 8054:61208
+        volumes:
+          - /var/run/docker.sock:/var/run/docker.sock:ro
+          - /etc/os-release:/etc/os-release:ro
+        environment:
+          - "GLANCES_OPT=-w"
+
     typesense:
         image: typesense/typesense:27.0.rc21
         environment:
@@ -74,5 +98,6 @@ services:
 volumes:
   storage:
   pgalpine:
+  stack-minio:
   pgadmin_datanew:
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Data\PlanData;
+use App\Data\SavedSearchData;
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Http\Resources\BreedResource;
 use App\Models\Breed;
@@ -57,11 +58,25 @@ class ProfileController extends Controller
 
         $subscription = auth()->user()?->getActiveSubscriptions()?->first();
 
+        /* dd($request->user()->saved_searches()->get()); */
+
+        /* dd($request->user()?->breeder_plan); */
         return Inertia::render('Profile/Edit', [
             'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
+            'puppies' => $request->user()->puppies()->with('breeds', 'seller')->paginate(12),
             'status' => session('status'),
-            'plan' => PlanData::optional($subscription?->plan),
-            'next_billing' => $subscription != null ? Carbon::parse($subscription?->asStripeSubscription()?->current_period_end)->format('d M Y') : null,
+
+            'plan' => PlanData::optional($request->user()?->premium_plan?->plan),
+            'breeder_plan' => PlanData::optional($request->user()?->breeder_plan?->plan),
+            'saved_searches' => SavedSearchData::collect($request->user()->saved_searches()->latest()->get()),
+
+            'plan_next_billing' => $request->user()?->premium_plan != null ? Carbon::parse($request->user()?->premium_plan?->asStripeSubscription()?->current_period_end)->format('d M Y') : null,
+            'plan_cancel_at' =>  $request->user()?->premium_plan != null ? $request->user()?->premium_plan->asStripeSubscription()?->cancel_at_period_end : null,
+
+            'breeder_next_billing' => $request->user()?->breeder_plan != null ? Carbon::parse($request->user()?->breeder_plan?->asStripeSubscription()?->current_period_end)->format('d M Y') : null,
+
+            'breeder_cancel_at' => $request->user()?->breeder_plan  != null ? $request->user()?->breeder_plan?->asStripeSubscription()?->cancel_at_period_end : null,
+
             /* 'subscription' => $subscription, */
             'tab' => $request->tab ?? 'Account Settings',
             'breeds' => $breeds,

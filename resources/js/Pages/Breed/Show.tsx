@@ -13,7 +13,17 @@ const Show = ({breed} : {
 
     <section className="information pt-4 pb-9">
       <div className="container">
-            <Breadcrumb />
+            <Breadcrumb links={[
+                                {
+                                    label: 'Breeds',
+                                    link: '/breeds'
+                                },
+                                {
+                                    label: breed.name,
+                                    link: ""
+                                },
+
+                            ]} />
 
                                 <div className="card border">
           <div className="card-body">

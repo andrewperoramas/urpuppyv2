@@ -15,15 +15,18 @@ use App\Filter\FilterState;
 use App\Http\Resources\FeaturedBreedResource;
 use App\Models\Breed;
 use App\Models\Puppy;
+use App\Models\SavedSearch;
 use App\Models\State;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class PuppyController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        /* dd($request->all()); */
 
         /* dd(request()->all()); */
         /* $mergedData = collect(request()->get('payload'))->reduce(function ($carry, $item) { */
@@ -45,11 +48,11 @@ class PuppyController extends Controller
             ])
             ->with([
                 'breeds:id,name,slug',
-                'breeder:id,first_name,last_name,state_id,city_id,created_at,slug',
+                'seller:id,first_name,email,phone,last_name,state_id,city_id,created_at,slug',
                 'favorites',
                 'media',
-                'breeder.state:id,name,abbreviation',
-                'breeder.city:id,name',
+                'seller.state:id,name,abbreviation',
+                'seller.city:id,name',
             ])
             ->allowedFilters([
             /* AllowedFilter::exact('breeds.name', null, false), */
@@ -61,10 +64,33 @@ class PuppyController extends Controller
                 'name', // Allows filtering by name
                 /* 'price', // Allows filtering by price if needed */
             ])
+            ->hasSubscribedUsers()
             ->latest()
             ->paginate(12);
 
-        /* try { */
+        if ($request->user()) {
+
+        $payload = $request->all(); // Convert payload to JSON string
+
+        $convert_payload = json_encode($payload);
+
+        $exists = $request->user()->saved_searches()
+            ->whereRaw('payload::jsonb = ?', [$convert_payload]) // Typecast payload for PostgreSQL
+            ->exists();
+
+        /* dd($exists); */
+
+        if (!$exists) {
+            $request->user()->saved_searches()->create([
+                'payload' => $payload,
+            ]);
+        }
+}
+
+
+
+
+         /* try { */
 
         /*     $puppies = PuppyData::collect($puppies); */
         /*     /1* dd($puppies); *1/ */
@@ -109,14 +135,14 @@ class PuppyController extends Controller
         $puppy = Puppy::with([
             'breeds',
             /* 'attributes', */
-            'breeder',
+            'seller',
             /* 'breeder.attributes', */
-            'breeder.state',
+            'seller.state',
             'puppy_colors',
             'puppy_traits',
             'siblings',
             'puppy_patterns',
-            'breeder.city',
+            'seller.city',
             'comments' => function ($query) {
                 $query->orderByDesc('created_at');
             },
@@ -130,7 +156,7 @@ class PuppyController extends Controller
 
         // Cache the featured puppies for 30 minutes (1800 seconds)
         $featuredPuppies = Cache::remember('featured_puppies', 1800, function () {
-            return Puppy::with('breeds', 'media', 'breeder')
+            return Puppy::with('breeds', 'media', 'seller')
                 ->inRandomOrder()
                 ->limit(5)
                 ->get();
@@ -141,7 +167,7 @@ class PuppyController extends Controller
         $related_puppies = [];
 
         if ($puppy->breeds) {
-            $related_puppies = Puppy::with('breeds', 'media', 'breeder')
+            $related_puppies = Puppy::with('breeds', 'media', 'seller')
                 ->whereHas('breeds', function ($query) use ($puppy) {
                     $query->whereIn('breeds.id', $puppy->breeds->pluck('id'));
                 })
@@ -162,7 +188,7 @@ class PuppyController extends Controller
             'featured_puppies' => $featuredPuppies,
             'siblings'  => PuppySiblingData::collect($puppy->siblings()->with('media')->get()),
             'featured_breeds' => $featured_breeds,
-            'related_puppies' => PuppyCardData::collect(Puppy::with('breeds', 'media', 'breeder')->where('id', '!=', $puppy->id)->inRandomOrder()->limit(4)->get()),
+            'related_puppies' => PuppyCardData::collect(Puppy::with('breeds', 'media', 'seller')->where('id', '!=', $puppy->id)->inRandomOrder()->limit(4)->get()),
             'puppy' => PuppyData::from($puppy),
         ]);
 

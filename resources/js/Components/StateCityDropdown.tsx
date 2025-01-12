@@ -142,7 +142,7 @@ const StateCityDropdown = ({ formData, setFormData, errors, variant="lg" }: any)
                     additional={{ page: 1 }}
                 />
                 <InputError
-                    message={errors?.city}
+                    message={errors?.city_id}
                     className="mt-2"
                 />
 
@@ -181,7 +181,7 @@ const StateCityDropdown = ({ formData, setFormData, errors, variant="lg" }: any)
                     additional={{ page: 1 }}
                 />
                     <InputError
-                        message={errors?.state}
+                        message={errors?.state_id}
                         className="mt-2"
                     />
                 </div>
@@ -197,7 +197,6 @@ const StateCityDropdown = ({ formData, setFormData, errors, variant="lg" }: any)
                     autoComplete="zip_code"
                     className="mb-4 form-control"
                     onChange={handleZipCodeChange}
-                    required
                 />
                     <InputError
                         message={errors?.zip_code}

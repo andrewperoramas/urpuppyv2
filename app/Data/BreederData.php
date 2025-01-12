@@ -19,6 +19,8 @@ class BreederData extends Data
         public string $full_name,
         public string $avatar,
         public string $slug,
+        public string $email,
+        public ?string $phone,
         public string $address,
         public string $member_since,
         /** @var \App\Data\BreedDataCollection[] */

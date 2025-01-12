@@ -22,7 +22,7 @@ return [
     'ssr' => [
 
         'enabled' => true,
-        'url' => 'urpuppy:13714',
+        'url' => 'app:13714',
         /* 'url' => 'http://localhost:13714', */
 
         // 'bundle' => base_path('bootstrap/ssr/ssr.mjs'),

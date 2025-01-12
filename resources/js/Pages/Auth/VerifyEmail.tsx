@@ -1,5 +1,7 @@
 import PrimaryButton from '@/Components/PrimaryButton';
+import Button from '@/Components/ui/Button';
 import GuestLayout from '@/Layouts/GuestLayout';
+import Layout from '@/Layouts/Layout';
 import { Head, Link, useForm } from '@inertiajs/react';
 import { FormEventHandler } from 'react';
 
@@ -9,11 +11,17 @@ export default function VerifyEmail({ status }: { status?: string }) {
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
 
-        post(route('verification.send'));
+        post('/email/verification-notification');
     };
 
     return (
-        <GuestLayout>
+        <Layout navType="secondary">
+              <div className="page-wrapper position-relative overflow-hidden">
+
+    <section className="information pt-4 pb-8 pb-lg-9">
+                  <div className="container">
+
+
             <Head title="Email Verification" />
 
             <div className="mb-4 text-sm text-gray-600">
@@ -32,20 +40,24 @@ export default function VerifyEmail({ status }: { status?: string }) {
 
             <form onSubmit={submit}>
                 <div className="mt-4 flex items-center justify-between">
-                    <PrimaryButton disabled={processing}>
+                    <Button type="button" href="" >
                         Resend Verification Email
-                    </PrimaryButton>
+                    </Button>
 
                     <Link
-                        href={route('logout')}
+                        href={"/logout"}
                         method="post"
                         as="button"
-                        className="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                        className="btn btn-secondary"
                     >
                         Log Out
                     </Link>
                 </div>
             </form>
-        </GuestLayout>
+
+                </div>
+                </section>
+                </div>
+        </Layout>
     );
 }

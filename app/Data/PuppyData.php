@@ -30,10 +30,18 @@ class PuppyData extends Data
         public string $patterns,
         public int $view_count,
         public string $age,
-        public BreederData $breeder,
+        public BreederData $seller,
         /** @var \App\Data\PuppyColorData[] */
         public ?DataCollection $puppy_colors,
-        public ?string $published_at
+        public ?string $published_at,
+
+        /** @var string[] */
+        public ?Collection $features,
+
+        /** @var string[] */
+        public ?Collection $characteristics,
+
+
     ) {
 
     }

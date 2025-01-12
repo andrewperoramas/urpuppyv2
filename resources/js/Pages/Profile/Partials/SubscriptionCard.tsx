@@ -1,9 +1,10 @@
 import { Link } from '@inertiajs/react'
 import React from 'react'
 
-const SubscriptionCard = ({plan, next_billing} : {
+const SubscriptionCard = ({plan, next_billing, cancel_at} : {
     plan: App.Data.PlanData
-    next_billing?: string
+    next_billing?: string,
+    cancel_at? : boolean
 }) => {
   return (
 
@@ -19,14 +20,21 @@ const SubscriptionCard = ({plan, next_billing} : {
                         <h2 className="mb-2">{plan.money_formatted}<span className="fs-5 text-muted">/{plan.plan_days}</span></h2>
                                                 <>
 
-                        <p className="mb-0 text-dark">Next Billing Date: {next_billing}</p>
+                        <p className="mb-0 text-dark">{cancel_at ? "Ends at: " : "Next Billing Date:"} {next_billing}</p>
 </>
+                        {
+                        cancel_at &&
+                        <span className="mt-2 badge bg-danger">Cancelled plan</span>
+                        }
 
                       </div>
                       <div>
-                        <a className="btn btn-primary d-block mb-6" href="subscription-plans.html">Upgrade Plan</a>
+                        {!cancel_at &&
+                            <>
                         <Link data-bs-toggle="modal" data-bs-target="#CancelPlan"
                           className="btn btn-outline-extralight border btn-white text-dark d-block" method="delete"  href={`/subscriptions`}>Cancel Plan</Link>
+</>
+}
                       </div>
                     </div>
                     <div className="features">

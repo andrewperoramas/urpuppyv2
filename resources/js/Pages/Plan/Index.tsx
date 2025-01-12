@@ -2,7 +2,6 @@ import Hero from '@/Components/Hero'
 import Jumbotron from '@/Components/Jumbotron'
 import PlanCard from '@/Components/PlanCard'
 import SecondaryJumbotron from '@/Components/SecondaryJumbotron'
-import BannerLayout from '@/Layouts/BannerLayout'
 import Layout from '@/Layouts/Layout'
 import React from 'react'
 

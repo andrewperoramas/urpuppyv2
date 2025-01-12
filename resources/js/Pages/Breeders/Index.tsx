@@ -11,7 +11,6 @@ import React, { useState } from 'react'
 const Index = ({breeders} : {
     breeders: PaginatedCollection<App.Data.BreederFullData>
 }) => {
-    console.log(breeders)
 
     const [filter, setFilter] = useState<any>({
         breed: {
@@ -26,9 +25,7 @@ const Index = ({breeders} : {
         <Layout>
 
             <BannerSlider slidesPerView={1} children={[
-                <SmallBannerWithContent key={1} />,
-                <SmallBannerWithContent key={2} />,
-                <SmallBannerWithContent key={3} />
+                <SmallBannerWithContent title="Register as a breeder" pill="Feature" key={1} background_image="/images/breeds-slider/hero-inner-slider-2.jpg" />,
             ]} />
 
                 <section className="find-ur-breeds bg-extralight position-relative z-1 py-7 py-md-5 py-xl-9">
@@ -48,7 +45,7 @@ const Index = ({breeders} : {
                     <StateFilter setState={setFilter}/>
                 </div>
 
-                <Link href={`/breeds/${filter.breed.value}`}
+                <Link preserveState href={`/breeders?breed=${filter?.breed?.value}&state=${filter?.state?.value}`}
                   className="btn btn-primary round-48 flex-shrink-0 p-2 d-flex align-items-center justify-content-center">
                   <img src="/images/svgs/icon-search.svg" alt="" />
                 </Link>

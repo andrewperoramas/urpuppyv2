@@ -55,9 +55,17 @@ class CheckoutController extends Controller
         /*     $subscription = $subscription->trialDays($plan->trial_days); */
         /* } */
 
-       $request->user()->newSubscription('standard', $plan->stripe_plan_id)->create($request->paymentMethod);
+        /* if ($plan->type == 'breeder') { */
+        $request->user()->newSubscription($plan->type, $plan->stripe_plan_id)->create($request->paymentMethod);
+        /* } else { */
+           /* $request->user()->newSubscription('standard', $plan->stripe_plan_id)->create($request->paymentMethod); */
+        /* } */
 
-        return inertia()->render('Checkout/Success');
+        return redirect()->route('profile.edit', [
+            'tab' => 'My Subscription',
+            'message.success' => 'Successfully subscribed to breeder plan',
+        ]);
+        /* return inertia()->render(''); */
     }
 
 

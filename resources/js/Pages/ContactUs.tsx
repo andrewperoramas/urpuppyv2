@@ -1,5 +1,4 @@
 import Hero from '@/Components/Hero'
-import BannerLayout from '@/Layouts/BannerLayout'
 import Layout from '@/Layouts/Layout'
 import React from 'react'
 

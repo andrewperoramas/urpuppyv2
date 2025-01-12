@@ -14,7 +14,7 @@ const Footer = () => {
               </a>
             </div>
           </div>
-          <div className="col-6 col-md-4 col-lg-2 mb-7 pb-1 pb-lg-0 mb-lg-0 ps-lg-5">
+          <div className="col-6 col-md-4 col-lg-2 mb-7 pb-1 pb-lg-0 mb-lg-0 ps-lg-7">
             <h6 className="fw-semibold font-work-sans mb-6 text-white">Find A Puppy</h6>
             <ul className="list-unstyled footer-memu mb-0">
               <li className="mb-6">
@@ -32,7 +32,7 @@ const Footer = () => {
                 <a href="#" className="fs-3 d-block fw-normal">Support</a>
               </li>
               <li>
-               <Link href="/breeders/create" className="fs-3 d-block fw-normal">Breeder Login</Link>
+               <Link href="/breeders/create" className="fs-3 d-block fw-normal">Breeder Register</Link>
               </li>
             </ul>
           </div>

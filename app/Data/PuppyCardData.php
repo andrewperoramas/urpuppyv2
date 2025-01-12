@@ -25,7 +25,7 @@ class PuppyCardData extends Data
         /** @var \App\Data\BreedData[] */
         public DataCollection $breeds,
 
-        public BreederData $breeder,
+        public BreederData $seller,
     ) {
 
     }

@@ -40,7 +40,7 @@ const TopPicks = ({puppy}: { puppy: App.Data.PuppyData }) => {
               <div className="d-flex align-items-center mb-4">
                 <div className="d-flex align-items-center gap-2 border-end pe-3">
                   <img src="/images/svgs/icon-map-pin.svg" alt="" width="20" height="20" />
-                  <p className="mb-0">{puppy.breeder.address}</p>
+                  <p className="mb-0">{puppy.seller.address}</p>
                 </div>
                 <div className="d-flex align-items-center gap-2 border-end pe-3 ps-3">
                   <img src="/images/svgs/icon-calendar.svg" alt="" width="20" height="20"/>

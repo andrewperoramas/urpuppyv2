@@ -176,9 +176,21 @@ class Puppy extends Model implements HasMedia, Sitemapable
     /*     return $this->hasMany(Breed::class); */
     /* } */
 
-    public function breeder()
+    public function seller()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public function scopeHasSubscribedUsers($query)
+    {
+           $query->whereHas('seller', function ($q) {
+        $q->whereHas('subscriptions', function ($subQuery) {
+            $subQuery->where('stripe_status', 'active');
+        });
+    });
+        /* $query->whereHas('seller', function ($q) { */
+        /*     $q->where('is_subscribed', true); */
+        /* }); */
     }
 
     public function getVideoAttribute()
@@ -262,6 +274,50 @@ class Puppy extends Model implements HasMedia, Sitemapable
     public function getListedOnAttribute()
     {
         return $this->created_at->diffForHumans();
+    }
+
+    public function getCharacteristicsAttribute()
+    {
+        $characteristic = collect([
+        ]);
+
+        /* if ($this->health_certificate) { */
+        /*     $characteristic->add('Travel Ready'); */
+        /* } */
+
+        /* if ($this->has_vaccine) { */
+        /*     $characteristic->add('Vaccinated'); */
+        /* } */
+
+        return $characteristic;
+    }
+
+    public function getFeaturesAttribute()
+    {
+        $features = collect([
+        ]);
+
+        if ($this->has_travel_ready) {
+            $features->add('Travel Ready');
+        }
+
+        if ($this->has_vaccine) {
+            $features->add('Vaccinated');
+        }
+
+        if ($this->has_vet_exam) {
+            $features->add('Vet Exam');
+        }
+
+        if ($this->health_certificate) {
+            $features->add('Health Certificate');
+        }
+
+        if ($this->has_delivery_included) {
+            $features->add('Delivery Included');
+        }
+
+        return $features;
     }
 
     public function getAgeAttribute()
@@ -356,7 +412,7 @@ class Puppy extends Model implements HasMedia, Sitemapable
 
     public function getPatternsAttribute()
     {
-        return "patterns";
+        return implode(', ', $this->puppy_patterns()->pluck('name')->toArray());
     }
 
     public function attachSiblings($siblings)

@@ -10,6 +10,8 @@ import FileUpload from '../FileUpload'
 import DateInput from '../DateInput'
 import StateCityDropdown from '../StateCityDropdown'
 import SelectInput, { Option } from '../SelectInput'
+import CheckoutV2Form from '../CheckoutV2Form'
+import InputError from '../InputError'
 
 
 
@@ -23,13 +25,14 @@ const SellerRegistrationForm = () => {
     const user = usePage().props.auth.user;
 
 
-   const { data, setData, post } = useForm({
+   const { data, setData, post, errors } = useForm({
         first_name: user.first_name,
         last_name: user.last_name,
         email: user.email,
         website: null,
         phone: '',
         images: [],
+        puppy_breeds: [],
         videos: [],
         has_vaccine: 'no',
         has_health_certificate: 'no',
@@ -45,6 +48,8 @@ const SellerRegistrationForm = () => {
         zip_code: '',
         puppy_name: '',
         puppy_gender: 'Male',
+        city_id: null,
+        state_id: null,
         puppy_about: '',
         puppy_patterns: [],
         puppy_colors: [],
@@ -104,8 +109,10 @@ const SellerRegistrationForm = () => {
                   </div>
                   <div className="col-lg-4">
                     <div className="mb-4">
+
                       <InputLabel isRequired={true} value="Phone"/>
                       <TextInput type="text" onChange={(e: any) => setData('phone', e.target.value)} />
+                    {errors.phone && <InputError message={errors.phone} /> }
                     </div>
                   </div>
                   <div className="col-lg-4">
@@ -137,7 +144,7 @@ const SellerRegistrationForm = () => {
               </div>
               <div className="location-details border-bottom mb-4">
                 <SemiHeading title="Location Details"/>
-                <StateCityDropdown setFormData={setData}/>
+                <StateCityDropdown errors={errors} setFormData={setData}/>
               </div>
                     </> }
               <div className="puppy-details border-bottom mb-4">
@@ -147,12 +154,14 @@ const SellerRegistrationForm = () => {
                     <div className="mb-4">
                       <InputLabel value="Puppy Name" isRequired={true}/>
                         <TextInput onChange={(e) => setData('puppy_name', e.target.value)} />
+                    {errors.puppy_name && <InputError message={errors.puppy_name} /> }
                     </div>
                   </div>
                   <div className="col-lg-6">
                     <div className="mb-4">
                       <InputLabel value="Puppy Price" isRequired={true}/>
                         <TextInput onChange={(e) => setData('puppy_price', e.target.value)} />
+                    {errors.puppy_price && <InputError message={errors.puppy_price} /> }
                     </div>
                   </div>
                   <div className="col-lg-6">
@@ -168,30 +177,35 @@ const SellerRegistrationForm = () => {
                     <div className="mb-4">
                       <InputLabel value="Date of Birth" isRequired={true}/>
                       <DateInput name="puppy_birth_date" setData={setData} value={data.puppy_birth_date}  />
+                    {errors.puppy_birth_date && <InputError message={errors.puppy_birth_date} /> }
                     </div>
                   </div>
                   <div className="col-12">
                     <div className="mb-4">
                       <InputLabel value="About (Puppy Profile)" isRequired={true}/>
                       <textarea onChange={(e) => setData('puppy_about', e.target.value)} className="form-control rounded-1" id="About" rows={3} placeholder=""></textarea>
+                    {errors.puppy_about && <InputError message={errors.puppy_about} /> }
                     </div>
                   </div>
                   <div className="col-lg-6">
                     <div className="mb-4">
                       <InputLabel value="Breeds" isRequired={true}/>
                       <SelectInput setData={setData} multiple={true} name="puppy_breeds" options={breeds} />
+                    {errors.puppy_breeds && <InputError message={errors.puppy_breeds} /> }
                     </div>
                   </div>
                   <div className="col-lg-6">
                     <div className="mb-4">
                       <InputLabel value="Pattern/Coat " isRequired={true}/>
                       <SelectInput setData={setData} multiple={true} name="puppy_patterns" options={patterns} />
+                    {errors.puppy_patterns && <InputError message={errors.puppy_patterns} /> }
                     </div>
                   </div>
                   <div className="col-lg-6">
                     <div className="mb-4">
                       <InputLabel value="Color" isRequired={true}/>
                       <SelectInput setData={setData} multiple={true} name="puppy_colors" options={colors} />
+                    {errors.puppy_colors && <InputError message={errors.puppy_colors} /> }
                     </div>
                   </div>
 
@@ -247,6 +261,7 @@ value={data.are_you_a_breeder}  setData={setData}
                     <FileUpload
                              setData={(name, files: any) => setData('images', files)}
                                     name="images" required={true} />
+                    {errors.images && <InputError message={errors.images} /> }
 
                   </div>
                   <div className="col-lg-6">
@@ -254,12 +269,17 @@ value={data.are_you_a_breeder}  setData={setData}
                     <FileUpload
                                     name="videos"
                              setData={(name, files: any) => setData('videos', files)}
+
                                      required={true} />
+                    {errors.videos && <InputError message={errors.videos} /> }
                   </div>
                 </div>
               </div>
             </div>
           </div>
+
+
+
           <button type="submit" className="btn btn-primary d-flex align-items-center gap-6"><img
               src="../images/svgs/icon-arrow-right.svg" alt="" />Submit Registration</button>
         </form>

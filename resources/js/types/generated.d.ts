@@ -26,6 +26,8 @@ export type BreederData = {
 full_name: string;
 avatar: string;
 slug: string;
+email: string;
+phone: string;
 address: string;
 member_since: string;
 breeds: Array<App.Data.BreedDataCollection> | null;
@@ -37,10 +39,18 @@ first_name: string;
 avatar: string;
 slug: string;
 address: string;
+company_logo: string | null;
+video: string | null;
 member_since: string;
 company_name: string | null;
 company_address: string | null;
+company_about: string | null;
+company_email_address: string | null;
+company_phone: string | null;
+company_zip_code: string | null;
+company_established_on: string | null;
 company_established_on_label: string | null;
+has_usda_registration: boolean | null;
 website: string | null;
 phone: string | null;
 email: string;
@@ -50,6 +60,7 @@ social_x: string | null;
 social_ig: string | null;
 description: string | null;
 breeds: Array<any>;
+gallery: Array<any>;
 comments: Array<App.Data.CommentData> | null;
 };
 export type CityData = {
@@ -85,8 +96,8 @@ logo: string | null;
 interval_count: number;
 details: Array<App.Data.PlanDetail> | null;
 features: Array<string>;
-badge_color: string;
-badge_title: string;
+badge_color: string | null;
+badge_title: string | null;
 };
 export type PlanDetail = {
 name: string;
@@ -100,6 +111,18 @@ export type PriceData = {
 amount: number;
 currency: string;
 formatted: string;
+};
+export type PuppyCardData = {
+id: number;
+name: string;
+slug: string;
+image: string;
+gender: string;
+formatted_price: string;
+age: string;
+view_count: number;
+breeds: Array<App.Data.BreedData>;
+seller: App.Data.BreederData;
 };
 export type PuppyColorData = {
 color: string;
@@ -119,9 +142,11 @@ formatted_price: string;
 patterns: string;
 view_count: number;
 age: string;
-breeder: App.Data.BreederData;
+seller: App.Data.BreederData;
 puppy_colors: Array<App.Data.PuppyColorData> | null;
 published_at: string | null;
+features: Array<string> | null;
+characteristics: Array<string> | null;
 };
 export type PuppyPatternData = {
 amount: number;
@@ -134,6 +159,11 @@ name: string;
 slug: string;
 image: string;
 gender: string;
+};
+export type SavedSearchData = {
+id: number;
+payload: Array<any>;
+created_at: string;
 };
 export type SiblingData = {
 value: number;

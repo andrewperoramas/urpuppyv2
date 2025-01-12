@@ -6,6 +6,8 @@ x-logging: &default-logging
 
 x-base: &base
   profiles: [app]
+  environment:
+    WITH_SSR: true
   depends_on:
     pgsql:
       condition: service_healthy
@@ -20,6 +22,7 @@ x-base: &base
       APP_ENV: 'local' # to load .env.production
       WWWUSER: ${HOST_UID:-1000}
       WWWGROUP: ${HOST_GID:-1000}
+      WITH_SSR: true
   image: laravel/app
   user: "${HOST_UID:-1000}:${HOST_GID:-1000}"
   ulimits:

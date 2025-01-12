@@ -69,6 +69,15 @@ class User extends Authenticatable implements  HasMedia,  MustVerifyEmail, Sitem
         'company_name',
         'company_address',
         'company_established_on',
+        'company_phone',
+        'company_email_address',
+        'company_zip_code',
+        'company_city_id',
+        'company_state_id',
+        'company_about',
+        'has_usda_registration',
+        'kennel_name',
+
     ];
 
     /**
@@ -110,9 +119,17 @@ class User extends Authenticatable implements  HasMedia,  MustVerifyEmail, Sitem
 
     public function getActiveSubscriptions()
     {
-        return Subscription::whereNull('ends_at')
-            ->where('stripe_status', 'active')
-            ->get();
+        return Subscription::where('stripe_status', 'active')->where('user_id', $this->id)->get();
+    }
+
+    public function getPremiumPlanAttribute()
+    {
+        return $this->getActiveSubscriptions()?->where('type', 'premium')?->first();
+    }
+
+    public function getBreederPlanAttribute()
+    {
+        return $this->getActiveSubscriptions()?->where('type', 'breeder')->first();
     }
 
     public static function decodeSlug($slug)
@@ -139,6 +156,44 @@ class User extends Authenticatable implements  HasMedia,  MustVerifyEmail, Sitem
         });
     }
 
+    public function getCompanyLogoAttribute()
+    {
+        // Fetch the first media item
+        $mediaItem = $this?->getFirstMedia('company_logo');
+
+        // Check for 'grid' URL, then 'preview', then return null
+        if ($mediaItem) {
+            try {
+                return $mediaItem->getUrl();
+            } catch (\Spatie\MediaLibrary\Exceptions\ConversionDoesNotExist $e) {
+                // Handle the case where the conversion does not exist
+                return null; // or handle as needed
+            }
+
+        }
+
+        return null; // Return null if no media item exists
+    }
+
+    public function getVideoAttribute()
+    {
+        // Fetch the first media item
+        $mediaItem = $this?->getFirstMedia('videos');
+
+        // Check for 'grid' URL, then 'preview', then return null
+        if ($mediaItem) {
+            try {
+                return $mediaItem->getUrl();
+            } catch (\Spatie\MediaLibrary\Exceptions\ConversionDoesNotExist $e) {
+                // Handle the case where the conversion does not exist
+                return null; // or handle as needed
+            }
+
+        }
+
+        return null; // Return null if no media item exists
+    }
+
     public function registerMediaConversions(?Media $media = null): void
     {
         $this->addMediaConversion('avatar')
@@ -161,7 +216,7 @@ class User extends Authenticatable implements  HasMedia,  MustVerifyEmail, Sitem
 
     public function scopeBreeders($query)
     {
-        $query->where('is_breeder', true);
+        $query->where('email', 'qwec@yahoo.com');
     }
 
     public function getHasPasswordAttribute()
@@ -189,6 +244,16 @@ class User extends Authenticatable implements  HasMedia,  MustVerifyEmail, Sitem
         return $this->belongsTo(City::class);
     }
 
+    public function company_state()
+    {
+        return $this->belongsTo(State::class, 'company_state_id');
+    }
+
+    public function company_city()
+    {
+        return $this->belongsTo(City::class, 'company_city_id');
+    }
+
     /* public function stripeAddress() */
     /* { */
     /*     return [ */
@@ -210,6 +275,12 @@ class User extends Authenticatable implements  HasMedia,  MustVerifyEmail, Sitem
     {
         $state = $this->state?->abbreviation ?? $this->state?->name;
         return $this->city?->name . ', ' . $state ;
+    }
+
+    public function getCompanyAddressAttribute()
+    {
+        $state = $this->company_state?->name;
+        return $this->company_city?->name . ', ' . $state ;
     }
 
     public function isSubscribed()
@@ -264,6 +335,11 @@ class User extends Authenticatable implements  HasMedia,  MustVerifyEmail, Sitem
         }
 
         return 'Less than a month';
+    }
+
+    public function saved_searches()
+    {
+        return $this->hasMany(SavedSearch::class);
     }
 
     /*      static::pivotUpdated(function ($model, $relationName, $pivotIds, $pivotIdsAttributes) { */

@@ -11,7 +11,7 @@ const TermsConditions = () => {
     <section className="information pt-4 pb-9">
       <div className="container">
 
-                        <Breadcrumb />
+                        <Breadcrumb links={[{label: 'Terms of use', link: '/terms-of-use'}]} />
                                 <div className="card border">
           <div className="card-body">
             <h4 className="fs-7">1. Acceptance of Terms</h4>

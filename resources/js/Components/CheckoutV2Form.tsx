@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
-import { usePage } from "@inertiajs/react";
+import { usePage, router } from "@inertiajs/react";
 import Button from "./ui/Button";
-import TextInput from "./TextInput";
 
 const stripePromise = loadStripe("pk_test_51Q8Qm3CLBiXa7V6ipLsyAZoGS5TmgpRuFwAxiT0nQzePjkyICHQn8mForFcLOlus2DMrEjVVlvfXIwAvARTIWDpA00HsFtZ171");
 
@@ -13,7 +12,7 @@ const CheckoutV2Form = ({ clientSecret, plan_id }: any) => {
 
     useEffect(() => {
         const initializeStripe = async () => {
-            const appearance = {
+             const appearance = {
                 rules: {
                     '.Input:focus': {
                     boxShadow: 'none',
@@ -70,8 +69,8 @@ const CheckoutV2Form = ({ clientSecret, plan_id }: any) => {
                     },
 
                 },
+            }
 
-            };
             const stripeInstance = await stripePromise as any;
             const elementsInstance = stripeInstance?.elements({ clientSecret, appearance });
             setStripe(stripeInstance);
@@ -79,12 +78,9 @@ const CheckoutV2Form = ({ clientSecret, plan_id }: any) => {
 
             const paymentElement = elementsInstance.create("payment", {
                 address: {
-                    allowedCountries: ['US']
-
-                }
+                    allowedCountries: ["US"],
+                },
             });
-
-            // paymentElement
 
             paymentElement.mount("#payment-element");
         };
@@ -114,38 +110,47 @@ const CheckoutV2Form = ({ clientSecret, plan_id }: any) => {
                 setMessage("An unexpected error occurred.");
             }
         } else {
-            const form = document.getElementById("payment-form") as any;
-            const hiddenInput = document.createElement("input");
-            hiddenInput.setAttribute("type", "hidden");
-            hiddenInput.setAttribute("name", "paymentMethod");
-            hiddenInput.setAttribute("value", setupIntent.payment_method);
-            form.appendChild(hiddenInput);
-            form.submit();
+            const data = {
+                paymentMethod: setupIntent.payment_method,
+                plan_id,
+                _token: csrf,
+            };
+
+            // Use Inertia.js router to submit the data
+            router.post("/checkout/complete", data, {
+                onError: (errors) => {
+                    setMessage("Failed to submit payment details.");
+                },
+                onSuccess: () => {
+                    setMessage("Payment details submitted successfully.");
+                },
+            });
         }
     };
 
     const csrf = usePage().props.csrf_token as string;
 
     return (
+        <form id="payment-form" onSubmit={handleSubmit}>
+            <input type="hidden" name="_token" value={csrf} />
+            <input type="hidden" name="plan_id" value={plan_id} />
 
-                        <form id="payment-form" method="POST" action="/checkout/complete/" onSubmit={handleSubmit}>
-                        <input type="hidden" name="_token" value={csrf} />
-                        <input type="hidden" name="plan_id" value={plan_id} />
+            <div id="payment-element">
+                {/* Stripe.js injects the Payment Element */}
+            </div>
 
-                            <div id="payment-element">
-                                {/* Stripe.js injects the Payment Element */}
-                            </div>
             <div className="mt-2">
-                            <Button href="#" type="button">Checkout</Button>
-</div>
+                <Button href="#" type="button" >
+                    Checkout
+                </Button>
+            </div>
 
-                            {message && (
-                                <div id="payment-message" className="mt-4 text-red-500">
-                                    {message}
-                                </div>
-                            )}
-                        </form>
-
+            {message && (
+                <div id="payment-message" className="mt-4 text-red-500">
+                    {message}
+                </div>
+            )}
+        </form>
     );
 };
 

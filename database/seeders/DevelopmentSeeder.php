@@ -49,7 +49,6 @@ class DevelopmentSeeder extends Seeder
     public function run(): void
     {
 
-        $this->call(WorldSeeder::class);
 
 $stateAbbreviations = [
     "Alabama" => "AL",
@@ -164,6 +163,9 @@ State::all()->each(function ($state) use ($stateAbbreviations) {
                 'user_id' => $user->id
             ]);
         });
+
+
+        $this->call(WorldSeeder::class);
 
 
 

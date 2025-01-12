@@ -28,7 +28,7 @@ const PuppyCard = ({puppy, className="col-md-6 col-lg-4 col-xl-3 mb-4", height="
                 <img loading="lazy" src={puppy.image} alt="" className="w-100 object-fit-cover product-card-responsive-height"  />
                 <div
                   className="d-flex align-items-center justify-content-between position-absolute top-0 start-0 w-100 p-3 pb-0">
-                  <span className="badge text-bg-info">80% OFF</span>
+                  <div className="d-block"></div>
                 <FavoriteButton puppyId={puppy.id} isFavorite={puppy.is_favorite} />
 
                 </div>
@@ -41,7 +41,7 @@ const PuppyCard = ({puppy, className="col-md-6 col-lg-4 col-xl-3 mb-4", height="
                     <div className="col-6">
                       <div className="d-flex align-items-center gap-2 mb-2">
                         <img loading="lazy" src="/images/svgs/icon-map-pin.svg" alt="" width="20" height="20" />
-                        <p className="mb-0 ">{puppy.breeder.address}</p>
+                        <p className="mb-0 ">{puppy.seller.address}</p>
                       </div>
                     </div>
                     <div className="col-6">

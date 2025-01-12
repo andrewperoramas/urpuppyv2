@@ -11,7 +11,9 @@ const PrivacyPolicy = () => {
     <section className="information pt-4 pb-9">
       <div className="container">
 
-                        <Breadcrumb />
+                        <Breadcrumb links={[
+                            {label: 'Privacy Policy', link: '/privacy-policy'},
+                        ]}/>
 
         <div className="card border">
           <div className="card-body">

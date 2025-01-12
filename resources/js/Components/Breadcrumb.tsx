@@ -1,19 +1,50 @@
+import { Link } from '@inertiajs/react'
 import React from 'react'
 
-const Breadcrumb = () => {
-  return (
-                <nav aria-label="breadcrumb">
-          <ol className="breadcrumb align-items-center mb-4">
-            <li className="breadcrumb-item fw-semibold d-flex align-items-center"><a
-                className="text-dark d-flex align-items-center" href="index.html"><img
-                  src="/images/svgs/icon-home.svg" alt="" width="16" height="16"/></a></li>
-            <li className="breadcrumb-item fw-semibold d-flex align-items-center"><a className="text-dark"
-                href="breeds.html">Breeds</a></li>
-            <li className="breadcrumb-item fw-semibold d-flex align-items-center active" aria-current="page">Charlie</li>
-          </ol>
-        </nav>
+export interface BreadcrumbLink {
+    link?: string
+    label: string
+}
 
+const Breadcrumb = ({
+    links = []
+}: {
+        links: BreadcrumbLink[]
+    }) => {
+
+  return (
+    <nav aria-label="breadcrumb">
+      <ol className="breadcrumb align-items-center mb-4">
+        {/* Home Breadcrumb */}
+        <li className="breadcrumb-item fw-semibold d-flex align-items-center">
+          <Link className="text-dark d-flex align-items-center" href="/">
+            <img src="/images/svgs/icon-home.svg" alt="" width="16" height="16" />
+          </Link>
+        </li>
+
+        {/* Other Breadcrumbs */}
+        {links.map((link, index) => {
+          const isLast = index === links.length - 1;
+          return (
+            <li
+              key={index}
+              className={`breadcrumb-item fw-semibold d-flex align-items-center ${isLast ? 'active' : ''}`}
+              aria-current={isLast ? 'page' : undefined}
+            >
+              {isLast ? (
+                <span className="text-muted">{link.label}</span>
+              ) : (
+                <Link className="text-dark d-flex align-items-center" href={link?.link ?? ""}>
+                  {link.label}
+                </Link>
+              )}
+            </li>
+          );
+        })}
+      </ol>
+    </nav>
   )
 }
 
 export default Breadcrumb
+

@@ -2,8 +2,8 @@ import Hero from '@/Components/Hero'
 import Jumbotron from '@/Components/Jumbotron'
 import PlanCard from '@/Components/PlanCard'
 import SecondaryJumbotron from '@/Components/SecondaryJumbotron'
-import BannerLayout from '@/Layouts/BannerLayout'
 import Layout from '@/Layouts/Layout'
+import { Link } from '@inertiajs/react'
 import React from 'react'
 
 const Breeder = ({plan} : {
@@ -105,7 +105,8 @@ const Breeder = ({plan} : {
                       </ul>
                       <div className="row align-items-center">
                         <div className="col-5">
-                          <a href="#" className="btn btn-primary d-block px-2">Get a Plan</a>
+
+                          <Link href={`/checkout/${plan.id}`} className="btn btn-primary d-block px-2">Get a Plan</Link>
                         </div>
                         <div className="col-7 border-start">
                           <p className="mb-0 fs-2">Join Urpuppy.com today and elevate your

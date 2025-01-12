@@ -17,6 +17,7 @@ use App\Http\Controllers\PlanController;
 use App\Http\Controllers\PrivacyPolicyController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PuppyController;
+use App\Http\Controllers\SavedSearchController;
 use App\Models\Breed;
 use App\Models\Plan;
 use App\Models\Puppy;
@@ -25,6 +26,7 @@ use App\Models\User;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Stripe\PaymentIntent;
 use Stripe\Stripe;
@@ -32,6 +34,14 @@ use Stripe\Stripe;
 Route::get('adi', function () {
     dd(State::first());
 });
+
+Route::get('burat', function () {
+    Storage::disk('s3')->put('testz.txt', 'chikiting');
+
+    dd('burat kaba');
+
+});
+
 
 
 Route::post('/create-intent', function (Request $request) {
@@ -59,6 +69,8 @@ Route::post('/create-intent', function (Request $request) {
     }
 });
 
+Route::get('/saved-search/{id}', [SavedSearchController::class, 'destroy']);
+
 Route::post('/complete-subscription', function (Request $request) {
     $user = $request->user();
     $paymentMethod = $request->payment_method; // Retrieve from the frontend
@@ -77,14 +89,14 @@ Route::post('/complete-subscription', function (Request $request) {
 
 Route::get('/', function () {
 
-    $top_picks = Puppy::with('breeds', 'breeder')->inRandomOrder()->first();
+    $top_picks = Puppy::with('breeds', 'seller')->inRandomOrder()->first();
 
 
 
 
-    $spotlights = PuppyData::collect(Puppy::with('breeds', 'breeder')->inRandomOrder()->take(4)->get());
+    $spotlights = PuppyData::collect(Puppy::with('breeds', 'seller')->inRandomOrder()->take(4)->get());
 
-    $new = PuppyData::collect(Puppy::with('breeds:name,slug', 'breeder')->inRandomOrder()->take(4)->get());
+    $new = PuppyData::collect(Puppy::with('breeds:name,slug', 'seller')->inRandomOrder()->take(4)->get());
 
     if ( auth()->user()) {
         $user_favorites = auth()->user()->favorites()->pluck('favoriteable_id');
@@ -174,6 +186,7 @@ Route::group(['prefix' => 'breeds'], function () {
 });
 
 Route::group(['prefix' => 'breeders'], function () {
+    Route::post('/', [BreederController::class, 'store'])->name('breeders.store');
     Route::get('/', [BreederController::class, 'index'])->name('breeders.index');
     Route::get('create', [BreederController::class, 'create'])->name('breeders.create');
     Route::get('/{slug}', [BreederController::class, 'show'])->name('breeders.show');

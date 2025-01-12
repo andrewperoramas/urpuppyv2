@@ -23,7 +23,7 @@ class AuthenticatedSessionController extends Controller
         return Inertia::render('Auth/Login', [
             'canResetPassword' => Route::has('password.request'),
             'status' => session('status'),
-            'puppy'  => PuppyData::optional(Puppy::with(['breeds', 'breeder'])->inRandomOrder()->first())
+            'puppy'  => PuppyData::optional(Puppy::with(['breeds', 'seller'])->inRandomOrder()->first())
         ]);
     }
 
@@ -35,6 +35,12 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
+
+        /* dd($request->user()->puppies()->count()); */
+        if ($request->user()->puppies()->count() && !$request->user()->is_subscribed ) {
+            return redirect()->intended(route('plans.index', absolute: false));
+
+        }
 
         return redirect()->intended(route('home', absolute: false));
     }

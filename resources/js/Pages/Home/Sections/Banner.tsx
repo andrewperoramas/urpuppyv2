@@ -5,10 +5,12 @@ import React from 'react'
 
 const Banner = ({
     header = "Find Ur Perfect Puppy Today!",
-    subheader = "Discover healthy, happy puppies from trusted breeders across the USA"
+    subheader = "Discover healthy, happy puppies from trusted breeders across the USA",
+    enable_filter = true
 }: {
         header?: string | undefined,
-        subheader?: string | undefined
+        subheader?: string | undefined,
+        enable_filter?: boolean
     }) => {
   return (
                     <section className="z-30 hero-section position-relative d-flex align-items-center">
@@ -21,8 +23,10 @@ const Banner = ({
 
             <p className=" aos-init aos-animate text-white text-center fs-7 mb-4 mb-lg-5" data-aos="fade-up" data-aos-delay="200"
               data-aos-duration="1000">{subheader}</p>
-
+                    {enable_filter &&
                         <FilterBox/>
+                        }
+
           </div>
         </div>
       </div>

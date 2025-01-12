@@ -45,10 +45,10 @@ class FavoriteController extends Controller
 
     public function index(Request $request)
     {
-        $favorites = $request->user()->getFavoriteItems(Puppy::class)->with('breeds')->paginate(10);
+        $favorites = $request->user()->getFavoriteItems(Puppy::class)->with('breeds', 'seller')->get();
 
         return inertia()->render('Favorite/Index', [
-            'favorites' => $favorites,
+            'favorite_puppies' => $favorites,
         ]);
             /* ->title('Your favorites'); */
     }

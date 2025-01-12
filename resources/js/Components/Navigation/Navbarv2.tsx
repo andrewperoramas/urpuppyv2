@@ -68,13 +68,16 @@ const Navbarv2 = ({type} : {type?: string|undefined}) => {
           <div className="d-xl-none d-flex align-items-center gap-3">
 
              { user && <>
-            <a className="position-relative me-1 d-xl-none" href="#">
+            <Link className="position-relative me-1 d-xl-none" href="/favorites">
               <img src="/icon-heart-white.svg" alt="" />
+            { /*
               <span className="position-absolute fs-1 p-1 top-0 start-100 translate-middle badge rounded-pill bg-danger">
                 9+
                 <span className="visually-hidden">unread messages</span>
               </span>
-            </a>
+
+*/ }
+            </Link>
                             <AccountDropdownButton user={user}/> </> }
 
             <span
@@ -116,13 +119,16 @@ const Navbarv2 = ({type} : {type?: string|undefined}) => {
 
                 {user ? (
                                 <>
-              <a className="position-relative me-1" href="#">
+              <Link className="position-relative me-1" href="/favorites">
                 <img src="/icon-heart-white.svg" alt="" />
+            { /*
                 <span className="position-absolute fs-1 p-1 top-0 start-100 translate-middle badge rounded-pill bg-danger">
                   9+
                   <span className="visually-hidden">unread messages</span>
+
                 </span>
-              </a>
+                                      */  }
+              </Link>
                 <AccountDropdownButton user={user}/>
                                 </>
                 ) : (
@@ -188,6 +194,8 @@ const Navbarv2 = ({type} : {type?: string|undefined}) => {
             </li>
           </ul>
 
+        {!user && (
+
           <div className="d-flex align-items-center flex-column gap-3 mt-4">
 
             <Link preserveScroll={false} prefetch cacheFor="5m" className="btn btn-white bg-white text-dark w-100" href="/login">
@@ -197,6 +205,8 @@ const Navbarv2 = ({type} : {type?: string|undefined}) => {
               <img src="/icon-user.svg" alt="" /> Sign Up
             </Link>
           </div>
+
+        )}
         </div>
       </div>
 

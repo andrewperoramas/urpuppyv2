@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import SocialMediaButtons from './SocialMediaButtons'
 
 const SellerCard = ({
@@ -6,6 +6,10 @@ const SellerCard = ({
 }: {
     seller: App.Data.BreederData
 }) => {
+
+    const [emailVisible, setEmailVisible] = useState(false);
+    const [phoneVisible, setPhoneVisible] = useState(false);
+
   return (
 
             <div className="card shadow">
@@ -29,16 +33,40 @@ const SellerCard = ({
                   <img src="/images/svgs/icon-user-dark.svg" alt="" width="14" height="14" />
                   <p className="mb-0 fs-2">Member since: {seller.member_since}</p>
                 </div>
-                <a className="btn btn-outline-extralight btn-white text-dark hstack justify-content-center gap-2 mb-6"
-                  href="login.html">
-                  <img src="/images/svgs/icon-mail-dark.svg" alt="" />
-                  Show Email Address
-                </a>
-                <a className="btn btn-outline-extralight btn-white text-dark hstack justify-content-center gap-2 mb-4"
-                  href="#">
-                  <img src="/images/svgs/icon-call.svg" alt="" />
-                  Show Phone Number
-                </a>
+
+
+                  <div>
+      {/* Email Button */}
+      {!emailVisible ? (
+        <a
+          onClick={() => setEmailVisible(true)}
+          style={{ userSelect: "text" }}
+          className="btn btn-outline-extralight btn-white text-dark hstack justify-content-center gap-2 mb-6"
+          href="#"
+        >
+          <img src="/images/svgs/icon-mail-dark.svg" alt="" />
+          Show Email Address
+        </a>
+      ) : (
+        <div className=" btn-outline-extralight btn-white text-dark hstack justify-content-center gap-2 mb-6">{seller.email}</div>
+      )}
+
+      {/* Phone Button */}
+      {!phoneVisible ? (
+        <a
+          onClick={() => setPhoneVisible(true)}
+          className="btn btn-outline-extralight btn-white text-dark hstack justify-content-center gap-2 mb-4"
+          href="#"
+        >
+          <img src="/images/svgs/icon-call.svg" alt="" />
+          Show Phone Number
+        </a>
+      ) : (
+        <div className=" btn-outline-extralight btn-white text-dark hstack justify-content-center gap-2 mb-6">{seller.phone}</div>
+      )}
+    </div>
+
+
                 <p className="text-center">Follow me:</p>
                 <SocialMediaButtons
                 igUrl="#"

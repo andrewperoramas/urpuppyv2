@@ -25,15 +25,15 @@ class SellerRegistrationRequest extends FormRequest
             'first_name' => ['required', 'string', 'max:100'],
             'last_name' => ['required', 'string', 'max:100'],
             'email' => ['required', 'string', 'max:100'],
-            'phone' => ['string', 'max:100', 'nullable'],
+            'phone' => ['max:100'],
             'website' => ['max:100', 'nullable'],
             'social_fb' => ['string', 'nullable',  'max:100'],
             'social_ig' => ['string', 'nullable',  'max:100'],
             'social_tiktok' => ['string', 'nullable',  'max:100'],
             'social_x' => ['string', 'nullable', 'max:100'],
-            'city_id' => ['numeric', 'nullable'],
-            'state_id' => ['numeric', 'nullable'],
-            'zip_code' => ['numeric' , 'nullable'],
+            'city_id' => ['nullable' ],
+            'state_id' => ['nullable' ],
+            'zip_code' => ['nullable' ],
             'puppy_name' => ['required', 'string', 'max:100'],
             'puppy_price' => ['required', 'numeric'],
             'puppy_gender' => ['required', 'string'],
@@ -50,6 +50,15 @@ class SellerRegistrationRequest extends FormRequest
             'has_delivery_included' => [''],
             'images' => ['array', 'required'],
             'videos' => ['array', 'required'],
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            /* 'phone.required' => 'Phone number is required', */
+            /* 'city_id.required' => 'City field is required', */
+            /* 'state_id.required' => 'State field is required', */
         ];
     }
 }

@@ -24,6 +24,16 @@ class SellerController extends Controller
 
     public function create(Request $request)
     {
+        /* dd($request->user()?->isSubscribed()); */
+        if (!$request->user()?->isSubscribed() &&
+            $request->user()?->puppies()?->count() > 0
+        ) {
+            return redirect()->route('plans.index')->with([
+           'message.error' => 'You have to subscribe to to activate your listing'
+
+            ]);
+        }
+
         if (!$request->user()) {
             return redirect()->route('register');
         }
@@ -95,8 +105,20 @@ class SellerController extends Controller
             $created_puppy->addMedia($image)->toMediaCollection('puppy_files');
         });
 
-        return redirect()->back()->with([
-            'success' => 'Puppy created successfully'
+/*         if (!$request->user()->is_subscribed && $request->user()->puppies()->count() == 1) { */
+/*             return redirect()->to(route('plans.index'))->with([ */
+/*                 'message.error' => 'You are not subscribed to any plan yet' */
+/*             ]); */
+/*         } */
+        if (!$request->user()->premium_plan && $request->user()->puppies()->count() == 1) {
+            return redirect()->to(route('plans.index'))->with([
+                'message.success' => 'Subscribe to any plan to activate your listing'
+            ]);
+        }
+
+
+        return redirect()->to(route('puppies.show', $created_puppy->slug))->with([
+            'message.success' => 'Puppy created successfully'
         ]);
 
     }

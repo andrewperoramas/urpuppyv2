@@ -22,7 +22,6 @@ export default function BannerLayout({
     < >
             <AOSInit />
             <Navbarv2 />
-            <Banner header={headerLabel} subheader={subheaderLabel}/>
             <main className="z-10">
             {children}
             </main>

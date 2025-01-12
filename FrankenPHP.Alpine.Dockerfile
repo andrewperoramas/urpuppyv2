@@ -163,6 +163,7 @@ ENV WITH_HORIZON=false \
 
 COPY --link --chown=${WWWUSER}:${WWWUSER} . .
 COPY --link --chown=${WWWUSER}:${WWWUSER} --from=build ${ROOT}/public public
+COPY --link --chown=${WWWUSER}:${WWWUSER} --from=build ${ROOT}/bootstrap/ssr bootstrap/ssr
 
 RUN mkdir -p \
     storage/framework/sessions \

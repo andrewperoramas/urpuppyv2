@@ -38,10 +38,7 @@ const BreederCard = ({breeder, hasBorder=false }: { breeder: App.Data.BreederFul
                       </div>
                     </div>
                     <div className="d-flex align-items-center gap-2">
-                      <a href="my-favourite-puppies.html" data-bs-toggle="tooltip" data-bs-title="Add To Favourite"
-                        className="bg-white border d-flex align-items-center justify-content-center round-40 rounded-circle flex-shrink-0">
-                        <img loading="lazy" src="/images/svgs/icon-heart.svg" alt=""/>
-                      </a>
+
                       <div className="dropdown">
                         <button type="button"
                           className="btn btn-secondary p-0 shadow-none bg-white border d-flex align-items-center justify-content-center round-40 rounded-circle flex-shrink-0"

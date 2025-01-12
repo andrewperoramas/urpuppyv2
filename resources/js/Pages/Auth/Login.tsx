@@ -101,7 +101,7 @@ export default function Login({
                 <Button href="" type="button" className="btn btn-primary w-100 mb-3">Login</Button>
                 <div className="d-flex align-items-center">
                   <p className="fs-4 mb-0">I don’t have an account?</p>
-                  <a className="text-dark fw-semibold text-decoration-underline ms-2" href="sign-up.html">Create Account</a>
+                  <Link className="text-dark fw-semibold text-decoration-underline ms-2" href="/register">Create Account</Link>
                 </div>
               </form>
             </div>

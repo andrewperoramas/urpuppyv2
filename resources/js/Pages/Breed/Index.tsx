@@ -26,9 +26,7 @@ const Index = ({breeds, letter_param = 'A'} : {
 
 
             <BannerSlider slidesPerView={1} children={[
-                <SmallBannerWithContent />,
-                <SmallBannerWithContent />,
-                <SmallBannerWithContent />
+                <SmallBannerWithContent title="Siberian Husky: Your Winter Companion" />,
             ]} />
 
                 <section className="find-ur-breeds bg-extralight position-relative z-1 py-7 py-md-5 py-xl-9">
