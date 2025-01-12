@@ -11,7 +11,9 @@ const Registration = ({puppy_count}: {puppy_count: number}) => {
 
     <section className="information pt-4 pb-8 pb-lg-9">
                   <div className="container">
-                        <Breadcrumb />
+                        <Breadcrumb links={[
+                        {label: 'Seller Registration', link: '/'},
+                        ]}/>
                         <div className="space-y-4">
 
                         {!puppy_count ?

@@ -12,7 +12,7 @@ const PaymentMethod = ({payment_methods}: any) => {
     <div className="page-wrapper position-relative overflow-hidden">
     <section className="information pt-4 pb-8 pb-lg-9">
                   <div className="container">
-                        <Breadcrumb />
+                        <Breadcrumb links={[{label: 'Plan', link: '/'}, {label: 'Checkout', link: '/checkout'}]}/>
                         <div className="space-y-4">
                         <Heading title="Checkout" description="Create a new listing for your puppy." />
                         <PaymentMethodForm

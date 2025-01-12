@@ -11,7 +11,7 @@ const Checkout = ({plan_id, intent}: any) => {
     <div className="page-wrapper position-relative overflow-hidden">
     <section className="information pt-4 pb-8 pb-lg-9">
                   <div className="container">
-                        <Breadcrumb />
+                        <Breadcrumb links={[{label: 'Plan', link: '/plans'}, {label: 'Checkout', link: '/checkout'}]} />
                         <div className="space-y-4">
                         <Heading title="Checkout" description="Checkout now" />
                         <CheckoutV2Form clientSecret={intent.client_secret}  plan_id={plan_id}/>
