@@ -6,9 +6,9 @@ const FavoriteButton = ({puppyId, sellerId, isFavorite} : {
     sellerId: number,
     isFavorite?: boolean | null
 }) => {
-  const user = usePage().props.auth.user
+  const user = usePage().props?.auth?.user
 
-  return user.id != sellerId && (
+  return user?.id != sellerId && (
 
                           <Link method="patch" preserveScroll href={`/favorites/${puppyId}`} data-bs-toggle="tooltip" data-bs-title="Add To Favourite"
                             className="bg-white border d-flex align-items-center justify-content-center round-40 rounded-circle">
