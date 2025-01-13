@@ -1,4 +1,4 @@
-import { Link } from '@inertiajs/react'
+import { Link, usePage } from '@inertiajs/react'
 import React, { useEffect } from 'react'
 import FavoriteButton from '../FavoriteButton'
 
@@ -13,6 +13,8 @@ const PuppyCard = ({puppy, className="col-md-6 col-lg-4 col-xl-3 mb-4", height="
     if (!puppy) {
         return null
     }
+
+    const user = usePage().props.auth.user;
 
     // useEffect(() => {
     //     window.scrollTo(0, 0);
@@ -29,8 +31,11 @@ const PuppyCard = ({puppy, className="col-md-6 col-lg-4 col-xl-3 mb-4", height="
                 <div
                   className="d-flex align-items-center justify-content-between position-absolute top-0 start-0 w-100 p-3 pb-0">
                   <div className="d-block"></div>
-                <FavoriteButton puppyId={puppy.id} isFavorite={puppy.is_favorite} />
+                {
+                    user &&
+                        <FavoriteButton sellerId={puppy.seller.id} puppyId={puppy.id} isFavorite={puppy.is_favorite} />
 
+                }
                 </div>
               </Link>
               <div className="puppy-spotlight-details">

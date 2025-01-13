@@ -80,7 +80,7 @@ const Show = ({ related_puppies, puppy, siblings }: {
                         <h2 className="fs-10 mb-0">{puppy.name}</h2>
                         <div className="d-flex align-items-center gap-2">
 
-                            <FavoriteButton puppyId={puppy.id} isFavorite={puppy.is_favorite} />
+                            <FavoriteButton sellerId={puppy.seller.id} puppyId={puppy.id} isFavorite={puppy.is_favorite} />
 
                           <a onClick={window.print} href="#" data-bs-toggle="tooltip" data-bs-title="Print"
                             className="bg-white border d-flex align-items-center justify-content-center round-40 rounded-circle">
@@ -88,8 +88,7 @@ const Show = ({ related_puppies, puppy, siblings }: {
                           </a>
 
                                                                                 <ShareButton
-                                                                xUrl="#"
-                                                                fbUrl="#"
+                                                                slug={puppy.slug}
                                                             />
 
                         </div>
@@ -212,6 +211,8 @@ const Show = ({ related_puppies, puppy, siblings }: {
           </div>
           <div className="col-lg-4 col-xl-3">
             <SellerCard seller={puppy.seller} />
+
+            {siblings.length > 0 &&
             <div className="card border">
               <div className="card-body">
                 <h5 className="fs-5 mb-3 pb-1">Charlie’s Siblings</h5>
@@ -224,8 +225,12 @@ const Show = ({ related_puppies, puppy, siblings }: {
                                             }
                 </div>
               </div>
+
             </div>
+                                }
+
           </div>
+
         </div>
       </div>
     </section>

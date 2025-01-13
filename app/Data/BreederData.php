@@ -16,6 +16,7 @@ class BreederData extends Data
 {
 
     public function __construct(
+        public int $id,
         public string $full_name,
         public string $avatar,
         public string $slug,
@@ -25,6 +26,13 @@ class BreederData extends Data
         public string $member_since,
         /** @var \App\Data\BreedDataCollection[] */
         public ?DataCollection $breeds,
+
+        public bool $is_breeder,
+        public ?string $social_fb,
+        public ?string $social_tiktok,
+        public ?string $social_x,
+        public ?string $social_ig,
+        public ?string $website
     ) {
 
 

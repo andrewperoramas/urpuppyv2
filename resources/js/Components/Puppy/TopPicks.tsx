@@ -1,6 +1,8 @@
 import React from 'react'
 import ImageSlider from '../ImageSlider'
 import { Link } from '@inertiajs/react'
+import FavoriteButton from '../FavoriteButton'
+import ShareButton from '../ShareButton'
 
 const TopPicks = ({puppy}: { puppy: App.Data.PuppyData }) => {
   return (
@@ -27,14 +29,9 @@ const TopPicks = ({puppy}: { puppy: App.Data.PuppyData }) => {
                   <h2 className="fs-10">{puppy.name}</h2>
                 </div>
                 <div className="d-flex align-items-center gap-6">
-                  <a href="my-favourite-puppies.html" data-bs-toggle="tooltip" data-bs-title="Add To Favourite"
-                    className="bg-white border d-flex align-items-center justify-content-center round-40 rounded-circle">
-                    <img src="/images/svgs/icon-heart.svg" alt="" />
-                  </a>
-                  <a href="#" data-bs-toggle="tooltip" data-bs-title="Share"
-                    className="bg-white border d-flex align-items-center justify-content-center round-40 rounded-circle">
-                    <img src="/images/svgs/icon-share.svg" alt="" />
-                  </a>
+                    <FavoriteButton sellerId={puppy.seller.id} puppyId={puppy.id} isFavorite={puppy.is_favorite} />
+                    <ShareButton slug={puppy.slug} />
+
                 </div>
               </div>
               <div className="d-flex align-items-center mb-4">
@@ -64,10 +61,14 @@ const TopPicks = ({puppy}: { puppy: App.Data.PuppyData }) => {
               </div>
               <h3 className="mb-3 fs-8">About {puppy.name}</h3>
               <p className="mb-3">{puppy.description}</p>
+                            {/*
               <div className="rounded-pill px-3 py-6 d-flex align-items-center align-items-start gap-6 bg-extralight">
                 <img src="/images/svgs/icon-heart-plus.svg" alt="" />
+
                 <p className="mb-0 text-dark">Charlie will be current on vaccinations & vet exams before going home</p>
               </div>
+
+*/}
             </div>
           </div>
         </div>

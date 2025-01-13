@@ -23,14 +23,21 @@ value: number;
 label: string;
 };
 export type BreederData = {
+id: number;
 full_name: string;
 avatar: string;
 slug: string;
 email: string;
-phone: string;
+phone: string | null;
 address: string;
 member_since: string;
 breeds: Array<App.Data.BreedDataCollection> | null;
+is_breeder: boolean;
+social_fb: string | null;
+social_tiktok: string | null;
+social_x: string | null;
+social_ig: string | null;
+website: string | null;
 };
 export type BreederFullData = {
 id: number;
@@ -119,6 +126,7 @@ slug: string;
 image: string;
 gender: string;
 formatted_price: string;
+is_favorite: boolean | null;
 age: string;
 view_count: number;
 breeds: Array<App.Data.BreedData>;
@@ -178,6 +186,7 @@ full_name: string;
 avatar: string;
 };
 export type UserData = {
+id: number;
 full_name: string;
 first_name: string;
 last_name: string;

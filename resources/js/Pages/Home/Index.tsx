@@ -48,7 +48,9 @@ export default function Index({
             }
             <TrustedBreeders breeders={trusted_breeders}/>
             <NewArrivals new_arrivals={new_arrivals}/>
-            <FooterVideos />
+            { /*
+                <FooterVideos />
+            */}
             </div>
             </Layout>
         </>

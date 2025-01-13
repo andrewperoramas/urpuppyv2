@@ -34,7 +34,7 @@ class SellerController extends Controller
             ]);
         }
 
-        if (!$request->user()) {
+        if (!auth()->user()) {
             return redirect()->route('register');
         }
 

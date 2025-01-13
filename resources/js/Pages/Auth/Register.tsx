@@ -155,7 +155,7 @@ export default function Register({puppy}: {
                   </div>
                 </div>
                 <p className="mb-4">By signing up for a urpuppy account, you confirm that you have read, understand and
-                  agreed <a className="text-decoration-underline fw-semibold" href="#">Terms of Service</a></p>
+                  agreed <Link className="text-decoration-underline fw-semibold" href="/terms-of-use">Terms of Service</Link></p>
                 <Button size="full" href="" type="button" >Signup</Button>
 
                 <div className="d-flex align-items-center">

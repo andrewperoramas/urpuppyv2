@@ -17,9 +17,9 @@ x-base: &base
       condition: service_healthy
   build:
     context: .
-    dockerfile: FrankenPHP.Alpine.Dockerfile
+    dockerfile: FrankenPHP.Dockerfile
     args:
-      APP_ENV: 'local' # to load .env.production
+      APP_ENV: 'production' # to load .env.production
       WWWUSER: ${HOST_UID:-1000}
       WWWGROUP: ${HOST_GID:-1000}
       WITH_SSR: true
@@ -51,7 +51,7 @@ services:
     security_opt:
       - no-new-privileges:true
     command:
-      - "--log.level=WARN"
+      - "--log.level=DEBUG"
       - "--ping=true"
       - "--api=true"
       - "--accesslog=true"
@@ -68,10 +68,14 @@ services:
       - "--entryPoints.reverb.http3=true"
       - "--entryPoints.pgadmin.address=:6053"
       - "--entryPoints.pghero.address=:6660"
-      - "--entryPoints.minio.address=:9000"
-      - "--entryPoints.minio-console.address=:8900"
-      - "--entryPoints.glances.address=:61208"
+        #      - "--entryPoints.minio.address=:9000"
+        # - "--entryPoints.minio-console.address=:8900"
+        #      - "--entryPoints.glances.address=:61208"
       - "--entryPoints.netdata.address=:19999"
+      - "--entryPoints.app-secure.http.tls.certresolver=myresolver"
+      - "--certificatesresolvers.myresolver.acme.email=wolfandrew307@gmail.com"
+      - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
+      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
     ports:
       - "127.0.0.1:8190:8190" # Traefik
       - "80:80" # HTTP
@@ -80,14 +84,15 @@ services:
       - "8080:8080" # Reverb
       - "127.0.0.1:6053:6053" # pgAdmin
       - "127.0.0.1:6660:6660" # PgHero
-      - "127.0.0.1:61208:61208" # Glances
-      - "9000:9000" # MinIO
-      - "127.0.0.1:8900:8900" # MinIO console
+        #- "127.0.0.1:61208:61208" # Glances
+        #- "9000:9000" # MinIO
+        #      - "127.0.0.1:8900:8900" # MinIO console
       - "127.0.0.1:19999:19999" # NetData
     networks:
       - stack
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
+      - letsencryptingsedxz:/letsencrypt
     logging: *default-logging
     labels:
       traefik.enable: true
@@ -114,7 +119,6 @@ services:
       traefik.http.routers.app.entryPoints: app
       traefik.http.routers.app.service: app-service
       traefik.http.routers.app.middlewares: "redirect-scheme,app-retry,app-compress,security-headers"
-
       traefik.http.routers.app-secure.rule: Host(`${APP_DOMAIN}`) || Host(`localhost`)
       traefik.http.routers.app-secure.entryPoints: app-secure
       traefik.http.routers.app-secure.service: app-service
@@ -146,32 +150,6 @@ services:
       traefik.http.middlewares.security-headers.headers.browserxssfilter: true # X-XSS-Protection: 1; mode=block
       traefik.http.middlewares.security-headers.headers.referrerpolicy: no-referrer-when-downgrade # Referrer-Policy: no-referrer-when-downgrade
       traefik.http.middlewares.security-headers.headers.permissionspolicy: camera=(), geolocation=(), microphone=(), payment=(), usb=(), interest-cohort=(), gyroscope=()
-  horizon:
-    <<: *base
-    environment:
-      CONTAINER_MODE: horizon
-    labels:
-      traefik.enable: false
-  scheduler:
-    <<: *base
-    environment:
-      CONTAINER_MODE: scheduler
-    labels:
-      traefik.enable: false
-  # reverb:
-  #   <<: *base
-  #   environment:
-  #     CONTAINER_MODE: reverb
-  #   labels:
-  #     traefik.enable: true
-  #     traefik.http.routers.reverb.rule: Host(`${APP_DOMAIN}`) || Host(`localhost`)
-  #     traefik.http.routers.reverb.entryPoints: reverb
-  #     traefik.http.routers.reverb.tls: true
-  #     traefik.http.routers.reverb.middlewares: "reverb-retry"
-  #     traefik.http.middlewares.reverb-retry.retry.attempts: 4
-  #     traefik.http.middlewares.reverb-retry.retry.initialinterval: 100ms
-  #     traefik.http.routers.reverb.service: reverb-service
-  #     traefik.http.services.reverb-service.loadbalancer.server.port: 8080
   redis:
     profiles: [app]
     image: 'redis:alpine'
@@ -226,104 +204,34 @@ services:
       traefik.enable: false
       docker-volume-backup.stop-during-backup: true
       docker-volume-backup.archive-pre: /bin/sh -c 'pg_dump -U ${DB_USERNAME} -F t ${DB_DATABASE} > /backup/${DB_DATABASE}-database.tar'
-  # pgadmin:
-  #   profiles: [administration]
-  #   image: 'dpage/pgadmin4:latest'
-  #   security_opt:
-  #     - no-new-privileges:true
-  #   depends_on:
-  #     pgsql:
-  #       condition: service_healthy
-  #   environment:
-  #     PGADMIN_DEFAULT_EMAIL: '${PGADMIN_DEFAULT_EMAIL}'
-  #     PGADMIN_DEFAULT_PASSWORD: '${PGADMIN_DEFAULT_PASSWORD}'
-  #     PGADMIN_CONFIG_ENHANCED_COOKIE_PROTECTION: 'True'
-  #   volumes:
-  #     - 'stack-pgadmin:/var/lib/pgadmin'
-  #   networks:
-  #     - stack
-  #   restart: always
-  #   logging: *default-logging
-  #   labels:
-  #     traefik.enable: true
-  #     traefik.http.routers.pgadmin.rule: Host(`localhost`)
-  #     traefik.http.routers.pgadmin.entryPoints: pgadmin
-  #     traefik.http.routers.pgadmin.middlewares: "pgadmin-auth,pgadmin-retry"
-  #     traefik.http.middlewares.pgadmin-retry.retry.attempts: 4
-  #     traefik.http.middlewares.pgadmin-retry.retry.initialinterval: 100ms
-  #     traefik.http.middlewares.pgadmin-auth.basicauth.removeheader: true
-  #     traefik.http.middlewares.pgadmin-auth.basicauth.users: "user:$$2y$$05$$8zbpsdxg9wDiiKdqxiB0zeAlxZtG68P1SDBOvCN4IooLFewLx70Gm" # user:123456
-  # pghero:
-  #   profiles: [administration]
-  #   image: ankane/pghero
-  #   security_opt:
-  #     - no-new-privileges:true
-  #   depends_on:
-  #     pgsql:
-  #       condition: service_healthy
-  #   environment:
-  #     PORT: 6660
-  #     DATABASE_URL: postgres://${DB_USERNAME}:${DB_PASSWORD}@pgsql:5432/${DB_DATABASE}
-  #   networks:
-  #     - stack
-  #   restart: always
-  #   logging: *default-logging
-  #   labels:
-  #     traefik.enable: true
-  #     traefik.http.routers.pghero.rule: Host(`localhost`)
-  #     traefik.http.routers.pghero.entryPoints: pghero
-  #     traefik.http.routers.pghero.middlewares: "pghero-auth,pghero-retry"
-  #     traefik.http.middlewares.pghero-retry.retry.attempts: 4
-  #     traefik.http.middlewares.pghero-retry.retry.initialinterval: 100ms
-  #     traefik.http.middlewares.pghero-auth.basicauth.removeheader: true
-  #     traefik.http.middlewares.pghero-auth.basicauth.users: "user:$$2y$$05$$8zbpsdxg9wDiiKdqxiB0zeAlxZtG68P1SDBOvCN4IooLFewLx70Gm" # user:123456
-  #     traefik.http.routers.pghero.service: pghero-service
-  #     traefik.http.services.pghero-service.loadbalancer.server.port: 6660
-  # typesense:
-  #   profiles: [app]
-  #   image: 'typesense/typesense:0.25.2'
-  #   security_opt:
-  #     - no-new-privileges:true
-  #   environment:
-  #     TYPESENSE_DATA_DIR: '${TYPESENSE_DATA_DIR:-/typesense-data}'
-  #     TYPESENSE_API_KEY: '${TYPESENSE_API_KEY}'
-  #     TYPESENSE_ENABLE_CORS: '${TYPESENSE_ENABLE_CORS:-true}'
-  #   volumes:
-  #     - 'stack-typesense:/typesense-data'
-  #   networks:
-  #     - stack
-  #   healthcheck:
-  #     test: [ "CMD", "wget", "--no-verbose", "--spider", "http://localhost:8108/health" ]
-  #     interval: 3s
-  #     retries: 12
-  #     timeout: 5s
-  #   restart: always
-  #   logging: *default-logging
-  #   labels:
-  #     traefik.enable: false
-  # backup:
-  #   profiles: [administration]
-  #   image: offen/docker-volume-backup:v2
-  #   security_opt:
-  #     - no-new-privileges:true
-  #   environment:
-  #     BACKUP_FILENAME: backup-%Y-%m-%dT%H-%M-%S.tar.gz
-  #     BACKUP_PRUNING_PREFIX: backup-
-  #     BACKUP_CRON_EXPRESSION: "0 2 * * *" # run every day at 2am
-  #     BACKUP_RETENTION_DAYS: '7'
-  #   restart: always
-  #   depends_on:
-  #     pgsql:
-  #       condition: service_healthy
-  #   logging: *default-logging
-  #   volumes:
-  #     - stack-pgsql:/backup/pgsql:ro
-  #     - ../backup/volumes:/archive
-  #     - /var/run/docker.sock:/var/run/docker.sock:ro
-  #     - /etc/timezone:/etc/timezone:ro
-  #     - /etc/localtime:/etc/localtime:ro
-  #   labels:
-  #     traefik.enable: false
+  glances:
+      profiles: [administration]
+      image: nicolargo/glances:latest-full
+      pid: host
+      security_opt:
+        - no-new-privileges:true
+      volumes:
+        - /var/run/docker.sock:/var/run/docker.sock:ro
+        - /etc/os-release:/etc/os-release:ro
+      environment:
+        - "GLANCES_OPT=-w"
+        - TZ="${APP_TIMEZONE}"
+      networks:
+        - stack
+      logging: *default-logging
+      restart: always
+      labels:
+        traefik.enable: true
+        traefik.http.routers.glances.rule: Host(`glances.761073128.xyz`)
+        traefik.http.routers.glances.entryPoints: app-secure
+        traefik.http.routers.glances.middlewares: "glances-auth,glances-retry"
+        traefik.http.routers.glances.service: glances
+        traefik.http.services.glances.loadbalancer.server.port: 61208
+
+        traefik.http.middlewares.glances-retry.retry.attempts: 4
+        traefik.http.middlewares.glances-retry.retry.initialinterval: 100ms
+        traefik.http.middlewares.glances-auth.basicauth.removeheader: true
+        traefik.http.middlewares.glances-auth.basicauth.users: "user:$$2y$$05$$8zbpsdxg9wDiiKdqxiB0zeAlxZtG68P1SDBOvCN4IooLFewLx70Gm" # user:123456
   minio:
     profiles: [app]
     image: 'minio/minio:latest'
@@ -336,23 +244,22 @@ services:
       - 'stack-minio:/data/minio'
     networks:
       - stack
-    command: 'minio server /data/minio --console-address ":8900"'
+    command: 'minio server /data/minio --console-address ":9001"'
     restart: always
     logging: *default-logging
     labels:
       traefik.enable: true
-
-      traefik.http.routers.minio-console.rule: Host(`localhost`)
-      traefik.http.routers.minio-console.entryPoints: minio-console
-      traefik.http.routers.minio-console.service: minio-console-service
-      traefik.http.routers.minio-console.middlewares: "minio-auth,minio-retry"
-      traefik.http.services.minio-console-service.loadbalancer.server.port: 8900
-
-      traefik.http.routers.minio.rule: Host(`${APP_DOMAIN}`) || Host(`localhost`)
-      traefik.http.routers.minio.entryPoints: app,app-secure
-      traefik.http.routers.minio.service: minio-service
+      traefik.http.routers.minion.rule: Host(`minio.urpuppy.com`)
+      traefik.http.routers.minion.entryPoints: app-secure
+      traefik.http.routers.minion.service: minion
       traefik.http.routers.minio.middlewares: "minio-retry,minio-compress"
-      traefik.http.services.minio-service.loadbalancer.server.port: 9000
+      traefik.http.services.minion.loadbalancer.server.port: 9000
+
+      traefik.http.routers.minio-console.rule: Host(`console.urpuppy.com`)
+      traefik.http.routers.minio-console.entryPoints: app-secure
+      traefik.http.routers.minio-console.service: minio-console
+      traefik.http.routers.minio-console.middlewares: "minio-auth,minio-retry"
+      traefik.http.services.minio-console.loadbalancer.server.port: 9001
 
       traefik.http.middlewares.minio-compress.compress: true
       traefik.http.middlewares.minio-retry.retry.attempts: 4
@@ -363,67 +270,12 @@ services:
       test: [ "CMD", "mc", "ready", "local" ]
       retries: 3
       timeout: 5s
-  # glances:
-  #   profiles: [administration]
-  #   image: nicolargo/glances:latest-full
-  #   pid: host
-  #   security_opt:
-  #     - no-new-privileges:true
-  #   volumes:
-  #     - /var/run/docker.sock:/var/run/docker.sock:ro
-  #     - /etc/os-release:/etc/os-release:ro
-  #   environment:
-  #     - "GLANCES_OPT=-w"
-  #     - TZ="${APP_TIMEZONE}"
-  #   networks:
-  #     - stack
-  #   logging: *default-logging
-  #   restart: always
-  #   labels:
-  #     traefik.enable: true
-  #     traefik.http.routers.glances.rule: Host(`localhost`)
-  #     traefik.http.routers.glances.entryPoints: glances
-  #     traefik.http.routers.glances.middlewares: "glances-auth,glances-retry"
-  #     traefik.http.middlewares.glances-retry.retry.attempts: 4
-  #     traefik.http.middlewares.glances-retry.retry.initialinterval: 100ms
-  #     traefik.http.middlewares.glances-auth.basicauth.removeheader: true
-  #     traefik.http.middlewares.glances-auth.basicauth.users: "user:$$2y$$05$$8zbpsdxg9wDiiKdqxiB0zeAlxZtG68P1SDBOvCN4IooLFewLx70Gm" # user:123456
-  # netdata:
-  #   profiles: [administration]
-  #   image: netdata/netdata
-  #   restart: unless-stopped
-  #   cap_add:
-  #     - SYS_PTRACE
-  #     - SYS_ADMIN
-  #   security_opt:
-  #     - apparmor:unconfined
-  #   logging: *default-logging
-  #   networks:
-  #     - stack
-  #   volumes:
-  #     - stack-netdataconfig:/etc/netdata
-  #     - stack-netdatalib:/var/lib/netdata
-  #     - stack-netdatacache:/var/cache/netdata
-  #     - /:/host/root:ro,rslave
-  #     - /etc/passwd:/host/etc/passwd:ro
-  #     - /etc/group:/host/etc/group:ro
-  #     - /etc/localtime:/etc/localtime:ro
-  #     - /proc:/host/proc:ro
-  #     - /sys:/host/sys:ro
-  #     - /etc/os-release:/host/etc/os-release:ro
-  #     - /var/log:/host/var/log:ro
-  #     - /var/run/docker.sock:/var/run/docker.sock:ro
-  #   labels:
-  #     traefik.enable: true
-  #     traefik.http.routers.netdata.rule: Host(`localhost`)
-  #     traefik.http.routers.netdata.entryPoints: netdata
-  #     traefik.http.routers.netdata.middlewares: "netdata-auth"
-  #     traefik.http.middlewares.netdata-auth.basicauth.removeheader: true
-  #     traefik.http.middlewares.netdata-auth.basicauth.users: "user:$$2y$$05$$8zbpsdxg9wDiiKdqxiB0zeAlxZtG68P1SDBOvCN4IooLFewLx70Gm" # user:123456
 networks:
   stack:
     driver: bridge
 volumes:
+  letsencryptingsedxz:
+    driver: local
   stack-pgsql:
     driver: local
   stack-redis:

@@ -20,6 +20,7 @@ class PuppyCardData extends Data
         public string $image,
         public string $gender,
         public string $formatted_price,
+        public ?bool $is_favorite,
         public string $age,
         public int $view_count,
         /** @var \App\Data\BreedData[] */

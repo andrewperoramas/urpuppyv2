@@ -48,7 +48,7 @@ class PuppyController extends Controller
             ])
             ->with([
                 'breeds:id,name,slug',
-                'seller:id,first_name,email,phone,last_name,state_id,city_id,created_at,slug',
+                'seller:id,first_name,email,phone,last_name,state_id,city_id,created_at,slug,is_breeder',
                 'favorites',
                 'media',
                 'seller.state:id,name,abbreviation',
@@ -64,7 +64,7 @@ class PuppyController extends Controller
                 'name', // Allows filtering by name
                 /* 'price', // Allows filtering by price if needed */
             ])
-            ->hasSubscribedUsers()
+//            ->hasSubscribedUsers()
             ->latest()
             ->paginate(12);
 
@@ -85,6 +85,21 @@ class PuppyController extends Controller
                 'payload' => $payload,
             ]);
         }
+
+
+        if (auth()->user()) {
+    $user_favorites = auth()->user()->favorites()->pluck('favoriteable_id');
+}
+
+    $puppies->getCollection()->transform(function ($puppy) use ($user_favorites) {
+        if (isset($user_favorites) && $user_favorites->contains($puppy->id)) {
+            $puppy->is_favorite = true;
+        }
+        return $puppy;
+    });
+
+
+
 }
 
 
@@ -148,6 +163,15 @@ class PuppyController extends Controller
             },
             'comments.breeder',
         ])->where('slug', $slug)->firstOrFail();
+
+        if ( auth()->user()) {
+            $user_favorites = auth()->user()->favorites()->pluck('favoriteable_id');
+        }
+
+        if (in_array($puppy->id, $user_favorites->toArray())){
+            $puppy->is_favorite = true;
+        }
+
 
         // Log view on deferred execution
         defer(function () use ($puppy) {

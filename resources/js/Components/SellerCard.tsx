@@ -19,10 +19,12 @@ const SellerCard = ({
                     <img src={seller.avatar} alt=""
                       className="object-fit-cover w-100 h-100" />
                   </div>
+                {seller.is_breeder &&
                   <span
                     className="position-absolute bottom-0 end-0 d-block round-24 rounded-circle bg-primary d-flex align-items-center justify-content-center">
                     <img src="/images/svgs/icon-paws.svg" alt="" width="16" height="16" />
                   </span>
+                 }
                 </div>
                 <h5 className="fs-5 text-center">{seller.full_name}</h5>
                 <div className="d-flex align-items-center justify-content-center gap-2 mb-1">
@@ -69,11 +71,11 @@ const SellerCard = ({
 
                 <p className="text-center">Follow me:</p>
                 <SocialMediaButtons
-                igUrl="#"
-                xUrl="#"
-                fbUrl="#"
-                tiktokUrl="#"
-                webUrl="#"
+                igUrl={seller?.social_ig}
+                xUrl={seller.social_x}
+                fbUrl={seller.social_fb}
+                tiktokUrl={seller.social_tiktok}
+                webUrl={seller.website}
                 />
               </div>
             </div>

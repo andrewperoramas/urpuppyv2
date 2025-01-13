@@ -1,15 +1,12 @@
 import React from 'react'
+import { FacebookShareButton, TwitterShareButton } from 'react-share'
 
 const ShareButton = ({
-    xUrl,
-    fbUrl,
-    igUrl
+    slug
 }: {
-    xUrl?: string | undefined,
-    fbUrl?: string | undefined,
-    igUrl?: string | undefined
+    slug: string
     }) => {
-  return xUrl || fbUrl || igUrl ? (
+  return (
 
 <div className="dropdown">
                         <button type="button" className="btn btn-secondary p-0 shadow-none bg-white border d-flex align-items-center justify-content-center round-40 rounded-circle flex-shrink-0 show" data-bs-toggle="dropdown" aria-expanded="true">
@@ -26,40 +23,23 @@ const ShareButton = ({
 
             >
                           <div className="d-flex align-items-center justify-content-center gap-2">
-                    {
-                        xUrl && (
                             <li>
-                              <a href={xUrl} className="dropdown-item p-0 bg-white bg-opacity-25 d-flex align-items-center justify-content-center round-35 rounded-circle">
+                              <TwitterShareButton url={`/puppies/${slug}`}  className="dropdown-item p-0 bg-white bg-opacity-25 d-flex align-items-center justify-content-center round-35 rounded-circle">
                                 <img src="../images/svgs/icon-twitter.svg" alt="" width="16" height="16" />
-                              </a>
+                              </TwitterShareButton>
                             </li>
 
-                        )
-                    }
 
-                    {
-                        fbUrl && (
                             <li>
-                              <a href={fbUrl} className="dropdown-item p-0 bg-white bg-opacity-25 d-flex align-items-center justify-content-center round-35 rounded-circle">
+                              <FacebookShareButton url={`/puppies/${slug}`} className="dropdown-item p-0 bg-white bg-opacity-25 d-flex align-items-center justify-content-center round-35 rounded-circle">
                                 <img src="../images/svgs/icon-facebook.svg" alt="" width="16" height="16" />
-                              </a>
+                              </FacebookShareButton>
                             </li>
-                        )
-                    }
-                    {
-                        igUrl && (
-                            <li>
-                              <a href={igUrl} className="dropdown-item p-0 bg-white bg-opacity-25 d-flex align-items-center justify-content-center round-35 rounded-circle">
-                                <img src="../images/svgs/icon-instagram.svg" alt="" width="16" height="16" />
-                              </a>
-                            </li>
-                        )
-                    }
-                          </div>
+                                              </div>
                         </ul>
                       </div>
+    )
 
-  ) : null
 }
 
 export default ShareButton
