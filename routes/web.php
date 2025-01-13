@@ -17,6 +17,7 @@ use App\Http\Controllers\PlanController;
 use App\Http\Controllers\PrivacyPolicyController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PuppyController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SavedSearchController;
 use App\Models\Breed;
 use App\Models\Plan;
@@ -84,7 +85,7 @@ Route::post('/complete-subscription', function (Request $request) {
     return response()->json(['success' => true]);
 });
 
-
+Route::post('/report/{slug}', [ReportController::class, 'store']);
 
 
 Route::get('/', function () {

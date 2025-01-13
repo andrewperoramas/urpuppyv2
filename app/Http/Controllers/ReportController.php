@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Puppy;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class ReportController extends Controller
@@ -15,6 +16,14 @@ class ReportController extends Controller
         ]);
 
         $puppy = Puppy::where('slug', $slug)->first();
+
+
+        $is_reported_today = $puppy->reports()->whereDate('created_at', Carbon::today())->exists();
+
+
+        if ($is_reported_today) {
+         return redirect()->back()->with('message.error', 'This has been reported today');
+        }
 
         if ($validated['reason'] == 'other') {
             $validated['reason'] = $validated['customOptionInput'];

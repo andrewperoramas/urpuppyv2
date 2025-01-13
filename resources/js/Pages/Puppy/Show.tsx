@@ -8,6 +8,7 @@ import FavoriteButton from '@/Components/FavoriteButton';
 import ShareButton from '@/Components/ShareButton';
 import SellerCard from '@/Components/SellerCard';
 import List from '@/Components/List';
+import { Link } from '@inertiajs/react';
 
 const Show = ({ related_puppies, puppy, siblings }: {
     related_puppies: App.Data.PuppyData[]
@@ -174,7 +175,21 @@ const Show = ({ related_puppies, puppy, siblings }: {
                       <p className="mb-3"></p>
                       <div className="d-flex align-items-center align-items-start gap-2">
                         <img src="/images/svgs/icon-flag.svg" alt="" />
-                        <h6 className="mb-0 fs-2 fw-semibold text-muted text-decoration-underline">Report This Listing</h6>
+
+
+                                                        <Link
+                                                            style={{
+                                                                background: 'transparent',
+                                                                border: 'none'
+
+                                                            }}
+href={`/report/${puppy.slug}`} method="post" data={{
+                                                            reason: 'report'
+                                                        }}
+                                                        >
+                        <h6  className="mb-0 fs-2 fw-semibold text-muted text-decoration-underline">Report This Listing</h6>
+</Link>
+
                       </div>
                     </div>
                   </div>
