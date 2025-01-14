@@ -83,20 +83,20 @@ services:
       - "443:443/udp" # HTTP/3
       - "8080:8080" # Reverb
       - "127.0.0.1:6053:6053" # pgAdmin
-      - "127.0.0.1:6660:6660" # PgHero
+      # - "127.0.0.1:6660:6660" # PgHero
         #- "127.0.0.1:61208:61208" # Glances
         #- "9000:9000" # MinIO
         #      - "127.0.0.1:8900:8900" # MinIO console
-      - "127.0.0.1:19999:19999" # NetData
+      # - "127.0.0.1:19999:19999" # NetData
     networks:
       - stack
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - letsencryptingsedxz:/letsencrypt
+      - letsencr:/letsencrypt
     logging: *default-logging
     labels:
       traefik.enable: true
-      traefik.http.routers.traefik.rule: Host(`localhost`) || Host(`${APP_DOMAIN}`)
+      traefik.http.routers.traefik.rule: Host(`${APP_DOMAIN}`)
       traefik.http.routers.traefik.service: api@internal
       traefik.http.routers.traefik.entryPoints: traefik
       traefik.http.routers.traefik.middlewares: "traefik-auth,traefik-retry"
@@ -115,11 +115,11 @@ services:
     labels:
       traefik.enable: true
 
-      traefik.http.routers.app.rule: Host(`${APP_DOMAIN}`) || Host(`localhost`)
+      traefik.http.routers.app.rule: Host(`${APP_DOMAIN}`)
       traefik.http.routers.app.entryPoints: app
       traefik.http.routers.app.service: app-service
       traefik.http.routers.app.middlewares: "redirect-scheme,app-retry,app-compress,security-headers"
-      traefik.http.routers.app-secure.rule: Host(`${APP_DOMAIN}`) || Host(`localhost`)
+      traefik.http.routers.app-secure.rule: Host(`${APP_DOMAIN}`)
       traefik.http.routers.app-secure.entryPoints: app-secure
       traefik.http.routers.app-secure.service: app-service
       traefik.http.routers.app-secure.tls: true
@@ -232,6 +232,95 @@ services:
         traefik.http.middlewares.glances-retry.retry.initialinterval: 100ms
         traefik.http.middlewares.glances-auth.basicauth.removeheader: true
         traefik.http.middlewares.glances-auth.basicauth.users: "user:$$2y$$05$$8zbpsdxg9wDiiKdqxiB0zeAlxZtG68P1SDBOvCN4IooLFewLx70Gm" # user:123456
+
+  pgadmin:
+    profiles: [administration]
+    image: 'dpage/pgadmin4:latest'
+    security_opt:
+      - no-new-privileges:true
+    depends_on:
+      pgsql:
+        condition: service_healthy
+    environment:
+      PGADMIN_DEFAULT_EMAIL: '${PGADMIN_DEFAULT_EMAIL}'
+      PGADMIN_DEFAULT_PASSWORD: '${PGADMIN_DEFAULT_PASSWORD}'
+      PGADMIN_CONFIG_ENHANCED_COOKIE_PROTECTION: 'True'
+    volumes:
+      - 'stack-pgadmin:/var/lib/pgadmin'
+    networks:
+      - stack
+    restart: always
+    logging: *default-logging
+    labels:
+      traefik.enable: true
+      traefik.http.routers.pgadmin.rule: Host(`pgadmin.761073128.xyz`)
+      traefik.http.routers.pgadmin.entryPoints: app-secure
+      traefik.http.routers.pgadmin.middlewares: "pgadmin-auth,pgadmin-retry"
+      traefik.http.routers.pgadmin.service: pgadmin
+      traefik.http.middlewares.pgadmin-retry.retry.attempts: 4
+      traefik.http.middlewares.pgadmin-retry.retry.initialinterval: 100ms
+      traefik.http.middlewares.pgadmin-auth.basicauth.removeheader: true
+      traefik.http.middlewares.pgadmin-auth.basicauth.users: "user:$$2y$$05$$8zbpsdxg9wDiiKdqxiB0zeAlxZtG68P1SDBOvCN4IooLFewLx70Gm" # user:123456
+  # pghero:
+  #     profiles: [administration]
+  #     image: ankane/pghero
+  #     security_opt:
+  #       - no-new-privileges:true
+  #     depends_on:
+  #       pgsql:
+  #         condition: service_healthy
+  #     environment:
+  #       PORT: 6660
+  #       DATABASE_URL: postgres://${DB_USERNAME}:${DB_PASSWORD}@pgsql:5432/${DB_DATABASE}
+  #     networks:
+  #       - stack
+  #     restart: always
+  #     logging: *default-logging
+  #     labels:
+  #       traefik.enable: true
+  #       traefik.http.routers.pghero.rule: Host(`pghero.761073128.xyz`)
+  #       traefik.http.routers.pghero.entryPoints: app-secure
+  #       traefik.http.routers.pghero.middlewares: "pghero-auth,pghero-retry"
+  #       traefik.http.middlewares.pghero-retry.retry.attempts: 4
+  #       traefik.http.middlewares.pghero-retry.retry.initialinterval: 100ms
+  #       traefik.http.middlewares.pghero-auth.basicauth.removeheader: true
+  #       traefik.http.middlewares.pghero-auth.basicauth.users: "user:$$2y$$05$$8zbpsdxg9wDiiKdqxiB0zeAlxZtG68P1SDBOvCN4IooLFewLx70Gm" # user:123456
+  #       traefik.http.routers.pghero.service: pghero
+  #       traefik.http.services.pghero.loadbalancer.server.port: 6660
+
+  netdata:
+    profiles: [administration]
+    image: netdata/netdata
+    restart: unless-stopped
+    cap_add:
+      - SYS_PTRACE
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+    logging: *default-logging
+    networks:
+      - stack
+    volumes:
+      - stack-netdataconfig:/etc/netdata
+      - stack-netdatalib:/var/lib/netdata
+      - stack-netdatacache:/var/cache/netdata
+      - /:/host/root:ro,rslave
+      - /etc/passwd:/host/etc/passwd:ro
+      - /etc/group:/host/etc/group:ro
+      - /etc/localtime:/etc/localtime:ro
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /etc/os-release:/host/etc/os-release:ro
+      - /var/log:/host/var/log:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    labels:
+      traefik.enable: true
+      traefik.http.routers.netdata.rule: Host(`netdata.761073128.xyz`)
+      traefik.http.routers.netdata.entryPoints: app-secure
+      traefik.http.routers.netdata.service: netdata
+      traefik.http.routers.netdata.middlewares: "netdata-auth"
+      traefik.http.middlewares.netdata-auth.basicauth.removeheader: true
+      traefik.http.middlewares.netdata-auth.basicauth.users: "user:$$2y$$05$$8zbpsdxg9wDiiKdqxiB0zeAlxZtG68P1SDBOvCN4IooLFewLx70Gm" # user:123456
   minio:
     profiles: [app]
     image: 'minio/minio:latest'
@@ -274,7 +363,7 @@ networks:
   stack:
     driver: bridge
 volumes:
-  letsencryptingsedxz:
+  letsencr:
     driver: local
   stack-pgsql:
     driver: local
