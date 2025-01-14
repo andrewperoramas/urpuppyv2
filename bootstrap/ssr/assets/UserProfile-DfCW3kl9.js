@@ -21,6 +21,7 @@ import "./clsx-DgYk2OaC.js";
 const UserProfile = () => {
   const user = V().props.auth.user;
   console.log(user);
+  alert("gagi");
   const { patch, data, setData, errors } = ae({
     first_name: (user == null ? void 0 : user.first_name) ?? "",
     last_name: (user == null ? void 0 : user.last_name) ?? "",
@@ -39,7 +40,15 @@ const UserProfile = () => {
     /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "card border", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card-body", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "pb-4 mb-4 border-bottom", children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx("h5", { className: "mb-4 fs-7", children: "Profile Picture" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(AvatarInput, { onChange: (e) => setData("avatar", e.target.files[0]) })
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          AvatarInput,
+          {
+            onChange: (e) => setData((prevData) => ({
+              ...prevData,
+              avatar: e.target.files[0]
+            }))
+          }
+        )
       ] }),
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "pb-4 mb-4 border-bottom", children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx("h5", { className: "mb-4 fs-7", children: "Account Details" }),
