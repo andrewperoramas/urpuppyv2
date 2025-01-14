@@ -10,6 +10,10 @@ class ReportController extends Controller
 {
     public function store(Request $request, string $slug)
     {
+        if (!$request->user()) {
+         return redirect()->back()->with('message.error', 'You have to login first');
+        }
+
         $validated = $request->validate([
             'reason' => 'required|string|max:255',
             'customOptionInput' => 'max:255|nullable'

@@ -6,6 +6,13 @@ const ShareButton = ({
 }: {
     slug: string
     }) => {
+
+    let currentUrl = '';
+
+    if (typeof window !== 'undefined') {
+        currentUrl = `${window.location.origin}/puppies/${slug}`;
+    }
+
   return (
 
 <div className="dropdown">
@@ -24,14 +31,14 @@ const ShareButton = ({
             >
                           <div className="d-flex align-items-center justify-content-center gap-2">
                             <li>
-                              <TwitterShareButton url={`/puppies/${slug}`}  className="dropdown-item p-0 bg-white bg-opacity-25 d-flex align-items-center justify-content-center round-35 rounded-circle">
+                              <TwitterShareButton url={currentUrl}  className="dropdown-item p-0 bg-white bg-opacity-25 d-flex align-items-center justify-content-center round-35 rounded-circle">
                                 <img src="../images/svgs/icon-twitter.svg" alt="" width="16" height="16" />
                               </TwitterShareButton>
                             </li>
 
 
                             <li>
-                              <FacebookShareButton url={`/puppies/${slug}`} className="dropdown-item p-0 bg-white bg-opacity-25 d-flex align-items-center justify-content-center round-35 rounded-circle">
+                              <FacebookShareButton url={currentUrl} className="dropdown-item p-0 bg-white bg-opacity-25 d-flex align-items-center justify-content-center round-35 rounded-circle">
                                 <img src="../images/svgs/icon-facebook.svg" alt="" width="16" height="16" />
                               </FacebookShareButton>
                             </li>

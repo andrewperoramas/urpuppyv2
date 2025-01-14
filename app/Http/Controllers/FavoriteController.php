@@ -12,6 +12,10 @@ class FavoriteController extends Controller
     {
         $user = $request->user();
 
+        if (!$user) {
+            return redirect()->back()->with('message.error', 'You must be logged in to add to favorites');
+        }
+
         if ($puppy->user_id === $user->id) {
             return redirect()->back()->with('message.error', 'You cannot favorite your own puppy');
         }
