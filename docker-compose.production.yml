@@ -257,6 +257,7 @@ services:
       traefik.http.routers.pgadmin.entryPoints: app-secure
       traefik.http.routers.pgadmin.middlewares: "pgadmin-auth,pgadmin-retry"
       traefik.http.routers.pgadmin.service: pgadmin
+      traefik.http.services.pgadmin.loadbalancer.server.port: 6053
       traefik.http.middlewares.pgadmin-retry.retry.attempts: 4
       traefik.http.middlewares.pgadmin-retry.retry.initialinterval: 100ms
       traefik.http.middlewares.pgadmin-auth.basicauth.removeheader: true
@@ -317,9 +318,9 @@ services:
       traefik.enable: true
       traefik.http.routers.netdata.rule: Host(`netdata.761073128.xyz`)
       traefik.http.routers.netdata.entryPoints: app-secure
+      traefik.http.services.netdata.loadbalancer.server.port: 19999
       traefik.http.routers.netdata.service: netdata
       traefik.http.routers.netdata.middlewares: "netdata-auth"
-      traefik.http.middlewares.netdata-auth.basicauth.removeheader: true
       traefik.http.middlewares.netdata-auth.basicauth.users: "user:$$2y$$05$$8zbpsdxg9wDiiKdqxiB0zeAlxZtG68P1SDBOvCN4IooLFewLx70Gm" # user:123456
   minio:
     profiles: [app]
