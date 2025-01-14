@@ -166,11 +166,13 @@ class PuppyController extends Controller
 
         if ( auth()->user()) {
             $user_favorites = auth()->user()->favorites()->pluck('favoriteable_id');
-        }
 
         if (in_array($puppy->id, $user_favorites->toArray())){
             $puppy->is_favorite = true;
         }
+        }
+
+
 
 
         // Log view on deferred execution

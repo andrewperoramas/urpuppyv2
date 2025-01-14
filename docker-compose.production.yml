@@ -96,7 +96,7 @@ services:
     logging: *default-logging
     labels:
       traefik.enable: true
-      traefik.http.routers.traefik.rule: Host(`${APP_DOMAIN}`)
+        #      traefik.http.routers.traefik.rule: Host(`${APP_DOMAIN}`)
       traefik.http.routers.traefik.service: api@internal
       traefik.http.routers.traefik.entryPoints: traefik
       traefik.http.routers.traefik.middlewares: "traefik-auth,traefik-retry"
@@ -123,6 +123,7 @@ services:
       traefik.http.routers.app-secure.entryPoints: app-secure
       traefik.http.routers.app-secure.service: app-service
       traefik.http.routers.app-secure.tls: true
+      traefik.http.routers.app-secure.tls.certresolver: myresolver
       traefik.http.routers.app-secure.middlewares: "redirect-scheme,app-retry,app-compress,security-headers"
 
       traefik.http.services.app-service.loadbalancer.server.port: 8000 # Because container exposes multiple ports
@@ -257,8 +258,8 @@ services:
       traefik.http.routers.pgadmin.entryPoints: app-secure
       traefik.http.routers.pgadmin.middlewares: "pgadmin-auth,pgadmin-retry"
       traefik.http.routers.pgadmin.service: pgadmin
-      traefik.http.services.pgadmin.loadbalancer.server.port: 6053
       traefik.http.middlewares.pgadmin-retry.retry.attempts: 4
+      traefik.http.services.pgadmin.loadbalancer.server.port: 80
       traefik.http.middlewares.pgadmin-retry.retry.initialinterval: 100ms
       traefik.http.middlewares.pgadmin-auth.basicauth.removeheader: true
       traefik.http.middlewares.pgadmin-auth.basicauth.users: "user:$$2y$$05$$8zbpsdxg9wDiiKdqxiB0zeAlxZtG68P1SDBOvCN4IooLFewLx70Gm" # user:123456
@@ -318,9 +319,10 @@ services:
       traefik.enable: true
       traefik.http.routers.netdata.rule: Host(`netdata.761073128.xyz`)
       traefik.http.routers.netdata.entryPoints: app-secure
-      traefik.http.services.netdata.loadbalancer.server.port: 19999
       traefik.http.routers.netdata.service: netdata
+      traefik.http.services.netdata.loadbalancer.server.port: 19999
       traefik.http.routers.netdata.middlewares: "netdata-auth"
+      traefik.http.middlewares.netdata-auth.basicauth.removeheader: true
       traefik.http.middlewares.netdata-auth.basicauth.users: "user:$$2y$$05$$8zbpsdxg9wDiiKdqxiB0zeAlxZtG68P1SDBOvCN4IooLFewLx70Gm" # user:123456
   minio:
     profiles: [app]
@@ -382,4 +384,3 @@ volumes:
     driver: local
   stack-netdatacache:
     driver: local
-
