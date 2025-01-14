@@ -39,7 +39,14 @@ const UserProfile = () => {
                     <div className="card-body">
                       <div className="pb-4 mb-4 border-bottom">
                         <h5 className="mb-4 fs-7">Profile Picture</h5>
-                        <AvatarInput  onChange={e => setData('avatar', e.target.files![0] )} />
+                        <AvatarInput
+                             onChange={(e) =>
+    setData((prevData) => ({
+      ...prevData,
+      avatar: e.target.files![0],
+    }))
+  }
+                        />
 
                       </div>
                       <div className="pb-4 mb-4 border-bottom">
