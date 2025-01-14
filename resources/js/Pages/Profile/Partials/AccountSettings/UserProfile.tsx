@@ -15,9 +15,9 @@ const UserProfile = () => {
         current_password?: string, new_password?: string, new_password_confirmation?: string
 
     }>({
-        first_name: user.first_name,
-        last_name: user.last_name,
-        email: user.email,
+        first_name: user?.first_name ?? "",
+        last_name: user?.last_name ?? "",
+        email: user?.email ?? "",
         avatar: null,
         current_password: '',
         new_password: '',
