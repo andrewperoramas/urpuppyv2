@@ -1,7 +1,7 @@
 import { j as jsxRuntimeExports, U as Ue, h as hr, r as reactExports } from "../ssr.js";
 import { L as Layout } from "./Layout-L7XXg1u_.js";
 import SubscriptionCard from "./SubscriptionCard-PLfyOsUh.js";
-import UserProfile from "./UserProfile-DfCW3kl9.js";
+import UserProfile from "./UserProfile-CJWvmJsp.js";
 import MyPuppies from "./MyPuppies-DtVnjQGY.js";
 import { B as Button } from "./Button-CK40ntNT.js";
 import "util";
@@ -151,7 +151,7 @@ function Edit({
               role: "tabpanel",
               "aria-labelledby": "pills-saved-search-tab",
               tabIndex: 0,
-              children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "card border", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "card-body pb-0", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "row", children: saved_searches.length > 0 && saved_searches.map((saved_search, index) => /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "col-md-6 col-xx-4", children: /* @__PURE__ */ jsxRuntimeExports.jsx(SavedSearchCard, { saved_search }) })) }) }) })
+              children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "card border", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "card-body pb-0", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "row", children: saved_searches.length > 0 && saved_searches.map((saved_search, index) => /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "col-md-6 col-xx-4", children: /* @__PURE__ */ jsxRuntimeExports.jsx(SavedSearchCard, { saved_search }, index) })) }) }) })
             }
           ),
           /* @__PURE__ */ jsxRuntimeExports.jsx(

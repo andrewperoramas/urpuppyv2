@@ -89,7 +89,7 @@ export default function Edit({
                     <div className="row">
                     {saved_searches.length > 0 && saved_searches.map((saved_search: App.Data.SavedSearchData, index: number) => (
                                                         <div className="col-md-6 col-xx-4">
-                        <SavedSearchCard saved_search={saved_search} />
+                        <SavedSearchCard key={index} saved_search={saved_search} />
                                                         </div>
                     ))}
                     </div>

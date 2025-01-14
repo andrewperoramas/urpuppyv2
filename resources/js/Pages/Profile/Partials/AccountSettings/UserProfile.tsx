@@ -11,7 +11,7 @@ const UserProfile = () => {
 
     const user = usePage().props.auth.user
     console.log(user)
-    alert('gagi')
+    console.log('gagika')
 
     const { patch, data, setData, errors } = useForm<{ first_name: string, last_name: string, email: string, avatar: File | null,
         current_password?: string, new_password?: string, new_password_confirmation?: string

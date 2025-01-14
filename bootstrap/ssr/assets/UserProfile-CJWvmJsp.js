@@ -21,7 +21,7 @@ import "./clsx-DgYk2OaC.js";
 const UserProfile = () => {
   const user = V().props.auth.user;
   console.log(user);
-  alert("gagi");
+  console.log("gagika");
   const { patch, data, setData, errors } = ae({
     first_name: (user == null ? void 0 : user.first_name) ?? "",
     last_name: (user == null ? void 0 : user.last_name) ?? "",
