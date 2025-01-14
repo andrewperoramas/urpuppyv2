@@ -4,7 +4,7 @@ import Heading from '@/Components/Heading'
 import Layout from '@/Layouts/Layout'
 import React from 'react'
 
-const Registration = ({puppy_count}: {puppy_count: number}) => {
+const Registration = ({puppy_count, puppy_edit}: {puppy_count: number, puppy_edit: App.Data.PuppyEditData | null}) => {
   return (
   <Layout navType="secondary">
               <div className="page-wrapper position-relative overflow-hidden">
@@ -21,7 +21,7 @@ const Registration = ({puppy_count}: {puppy_count: number}) => {
                         :
                         <Heading title="List your puppy" description="Create a new listing for your puppy." />
 }
-                        <SellerRegistrationForm />
+                        <SellerRegistrationForm puppy_edit={puppy_edit} />
 </div>
 
                           </div>

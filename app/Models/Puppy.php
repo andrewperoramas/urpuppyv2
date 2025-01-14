@@ -196,7 +196,7 @@ class Puppy extends Model implements HasMedia, Sitemapable
     public function getVideoAttribute()
     {
         // Fetch the first media item
-        $mediaItem = $this?->getFirstMedia('videos');
+        $mediaItem = $this?->getFirstMedia('video');
 
         // Check for 'grid' URL, then 'preview', then return null
         if ($mediaItem) {

@@ -224,8 +224,9 @@ Route::group(['prefix' => 'checkout'], function () {
 });
 
 Route::group(['prefix' => 'seller'], function () {
-    Route::get('create', [SellerController::class, 'create'])->name('seller.create');
+    Route::get('create/{id?}', [SellerController::class, 'create'])->name('seller.create');
     Route::post('store', [SellerController::class, 'store'])->name('seller.store');
+    Route::patch('update/{id}', [SellerController::class, 'update'])->name('seller.update');
 });
 
 Route::middleware(['auth', 'role:super_admin'])->group(function () {

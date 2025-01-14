@@ -10,7 +10,7 @@ use Spatie\LaravelData\Data;
 use Spatie\TypeScriptTransformer\Attributes\TypeScript;
 
 #[TypeScript]
-class PuppyData extends Data
+class PuppyEditData extends Data
 {
 
     public function __construct(
@@ -20,10 +20,11 @@ class PuppyData extends Data
         public string $gender,
         public ?bool $is_favorite,
         public int $price,
+        public string $birth_date,
         /* public string $breed, */
-        /** @var \App\Data\BreedData[] */
+        /** @var \App\Data\OptionData[] */
         public DataCollection $breeds,
-        public string $image,
+        /* public string $image, */
         /** @var string[] */
         public Collection $preview_images,
         public string $description,
@@ -32,8 +33,16 @@ class PuppyData extends Data
         public int $view_count,
         public string $age,
         public BreederData $seller,
-        /** @var \App\Data\PuppyColorData[] */
+        /** @var \App\Data\OptionData[] */
         public ?DataCollection $puppy_colors,
+
+        /** @var \App\Data\OptionData[] */
+        public ?DataCollection $puppy_patterns,
+
+        public ?string $video,
+
+        /** @var \App\Data\OptionData[] */
+        public ?DataCollection $siblings,
         public ?string $published_at,
 
         /** @var string[] */
@@ -42,6 +51,12 @@ class PuppyData extends Data
         /** @var string[] */
         public ?Collection $characteristics,
 
+        public bool $has_vaccine,
+        public bool $has_health_certificate,
+        public bool $has_vet_exam,
+        public bool $has_delivery_included,
+        /* public bool $are_you_a_breeder, */
+        public bool $has_travel_ready,
 
     ) {
 

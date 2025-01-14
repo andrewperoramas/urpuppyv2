@@ -1,24 +1,79 @@
-import React, { useRef, useCallback, useState } from 'react';
+import React, { useRef, useCallback, useState, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
 
 function FileUpload({
   required,
   name,
   setData,
+  defaultFiles = [],
+  defaultUrls = []
 }: {
   required: boolean;
   name: string;
   setData: (key: string, value: File[]) => void;
+  defaultFiles?: string[];
+  defaultUrls?: string[];
 }) {
   const hiddenInputRef = useRef<HTMLInputElement>(null);
   const [files, setFiles] = useState<File[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [initializedUrls, setInitializedUrls] = useState<string[]>([]);
+
+  // Function to convert a URL to a File object
+  const urlToFile = async (url: string): Promise<File> => {
+    try {
+      const response = await fetch(url);
+      const blob = await response.blob();
+      const filename = url.split('/').pop() || 'image';
+      const fileExtension = blob.type.split('/')[1] || 'jpg';
+      return new File([blob], `${filename}.${fileExtension}`, { type: blob.type });
+    } catch (error) {
+      console.error(`Error converting URL to File:`, error);
+      throw error;
+    }
+  };
+
+  // Initialize files from URLs only once
+  useEffect(() => {
+    const newUrls = defaultUrls.filter(url => !initializedUrls.includes(url));
+    if (newUrls.length === 0) return;
+
+    const loadUrlFiles = async () => {
+      setIsLoading(true);
+      try {
+        const filePromises = newUrls.map(url => urlToFile(url));
+        const loadedFiles = await Promise.all(filePromises);
+
+        setFiles(prevFiles => {
+          const newFiles = [...prevFiles, ...loadedFiles];
+          setData(name, newFiles);
+
+          if (hiddenInputRef.current) {
+            const dataTransfer = new DataTransfer();
+            newFiles.forEach(file => {
+              dataTransfer.items.add(file);
+            });
+            hiddenInputRef.current.files = dataTransfer.files;
+          }
+
+          return newFiles;
+        });
+
+        setInitializedUrls(prev => [...prev, ...newUrls]);
+      } catch (error) {
+        console.error('Error loading files from URLs:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadUrlFiles();
+  }, [defaultUrls.join(',')]); // Only depend on the actual URLs, not on functions
 
   const onDrop = useCallback(
     (incomingFiles: File[]) => {
       const newFiles = [...files, ...incomingFiles];
       setFiles(newFiles);
-
-      // Update the `useForm` state using `setData`
       setData(name, newFiles);
 
       if (hiddenInputRef.current) {
@@ -42,8 +97,6 @@ function FileUpload({
       e.stopPropagation();
       const newFiles = files.filter((f) => f !== fileToRemove);
       setFiles(newFiles);
-
-      // Update the `useForm` state using `setData`
       setData(name, newFiles);
 
       if (hiddenInputRef.current) {
@@ -67,7 +120,13 @@ function FileUpload({
         multiple
       />
       <input {...getInputProps()} />
-      {files.length === 0 ? (
+      {isLoading ? (
+        <div className="dz-message">
+          <div className="dz-message-text">
+            <p>Loading images...</p>
+          </div>
+        </div>
+      ) : files.length === 0 ? (
         <div className="dz-message">
           <div className="dz-message-text">
             <p>Drop files here or click to upload</p>
@@ -104,7 +163,7 @@ function FileUpload({
           ))}
         </div>
       )}
- <style>{`
+      <style>{`
         .dropzone {
           border: 2px dashed #0087F7;
           border-radius: 5px;
@@ -207,22 +266,8 @@ function FileUpload({
           opacity: 1;
         }
       `}</style>
-
-
     </div>
   );
 }
 
 export default FileUpload;
-
-
-
-
-
-
-
-
-
-
-
-
