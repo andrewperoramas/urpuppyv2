@@ -46,7 +46,7 @@ const PuppyCard = ({puppy, className="col-md-6 col-lg-4 col-xl-3 mb-4", height="
                     <div className="col-6">
                       <div className="d-flex align-items-center gap-2 mb-2">
                         <img loading="lazy" src="/images/svgs/icon-map-pin.svg" alt="" width="20" height="20" />
-                        <p className="mb-0 ">{puppy.seller.address}</p>
+                        <p className="mb-0 ">{puppy.seller?.address}</p>
                       </div>
                     </div>
                     <div className="col-6">
