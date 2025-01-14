@@ -118,13 +118,13 @@ services:
       traefik.http.routers.app.rule: Host(`${APP_DOMAIN}`)
       traefik.http.routers.app.entryPoints: app
       traefik.http.routers.app.service: app-service
-      traefik.http.routers.app.middlewares: "redirect-scheme,app-retry,app-compress,security-headers"
+      # traefik.http.routers.app.middlewares: "redirect-scheme,app-retry,app-compress,security-headers"
       traefik.http.routers.app-secure.rule: Host(`${APP_DOMAIN}`)
       traefik.http.routers.app-secure.entryPoints: app-secure
       traefik.http.routers.app-secure.service: app-service
       traefik.http.routers.app-secure.tls: true
       traefik.http.routers.app-secure.tls.certresolver: myresolver
-      traefik.http.routers.app-secure.middlewares: "redirect-scheme,app-retry,app-compress,security-headers"
+      # traefik.http.routers.app-secure.middlewares: "redirect-scheme,app-retry,app-compress,security-headers"
 
       traefik.http.services.app-service.loadbalancer.server.port: 8000 # Because container exposes multiple ports
       traefik.http.services.app-service.loadbalancer.healthCheck.path: "/up"
@@ -133,24 +133,24 @@ services:
       traefik.http.services.app-service.loadbalancer.healthCheck.interval: 3s
       traefik.http.services.app-service.loadbalancer.healthCheck.timeout: 5s
 
-      traefik.http.middlewares.limit.buffering.maxRequestBodyBytes: 460000000 # 460mb
-      traefik.http.middlewares.redirect-scheme.redirectscheme.scheme: https
-      traefik.http.middlewares.redirect-scheme.redirectscheme.permanent: true
-      traefik.http.middlewares.app-retry.retry.attempts: 4
-      traefik.http.middlewares.app-retry.retry.initialinterval: 100ms
-      traefik.http.middlewares.app-compress.compress: true
-      traefik.http.middlewares.security-headers.headers.accesscontrolmaxage: 100
-      traefik.http.middlewares.security-headers.headers.addvaryheader: true # Vary: Origin
-      traefik.http.middlewares.security-headers.headers.hostsproxyheaders: X-Forwarded-Host
-      traefik.http.middlewares.security-headers.headers.stsseconds: 63072000 # Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
-      traefik.http.middlewares.security-headers.headers.stsincludesubdomains: true
-      traefik.http.middlewares.security-headers.headers.stspreload: true
-      traefik.http.middlewares.security-headers.headers.forcestsheader: true
-      traefik.http.middlewares.security-headers.headers.customFrameOptionsValue: SAMEORIGIN # X-Frame-Options: same-origin
-      traefik.http.middlewares.security-headers.headers.contenttypenosniff: true # X-Content-Type-Options: nosniff
-      traefik.http.middlewares.security-headers.headers.browserxssfilter: true # X-XSS-Protection: 1; mode=block
-      traefik.http.middlewares.security-headers.headers.referrerpolicy: no-referrer-when-downgrade # Referrer-Policy: no-referrer-when-downgrade
-      traefik.http.middlewares.security-headers.headers.permissionspolicy: camera=(), geolocation=(), microphone=(), payment=(), usb=(), interest-cohort=(), gyroscope=()
+#       traefik.http.middlewares.limit.buffering.maxRequestBodyBytes: 460000000 # 460mb
+#       traefik.http.middlewares.redirect-scheme.redirectscheme.scheme: https
+#       traefik.http.middlewares.redirect-scheme.redirectscheme.permanent: true
+#       traefik.http.middlewares.app-retry.retry.attempts: 4
+#       traefik.http.middlewares.app-retry.retry.initialinterval: 100ms
+#       traefik.http.middlewares.app-compress.compress: true
+#       traefik.http.middlewares.security-headers.headers.accesscontrolmaxage: 100
+#       traefik.http.middlewares.security-headers.headers.addvaryheader: true # Vary: Origin
+#       traefik.http.middlewares.security-headers.headers.hostsproxyheaders: X-Forwarded-Host
+#       traefik.http.middlewares.security-headers.headers.stsseconds: 63072000 # Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+#       traefik.http.middlewares.security-headers.headers.stsincludesubdomains: true
+#       traefik.http.middlewares.security-headers.headers.stspreload: true
+#       traefik.http.middlewares.security-headers.headers.forcestsheader: true
+#       traefik.http.middlewares.security-headers.headers.customFrameOptionsValue: SAMEORIGIN # X-Frame-Options: same-origin
+#       traefik.http.middlewares.security-headers.headers.contenttypenosniff: true # X-Content-Type-Options: nosniff
+#       traefik.http.middlewares.security-headers.headers.browserxssfilter: true # X-XSS-Protection: 1; mode=block
+#       traefik.http.middlewares.security-headers.headers.referrerpolicy: no-referrer-when-downgrade # Referrer-Policy: no-referrer-when-downgrade
+#       traefik.http.middlewares.security-headers.headers.permissionspolicy: camera=(), geolocation=(), microphone=(), payment=(), usb=(), interest-cohort=(), gyroscope=()
   redis:
     profiles: [app]
     image: 'redis:alpine'
