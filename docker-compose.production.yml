@@ -63,7 +63,7 @@ services:
       - "--entryPoints.app.http.redirections.entryPoint.to=app-secure"
       - "--entryPoints.app.http.redirections.entryPoint.scheme=https"
       - "--entryPoints.app-secure.address=:443"
-      - "--entryPoints.app-secure.http3=true"
+      #      - "--entryPoints.app-secure.http3=true"
       # - "--entryPoints.reverb.address=:8080"
       # - "--entryPoints.reverb.http3=true"
       # - "--entryPoints.pgadmin.address=:6053"
