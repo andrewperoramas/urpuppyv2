@@ -3,6 +3,7 @@ import ImageSlider from '../ImageSlider'
 import { Link } from '@inertiajs/react'
 import FavoriteButton from '../FavoriteButton'
 import ShareButton from '../ShareButton'
+import {Adsense} from '@ctrl/react-adsense';
 
 const TopPicks = ({puppy}: { puppy: App.Data.PuppyData }) => {
   return (
@@ -74,7 +75,13 @@ const TopPicks = ({puppy}: { puppy: App.Data.PuppyData }) => {
         </div>
         <div className="top-picks-add text-center mt-5 mt-lg-10" data-aos="fade-up" data-aos-delay="300"
           data-aos-duration="1000">
-          <img src="/images/top-picks/top-picks-add.jpg" alt="" />
+            <Adsense
+              client="ca-pub-2165217194424630"
+              slot="3136480013"
+              style={{ display: 'block' }}
+              layout="in-article"
+              format="fluid"
+            />
         </div>
       </div>
     </section>
