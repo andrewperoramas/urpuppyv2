@@ -178,6 +178,8 @@ RUN mkdir -p \
     storage/logs \
     bootstrap/cache && chmod -R a+rw storage
 
+RUN touch storage/logs/ssr.log && chmod a+rw storage/logs/ssr.log
+
 RUN composer install \
     --classmap-authoritative \
     --no-interaction \
