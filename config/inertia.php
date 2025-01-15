@@ -28,6 +28,9 @@ return [
         // 'bundle' => base_path('bootstrap/ssr/ssr.mjs'),
 
     ],
+    'history' => [
+        'encrypt' => true
+    ],
 
     /*
     |--------------------------------------------------------------------------
