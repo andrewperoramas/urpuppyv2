@@ -92,7 +92,7 @@ services:
       - stack
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - letsencrx:/letsencrypt
+      - lencrypt:/letsencrypt
     logging: *default-logging
     labels:
       traefik.enable: true
@@ -365,7 +365,7 @@ networks:
   stack:
     driver: bridge
 volumes:
-  letsencrx:
+  lencrypt:
     driver: local
   stack-pgsql:
     driver: local
