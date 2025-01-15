@@ -1,4 +1,5 @@
 import { j as jsxRuntimeExports, g as getDefaultExportFromCjs, r as reactExports, b as U, t as t$1, c as commonjsGlobal, V } from "../ssr.js";
+import { a as __awaiter } from "./tslib.es6-iWu3F_1J.js";
 import { r as reactDomExports } from "./index-Cji0mEl5.js";
 import { c as clsx } from "./clsx-DgYk2OaC.js";
 import { a as autoUpdate } from "./floating-ui.dom-BR6icdf6.js";
@@ -999,37 +1000,6 @@ if (process.env.NODE_ENV !== "production") {
 }
 var propTypesExports = propTypes.exports;
 const PropTypes = /* @__PURE__ */ getDefaultExportFromCjs(propTypesExports);
-function __awaiter(thisArg, _arguments, P, generator) {
-  function adopt(value) {
-    return value instanceof P ? value : new P(function(resolve) {
-      resolve(value);
-    });
-  }
-  return new (P || (P = Promise))(function(resolve, reject) {
-    function fulfilled(value) {
-      try {
-        step(generator.next(value));
-      } catch (e2) {
-        reject(e2);
-      }
-    }
-    function rejected(value) {
-      try {
-        step(generator["throw"](value));
-      } catch (e2) {
-        reject(e2);
-      }
-    }
-    function step(result) {
-      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
-    }
-    step((generator = generator.apply(thisArg, _arguments || [])).next());
-  });
-}
-typeof SuppressedError === "function" ? SuppressedError : function(error, suppressed, message) {
-  var e2 = new Error(message);
-  return e2.name = "SuppressedError", e2.error = error, e2.suppressed = suppressed, e2;
-};
 const COMMON_MIME_TYPES = /* @__PURE__ */ new Map([
   // https://github.com/guzzle/psr7/blob/2d9260799e713f1c475d3c5fdc3d6561ff7441b2/src/MimeType.php
   ["1km", "application/vnd.1000minds.decision-model+xml"],

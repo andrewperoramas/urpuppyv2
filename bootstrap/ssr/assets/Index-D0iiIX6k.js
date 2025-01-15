@@ -3,6 +3,7 @@ import Banner from "./Banner-Cyz5X960.js";
 import { S as Swiper, a as SwiperSlide } from "./create-element-if-not-defined-BZkVMZWb.js";
 import { P as PuppyCard, F as FavoriteButton } from "./Card-BAmftY3V.js";
 import { I as ImageSlider, S as ShareButton } from "./ShareButton-DAMf086x.js";
+import { _ as __rest } from "./tslib.es6-iWu3F_1J.js";
 import { B as BreederCard } from "./BreederCard-D7TwvD5z.js";
 import { L as Layout } from "./Layout-L7XXg1u_.js";
 import "util";
@@ -134,6 +135,23 @@ const PuppySpotlight = ({ puppy_spotlights }) => {
     )
   ] }) });
 };
+function Adsense(_a) {
+  var { className = "", style = { display: "block" }, client, slot, layout = "", layoutKey = "", format = "auto", responsive = "false", pageLevelAds = false, adTest, children } = _a, rest = __rest(_a, ["className", "style", "client", "slot", "layout", "layoutKey", "format", "responsive", "pageLevelAds", "adTest", "children"]);
+  reactExports.useEffect(() => {
+    const p = {};
+    if (pageLevelAds) {
+      p.google_ad_client = client;
+      p.enable_page_level_ads = true;
+    }
+    try {
+      if (typeof window === "object") {
+        (window.adsbygoogle = window.adsbygoogle || []).push(p);
+      }
+    } catch (_a2) {
+    }
+  }, []);
+  return U.createElement("ins", Object.assign({ className: `adsbygoogle ${className}`, style, "data-ad-client": client, "data-ad-slot": slot, "data-ad-layout": layout, "data-ad-layout-key": layoutKey, "data-ad-format": format, "data-full-width-responsive": responsive, "data-adtest": adTest }, rest), children);
+}
 const TopPicks = ({ puppy }) => {
   var _a;
   return /* @__PURE__ */ jsxRuntimeExports.jsx("section", { className: "top-picks py-5 pb-4 py-md-9 mb-xl-10", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "container", children: [
@@ -198,7 +216,16 @@ const TopPicks = ({ puppy }) => {
         "data-aos": "fade-up",
         "data-aos-delay": "300",
         "data-aos-duration": "1000",
-        children: /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: "/images/top-picks/top-picks-add.jpg", alt: "" })
+        children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+          Adsense,
+          {
+            client: "ca-pub-2165217194424630",
+            slot: "3136480013",
+            style: { display: "block" },
+            layout: "in-article",
+            format: "fluid"
+          }
+        )
       }
     )
   ] }) });
