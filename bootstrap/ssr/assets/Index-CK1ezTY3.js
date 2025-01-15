@@ -267,7 +267,19 @@ const NewArrivals = ({ new_arrivals }) => {
         }
       )
     ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "row", children: new_arrivals.map((puppy) => /* @__PURE__ */ jsxRuntimeExports.jsx(PuppyCard, { className: "col-md-6 col-xl-3 mb-4 mb-xl-0", puppy, height: "310px" }, puppy.slug)) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "row", children: [
+      new_arrivals.map((puppy) => /* @__PURE__ */ jsxRuntimeExports.jsx(PuppyCard, { className: "col-md-6 col-xl-3 mb-4 mb-xl-0", puppy, height: "310px" }, puppy.slug)),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "col-md-6 col-xl-3 mb-4 mb-xl-0", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+        Adsense,
+        {
+          client: "ca-pub-2165217194424630",
+          slot: "1030827901",
+          style: { display: "block" },
+          layout: "in-article",
+          format: "fluid"
+        }
+      ) })
+    ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       Ue,
       {
