@@ -104,7 +104,7 @@ services:
       traefik.http.middlewares.traefik-retry.retry.attempts: 4
       traefik.http.middlewares.traefik-retry.retry.initialinterval: 100ms
       traefik.http.middlewares.traefik-auth.basicauth.removeheader: true
-      traefik.http.middlewares.traefik-auth.basicauth.users: "mobi35:$2y$05$zI934RKOCGGrHIumVPgGe.n7kLYs.GDACfa/wqi4WBMUb5mLWXXq." # user:123456
+      traefik.http.middlewares.traefik-auth.basicauth.users: "mobi35:$$2y$$05$$gWjYw6fNOFDRoSO3U709FuRB/jMsWvqwMLifTTAOEWIxX1HzkoeJS" # user:123456
   app:
     <<: *base
     healthcheck:
@@ -231,7 +231,7 @@ services:
         traefik.http.middlewares.glances-retry.retry.attempts: 4
         traefik.http.middlewares.glances-retry.retry.initialinterval: 100ms
         traefik.http.middlewares.glances-auth.basicauth.removeheader: true
-        traefik.http.middlewares.glances-auth.basicauth.users: "mobi35:$2y$05$zI934RKOCGGrHIumVPgGe.n7kLYs.GDACfa/wqi4WBMUb5mLWXXq." # user:123456
+        traefik.http.middlewares.glances-auth.basicauth.users: "mobi35:$$2y$$05$$gWjYw6fNOFDRoSO3U709FuRB/jMsWvqwMLifTTAOEWIxX1HzkoeJS" # user:123456
 
   pgadmin:
     profiles: [administration]
@@ -261,7 +261,7 @@ services:
       traefik.http.services.pgadmin.loadbalancer.server.port: 80
       traefik.http.middlewares.pgadmin-retry.retry.initialinterval: 100ms
       traefik.http.middlewares.pgadmin-auth.basicauth.removeheader: true
-      traefik.http.middlewares.pgadmin-auth.basicauth.users: "mobi35:$2y$05$zI934RKOCGGrHIumVPgGe.n7kLYs.GDACfa/wqi4WBMUb5mLWXXq." # user:123456
+      traefik.http.middlewares.pgadmin-auth.basicauth.users: "mobi35:$$2y$$05$$gWjYw6fNOFDRoSO3U709FuRB/jMsWvqwMLifTTAOEWIxX1HzkoeJS" # user:123456
   # pghero:
   #     profiles: [administration]
   #     image: ankane/pghero
@@ -322,7 +322,7 @@ services:
       traefik.http.services.netdata.loadbalancer.server.port: 19999
       traefik.http.routers.netdata.middlewares: "netdata-auth"
       traefik.http.middlewares.netdata-auth.basicauth.removeheader: true
-      traefik.http.middlewares.netdata-auth.basicauth.users: "mobi35:$2y$05$zI934RKOCGGrHIumVPgGe.n7kLYs.GDACfa/wqi4WBMUb5mLWXXq." # user:123456
+      traefik.http.middlewares.netdata-auth.basicauth.users: "mobi35:$$2y$$05$$gWjYw6fNOFDRoSO3U709FuRB/jMsWvqwMLifTTAOEWIxX1HzkoeJS" # user:123456
   minio:
     profiles: [app]
     image: 'minio/minio:latest'
@@ -356,7 +356,7 @@ services:
       traefik.http.middlewares.minio-retry.retry.attempts: 4
       traefik.http.middlewares.minio-retry.retry.initialinterval: 100ms
       traefik.http.middlewares.minio-auth.basicauth.removeheader: true
-      traefik.http.middlewares.minio-auth.basicauth.users: "mobi35:$2y$05$zI934RKOCGGrHIumVPgGe.n7kLYs.GDACfa/wqi4WBMUb5mLWXXq." # user:123456
+      traefik.http.middlewares.minio-auth.basicauth.users: "mobi35:$$2y$$05$$gWjYw6fNOFDRoSO3U709FuRB/jMsWvqwMLifTTAOEWIxX1HzkoeJS" # user:123456
     healthcheck:
       test: [ "CMD", "mc", "ready", "local" ]
       retries: 3
