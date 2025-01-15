@@ -22,7 +22,7 @@ const UserProfile = () => {
   const user = V().props.auth.user;
   console.log(user);
   console.log("gagika");
-  const { patch, data, setData, errors } = ae({
+  const { post, data, setData, errors } = ae({
     first_name: (user == null ? void 0 : user.first_name) ?? "",
     last_name: (user == null ? void 0 : user.last_name) ?? "",
     email: (user == null ? void 0 : user.email) ?? "",
@@ -33,7 +33,7 @@ const UserProfile = () => {
   });
   const handleSubmit = (e) => {
     e.preventDefault();
-    patch("/profile");
+    post("/profile");
   };
   console.log(data);
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("form", { action: "", onSubmit: handleSubmit, children: [

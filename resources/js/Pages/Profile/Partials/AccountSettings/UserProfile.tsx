@@ -13,7 +13,7 @@ const UserProfile = () => {
     console.log(user)
     console.log('gagika')
 
-    const { patch, data, setData, errors } = useForm<{ first_name: string, last_name: string, email: string, avatar: File | null,
+    const { post, data, setData, errors } = useForm<{ first_name: string, last_name: string, email: string, avatar: File | null,
         current_password?: string, new_password?: string, new_password_confirmation?: string
 
     }>({
@@ -28,7 +28,7 @@ const UserProfile = () => {
 
     const handleSubmit = (e: React.SyntheticEvent) => {
         e.preventDefault();
-        patch('/profile');
+        post('/profile');
     };
 
 

@@ -1,7 +1,7 @@
 import { j as jsxRuntimeExports, U as Ue, h as hr, r as reactExports } from "../ssr.js";
 import { L as Layout } from "./Layout-L7XXg1u_.js";
 import SubscriptionCard from "./SubscriptionCard-PLfyOsUh.js";
-import UserProfile from "./UserProfile-CJWvmJsp.js";
+import UserProfile from "./UserProfile-CJGT2lHU.js";
 import MyPuppies from "./MyPuppies-DtVnjQGY.js";
 import { B as Button } from "./Button-CK40ntNT.js";
 import "util";
