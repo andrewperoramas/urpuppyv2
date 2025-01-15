@@ -5573,7 +5573,7 @@ const SellerRegistrationForm = ({
   const handleSubmit = (e) => {
     e.preventDefault();
     if (puppy_edit) {
-      patch(`/seller/update/${puppy_edit == null ? void 0 : puppy_edit.id}`);
+      post(`/seller/update/${puppy_edit == null ? void 0 : puppy_edit.id}`);
     } else {
       post(`/seller/store`);
     }

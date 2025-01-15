@@ -79,7 +79,7 @@ const SellerRegistrationForm = ({
 //     }));
         //
     if (puppy_edit) {
-        patch(`/seller/update/${puppy_edit?.id}`);
+        post(`/seller/update/${puppy_edit?.id}`);
     } else {
         post(`/seller/store`);
     }
