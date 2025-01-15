@@ -16,8 +16,8 @@ class ProfileUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'first_name' => ['required', 'string', 'max:40'],
-            'last_name' => ['required', 'string', 'max:40'],
+            'first_name' => [ 'string', 'max:40'],
+            'last_name' => [ 'string', 'max:40'],
             'state_id' => [''],
             'avatar' => [''],
             'current_password' => ['nullable',  'current_password'],
@@ -25,7 +25,6 @@ class ProfileUpdateRequest extends FormRequest
             'city_id' => [''],
             'zip_code' => [''],
             'email' => [
-                'required',
                 'string',
                 'lowercase',
                 'email',
