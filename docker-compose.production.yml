@@ -222,7 +222,7 @@ services:
       restart: always
       labels:
         traefik.enable: true
-        traefik.http.routers.glances.rule: Host(`glances.761073128.xyz`)
+        traefik.http.routers.glances.rule: Host(`GLANCES_DOMAIN`)
         traefik.http.routers.glances.entryPoints: app-secure
         traefik.http.routers.glances.middlewares: "glances-auth,glances-retry"
         traefik.http.routers.glances.service: glances
@@ -253,7 +253,7 @@ services:
     logging: *default-logging
     labels:
       traefik.enable: true
-      traefik.http.routers.pgadmin.rule: Host(`pgadmin.761073128.xyz`)
+      traefik.http.routers.pgadmin.rule: Host(`PGADMIN_DOMAIN`)
       traefik.http.routers.pgadmin.entryPoints: app-secure
       traefik.http.routers.pgadmin.middlewares: "pgadmin-auth,pgadmin-retry"
       traefik.http.routers.pgadmin.service: pgadmin
@@ -316,7 +316,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     labels:
       traefik.enable: true
-      traefik.http.routers.netdata.rule: Host(`netdata.761073128.xyz`)
+      traefik.http.routers.netdata.rule: Host(`NETDATA_DOMAIN`)
       traefik.http.routers.netdata.entryPoints: app-secure
       traefik.http.routers.netdata.service: netdata
       traefik.http.services.netdata.loadbalancer.server.port: 19999
@@ -340,13 +340,13 @@ services:
     logging: *default-logging
     labels:
       traefik.enable: true
-      traefik.http.routers.minion.rule: Host(`minio.urpuppy.com`)
+      traefik.http.routers.minion.rule: Host(`MINIO_DOMAIN`)
       traefik.http.routers.minion.entryPoints: app-secure
       traefik.http.routers.minion.service: minion
       traefik.http.routers.minio.middlewares: "minio-retry,minio-compress"
       traefik.http.services.minion.loadbalancer.server.port: 9000
 
-      traefik.http.routers.minio-console.rule: Host(`console.urpuppy.com`)
+      traefik.http.routers.minio-console.rule: Host(`CONSOLE_MINIO_DOMAIN`)
       traefik.http.routers.minio-console.entryPoints: app-secure
       traefik.http.routers.minio-console.service: minio-console
       traefik.http.routers.minio-console.middlewares: "minio-auth,minio-retry"
