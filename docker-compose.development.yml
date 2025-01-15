@@ -143,12 +143,6 @@ services:
       traefik.http.middlewares.security-headers.headers.browserxssfilter: true # X-XSS-Protection: 1; mode=block
       traefik.http.middlewares.security-headers.headers.referrerpolicy: no-referrer-when-downgrade # Referrer-Policy: no-referrer-when-downgrade
       traefik.http.middlewares.security-headers.headers.permissionspolicy: camera=(), geolocation=(), microphone=(), payment=(), usb=(), interest-cohort=(), gyroscope=()
-  horizon:
-    <<: *base
-    environment:
-      CONTAINER_MODE: horizon
-    labels:
-      traefik.enable: false
   scheduler:
     <<: *base
     environment:
