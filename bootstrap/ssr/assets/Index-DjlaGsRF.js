@@ -210,22 +210,13 @@ const TopPicks = ({ puppy }) => {
       ] }) })
     ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(
-      "div",
+      Adsense,
       {
-        className: "top-picks-add text-center mt-5 mt-lg-10",
-        "data-aos": "fade-up",
-        "data-aos-delay": "300",
-        "data-aos-duration": "1000",
-        children: /* @__PURE__ */ jsxRuntimeExports.jsx(
-          Adsense,
-          {
-            client: "ca-pub-2165217194424630",
-            slot: "3136480013",
-            style: { display: "block" },
-            layout: "in-article",
-            format: "fluid"
-          }
-        )
+        client: "ca-pub-2165217194424630",
+        slot: "3136480013",
+        style: { display: "block" },
+        layout: "in-article",
+        format: "fluid"
       }
     )
   ] }) });

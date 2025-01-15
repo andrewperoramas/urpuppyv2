@@ -73,8 +73,6 @@ const TopPicks = ({puppy}: { puppy: App.Data.PuppyData }) => {
             </div>
           </div>
         </div>
-        <div className="top-picks-add text-center mt-5 mt-lg-10" data-aos="fade-up" data-aos-delay="300"
-          data-aos-duration="1000">
             <Adsense
               client="ca-pub-2165217194424630"
               slot="3136480013"
@@ -82,7 +80,6 @@ const TopPicks = ({puppy}: { puppy: App.Data.PuppyData }) => {
               layout="in-article"
               format="fluid"
             />
-        </div>
       </div>
     </section>
 
