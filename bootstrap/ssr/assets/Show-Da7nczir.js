@@ -176,24 +176,24 @@ const Show = ({ related_puppies, puppy, siblings }) => {
           ] })
         ] }) }),
         puppy.seller.is_breeder && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "card position-relative overflow-hidden border", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "row", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "col-xl-4 d-flex align-items-lg-stretch", children: /* @__PURE__ */ jsxRuntimeExports.jsx("a", { href: "breeders-detail.html", className: "trusted-breeders-img position-relative overflow-hidden w-100 text-center p-4", children: /* @__PURE__ */ jsxRuntimeExports.jsx("img", { className: "object-fit-cover rounded-circle position-relative overflow-hidden", src: "../images/top-picks/top-picks-slider-3.jpg", alt: "", width: "230", height: "230" }) }) }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "col-xl-4 d-flex align-items-lg-stretch", children: /* @__PURE__ */ jsxRuntimeExports.jsx("a", { href: "breeders-detail.html", className: "trusted-breeders-img position-relative overflow-hidden w-100 text-center p-4", children: /* @__PURE__ */ jsxRuntimeExports.jsx("img", { className: "object-fit-cover rounded-circle position-relative overflow-hidden", src: puppy.seller.company_logo ?? "", alt: "", width: "230", height: "230" }) }) }),
           /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "col-xl-8 d-flex align-items-lg-stretch", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "trusted-breeders-details card-body ps-xl-0 pe-4 d-flex align-items-start justify-content-between gap-3", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
             /* @__PURE__ */ jsxRuntimeExports.jsx("a", { href: "breeders-detail.html", children: /* @__PURE__ */ jsxRuntimeExports.jsx("h6", { className: "btn-link fs-8 font-work-sans mb-6", children: "Offered By" }) }),
             /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "company-details mb-3", children: [
               /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "hstack gap-6 mb-6", children: [
                 /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "mb-0 fw-medium text-dark", children: "Name:" }),
-                /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "mb-0", children: "Golden Paws Breeders" })
+                /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "mb-0", children: puppy.seller.kennel_name })
               ] }),
               /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "hstack gap-6 mb-6", children: [
                 /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "mb-0 fw-medium text-dark", children: "Address:" }),
-                /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "mb-0", children: "123 Maple Lane, Springfield, IL, USA" })
+                /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "mb-0", children: puppy.seller.company_address })
               ] }),
               /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "hstack gap-6", children: [
                 /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "mb-0 fw-medium text-dark", children: "Years in Business:" }),
-                /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "mb-0", children: "8 Years" })
+                /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "mb-0", children: puppy.seller.company_established_on_label })
               ] })
             ] }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("a", { href: "breeders-detail.html", className: "btn btn-outline-extralight border btn-white text-dark", children: "View More" })
+            /* @__PURE__ */ jsxRuntimeExports.jsx(Ue, { href: `/breeders/${puppy.seller.slug}`, className: "btn btn-outline-extralight border btn-white text-dark", children: "View More" })
           ] }) }) })
         ] }) })
       ] }),
