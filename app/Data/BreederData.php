@@ -32,7 +32,12 @@ class BreederData extends Data
         public ?string $social_tiktok,
         public ?string $social_x,
         public ?string $social_ig,
-        public ?string $website
+        public ?string $website,
+
+        public ?string $kennel_name,
+        public ?string $company_address,
+        public ?string $company_established_on_label,
+        public ?string $company_logo
     ) {
 
 

@@ -325,7 +325,7 @@ class User extends Authenticatable implements  HasMedia,  MustVerifyEmail, Sitem
         }
 
         $now = now();
-        $years = $establishedDate->diffInYears($now);
+        $years =  (int) $establishedDate->diffInYears($now);
         $months = $establishedDate->copy()->addYears($years)->diffInMonths($now);
 
         if ($years > 0) {

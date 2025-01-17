@@ -233,7 +233,7 @@ href={`/report/${puppy.slug}`} method="post" data={{
               <div className="row">
                 <div className="col-xl-4 d-flex align-items-lg-stretch">
                   <a href="breeders-detail.html" className="trusted-breeders-img position-relative overflow-hidden w-100 text-center p-4">
-                    <img className="object-fit-cover rounded-circle position-relative overflow-hidden" src="../images/top-picks/top-picks-slider-3.jpg" alt="" width="230" height="230" />
+                    <img className="object-fit-cover rounded-circle position-relative overflow-hidden" src={puppy.seller.company_logo ?? ""} alt="" width="230" height="230" />
                   </a>
                 </div>
                 <div className="col-xl-8 d-flex align-items-lg-stretch">
@@ -245,18 +245,18 @@ href={`/report/${puppy.slug}`} method="post" data={{
                       <div className="company-details mb-3">
                         <div className="hstack gap-6 mb-6">
                           <p className="mb-0 fw-medium text-dark">Name:</p>
-                          <p className="mb-0">Golden Paws Breeders</p>
+                          <p className="mb-0">{puppy.seller.kennel_name}</p>
                         </div>
                         <div className="hstack gap-6 mb-6">
                           <p className="mb-0 fw-medium text-dark">Address:</p>
-                          <p className="mb-0">123 Maple Lane, Springfield, IL, USA</p>
+                          <p className="mb-0">{puppy.seller.company_address}</p>
                         </div>
                         <div className="hstack gap-6">
                           <p className="mb-0 fw-medium text-dark">Years in Business:</p>
-                          <p className="mb-0">8 Years</p>
+                          <p className="mb-0">{puppy.seller.company_established_on_label}</p>
                         </div>
                       </div>
-                      <a href="breeders-detail.html" className="btn btn-outline-extralight border btn-white text-dark">View More</a>
+                      <Link href={`/breeders/${puppy.seller.slug}`} className="btn btn-outline-extralight border btn-white text-dark">View More</Link>
                     </div>
                   </div>
                 </div>
