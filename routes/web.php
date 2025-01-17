@@ -226,7 +226,7 @@ Route::group(['prefix' => 'checkout'], function () {
 
 Route::group(['prefix' => 'seller'], function () {
     Route::get('create/{id?}', [SellerController::class, 'create'])->name('seller.create');
-    Route::delete('delete/{id?}', [SellerController::class, 'destroy'])->name('seller.create');
+    Route::delete('delete/{id?}', [SellerController::class, 'destroy'])->name('seller.delete');
     Route::post('store', [SellerController::class, 'store'])->name('seller.store');
     Route::post('update/{id}', [SellerController::class, 'update'])->name('seller.update');
 });
