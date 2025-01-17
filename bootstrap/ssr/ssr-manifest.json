@@ -116,7 +116,7 @@
     "/build/assets/StateCityDropdown-RqFV4Sam.css"
   ],
   "\u0000/home/adichan/upwork/puppy2/node_modules/aos/dist/aos.js?commonjs-module": [
-    "/build/assets/Layout-L7XXg1u_.js",
+    "/build/assets/Layout-w1EXq8y6.js",
     "/build/assets/Layout-CaYgHjVQ.css"
   ],
   "\u0000/home/adichan/upwork/puppy2/node_modules/asynckit/serialOrdered.js?commonjs-module": [],
@@ -158,7 +158,7 @@
   ],
   "\u0000/home/adichan/upwork/puppy2/node_modules/lodash.isequal/index.js?commonjs-module": [],
   "\u0000/home/adichan/upwork/puppy2/node_modules/lodash/lodash.js?commonjs-module": [
-    "/build/assets/Registration-B3_ADprF.js"
+    "/build/assets/Registration-BPIvqq42.js"
   ],
   "\u0000/home/adichan/upwork/puppy2/node_modules/map-age-cleaner/dist/index.js?commonjs-module": [
     "/build/assets/StateCityDropdown-mITSC3vl.js",
@@ -450,7 +450,7 @@
     "/build/assets/StateCityDropdown-RqFV4Sam.css"
   ],
   "node_modules/@ctrl/react-adsense/dist/module/adsense.js": [
-    "/build/assets/Index-CK1ezTY3.js"
+    "/build/assets/Index-Cbt8lVbO.js"
   ],
   "node_modules/@emotion/cache/dist/emotion-cache.esm.js": [
     "/build/assets/StateCityDropdown-mITSC3vl.js",
@@ -846,15 +846,15 @@
     "/build/assets/StateCityDropdown-RqFV4Sam.css"
   ],
   "node_modules/@smastrom/react-rating/dist/index.mjs": [
-    "/build/assets/Show-RBOMDdh7.js",
+    "/build/assets/Show-BNHGoNyj.js",
     "/build/assets/Show-C3AFdEBK.css"
   ],
   "node_modules/@smastrom/react-rating/dist/style.css": [
-    "/build/assets/Show-RBOMDdh7.js",
+    "/build/assets/Show-BNHGoNyj.js",
     "/build/assets/Show-C3AFdEBK.css"
   ],
   "node_modules/@stripe/stripe-js/dist/index.mjs": [
-    "/build/assets/Checkout-HKO_HmGF.js"
+    "/build/assets/Checkout-BKLoTvfv.js"
   ],
   "node_modules/@vtaits/use-lazy-ref/dist/index.js": [
     "/build/assets/StateCityDropdown-mITSC3vl.js",
@@ -865,11 +865,11 @@
     "/build/assets/StateCityDropdown-RqFV4Sam.css"
   ],
   "node_modules/aos/dist/aos.css": [
-    "/build/assets/Layout-L7XXg1u_.js",
+    "/build/assets/Layout-w1EXq8y6.js",
     "/build/assets/Layout-CaYgHjVQ.css"
   ],
   "node_modules/aos/dist/aos.js": [
-    "/build/assets/Layout-L7XXg1u_.js",
+    "/build/assets/Layout-w1EXq8y6.js",
     "/build/assets/Layout-CaYgHjVQ.css"
   ],
   "node_modules/asynckit/index.js": [],
@@ -1690,7 +1690,7 @@
     "/build/assets/StateCityDropdown-RqFV4Sam.css"
   ],
   "node_modules/goober/dist/goober.modern.js": [
-    "/build/assets/Layout-L7XXg1u_.js",
+    "/build/assets/Layout-w1EXq8y6.js",
     "/build/assets/Layout-CaYgHjVQ.css"
   ],
   "node_modules/gopd/gOPD.js": [],
@@ -1747,7 +1747,7 @@
   "node_modules/laravel-vite-plugin/inertia-helpers/index.js": [],
   "node_modules/lodash.isequal/index.js": [],
   "node_modules/lodash/lodash.js": [
-    "/build/assets/Registration-B3_ADprF.js"
+    "/build/assets/Registration-BPIvqq42.js"
   ],
   "node_modules/make-event-props/dist/esm/index.js": [
     "/build/assets/StateCityDropdown-mITSC3vl.js",
@@ -2010,7 +2010,7 @@
     "/build/assets/StateCityDropdown-RqFV4Sam.css"
   ],
   "node_modules/react-hot-toast/dist/index.mjs": [
-    "/build/assets/Layout-L7XXg1u_.js",
+    "/build/assets/Layout-w1EXq8y6.js",
     "/build/assets/Layout-CaYgHjVQ.css"
   ],
   "node_modules/react-icons/io/index.mjs": [
@@ -2219,7 +2219,7 @@
     "/build/assets/StateCityDropdown-RqFV4Sam.css"
   ],
   "resources/js/Components/AosInit.tsx": [
-    "/build/assets/Layout-L7XXg1u_.js",
+    "/build/assets/Layout-w1EXq8y6.js",
     "/build/assets/Layout-CaYgHjVQ.css"
   ],
   "resources/js/Components/ApplicationLogo.tsx": [
@@ -2235,21 +2235,21 @@
     "/build/assets/BreederCard-D7TwvD5z.js"
   ],
   "resources/js/Components/Breeder/ReviewCard.tsx": [
-    "/build/assets/Show-RBOMDdh7.js",
+    "/build/assets/Show-BNHGoNyj.js",
     "/build/assets/Show-C3AFdEBK.css"
   ],
   "resources/js/Components/Breeder/ReviewForm.tsx": [
-    "/build/assets/Show-RBOMDdh7.js",
+    "/build/assets/Show-BNHGoNyj.js",
     "/build/assets/Show-C3AFdEBK.css"
   ],
   "resources/js/Components/Breeds/BreedCard.tsx": [
-    "/build/assets/Index-CK1ezTY3.js"
+    "/build/assets/Index-Cbt8lVbO.js"
   ],
   "resources/js/Components/Checkbox.tsx": [
-    "/build/assets/Login-DEWOfKx4.js"
+    "/build/assets/Login-CzroBvLD.js"
   ],
   "resources/js/Components/CheckoutV2Form.tsx": [
-    "/build/assets/Checkout-HKO_HmGF.js"
+    "/build/assets/Checkout-BKLoTvfv.js"
   ],
   "resources/js/Components/DangerButton.tsx": [
     "/build/assets/DeleteUserForm-DJtOmMEc.js"
@@ -2259,7 +2259,7 @@
     "/build/assets/StateCityDropdown-RqFV4Sam.css"
   ],
   "resources/js/Components/FavoriteButton.tsx": [
-    "/build/assets/Card-BAmftY3V.js"
+    "/build/assets/Card-Ds_RKnkL.js"
   ],
   "resources/js/Components/FileUpload.tsx": [
     "/build/assets/StateCityDropdown-mITSC3vl.js",
@@ -2284,10 +2284,10 @@
     "/build/assets/StateFilter-BjZaxTix.js"
   ],
   "resources/js/Components/Forms/BreederRegistrationForm.tsx": [
-    "/build/assets/Registration-CZIK6fa8.js"
+    "/build/assets/Registration-D_hP6BeY.js"
   ],
   "resources/js/Components/Forms/SellerRegistrationForm.tsx": [
-    "/build/assets/Registration-B3_ADprF.js"
+    "/build/assets/Registration-BPIvqq42.js"
   ],
   "resources/js/Components/Heading.tsx": [
     "/build/assets/Heading-BovzgIYZ.js"
@@ -2296,7 +2296,7 @@
     "/build/assets/Hero-D_7BoKIM.js"
   ],
   "resources/js/Components/IconInput.tsx": [
-    "/build/assets/Registration-B3_ADprF.js"
+    "/build/assets/Registration-BPIvqq42.js"
   ],
   "resources/js/Components/ImageSlider.tsx": [
     "/build/assets/ShareButton-DAMf086x.js",
@@ -2309,13 +2309,13 @@
     "/build/assets/InputLabel-DAgP54zY.js"
   ],
   "resources/js/Components/Jumbotron.tsx": [
-    "/build/assets/Index-BrGcCw2B.js"
+    "/build/assets/Index-XtnVzSen.js"
   ],
   "resources/js/Components/List.tsx": [
-    "/build/assets/Show-Dx9X9Arb.js"
+    "/build/assets/Show-CODb75pY.js"
   ],
   "resources/js/Components/ListPill.tsx": [
-    "/build/assets/Edit-DEFdfMEb.js"
+    "/build/assets/Edit-CdXMEVT8.js"
   ],
   "resources/js/Components/Modal.tsx": [
     "/build/assets/DeleteUserForm-DJtOmMEc.js"
@@ -2324,60 +2324,60 @@
     "/build/assets/Navbarv2-BbKDNqWY.js"
   ],
   "resources/js/Components/Navigation/Footer.tsx": [
-    "/build/assets/Layout-L7XXg1u_.js",
+    "/build/assets/Layout-w1EXq8y6.js",
     "/build/assets/Layout-CaYgHjVQ.css"
   ],
   "resources/js/Components/Navigation/Navbarv2.tsx": [
     "/build/assets/Navbarv2-BbKDNqWY.js"
   ],
   "resources/js/Components/Pagination.tsx": [
-    "/build/assets/Index-DfEw6jwh.js"
+    "/build/assets/Index-DzDLgqnF.js"
   ],
   "resources/js/Components/PaginationButton.tsx": [
-    "/build/assets/Index-DfEw6jwh.js"
+    "/build/assets/Index-DzDLgqnF.js"
   ],
   "resources/js/Components/PaymentMethodForm.tsx": [
-    "/build/assets/PaymentMethod-B-plLCaG.js"
+    "/build/assets/PaymentMethod-B2Q1ynfM.js"
   ],
   "resources/js/Components/PlanCard.tsx": [
-    "/build/assets/Index-BrGcCw2B.js"
+    "/build/assets/Index-XtnVzSen.js"
   ],
   "resources/js/Components/PrimaryButton.tsx": [
     "/build/assets/PrimaryButton-qr4fO_6y.js"
   ],
   "resources/js/Components/Puppy/Card.tsx": [
-    "/build/assets/Card-BAmftY3V.js"
+    "/build/assets/Card-Ds_RKnkL.js"
   ],
   "resources/js/Components/Puppy/FeaturedBreeds.tsx": [
-    "/build/assets/Index-CK1ezTY3.js"
+    "/build/assets/Index-Cbt8lVbO.js"
   ],
   "resources/js/Components/Puppy/NewArrivals.tsx": [
-    "/build/assets/Index-CK1ezTY3.js"
+    "/build/assets/Index-Cbt8lVbO.js"
   ],
   "resources/js/Components/Puppy/PuppySpotlight.tsx": [
-    "/build/assets/Index-CK1ezTY3.js"
+    "/build/assets/Index-Cbt8lVbO.js"
   ],
   "resources/js/Components/Puppy/SiblingCard.tsx": [
-    "/build/assets/Show-Dx9X9Arb.js"
+    "/build/assets/Show-CODb75pY.js"
   ],
   "resources/js/Components/Puppy/TopPicks.tsx": [
-    "/build/assets/Index-CK1ezTY3.js"
+    "/build/assets/Index-Cbt8lVbO.js"
   ],
   "resources/js/Components/Puppy/TrustedBreeders.tsx": [
-    "/build/assets/Index-CK1ezTY3.js"
+    "/build/assets/Index-Cbt8lVbO.js"
   ],
   "resources/js/Components/ReviewSlider.tsx": [
-    "/build/assets/Show-RBOMDdh7.js",
+    "/build/assets/Show-BNHGoNyj.js",
     "/build/assets/Show-C3AFdEBK.css"
   ],
   "resources/js/Components/SavedSearchCard.tsx": [
-    "/build/assets/Edit-DEFdfMEb.js"
+    "/build/assets/Edit-CdXMEVT8.js"
   ],
   "resources/js/Components/SecondaryButton.tsx": [
     "/build/assets/DeleteUserForm-DJtOmMEc.js"
   ],
   "resources/js/Components/SecondaryJumbotron.tsx": [
-    "/build/assets/Index-BrGcCw2B.js"
+    "/build/assets/Index-XtnVzSen.js"
   ],
   "resources/js/Components/SelectInput.tsx": [
     "/build/assets/StateCityDropdown-mITSC3vl.js",
@@ -2395,7 +2395,7 @@
     "/build/assets/ShareButton-Bsd_BxkO.css"
   ],
   "resources/js/Components/Slider.tsx": [
-    "/build/assets/Index-CK1ezTY3.js"
+    "/build/assets/Index-Cbt8lVbO.js"
   ],
   "resources/js/Components/Sliders/SmallBannerWithContent.tsx": [
     "/build/assets/SmallBannerWithContent-BAO0DCP6.js"
@@ -2424,35 +2424,35 @@
     "/build/assets/GuestLayout-CbiomB2D.js"
   ],
   "resources/js/Layouts/Layout.tsx": [
-    "/build/assets/Layout-L7XXg1u_.js",
+    "/build/assets/Layout-w1EXq8y6.js",
     "/build/assets/Layout-CaYgHjVQ.css"
   ],
   "resources/js/Pages/Auth/ConfirmPassword.tsx": [
     "/build/assets/ConfirmPassword-Bd-dZBHp.js"
   ],
   "resources/js/Pages/Auth/ForgotPassword.tsx": [
-    "/build/assets/ForgotPassword-DddDBfSR.js"
+    "/build/assets/ForgotPassword-BsT90FzC.js"
   ],
   "resources/js/Pages/Auth/Login.tsx": [
-    "/build/assets/Login-DEWOfKx4.js"
+    "/build/assets/Login-CzroBvLD.js"
   ],
   "resources/js/Pages/Auth/Register.tsx": [
-    "/build/assets/Register-DepsfAnQ.js"
+    "/build/assets/Register-Bytg3yss.js"
   ],
   "resources/js/Pages/Auth/ResetPassword.tsx": [
     "/build/assets/ResetPassword-2GD4Q7RC.js"
   ],
   "resources/js/Pages/Auth/VerifyEmail.tsx": [
-    "/build/assets/VerifyEmail-49bAwb_R.js"
+    "/build/assets/VerifyEmail-BZzIes4-.js"
   ],
   "resources/js/Pages/Breed/Index.tsx": [
-    "/build/assets/Index-BkiOvlqA.js"
+    "/build/assets/Index-C65_aXMC.js"
   ],
   "resources/js/Pages/Breed/Registration.tsx": [
     "/build/assets/Registration-l0sNRNKZ.js"
   ],
   "resources/js/Pages/Breed/Show.tsx": [
-    "/build/assets/Show-KDa30Zyy.js"
+    "/build/assets/Show-DQVyDjAP.js"
   ],
   "resources/js/Pages/BreederListing/Create.tsx": [
     "/build/assets/Create-D2Gz5Lm0.js"
@@ -2461,44 +2461,44 @@
     "/build/assets/Index-C4eZ2mdb.js"
   ],
   "resources/js/Pages/Breeders/Index.tsx": [
-    "/build/assets/Index-gW7BGc80.js"
+    "/build/assets/Index-CozHiYEM.js"
   ],
   "resources/js/Pages/Breeders/Registration.tsx": [
-    "/build/assets/Registration-CZIK6fa8.js"
+    "/build/assets/Registration-D_hP6BeY.js"
   ],
   "resources/js/Pages/Breeders/Show.tsx": [
-    "/build/assets/Show-RBOMDdh7.js",
+    "/build/assets/Show-BNHGoNyj.js",
     "/build/assets/Show-C3AFdEBK.css"
   ],
   "resources/js/Pages/ContactUs.tsx": [
-    "/build/assets/ContactUs-B_w2wD5j.js"
+    "/build/assets/ContactUs-DLy8a9Dr.js"
   ],
   "resources/js/Pages/Dashboard.tsx": [
-    "/build/assets/Dashboard-DusSQSnu.js"
+    "/build/assets/Dashboard-CW4ZmeC1.js"
   ],
   "resources/js/Pages/Favorite/Index.tsx": [
-    "/build/assets/Index-9YCp7m9V.js"
+    "/build/assets/Index-tbWyxpRF.js"
   ],
   "resources/js/Pages/Home/Index.tsx": [
-    "/build/assets/Index-CK1ezTY3.js"
+    "/build/assets/Index-Cbt8lVbO.js"
   ],
   "resources/js/Pages/Home/Sections/Banner.tsx": [
     "/build/assets/Banner-Cyz5X960.js"
   ],
   "resources/js/Pages/Plan/Breeder.tsx": [
-    "/build/assets/Breeder-qoOF9BOU.js"
+    "/build/assets/Breeder-DMqbU90t.js"
   ],
   "resources/js/Pages/Plan/Index.tsx": [
-    "/build/assets/Index-BrGcCw2B.js"
+    "/build/assets/Index-XtnVzSen.js"
   ],
   "resources/js/Pages/PrivacyPolicy.tsx": [
-    "/build/assets/PrivacyPolicy-CmMYUMbz.js"
+    "/build/assets/PrivacyPolicy-vjfxUCz8.js"
   ],
   "resources/js/Pages/Profile/Edit.tsx": [
-    "/build/assets/Edit-DEFdfMEb.js"
+    "/build/assets/Edit-CdXMEVT8.js"
   ],
   "resources/js/Pages/Profile/MyPuppies.tsx": [
-    "/build/assets/MyPuppies-DtVnjQGY.js"
+    "/build/assets/MyPuppies-D-ki3hWx.js"
   ],
   "resources/js/Pages/Profile/Partials/AccountSettings/UserAvatar.tsx": [
     "/build/assets/UserAvatar-BVv4_fus.js"
@@ -2510,7 +2510,7 @@
     "/build/assets/DeleteUserForm-DJtOmMEc.js"
   ],
   "resources/js/Pages/Profile/Partials/SubscriptionCard.tsx": [
-    "/build/assets/SubscriptionCard-PLfyOsUh.js"
+    "/build/assets/SubscriptionCard-md_yJp1j.js"
   ],
   "resources/js/Pages/Profile/Partials/UpdatePasswordForm.tsx": [
     "/build/assets/UpdatePasswordForm-B2CBlE-L.js"
@@ -2519,25 +2519,25 @@
     "/build/assets/UpdateProfileInformationForm-DUjiGH8r.js"
   ],
   "resources/js/Pages/Puppy/Index.tsx": [
-    "/build/assets/Index-DfEw6jwh.js"
+    "/build/assets/Index-DzDLgqnF.js"
   ],
   "resources/js/Pages/Puppy/Show.tsx": [
-    "/build/assets/Show-Dx9X9Arb.js"
+    "/build/assets/Show-CODb75pY.js"
   ],
   "resources/js/Pages/Seller/Registration.tsx": [
-    "/build/assets/Registration-B3_ADprF.js"
+    "/build/assets/Registration-BPIvqq42.js"
   ],
   "resources/js/Pages/Subscription/Checkout.tsx": [
-    "/build/assets/Checkout-HKO_HmGF.js"
+    "/build/assets/Checkout-BKLoTvfv.js"
   ],
   "resources/js/Pages/Subscription/Index.tsx": [
     "/build/assets/Index-COmjae2i.js"
   ],
   "resources/js/Pages/Subscription/PaymentMethod.tsx": [
-    "/build/assets/PaymentMethod-B-plLCaG.js"
+    "/build/assets/PaymentMethod-B2Q1ynfM.js"
   ],
   "resources/js/Pages/TermsConditions.tsx": [
-    "/build/assets/TermsConditions-BzCKjsli.js"
+    "/build/assets/TermsConditions-Dq7RPgI3.js"
   ],
   "resources/js/Pages/Welcome.tsx": [
     "/build/assets/Welcome-xFruMEiK.js"
@@ -2551,6 +2551,6 @@
     "/build/assets/Button-CK40ntNT.js"
   ],
   "resources/js/utils/runOnClient.ts": [
-    "/build/assets/Index-DfEw6jwh.js"
+    "/build/assets/Index-DzDLgqnF.js"
   ]
 }
