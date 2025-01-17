@@ -19,7 +19,7 @@ class ProfileUpdateRequest extends FormRequest
             'first_name' => [ 'string', 'max:40'],
             'last_name' => [ 'string', 'max:40'],
             'state_id' => [''],
-            'avatar' => [''],
+            'avatar' => ['', 'mimes:jpg,jpeg,png', 'max:4096'],
             'current_password' => ['nullable',  'current_password'],
             'new_password' => ['nullable', 'string', 'min:8', 'confirmed'],
             'city_id' => [''],

@@ -105,9 +105,12 @@ class ProfileController extends Controller
             $request->user()->email_verified_at = null;
         }
 
+        /* dd($input['avatar']); */
         if ($input['avatar']) {
+        $request->user()->clearMediaCollection('avatars');
+        $request->user()->addMedia($input['avatar'])->toMediaCollection('avatars');
+        } else {
             $request->user()->clearMediaCollection('avatars');
-            $request->user()->addMedia($input['avatar'])->toMediaCollection('avatars');
         }
 
         if ($input['current_password'] != null && $input['new_password']) {
@@ -117,7 +120,9 @@ class ProfileController extends Controller
 
         $request->user()->save();
 
-        return Redirect::route('profile.edit');
+        return Redirect::route('profile.edit')->with([
+            'message.success' => 'Profile updated successfully.',
+        ]);
     }
 
     /**

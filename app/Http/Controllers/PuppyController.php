@@ -143,8 +143,13 @@ class PuppyController extends Controller
         ]);
     }
 
-    public function show(string $slug)
+    public function show(Request $request, string $slug)
     {
+        if (! $request->user()->is_seller ) {
+            return redirect()->route('home')->with([
+                'message.error' => 'This puppy is not available',
+            ]);
+        }
         /* dd($slug); */
         // Fetch the primary puppy data
         $puppy = Puppy::with([

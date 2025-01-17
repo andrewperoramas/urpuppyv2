@@ -6,7 +6,7 @@ const AccountDropdownButton = ({user} : { user: App.Data.UserData }) => {
 
       <div className="dropdown position-relative user-profile-dropdown">
             <a className="btn btn-primary p-0 round-44 overflow-hidden rounded-circle d-flex align-items-center justify-content-center" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <img src={user.avatar} alt="" />
+              <img className="w-100 h-100" src={user.avatar} alt="" />
             </a>
             <ul className="dropdown-menu dropdown-menu-end p-3" style={{
                                 width: 'max-content'

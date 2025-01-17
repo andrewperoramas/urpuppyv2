@@ -52,7 +52,7 @@ class SellerController extends Controller
 
         $patterns = PatternData::collect(PuppyPattern::all());
         $colors = ColorData::collect(PuppyColor::all());
-        $siblings = SiblingData::collect($request->user()->puppies);
+        $siblings = SiblingData::collect($request->user()->puppies()->where('id', '!=', $id)->get());
         $breeds = BreedOptionData::collect(Breed::select('id', 'name')->get());
 
         return inertia('Seller/Registration', [

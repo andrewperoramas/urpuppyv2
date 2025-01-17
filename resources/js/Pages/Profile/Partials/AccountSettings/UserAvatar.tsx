@@ -38,12 +38,12 @@ const AvatarInput: React.FC<AvatarInputProps> = ({ onChange }) => {
 
   return (
     <div className="d-md-flex align-items-center gap-4">
-      <span className="d-block round-120 flex-shrink-0 position-relative overflow-hidden rounded-circle mb-3 mb-md-0">
+      <span className="d-block round-120 flex-shrink-0 position-relative overflow-hidden rounded-circle mb-3 mb-md-0 ">
         <img
           src={imagePreview}
           id="image-preview"
           alt="Profile"
-          className="object-fit-cover"
+          className="object-fit-cover w-100 h-100"
         />
       </span>
       <div className="d-sm-flex align-items-center gap-6">

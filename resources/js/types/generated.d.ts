@@ -233,6 +233,7 @@ slug: string;
 email: string;
 city: App.Data.CityData;
 state: App.Data.StateData;
+zip_code: string;
 address: string;
 email_verified_at: string | null;
 member_since: string;

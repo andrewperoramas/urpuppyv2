@@ -39,6 +39,8 @@ export default function Edit({
         breeder_next_billing: string,
         status?: string, plan: App.Data.PlanData,  breeder_plan: App.Data.PlanData,  tab: string, puppies: PaginatedCollection<App.Data.PuppyData>, saved_searches: App.Data.SavedSearchData[] }>) {
 
+
+    const errors = usePage().props.errors;
     // const redirect_tab = usePage().props.redirect_tab as any ?? 'Account Settings';
 
     const [currentTab, setCurrentTab] = useState(tab ?? 'Account Settings')
@@ -71,6 +73,18 @@ export default function Edit({
           </div>
           <div className="col-lg-9">
             <div className="tab-content" id="pills-tabContent">
+                                    <div>
+                            {errors && Object.values(errors).length > 0 &&
+                                                <div className="alert alert-danger">
+                                                    <ul>
+                                                        {Object.keys(errors).map((key, index) => (
+                                                            <li key={index}>{errors[key]}</li>
+                                                        ))}
+                                                    </ul>
+                                                </div>
+                                                }
+                                    </div>
+
               <div className={` tab-pane fade  ${currentTab == 'Account Settings' ? 'show active' : ''} `} id="pills-account-settings" role="tabpanel"
                 aria-labelledby="pills-account-settings-tab" tabIndex={0}>
                  <UserProfile />

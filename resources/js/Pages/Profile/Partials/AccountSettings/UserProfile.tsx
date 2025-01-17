@@ -6,15 +6,14 @@ import AvatarInput from './UserAvatar'
 import PrimaryButton from '@/Components/PrimaryButton'
 import Button from '@/Components/ui/Button'
 import InputError from '@/Components/InputError'
+import StateCityDropdown from '@/Components/StateCityDropdown'
 
 const UserProfile = () => {
 
     const user = usePage().props.auth.user
-    console.log(user)
-    console.log('gagika')
 
     const { post, data, setData, errors } = useForm<{ first_name: string, last_name: string, email: string, avatar: File | null,
-        current_password?: string, new_password?: string, new_password_confirmation?: string
+        current_password?: string, new_password?: string, new_password_confirmation?: string, state?: App.Data.StateData, city?: App.Data.CityData, zip_code?: string
 
     }>({
         first_name: user?.first_name ?? "",
@@ -24,6 +23,9 @@ const UserProfile = () => {
         current_password: '',
         new_password: '',
         new_password_confirmation: '',
+        state: user?.state,
+        city: user.city,
+        zip_code: user.zip_code
     });
 
     const handleSubmit = (e: React.SyntheticEvent) => {
@@ -80,6 +82,12 @@ const UserProfile = () => {
                                     }
                             </div>
                           </div>
+                        </div>
+                      </div>
+                      <div className="pb-4 mb-4 border-bottom">
+                        <h5 className="mb-4 fs-7">Location Details</h5>
+                        <div className="row">
+                            <StateCityDropdown formData={data} errors={errors} setFormData={setData} />
                         </div>
                       </div>
                       <div className="pb-4 mb-4 border-bottom">

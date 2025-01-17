@@ -25,6 +25,7 @@ class UserData extends Data
         public string $email,
         public CityData $city,
         public StateData $state,
+        public string $zip_code,
         public string $address,
         public ?string $email_verified_at,
         public string $member_since,
