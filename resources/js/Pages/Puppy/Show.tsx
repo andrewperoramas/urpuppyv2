@@ -170,7 +170,7 @@ const Show = ({ related_puppies, puppy, siblings }: {
                             ))}
                         </div>
                       </div>
-                      <h3 className="mb-3 fs-8">About Charlie</h3>
+                      <h3 className="mb-3 fs-8">About {puppy.name}</h3>
                       <p className="mb-6">{puppy.description}</p>
                       <p className="mb-3"></p>
                       <div className="d-flex align-items-center align-items-start gap-2">
@@ -196,11 +196,12 @@ href={`/report/${puppy.slug}`} method="post" data={{
                 </div>
               </div>
             </div>
+            { puppy.characteristics && puppy.characteristics?.length > 0 || puppy.features && puppy.features.length > 0 &&
             <div className="card border">
               <div className="card-body">
 {puppy.characteristics && puppy.characteristics?.length > 0 &&
                 <div className="charlies-characteristics pb-3 border-bottom">
-                  <h5 className="mb-3 pb-1 fs-5">Charlie’s Characteristics</h5>
+                  <h5 className="mb-3 pb-1 fs-5">{puppy.name}’s Characteristics</h5>
                   <div className="d-flex align-items-center flex-wrap gap-4 pb-1">
                   {
                      puppy.characteristics.map((characteristic: string) => (
@@ -212,7 +213,7 @@ href={`/report/${puppy.slug}`} method="post" data={{
 
 {puppy.features && puppy.features?.length > 0 &&
                 <div className="charlies-features mt-3 pt-1">
-                  <h5 className="mb-3 pb-1 fs-5">Charlie’s Features</h5>
+                  <h5 className="mb-3 pb-1 fs-5">{puppy.name}’s Features</h5>
                   <div className="d-flex align-items-center flex-wrap gap-4">
                     {puppy.features && puppy.features.map((feature: string) => (
                     <List label={feature} />
@@ -222,6 +223,48 @@ href={`/report/${puppy.slug}`} method="post" data={{
 }
               </div>
             </div>
+
+}
+
+
+                                {
+                                    puppy.seller.is_breeder &&
+                                <div className="card position-relative overflow-hidden border">
+              <div className="row">
+                <div className="col-xl-4 d-flex align-items-lg-stretch">
+                  <a href="breeders-detail.html" className="trusted-breeders-img position-relative overflow-hidden w-100 text-center p-4">
+                    <img className="object-fit-cover rounded-circle position-relative overflow-hidden" src="../images/top-picks/top-picks-slider-3.jpg" alt="" width="230" height="230" />
+                  </a>
+                </div>
+                <div className="col-xl-8 d-flex align-items-lg-stretch">
+                  <div className="trusted-breeders-details card-body ps-xl-0 pe-4 d-flex align-items-start justify-content-between gap-3">
+                    <div>
+                      <a href="breeders-detail.html">
+                        <h6 className="btn-link fs-8 font-work-sans mb-6">Offered By</h6>
+                      </a>
+                      <div className="company-details mb-3">
+                        <div className="hstack gap-6 mb-6">
+                          <p className="mb-0 fw-medium text-dark">Name:</p>
+                          <p className="mb-0">Golden Paws Breeders</p>
+                        </div>
+                        <div className="hstack gap-6 mb-6">
+                          <p className="mb-0 fw-medium text-dark">Address:</p>
+                          <p className="mb-0">123 Maple Lane, Springfield, IL, USA</p>
+                        </div>
+                        <div className="hstack gap-6">
+                          <p className="mb-0 fw-medium text-dark">Years in Business:</p>
+                          <p className="mb-0">8 Years</p>
+                        </div>
+                      </div>
+                      <a href="breeders-detail.html" className="btn btn-outline-extralight border btn-white text-dark">View More</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+                                }
+
 
           </div>
           <div className="col-lg-4 col-xl-3">

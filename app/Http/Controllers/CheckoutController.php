@@ -49,6 +49,7 @@ class CheckoutController extends Controller
             ]);
         }
 
+
         /* $subscription = $request->user()->newSubscription('standard', $plan->stripe_plan_id); */
 
         /* if ($plan->trial_days > 0) { */
@@ -56,7 +57,22 @@ class CheckoutController extends Controller
         /* } */
 
         /* if ($plan->type == 'breeder') { */
-        $request->user()->newSubscription($plan->type, $plan->stripe_plan_id)->create($request->paymentMethod);
+        $is_created = $request->user()->newSubscription($plan->type, $plan->stripe_plan_id)->create($request->paymentMethod);
+
+        if (!$is_created) {
+
+            return redirect()->back()->with([
+                'tab' => 'My Subscription',
+                'message.error' => 'Something went wrong. Please try again later',
+            ]);
+        }
+
+        if ($plan->type == 'breeder') {
+            $request->user()->update([
+                'is_breeder' => true
+            ]);
+        }
+
         /* } else { */
            /* $request->user()->newSubscription('standard', $plan->stripe_plan_id)->create($request->paymentMethod); */
         /* } */

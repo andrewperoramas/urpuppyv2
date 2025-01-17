@@ -80,6 +80,7 @@ const TopPicks = ({puppy}: { puppy: App.Data.PuppyData }) => {
               layout="in-article"
               format="fluid"
             />
+
       </div>
     </section>
 

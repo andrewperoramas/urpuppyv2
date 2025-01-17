@@ -19,7 +19,7 @@ export default function Layout({
 
             toast.success(flash.message.success,
                 {
-                    duration: 6000
+                    duration: 3000
                 });
         }
     }, [flash]);
@@ -27,7 +27,7 @@ export default function Layout({
     useEffect(() => {
         if (flash?.message?.error) {
             toast.error(flash.message.error, {
-                duration: 6000
+                duration: 3000
             });
         }
     }, [flash]);

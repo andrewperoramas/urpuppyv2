@@ -10,6 +10,7 @@ use App\Http\Controllers\BreederController;
 use App\Http\Controllers\BreederListingController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\SellerController;
 use App\Http\Controllers\FavoriteController;
@@ -225,6 +226,7 @@ Route::group(['prefix' => 'checkout'], function () {
 
 Route::group(['prefix' => 'seller'], function () {
     Route::get('create/{id?}', [SellerController::class, 'create'])->name('seller.create');
+    Route::delete('delete/{id?}', [SellerController::class, 'destroy'])->name('seller.create');
     Route::post('store', [SellerController::class, 'store'])->name('seller.store');
     Route::post('update/{id}', [SellerController::class, 'update'])->name('seller.update');
 });
@@ -251,7 +253,8 @@ Route::group(['prefix' => 'breeder-listings'], function () {
 });
 
 
-Route::get('/contact-us', [ContactUsController::class, 'index']);
+Route::get('/contact-us', [ContactController::class, 'index']);
+Route::post('/contact-us', [ContactController::class, 'store']);
 Route::get('/privacy-policy', [PrivacyPolicyController::class, 'index']);
 Route::get('/terms-of-use', [PrivacyPolicyController::class, 'terms']);
 

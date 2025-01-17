@@ -1,8 +1,28 @@
 import Hero from '@/Components/Hero'
+import InputError from '@/Components/InputError'
+import SelectInput from '@/Components/SelectInput'
+import TextInput from '@/Components/TextInput'
 import Layout from '@/Layouts/Layout'
+import { useForm } from '@inertiajs/react'
 import React from 'react'
 
 const ContactUs = () => {
+
+    const {data, setData, reset, post, processing, errors} = useForm({
+        first_name: '',
+        last_name: '',
+        email: '',
+        account_type: 'seller',
+        subject: '',
+        message: '',
+    })
+
+    const handleSubmit = (e: React.SyntheticEvent) => {
+        e.preventDefault();
+        post('/contact-us');
+        reset();
+    }
+
   return (
   <Layout>
             <Hero title="Contact us" bgImage="/images/contact/contact-bg.jpg"/>
@@ -12,14 +32,15 @@ const ContactUs = () => {
           <div className="col-lg-6 border-end pe-xl-10 order-last order-lg-first">
             <div className="contact-form pe-xl-6">
               <h2 className="fs-10 mb-4 mb-lg-8">Get in Touch</h2>
-              <form action="">
+              <form action="" onSubmit={handleSubmit}>
                 <div className="row">
                   <div className="col-lg-6">
                     <div className="mb-4">
                       <label className="form-label">
                         First Name
                       </label>
-                      <input type="text" name="FirstName" id="FirstName" className="form-control" />
+                      <TextInput value={data.first_name} onChange={(e) => setData('first_name', e.target.value)} />
+                        {errors.first_name && <InputError message={errors.first_name} /> }
                     </div>
                   </div>
                   <div className="col-lg-6">
@@ -27,13 +48,15 @@ const ContactUs = () => {
                       <label className="form-label">
                         Last Name
                       </label>
-                      <input type="text" name="LastName" id="LastName" className="form-control" />
+                      <TextInput value={data.last_name} onChange={(e) => setData('last_name', e.target.value)} />
+                    {errors.last_name && <InputError message={errors.last_name} /> }
                     </div>
                   </div>
                   <div className="col-12">
                     <div className="mb-4">
                       <label  className="form-label">Email Address</label>
-                      <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
+                      <TextInput type="email" value={data.email} onChange={(e) => setData('email', e.target.value)} />
+                                                {errors.email && <InputError message={errors.email} />}
 
                     </div>
                   </div>
@@ -42,12 +65,13 @@ const ContactUs = () => {
                       <label  className="form-label">
                         Account Type
                       </label>
-                      <select className="form-select shadow-none" aria-label="Default select example">
-                        <option value="1">Seller</option>
-                        <option value="2">Breeder</option>
-                        <option value="3">Buyer</option>
-                        <option value="4">General Inquiry</option>
+                      <select value={data.account_type} onChange={(e) => setData('account_type', e.target.value)}  className="form-select shadow-none" aria-label="Default select example">
+                        <option value="seller">Seller</option>
+                        <option value="breeder">Breeder</option>
+                        <option value="buyer">Buyer</option>
+                        <option value="general_inquiry">General Inquiry</option>
                       </select>
+                                                {errors.account_type && <InputError message={errors.account_type} />}
                     </div>
                   </div>
                   <div className="col-lg-6">
@@ -55,7 +79,8 @@ const ContactUs = () => {
                       <label  className="form-label">
                         Subject
                       </label>
-                      <input type="text" name="Subject" id="Subject" className="form-control" />
+                      <TextInput value={data.subject} onChange={(e) => setData('subject', e.target.value)} />
+                                                {errors.subject && <InputError message={errors.subject} />}
                     </div>
                   </div>
                   <div className="col-12">
@@ -64,7 +89,8 @@ const ContactUs = () => {
                         Message
                       </label>
 
-                      <textarea rows={3} className="h-20 form-control rounded-1" id="Message" placeholder=""></textarea>
+                      <textarea value={data.message} onChange={(e) => setData('message', e.target.value)} rows={3} className="h-20 form-control rounded-1" id="Message" placeholder=""></textarea>
+                                                {errors.message && <InputError message={errors.message} />}
                     </div>
                   </div>
                 </div>

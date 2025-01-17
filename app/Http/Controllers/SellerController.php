@@ -24,6 +24,16 @@ class SellerController extends Controller
         return inertia('Seller/Dashboard');
     }
 
+    public function destroy(int $id) {
+
+        $puppy = Puppy::findOrFail($id);
+        $puppy->delete();
+        return redirect()->back()->with([
+            'message.success' => 'Puppy deleted successfully'
+        ]);
+
+    }
+
     public function create(Request $request,?int $id = null)
     {
         /* dd($request->user()?->isSubscribed()); */

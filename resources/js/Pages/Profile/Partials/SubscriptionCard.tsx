@@ -1,4 +1,4 @@
-import { Link } from '@inertiajs/react'
+import { Link, router } from '@inertiajs/react'
 import React from 'react'
 
 const SubscriptionCard = ({plan, next_billing, cancel_at} : {
@@ -31,8 +31,23 @@ const SubscriptionCard = ({plan, next_billing, cancel_at} : {
                       <div>
                         {!cancel_at &&
                             <>
-                        <Link data-bs-toggle="modal" data-bs-target="#CancelPlan"
-                          className="btn btn-outline-extralight border btn-white text-dark d-block" method="delete"  href={`/subscriptions`}>Cancel Plan</Link>
+                                <Link
+  href="/subscriptions"
+  method="delete"
+  as="button"
+  onClick={(e) => {
+    e.preventDefault();
+    if (window.confirm('Are you sure?')) {
+      router.delete('/subscriptions');
+    }
+  }}
+  data-bs-toggle="modal"
+  data-bs-target="#CancelPlan"
+  className="btn btn-outline-extralight border btn-white text-dark d-block"
+>
+  Cancel Plan
+</Link>
+
 </>
 }
                       </div>

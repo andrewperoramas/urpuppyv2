@@ -309,7 +309,7 @@ class Puppy extends Model implements HasMedia, Sitemapable
             $features->add('Vet Exam');
         }
 
-        if ($this->health_certificate) {
+        if ($this->has_health_certificate) {
             $features->add('Health Certificate');
         }
 

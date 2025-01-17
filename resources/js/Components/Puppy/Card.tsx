@@ -40,7 +40,7 @@ const PuppyCard = ({puppy, className="col-md-6 col-lg-4 col-xl-3 mb-4", height="
               </Link>
               <div className="puppy-spotlight-details">
                 <div className="p-3">
-                  <p className="fs-2 mb-1 text-uppercase fw-medium">{puppy.breeds.map((breed) => breed.name).join(', ')}</p>
+                  <p className="fs-2 mb-1 text-uppercase fw-medium">{puppy.breeds[0]?.name ?? null}</p>
                   <h6 className="fs-6 font-work-sans">{puppy.name}</h6>
                   <div className="row">
                     <div className="col-6">

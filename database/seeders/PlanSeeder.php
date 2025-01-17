@@ -107,7 +107,7 @@ class PlanSeeder extends Seeder
          Plan::create([
             'name' => 'The All-in-One Breeder Annual Subscription Plan',
             'price' => 7499,
-            'type' => 'premium',
+            'type' => 'breeder',
             'savings_label' => 'Save 35% when billed annually',
             'interval' => 'month',
 
