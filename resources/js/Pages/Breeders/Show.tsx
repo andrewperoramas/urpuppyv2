@@ -6,6 +6,7 @@ import ReviewSlider from '@/Components/ReviewSlider'
 import SellerCard from '@/Components/SellerCard'
 import Slider from '@/Components/Slider'
 import Layout from '@/Layouts/Layout'
+import { Head } from '@inertiajs/react'
 import React from 'react'
 
 const Show = ({breeder, puppies} : {
@@ -16,6 +17,9 @@ const Show = ({breeder, puppies} : {
         console.log(breeder);
   return (
             <Layout>
+            <Head title={breeder.full_name}>
+
+            </Head>
   <div className="page-wrapper position-relative overflow-hidden">
 
     <section className="hero-section position-relative d-flex align-items-center pt-11 pb-10">

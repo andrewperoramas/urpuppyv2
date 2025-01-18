@@ -23,7 +23,7 @@ class AuthenticatedSessionController extends Controller
         return Inertia::render('Auth/Login', [
             'canResetPassword' => Route::has('password.request'),
             'status' => session('status'),
-            'puppy'  => PuppyData::optional(Puppy::with(['breeds', 'seller'])->inRandomOrder()->first())
+            'puppy'  => PuppyData::optional(Puppy::with(['breeds', 'seller'])->hasSubscribedUsers()->inRandomOrder()->first())
         ]);
     }
 

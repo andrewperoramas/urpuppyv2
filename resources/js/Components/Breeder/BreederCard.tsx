@@ -12,7 +12,7 @@ const BreederCard = ({breeder, hasBorder=false }: { breeder: App.Data.BreederFul
                 <div className="col-xl-4 d-flex align-items-lg-stretch">
                   <Link preserveState href={`/breeders/${breeder.slug}`} className="trusted-breeders-img position-relative overflow-hidden w-100">
                     <img loading="lazy" className="w-100 h-100 object-fit-cover"
-                      src={breeder.avatar} alt="" />
+                      src={breeder.company_logo ?? breeder.avatar} alt="" />
                   </Link>
                 </div>
                 <div className="col-xl-8 d-flex align-items-lg-stretch">

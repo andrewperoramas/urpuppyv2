@@ -33,6 +33,9 @@ const AccountDropdownButton = ({user} : { user: App.Data.UserData }) => {
               <li><Link className="dropdown-item rounded py-2" href="/profile" data={{
                     tab: 'Saved Search'
                 }} >Saved Search</Link></li>
+              <li><Link className="dropdown-item rounded py-2" href="/profile" data={{
+                    tab: 'My Puppies'
+                }} >My Puppies</Link></li>
               <div className="mt-3">
                                                                         <Link
                                                                             method="post"

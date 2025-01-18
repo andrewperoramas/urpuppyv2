@@ -64,7 +64,7 @@ class PuppyController extends Controller
                 'name', // Allows filtering by name
                 /* 'price', // Allows filtering by price if needed */
             ])
-//            ->hasSubscribedUsers()
+            ->hasSubscribedUsers()
             ->latest()
             ->paginate(12);
 
@@ -145,13 +145,15 @@ class PuppyController extends Controller
 
     public function show(Request $request, string $slug)
     {
-        if (! $request->user()->is_seller ) {
-            return redirect()->route('home')->with([
-                'message.error' => 'This puppy is not available',
-            ]);
-        }
+        /* if (! $request->user()->is_seller ) { */
+        /*     return redirect()->route('home')->with([ */
+        /*         'message.error' => 'This puppy is not available', */
+        /*     ]); */
+        /* } */
         /* dd($slug); */
         // Fetch the primary puppy data
+        try {
+
         $puppy = Puppy::with([
             'breeds',
             /* 'attributes', */
@@ -167,7 +169,10 @@ class PuppyController extends Controller
                 $query->orderByDesc('created_at');
             },
             'comments.breeder',
-        ])->where('slug', $slug)->firstOrFail();
+        ])->hasSubscribedUsers()->where('slug', $slug)->firstOrFail();
+
+
+        /* if ($puppy) */
 
         if ( auth()->user()) {
             $user_favorites = auth()->user()->favorites()->pluck('favoriteable_id');
@@ -219,9 +224,15 @@ class PuppyController extends Controller
             'featured_puppies' => $featuredPuppies,
             'siblings'  => PuppySiblingData::collect($puppy->siblings()->with('media')->get()),
             'featured_breeds' => $featured_breeds,
-            'related_puppies' => PuppyCardData::collect(Puppy::with('breeds', 'media', 'seller')->where('id', '!=', $puppy->id)->inRandomOrder()->limit(4)->get()),
+            'related_puppies' => PuppyCardData::collect(Puppy::with('breeds', 'media', 'seller')->hasSubscribedUsers()->where('id', '!=', $puppy->id)->inRandomOrder()->limit(4)->get()),
             'puppy' => PuppyData::from($puppy),
         ]);
+
+        } catch (\Exception $e) {
+            return redirect()->route('home')->with([
+                'message.error' => 'This puppy is not available',
+            ]);
+        }
 
         /* ->title($puppy->name.' - Urpuppy') */
         /* ->ogLocale('en_US') */

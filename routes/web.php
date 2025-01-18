@@ -91,14 +91,14 @@ Route::post('/report/{slug}', [ReportController::class, 'store']);
 
 Route::get('/', function () {
 
-    $top_picks = Puppy::with('breeds', 'seller')->inRandomOrder()->first();
+    $top_picks = Puppy::with('breeds', 'seller')->hasSubscribedUsers()->inRandomOrder()->first();
 
 
 
 
-    $spotlights = PuppyData::collect(Puppy::with('breeds', 'seller')->inRandomOrder()->take(4)->get());
+    $spotlights = PuppyData::collect(Puppy::with('breeds', 'seller')->hasSubscribedUsers()->inRandomOrder()->take(4)->get());
 
-    $new = PuppyData::collect(Puppy::with('breeds:name,slug', 'seller')->inRandomOrder()->take(4)->get());
+    $new = PuppyData::collect(Puppy::with('breeds:name,slug', 'seller')->hasSubscribedUsers()->orderByDesc('id')->take(4)->get());
 
     if ( auth()->user()) {
         $user_favorites = auth()->user()->favorites()->pluck('favoriteable_id');

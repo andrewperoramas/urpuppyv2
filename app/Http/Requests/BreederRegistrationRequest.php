@@ -35,8 +35,8 @@ class BreederRegistrationRequest extends FormRequest
 
             'has_usda_registration' => [''],
             'company_logo' => ['required'],
-            'gallery' => ['array', 'required'],
-            'videos' => ['array', 'required'],
+            'gallery' => ['array', 'required', 'max:5', 'mimetypes:image/*'],
+            'videos' => ['array', 'required', 'max:1', 'mimetypes:mpeg,mp4,ogg,webm'],
         ];
     }
 
