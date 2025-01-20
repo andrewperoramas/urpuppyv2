@@ -13,13 +13,17 @@ import { Swiper as SwiperInstance } from "swiper/types";
 const ImageSlider = ({
     images,
     enableNavigation = false,
+    videos
 }: {
         images: (string)[];
+        videos?: (string)[] | null;
         enableNavigation?: boolean;
     }) => {
     const [thumbsSwiper, setThumbsSwiper] = useState<any>(null);
     // const swiperRef = useRef<SwiperInstance | null>(null);
     const swiperRef = useRef<any>(null); // Ref for Swiper instance
+    console.log('adi')
+    console.log(videos)
 
     // Effect to call swiper.update when the modal is visible
     useEffect(() => {
@@ -53,6 +57,18 @@ const ImageSlider = ({
                                 />
                         </SwiperSlide>
                     ))}
+                    {videos && videos.length > 0 && videos.map((video, index) => (
+                        <SwiperSlide key={index} className=" puppy-spotlight-img  position-relative overflow-hidden rounded-1">
+
+                            <video
+                                controls
+                                className=" w-100 h-100 object-fit-cover rounded-1 "
+                                >
+                                <source src={video} type="video/mp4" />
+                            </video>
+                        </SwiperSlide>
+
+                    ))}
                 </Swiper>
 
                 {enableNavigation && images.length > 1 && (
@@ -66,7 +82,7 @@ const ImageSlider = ({
                     </>
                 )}
 
-                {images.length > 1 && (
+                {images.length > 0 && (
                     <Swiper
                         modules={[Thumbs, Navigation, FreeMode]}
                         onSwiper={setThumbsSwiper}
@@ -105,6 +121,30 @@ const ImageSlider = ({
                                 />
                             </SwiperSlide>
                         ))}
+                        {videos && videos.length > 0 && videos.map((video, index) => (
+                            <SwiperSlide key={index} className="item overflow-hidden" style={{
+                                maxWidth: '105px',
+                                height: '90px',
+                            }}>
+                            <img
+                                    className="slide"
+                                    style={{
+                                    height: '90px',
+                                            padding: '25px',
+                                    width: '90px',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                    borderRadius: 'var(--bs-border-radius-sm)',
+                                    background: 'var(--bs-secondary)',
+
+                                    }}
+
+                                          src="../images/svgs/icon-play.svg" alt="" width="25" height="30" />
+                            </SwiperSlide>
+
+                        ))}
+
 </div>
                     </Swiper>
                 )}

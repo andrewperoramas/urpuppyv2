@@ -64,6 +64,7 @@ class User extends Authenticatable implements  HasMedia,  MustVerifyEmail, Sitem
         'pm_type',
         'zip_code',
         'is_breeder',
+        'is_seller',
         'stripe_id',
 
         'company_name',
@@ -77,6 +78,12 @@ class User extends Authenticatable implements  HasMedia,  MustVerifyEmail, Sitem
         'company_about',
         'has_usda_registration',
         'kennel_name',
+        'social_fb',
+        'social_ig',
+        'social_tiktok',
+        'social_x',
+
+        'enable_notification',
 
     ];
 
@@ -114,7 +121,7 @@ class User extends Authenticatable implements  HasMedia,  MustVerifyEmail, Sitem
 
     public function toSitemapTag(): Url|string|array
     {
-        return route('breeder.show', $this->slug);
+        return route('breeders.show', $this->slug);
     }
 
     public function getActiveSubscriptions()
@@ -216,7 +223,7 @@ class User extends Authenticatable implements  HasMedia,  MustVerifyEmail, Sitem
 
     public function scopeBreeders($query)
     {
-        $query->where('email', 'qwec@yahoo.com');
+        $query->where('is_breeder', true);
     }
 
     public function getHasPasswordAttribute()

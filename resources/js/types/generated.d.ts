@@ -154,6 +154,7 @@ price: number;
 breeds: Array<App.Data.BreedData>;
 image: string;
 preview_images: Array<string>;
+video: string;
 description: string;
 formatted_price: string;
 patterns: string;
@@ -231,12 +232,17 @@ last_name: string;
 avatar: string;
 slug: string;
 email: string;
-city: App.Data.CityData;
-state: App.Data.StateData;
-zip_code: string;
+city: App.Data.CityData | null;
+state: App.Data.StateData | null;
+zip_code: string | null;
 address: string;
 email_verified_at: string | null;
 member_since: string;
+social_fb: string | null;
+social_ig: string | null;
+social_tiktok: string | null;
+social_x: string | null;
+enable_notification: boolean;
 };
 }
 declare namespace App.Enum {

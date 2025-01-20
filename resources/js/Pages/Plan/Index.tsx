@@ -1,5 +1,6 @@
 import Hero from '@/Components/Hero'
 import Jumbotron from '@/Components/Jumbotron'
+import MetaTags from '@/Components/MetaTags'
 import PlanCard from '@/Components/PlanCard'
 import SecondaryJumbotron from '@/Components/SecondaryJumbotron'
 import Layout from '@/Layouts/Layout'
@@ -13,6 +14,7 @@ const Index = ({plans} : {
 
   return (
   <Layout>
+            <MetaTags title="Plans" />
             <Hero title="Join the Pack" bgImage="/images/subscription-plans/subscription-plans-bg.jpg" description="Exclusive Subscription Plans for Pet Lovers. "/>
 
                 <section className="subscription-plans pb-0 pb-md-0 py-7 py-md-5 py-xl-9 pb-xl-9">

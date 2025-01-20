@@ -23,12 +23,17 @@ class UserData extends Data
         public string $avatar,
         public string $slug,
         public string $email,
-        public CityData $city,
-        public StateData $state,
-        public string $zip_code,
+        public ?CityData $city,
+        public ?StateData $state,
+        public ?string $zip_code,
         public string $address,
         public ?string $email_verified_at,
         public string $member_since,
+        public ?string $social_fb,
+        public ?string $social_ig,
+        public ?string $social_tiktok,
+        public ?string $social_x,
+        public bool $enable_notification,
     ) {
 
 

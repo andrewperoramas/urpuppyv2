@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 
 class SellerRegistrationRequest extends FormRequest
 {
@@ -19,9 +20,10 @@ class SellerRegistrationRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules(): array
+    public function rules(Request $request): array
     {
-        return [
+        $user = $request->user();
+        $rules =  [
             'first_name' => ['required', 'string', 'max:100'],
             'last_name' => ['required', 'string', 'max:100'],
             'email' => ['required', 'string', 'max:100'],
@@ -48,17 +50,49 @@ class SellerRegistrationRequest extends FormRequest
             'has_vet_exam' => [''],
             'has_travel_ready' => [''],
             'has_delivery_included' => [''],
-            'images' => ['array', 'required'],
-            'videos' => ['array', 'required'],
+               'images' => 'required|array', // Ensure 'gallery' is an array
+    'images.*' => [
+        'required',
+        'image',
+        'mimes:jpeg,png,jpg',
+        'max:2048'
+    ],
+   'videos' => 'required|array', // Ensure 'gallery' is an array
+    'videos.*' => [
+        'required',
+        'mimes:mpeg,mp4,ogg,webm',
+        'max:10512'
+    ],
         ];
+
+        $puppies_count = $request->user()->puppies()->count();
+
+        if (!$puppies_count) {
+            $rules['phone'] = ['required', 'string', 'max:100'];
+            $rules['city_id'] = ['required'];
+            $rules['state_id'] = ['required'];
+        } else {
+
+            $plan = $user?->premium_plan?->plan;
+
+            if ($plan) {
+                $rules['images'] = "required|array|max:$plan->image_per_listing";
+                $rules['videos'] = "required|array|max:$plan->video_per_listing";
+            }
+
+            /* dd($rules); */
+
+        }
+
+        return $rules;
     }
 
     public function messages()
     {
         return [
-            /* 'phone.required' => 'Phone number is required', */
-            /* 'city_id.required' => 'City field is required', */
-            /* 'state_id.required' => 'State field is required', */
+            'phone.required' => 'Phone number is required',
+            'city_id.required' => 'City field is required',
+            'state_id.required' => 'State field is required',
         ];
     }
 }

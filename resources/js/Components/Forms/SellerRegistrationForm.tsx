@@ -272,6 +272,7 @@ value={data.are_you_a_breeder}  setData={setData}
                     <FileUpload
                              defaultUrls={data?.images }
                              setData={(name, files: any) => setData('images', files)}
+                                    errors={errors}
                                     name="images" required={true} />
                     {errors.images && <InputError message={errors.images} /> }
 
@@ -280,6 +281,7 @@ value={data.are_you_a_breeder}  setData={setData}
                     <h6 className="fs-5 mb-3 pb-1">Upload a Video</h6>
                     <FileUpload
                              name="videos"
+                            errors={errors}
                              setData={(name, files: any) => setData('videos', files)}
                              defaultUrls={data?.videos}
 

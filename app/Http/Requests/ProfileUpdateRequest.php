@@ -19,11 +19,18 @@ class ProfileUpdateRequest extends FormRequest
             'first_name' => [ 'string', 'max:40'],
             'last_name' => [ 'string', 'max:40'],
             'state_id' => [''],
-            'avatar' => ['', 'mimes:jpg,jpeg,png', 'max:4096'],
+            'avatar' => ['nullable', 'max:4096'],
             'current_password' => ['nullable',  'current_password'],
             'new_password' => ['nullable', 'string', 'min:8', 'confirmed'],
             'city_id' => [''],
             'zip_code' => [''],
+
+            'social_fb' => [''],
+            'enable_notification' => [''],
+            'social_ig' => [''],
+            'social_tiktok' => [''],
+            'social_x' => [''],
+
             'email' => [
                 'string',
                 'lowercase',

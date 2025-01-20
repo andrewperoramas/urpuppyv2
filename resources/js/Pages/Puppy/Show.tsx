@@ -8,7 +8,8 @@ import FavoriteButton from '@/Components/FavoriteButton';
 import ShareButton from '@/Components/ShareButton';
 import SellerCard from '@/Components/SellerCard';
 import List from '@/Components/List';
-import { Link } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
+import MetaTags from '@/Components/MetaTags';
 
 const Show = ({ related_puppies, puppy, siblings }: {
     related_puppies: App.Data.PuppyData[]
@@ -44,6 +45,7 @@ const Show = ({ related_puppies, puppy, siblings }: {
 
     return (
             <Layout>
+            <MetaTags title={puppy.name} description={puppy.description} image={puppy.preview_images[0]} />
   <div className="page-wrapper position-relative overflow-hidden">
 
     <section
@@ -69,7 +71,7 @@ const Show = ({ related_puppies, puppy, siblings }: {
                   <div className="col-xl-7 mb-4 mb-md-5 mb-xl-0">
                     <div className="top-picks-slider me-xl-4">
                       <div id="sync1" className="owl-carousel owl-theme mb-4">
-                                    <ImageSlider images={puppy.preview_images}/>
+                                    <ImageSlider videos={[puppy.video]} images={puppy.preview_images}/>
 
                       </div>
 
@@ -232,16 +234,16 @@ href={`/report/${puppy.slug}`} method="post" data={{
                                 <div className="card position-relative overflow-hidden border">
               <div className="row">
                 <div className="col-xl-4 d-flex align-items-lg-stretch">
-                  <a href="breeders-detail.html" className="trusted-breeders-img position-relative overflow-hidden w-100 text-center p-4">
+                  <Link href={`/breeders/${puppy.seller.slug}`} className="trusted-breeders-img position-relative overflow-hidden w-100 text-center p-4">
                     <img className="object-fit-cover rounded-circle position-relative overflow-hidden" src={puppy.seller.company_logo ?? ""} alt="" width="230" height="230" />
-                  </a>
+                  </Link>
                 </div>
                 <div className="col-xl-8 d-flex align-items-lg-stretch">
                   <div className="trusted-breeders-details card-body ps-xl-0 pe-4 d-flex align-items-start justify-content-between gap-3">
                     <div>
-                      <a href="breeders-detail.html">
+                      <Link href={`/breeders/${puppy.seller.slug}`}>
                         <h6 className="btn-link fs-8 font-work-sans mb-6">Offered By</h6>
-                      </a>
+                      </Link>
                       <div className="company-details mb-3">
                         <div className="hstack gap-6 mb-6">
                           <p className="mb-0 fw-medium text-dark">Name:</p>

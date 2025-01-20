@@ -9,6 +9,7 @@ const CheckoutV2Form = ({ clientSecret, plan_id }: any) => {
     const [elements, setElements] = useState(null);
     const [stripe, setStripe] = useState<any>(null);
     const [message, setMessage] = useState("");
+    const [loading, setLoading] = useState(false); // New state to manage button disable
 
     useEffect(() => {
         const initializeStripe = async () => {
@@ -94,7 +95,7 @@ const CheckoutV2Form = ({ clientSecret, plan_id }: any) => {
         e.preventDefault();
 
         if (!stripe || !elements) return;
-
+        setLoading(true);
         const { setupIntent, error }: any = await stripe?.confirmSetup({
             elements,
             confirmParams: {
@@ -120,8 +121,10 @@ const CheckoutV2Form = ({ clientSecret, plan_id }: any) => {
             router.post("/checkout/complete", data, {
                 onError: (errors) => {
                     setMessage("Failed to submit payment details.");
+                    setLoading(false);
                 },
                 onSuccess: () => {
+                    setLoading(false);
                     setMessage("Payment details submitted successfully.");
                 },
             });
@@ -140,7 +143,7 @@ const CheckoutV2Form = ({ clientSecret, plan_id }: any) => {
             </div>
 
             <div className="mt-2">
-                <Button href="#" type="button" >
+                <Button disabled={loading} href="#" type="button" >
                     Checkout
                 </Button>
             </div>

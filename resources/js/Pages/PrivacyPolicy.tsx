@@ -1,12 +1,15 @@
 import Breadcrumb from '@/Components/Breadcrumb'
 import SellerRegistrationForm from '@/Components/Forms/SellerRegistrationForm'
 import Heading from '@/Components/Heading'
+import MetaTags from '@/Components/MetaTags'
 import Layout from '@/Layouts/Layout'
 import React from 'react'
 
 const PrivacyPolicy = () => {
   return (
   <Layout navType="secondary">
+
+            <MetaTags title="Privacy Policy"/>
               <div className="page-wrapper position-relative overflow-hidden">
     <section className="information pt-4 pb-9">
       <div className="container">

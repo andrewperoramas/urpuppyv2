@@ -90,6 +90,8 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
+
+        /* dd(request()->all()); */
         $input = $request->validated();
         if (is_array(@$input['state_id'])) {
             $input['state_id'] = $input['state_id']['id'];
@@ -109,8 +111,6 @@ class ProfileController extends Controller
         if ($input['avatar']) {
         $request->user()->clearMediaCollection('avatars');
         $request->user()->addMedia($input['avatar'])->toMediaCollection('avatars');
-        } else {
-            $request->user()->clearMediaCollection('avatars');
         }
 
         if ($input['current_password'] != null && $input['new_password']) {

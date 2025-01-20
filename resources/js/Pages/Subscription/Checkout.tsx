@@ -2,12 +2,14 @@ import Breadcrumb from '@/Components/Breadcrumb'
 import CheckoutV2Form from '@/Components/CheckoutV2Form'
 import SellerRegistrationForm from '@/Components/Forms/SellerRegistrationForm'
 import Heading from '@/Components/Heading'
+import MetaTags from '@/Components/MetaTags'
 import Layout from '@/Layouts/Layout'
 import React from 'react'
 
 const Checkout = ({plan_id, intent}: any) => {
   return (
   <Layout navType="secondary">
+    <MetaTags title="Checkout" />
     <div className="page-wrapper position-relative overflow-hidden">
     <section className="information pt-4 pb-8 pb-lg-9">
                   <div className="container">

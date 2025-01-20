@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Data\UserData;
 use App\Models\Puppy;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
@@ -32,15 +33,15 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
-
     $min = Puppy::min('price') ?? 1;
     $max = Puppy::max('price') ?? 500;
     /* $min--; */
+        /* dd(UserData::from($request->user()->load('media','city', 'state'))); */
     /* $max++; */
         return [
             ...parent::share($request),
             'auth' => [
-                'user' => $request->user(),
+                'user' => UserData::optional($request->user()?->load('city', 'state')),
             ],
             'price_filter_range' => [$min, $max],
             'csrf_token' => csrf_token(),

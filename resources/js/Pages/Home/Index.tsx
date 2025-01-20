@@ -13,6 +13,7 @@ import TrustedBreeders from '@/Components/Puppy/TrustedBreeders';
 import NewArrivals from '@/Components/Puppy/NewArrivals';
 import FooterVideos from '@/Components/Puppy/FooterVideos';
 import Layout from '@/Layouts/Layout';
+import MetaTags from '@/Components/MetaTags';
 
 
 export default function Index({
@@ -39,12 +40,7 @@ export default function Index({
         <>
             <Layout>
             <Banner header={header_label} subheader={subheader_label}/>
-            <Head title="Welcome">
-                     <meta name="description" content="Discover trusted dog breeders, buy or sell puppies online, and connect with pet lovers nationwide. UrPuppy.com is your go-to platform for finding purebred puppies and connecting with licensed breeders." />
-
-<meta name="keywords" content="Buy puppies online, sell puppies online, dog breeders directory, find dog breeders, puppies for sale, sell dogs online, buy dogs online, registered dog breeders, puppy marketplace, dog adoption services, purebred puppies for sale, licensed dog breeders" />
-
-             </Head>
+            <MetaTags title="Checkout" />
             <div className="page-wrapper position-relative overflow-hidden">
             <FeaturedBreeds featured_breeds={featured_breeds}/>
             <PuppySpotlight puppy_spotlights={puppy_spotlights}/>

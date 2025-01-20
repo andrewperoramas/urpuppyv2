@@ -36,6 +36,11 @@ class SellerController extends Controller
 
     public function create(Request $request,?int $id = null)
     {
+        if (!$request->user()->premium_plan && $request->user()->puppies()->count() > 1) {
+            return redirect()->to(route('plans.index'))->with([
+                'message.success' => 'Subscribe to any plan to activate your listing'
+            ]);
+        }
         /* dd($request->user()?->isSubscribed()); */
         if (!$request->user()?->isSubscribed() &&
             $request->user()?->puppies()?->count() > 0
@@ -67,10 +72,17 @@ class SellerController extends Controller
 
     public function store(SellerRegistrationRequest $request)
     {
+
+        if (!$request->user()->premium_plan && $request->user()->puppies()->count() > 1) {
+            return redirect()->to(route('plans.index'))->with([
+                'message.success' => 'Subscribe to any plan to activate your listing'
+            ]);
+        }
+
         $data = $request->validated();
         $user = $request->user();
 
-        if (!$user->puppies()->count()) {
+        if (!$request->user()->premium_plan) {
 
             $user->update([
                 'phone' => $data['phone'],
@@ -114,12 +126,11 @@ class SellerController extends Controller
             $created_puppy->addMedia($image)->toMediaCollection('puppy_files');
         });
 
-        if (!$request->user()->premium_plan && $request->user()->puppies()->count() == 1) {
+        if (!$request->user()->premium_plan && $request->user()->puppies()->count() > 0) {
             return redirect()->to(route('plans.index'))->with([
                 'message.success' => 'Subscribe to any plan to activate your listing'
             ]);
         }
-
 
         return redirect()->to(route('puppies.show', $created_puppy->slug))->with([
             'message.success' => 'Puppy created successfully'

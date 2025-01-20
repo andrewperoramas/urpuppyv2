@@ -5,6 +5,7 @@ import { PaginatedCollection } from '@/types/global'
 import PuppyCard from '@/Components/Puppy/Card'
 import Pagination from '@/Components/Pagination'
 import Layout from '@/Layouts/Layout'
+import MetaTags from '@/Components/MetaTags'
 
 const Index = ({puppies, states, breeds} : {
     puppies: PaginatedCollection<App.Data.PuppyData>
@@ -15,6 +16,7 @@ const Index = ({puppies, states, breeds} : {
     console.log(breeds);
   return (
     <Layout>
+        <MetaTags title="Puppies"  />
         <Banner header={`${puppies.total} Results`} subheader="Below the search bar, you can filter your preferred breeds."/>
         <section className="puppy-spotlight py-7 py-md-5 py-xl-9" id="scroll-target">
           <div className="container" >

@@ -5,11 +5,13 @@ function FileUpload({
   required,
   name,
   setData,
+  errors,
   defaultFiles = [],
   defaultUrls = []
 }: {
   required: boolean;
   name: string;
+  errors?: any;
   setData: (key: string, value: File[]) => void;
   defaultFiles?: string[];
   defaultUrls?: string[];
@@ -134,7 +136,13 @@ function FileUpload({
         </div>
       ) : (
         <div className="dz-preview-container">
-          {files.map((file) => (
+          {files.map((file, index) => {
+             const errorKey = `${name}.${index}`;
+                                console.log(errors)
+            const fileError = errors?.[errorKey] ?? null;
+                                console.log(fileError)
+
+                                return (
             <div key={file.name + file.size} className="dz-preview dz-file-preview">
               <div className="dz-image">
                 {file.type.startsWith('image/') ? (
@@ -150,6 +158,11 @@ function FileUpload({
                 <div className="dz-size">
                   <span>{(file.size / 1024).toFixed(1)} KB</span>
                 </div>
+                                              {fileError && (
+                    <div className="text-danger" style={{ color: 'red', marginTop: '5px' }}>
+                      {fileError}
+                    </div>
+                  )}
               </div>
               <div
                 className="dz-remove"
@@ -160,7 +173,10 @@ function FileUpload({
                 ✕
               </div>
             </div>
-          ))}
+          ) }
+
+                            )}
+
         </div>
       )}
       <style>{`

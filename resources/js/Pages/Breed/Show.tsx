@@ -1,4 +1,5 @@
 import Breadcrumb from '@/Components/Breadcrumb'
+import MetaTags from '@/Components/MetaTags'
 import Footer from '@/Components/Navigation/Footer'
 import Layout from '@/Layouts/Layout'
 import { Link } from '@inertiajs/react'
@@ -10,6 +11,8 @@ const Show = ({breed} : {
   return (
   <>
             <Layout navType="secondary">
+
+            <MetaTags title={breed.name} description={breed.history_description ?? ""} image={breed.image}/>
               <div className="page-wrapper position-relative overflow-hidden">
 
     <section className="information pt-4 pb-9">

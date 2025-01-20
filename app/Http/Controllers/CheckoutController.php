@@ -72,6 +72,13 @@ class CheckoutController extends Controller
                 'is_breeder' => true
             ]);
         }
+        /* dd($plan->type); */
+
+       if ($plan->type == 'premium') {
+            $request->user()->update([
+                'is_seller' => true
+            ]);
+        }
 
         /* } else { */
            /* $request->user()->newSubscription('standard', $plan->stripe_plan_id)->create($request->paymentMethod); */

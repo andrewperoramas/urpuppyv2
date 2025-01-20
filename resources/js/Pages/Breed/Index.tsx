@@ -1,5 +1,6 @@
 import BannerSlider from '@/Components/BannerSlider'
 import BreedFilter from '@/Components/Filters/BreedFilter'
+import MetaTags from '@/Components/MetaTags'
 import SmallBannerWithContent from '@/Components/Sliders/SmallBannerWithContent'
 import Layout from '@/Layouts/Layout'
 import { PaginatedCollection } from '@/types/global'
@@ -28,6 +29,8 @@ const Index = ({breeds, letter_param = 'A'} : {
             <BannerSlider slidesPerView={1} children={[
                 <SmallBannerWithContent title="Siberian Husky: Your Winter Companion" />,
             ]} />
+
+    <MetaTags title="Breeds" />
 
                 <section className="find-ur-breeds bg-extralight position-relative z-1 py-7 py-md-5 py-xl-9">
       <div className="container">

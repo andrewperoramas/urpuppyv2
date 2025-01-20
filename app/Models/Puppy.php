@@ -11,6 +11,7 @@ use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model; // Correct Media class
+use Illuminate\Http\Request;
 use Laravel\Scout\Searchable;
 /* use Milwad\LaravelAttributes\Traits\Attributable; */
 use Overtrue\LaravelFavorite\Traits\Favoriteable;
@@ -49,6 +50,23 @@ class Puppy extends Model implements HasMedia, Sitemapable
             }
             $model->birth_date = Carbon::parse($model->birth_date)->toDateString();
         });
+
+        /* static::creating(function ($model) { */
+
+            /* if (!request()->user()) { */
+            /*     return; */
+            /* } */
+
+            /* $user = request()->user(); */
+
+            /* $plan = $user->premium_plan->plan; */
+
+            /* /1* dd(request('videos')); *1/ */
+
+
+
+        /* }); */
+
     }
 
     public function sluggable(): array
@@ -115,7 +133,7 @@ class Puppy extends Model implements HasMedia, Sitemapable
 
                                             public function getPublishedAtAttribute()
     {
-        return $this->created_at->diffForHumans();
+        return $this?->created_at?->diffForHumans();
 
     }
 
@@ -273,7 +291,7 @@ class Puppy extends Model implements HasMedia, Sitemapable
 
     public function getListedOnAttribute()
     {
-        return $this->created_at->diffForHumans();
+        return $this?->created_at?->diffForHumans();
     }
 
     public function getCharacteristicsAttribute()

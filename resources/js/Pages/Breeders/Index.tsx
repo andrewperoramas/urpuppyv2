@@ -2,6 +2,7 @@ import BannerSlider from '@/Components/BannerSlider'
 import BreederCard from '@/Components/Breeder/BreederCard'
 import BreedFilter from '@/Components/Filters/BreedFilter'
 import StateFilter from '@/Components/Filters/StateFilter'
+import MetaTags from '@/Components/MetaTags'
 import SmallBannerWithContent from '@/Components/Sliders/SmallBannerWithContent'
 import Layout from '@/Layouts/Layout'
 import { PaginatedCollection } from '@/types/global'
@@ -23,7 +24,7 @@ const Index = ({breeders} : {
 
   return (
         <Layout>
-
+            <MetaTags title="Breeders"  />
             <BannerSlider slidesPerView={1} children={[
                 <SmallBannerWithContent title="Register as a breeder" pill="Feature" key={1} background_image="/images/breeds-slider/hero-inner-slider-2.jpg" />,
             ]} />

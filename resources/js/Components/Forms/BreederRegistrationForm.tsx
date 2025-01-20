@@ -59,7 +59,7 @@ const BreederRegistrationForm = ({breeds}: { breeds: App.Data.BreedOptionData[]}
 
 
   return (
-                <form onSubmit={handleSubmit} encType="multipart/form-data">
+            <form onSubmit={handleSubmit} encType="multipart/form-data">
           <div className="card border">
             <div className="card-body">
               <div className="contact-details border-bottom mb-4">
@@ -202,6 +202,7 @@ const BreederRegistrationForm = ({breeds}: { breeds: App.Data.BreedOptionData[]}
                   <div className="col-lg-6 mb-4 mb-lg-0">
                     <h6 className="fs-5 mb-3 pb-1">Upload a Image</h6>
                     <FileUpload
+                              errors={errors}
                              setData={(name, files: any) => setData('gallery', files)}
                                     name="gallery" required={true} />
                     {errors.gallery && <InputError message={errors.gallery} /> }

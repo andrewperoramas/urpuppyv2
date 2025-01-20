@@ -30,7 +30,7 @@ class Breed extends Model implements HasMedia, Sitemapable
 
     public function toSitemapTag(): Url|string|array
     {
-        return route('breed.show', $this->slug);
+        return route('breeds.show', $this->slug);
     }
 
     protected $guarded = [

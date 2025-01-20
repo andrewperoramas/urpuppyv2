@@ -1,5 +1,6 @@
 import Hero from '@/Components/Hero'
 import Jumbotron from '@/Components/Jumbotron'
+import MetaTags from '@/Components/MetaTags'
 import PlanCard from '@/Components/PlanCard'
 import SecondaryJumbotron from '@/Components/SecondaryJumbotron'
 import Layout from '@/Layouts/Layout'
@@ -11,6 +12,7 @@ const Breeder = ({plan} : {
 }) => {
   return (
   <Layout>
+            <MetaTags title="Breeder plan" />
             <Hero title="Join the Pack" bgImage="/images/subscription-plans/subscription-plans-bg.jpg" description="Exclusive Subscription Plans for Breeders."/>
 
         <section className="breeder-annual-plan py-7 py-md-5 py-xl-9">

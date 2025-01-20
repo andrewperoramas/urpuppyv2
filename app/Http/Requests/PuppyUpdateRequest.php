@@ -21,7 +21,7 @@ class PuppyUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        $rules =  [
             /* 'first_name' => ['required', 'string', 'max:100'], */
             /* 'last_name' => ['required', 'string', 'max:100'], */
             /* 'email' => ['required', 'string', 'max:100'], */
@@ -51,6 +51,15 @@ class PuppyUpdateRequest extends FormRequest
             'images' => ['array', 'required'],
             'videos' => ['array', 'required'],
         ];
+        $user = $this->user();
+        $plan = $user?->premium_plan?->plan;
+
+        if ($plan) {
+            $rules['images'] = "required|array|max:$plan->image_per_listing";
+            $rules['videos'] = "required|array|max:$plan->video_per_listing";
+        }
+
+        return $rules;
     }
 
     public function messages()

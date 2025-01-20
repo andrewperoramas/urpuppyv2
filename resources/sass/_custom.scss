@@ -168,3 +168,8 @@ abbr {
     background: transparent!important;
 
 }
+
+input:disabled {
+    background: rgba(8, 49, 78, 0.1)!important;
+    cursor: not-allowed;
+}

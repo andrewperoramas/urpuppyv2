@@ -1,10 +1,12 @@
 import BreederCard from '@/Components/Breeder/BreederCard'
 import ReviewCard from '@/Components/Breeder/ReviewCard'
 import ReviewForm from '@/Components/Breeder/ReviewForm'
+import MetaTags from '@/Components/MetaTags'
 import PuppyCard from '@/Components/Puppy/Card'
 import ReviewSlider from '@/Components/ReviewSlider'
 import SellerCard from '@/Components/SellerCard'
 import Slider from '@/Components/Slider'
+import VideoPlayer from '@/Components/VideoPlayer'
 import Layout from '@/Layouts/Layout'
 import { Head } from '@inertiajs/react'
 import React from 'react'
@@ -17,9 +19,8 @@ const Show = ({breeder, puppies} : {
         console.log(breeder);
   return (
             <Layout>
-            <Head title={breeder.full_name}>
 
-            </Head>
+            <MetaTags title={breeder.full_name} description={breeder.company_about ?? ""} image={breeder.company_logo ?? "/logo.svg"} />
   <div className="page-wrapper position-relative overflow-hidden">
 
     <section className="hero-section position-relative d-flex align-items-center pt-11 pb-10">
@@ -114,6 +115,11 @@ const Show = ({breeder, puppies} : {
                                     phone: breeder?.phone ?? "",
                                     address: breeder.address,
                                     member_since: breeder.member_since,
+                                    social_x: breeder.social_x,
+                                    social_tiktok: breeder.social_tiktok,
+                                    social_ig: breeder.social_ig,
+                                    social_fb: breeder.social_fb,
+
                                 }as App.Data.BreederData} />
 
                                 {breeder.video &&
@@ -121,15 +127,16 @@ const Show = ({breeder, puppies} : {
             <div className="card border">
               <div className="card-body">
                 <h5 className="fs-5 mb-3 pb-1">Breeder’s Insight</h5>
-                <div className="breeders-insight position-relative rounded-1 overflow-hidden">
-                  <img src={breeder.video} alt=""
-                    className="w-100 h-100 object-fit-cover"/>
-                  <button type="button"
-                    className="position-absolute top-50 start-50 translate-middle z-2 btn btn-primary p-2 d-flex align-items-center justify-content-center round-72 rounded-circle flex-shrink-0"
-                    data-bs-toggle="modal" data-bs-target="#goldenretriever">
-                    <img src="/images/svgs/icon-play.svg" alt="" width="25" height="30"/>
-                  </button>
-                </div>
+                    <div className="breders-insight position-relative rounded-1 overflow-hidden">
+
+                    <video
+                        className="w-100 h-100"
+                        controls>
+                        <source src={breeder.video}  />
+
+                    </video>
+                    </div>
+
               </div>
             </div>
 }

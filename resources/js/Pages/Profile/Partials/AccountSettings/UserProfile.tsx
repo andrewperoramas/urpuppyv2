@@ -7,15 +7,19 @@ import PrimaryButton from '@/Components/PrimaryButton'
 import Button from '@/Components/ui/Button'
 import InputError from '@/Components/InputError'
 import StateCityDropdown from '@/Components/StateCityDropdown'
+import IconInput from '@/Components/IconInput'
 
 const UserProfile = () => {
 
     const user = usePage().props.auth.user
 
-    const { post, data, setData, errors } = useForm<{ first_name: string, last_name: string, email: string, avatar: File | null,
-        current_password?: string, new_password?: string, new_password_confirmation?: string, state?: App.Data.StateData, city?: App.Data.CityData, zip_code?: string
-
-    }>({
+    const { post, data, setData, errors } = useForm<{
+        first_name: string,
+        last_name: string,
+        email: string,
+        avatar: File | null,
+        current_password?: string, new_password?: string, new_password_confirmation?: string, state?: App.Data.StateData| null, city?: App.Data.CityData | null, zip_code?: string,
+        social_fb?: string, social_ig?: string, social_tiktok?: string, social_x?: string, enable_notification:  boolean }>({
         first_name: user?.first_name ?? "",
         last_name: user?.last_name ?? "",
         email: user?.email ?? "",
@@ -23,9 +27,14 @@ const UserProfile = () => {
         current_password: '',
         new_password: '',
         new_password_confirmation: '',
-        state: user?.state,
-        city: user.city,
-        zip_code: user.zip_code
+        state: user?.state ?? null,
+        city: user?.city ?? null,
+        zip_code: user.zip_code ?? "",
+        social_fb: user?.social_fb ?? "",
+        social_ig: user?.social_ig ?? "",
+        social_tiktok: user?.social_tiktok ?? "",
+        social_x: user?.social_x ?? "",
+        enable_notification: user.enable_notification,
     });
 
     const handleSubmit = (e: React.SyntheticEvent) => {
@@ -76,7 +85,7 @@ const UserProfile = () => {
                           <div className="col-12">
                             <div className="">
                               <InputLabel value="Email"  />
-                              <TextInput type="email" onChange={e => setData('email', e.target.value)} placeholder="Email" value={data.email} />
+                              <TextInput disabled type="email" onChange={e => setData('email', e.target.value)} placeholder="Email" value={data.email} />
  {                                errors.email &&
                                 <InputError message={errors.email} />
                                     }
@@ -88,6 +97,29 @@ const UserProfile = () => {
                         <h5 className="mb-4 fs-7">Location Details</h5>
                         <div className="row">
                             <StateCityDropdown formData={data} errors={errors} setFormData={setData} />
+                        </div>
+                      </div>
+                      <div className="pb-4 mb-4 border-bottom">
+                        <h5 className="mb-4 fs-7">Social Profiles</h5>
+                        <div className="row">
+
+                    <div className="mb-4">
+                      <ul className="list-unstyled d-flex align-items-center gap-6 social-icon mb-0">
+                        <li>
+                            <IconInput value={data.social_fb} onChange={(e: any) => setData('social_fb', e.target.value)} icon="/images/svgs/icon-facebook-dark.svg" />
+                        </li>
+                        <li>
+                            <IconInput value={data.social_x} onChange={(e: any) => setData('social_x', e.target.value)} icon="/images/svgs/icon-twitter-dark.svg" />
+                        </li>
+                        <li>
+                            <IconInput value={data.social_tiktok} onChange={(e: any) => setData('social_tiktok', e.target.value)} icon="/images/svgs/icon-tiktok-dark.svg" />
+                        </li>
+                        <li>
+                            <IconInput value={data.social_ig} onChange={(e: any) => setData('social_ig', e.target.value)} icon="/images/svgs/icon-instagram-dark.svg" />
+                        </li>
+                      </ul>
+                    </div>
+
                         </div>
                       </div>
                       <div className="pb-4 mb-4 border-bottom">
@@ -140,8 +172,10 @@ const UserProfile = () => {
                               as events occur for you</p>
                           </div>
                           <div className="form-check form-switch">
-                            <input className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked"
-                              checked />
+                            <input
+                                    onChange={e => setData('enable_notification', e.target.checked)} className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked"
+                                    checked={data.enable_notification}
+                               />
                           </div>
                         </div>
                       </div>

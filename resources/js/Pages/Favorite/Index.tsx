@@ -2,11 +2,13 @@ import Layout from '@/Layouts/Layout'
 import React from 'react'
 import Banner from '../Home/Sections/Banner'
 import PuppyCard from '@/Components/Puppy/Card'
+import MetaTags from '@/Components/MetaTags'
 
 const Index = ({favorite_puppies}: any) => {
     // console.log(favorite_puppies)
   return (
   <Layout>
+    <MetaTags title="Favorites" />
    <section
     className="hero-section position-relative d-flex align-items-center pt-11 pb-10">
       <div className="container position-relative z-1 pt-lg-1 mt-lg-3 mb-lg-4">

@@ -1,5 +1,6 @@
 import Hero from '@/Components/Hero'
 import InputError from '@/Components/InputError'
+import MetaTags from '@/Components/MetaTags'
 import SelectInput from '@/Components/SelectInput'
 import TextInput from '@/Components/TextInput'
 import Layout from '@/Layouts/Layout'
@@ -25,6 +26,8 @@ const ContactUs = () => {
 
   return (
   <Layout>
+
+            <MetaTags title="Contact us"/>
             <Hero title="Contact us" bgImage="/images/contact/contact-bg.jpg"/>
                 <section className="get-in-touch py-7 py-md-5 py-xl-9">
       <div className="container">
