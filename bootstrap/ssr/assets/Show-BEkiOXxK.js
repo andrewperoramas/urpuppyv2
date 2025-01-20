@@ -2,7 +2,7 @@ import { j as jsxRuntimeExports, U as Ue } from "../ssr.js";
 import { I as ImageSlider } from "./ImageSlider-CNmV89Jt.js";
 import { F as FavoriteButton, P as PuppyCard } from "./Card-Ds_RKnkL.js";
 import { L as Layout } from "./Layout-BkOuLc1i.js";
-import { S as ShareButton } from "./ShareButton-MSW3JE6y.js";
+import { S as ShareButton } from "./ShareButton-NBX8Igwg.js";
 import { S as SellerCard } from "./SellerCard-DCWK1CvF.js";
 import { M as MetaTags } from "./MetaTags-HBKJhFkZ.js";
 import "util";

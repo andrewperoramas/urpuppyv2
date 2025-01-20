@@ -50,6 +50,8 @@ first_name: string;
 avatar: string;
 slug: string;
 address: string;
+is_breeder: boolean;
+is_seller: boolean;
 company_logo: string | null;
 video: string | null;
 member_since: string;

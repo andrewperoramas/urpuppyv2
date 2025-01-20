@@ -537,6 +537,7 @@ const Show = ({ breeder, puppies }) => {
           /* @__PURE__ */ jsxRuntimeExports.jsx(SellerCard, { seller: {
             slug: breeder.slug,
             full_name: breeder.full_name,
+            is_breeder: breeder.is_breeder,
             email: breeder.email,
             avatar: breeder.avatar,
             phone: (breeder == null ? void 0 : breeder.phone) ?? "",

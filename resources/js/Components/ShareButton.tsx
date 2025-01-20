@@ -2,15 +2,17 @@ import React from 'react'
 import { FacebookShareButton, TwitterShareButton } from 'react-share'
 
 const ShareButton = ({
-    slug
+    slug,
+    route = 'puppies'
 }: {
     slug: string
+    route?: string
     }) => {
 
     let currentUrl = '';
 
     if (typeof window !== 'undefined') {
-        currentUrl = `${window.location.origin}/puppies/${slug}`;
+        currentUrl = `${window.location.origin}/${route}/${slug}`;
     }
 
   return (

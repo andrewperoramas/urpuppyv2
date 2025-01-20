@@ -110,6 +110,7 @@ const Show = ({breeder, puppies} : {
             <SellerCard seller={{
                                     slug: breeder.slug,
                                     full_name: breeder.full_name,
+                                    is_breeder: breeder.is_breeder,
                                     email: breeder.email,
                                     avatar: breeder.avatar,
                                     phone: breeder?.phone ?? "",

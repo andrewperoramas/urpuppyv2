@@ -1,5 +1,5 @@
 import { j as jsxRuntimeExports, U as Ue } from "../ssr.js";
-import { S as ShareButton } from "./ShareButton-MSW3JE6y.js";
+import { S as ShareButton } from "./ShareButton-NBX8Igwg.js";
 const BreederCard = ({ breeder, hasBorder = false }) => {
   var _a;
   return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "col-lg-6", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -39,7 +39,7 @@ const BreederCard = ({ breeder, hasBorder = false }) => {
                   /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "mb-0", children: breeder.full_name })
                 ] })
               ] }),
-              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "d-flex align-items-center gap-2", children: /* @__PURE__ */ jsxRuntimeExports.jsx(ShareButton, { slug: breeder.slug }) })
+              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "d-flex align-items-center gap-2", children: /* @__PURE__ */ jsxRuntimeExports.jsx(ShareButton, { slug: breeder.slug, route: "breeders" }) })
             ]
           }
         ) })

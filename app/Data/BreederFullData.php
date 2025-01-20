@@ -19,6 +19,8 @@ class BreederFullData extends Data
         public string $avatar,
         public string $slug,
         public string $address,
+        public bool $is_breeder,
+        public bool $is_seller,
         public ?string $company_logo,
         public ?string $video,
         public string $member_since,

@@ -122,6 +122,13 @@ class BreederController extends Controller
             /* }, */
         ])->find($userId);
 
+        if ($breeder->is_breeder == false) {
+            return redirect()->back()->with([
+                'message.error' => 'This user is not a breeder'
+            ]);
+        }
+
+
         /* if ($breeder) { */
         /*     $breeder->attr = $breeder->attributes */
         /*         ->mapWithKeys(fn ($attribute) => (object)[$attribute->title => $attribute->value]); */

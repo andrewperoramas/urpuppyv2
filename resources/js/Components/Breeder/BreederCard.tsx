@@ -40,7 +40,7 @@ const BreederCard = ({breeder, hasBorder=false }: { breeder: App.Data.BreederFul
                     </div>
                     <div className="d-flex align-items-center gap-2">
 
-                        <ShareButton slug={breeder.slug} />
+                        <ShareButton slug={breeder.slug} route="breeders" />
 
                     </div>
                   </div>
