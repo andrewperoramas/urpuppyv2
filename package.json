@@ -11,7 +11,7 @@
   "devDependencies": {
     "@chromatic-com/storybook": "^3.2.2",
     "@headlessui/react": "^2.2.0",
-    "@inertiajs/react": "^2.0.0-beta.3",
+    "@inertiajs/react": "^2.0.2",
     "@storybook/addon-essentials": "^8.4.5",
     "@storybook/addon-interactions": "^8.4.5",
     "@storybook/addon-onboarding": "^8.4.5",

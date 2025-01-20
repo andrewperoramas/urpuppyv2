@@ -1,0 +1,107 @@
+import { j as jsxRuntimeExports, $ as $e } from "../ssr.js";
+import { H as Hero } from "./Hero-D_7BoKIM.js";
+import { M as MetaTags } from "./MetaTags-DV5IHhOb.js";
+import { L as Layout } from "./Layout-B4wBRyB1.js";
+import "util";
+import "stream";
+import "path";
+import "http";
+import "https";
+import "url";
+import "fs";
+import "assert";
+import "tty";
+import "os";
+import "zlib";
+import "events";
+import "process";
+import "./Navbarv2-C27t1POb.js";
+import "./ApplicationLogo-BTI8O77G.js";
+import "./index-BgmffWW1.js";
+const Breeder = ({ plan }) => {
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Layout, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(MetaTags, { title: "Breeder plan" }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Hero, { title: "Join the Pack", bgImage: "/images/subscription-plans/subscription-plans-bg.jpg", description: "Exclusive Subscription Plans for Breeders." }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("section", { className: "breeder-annual-plan py-7 py-md-5 py-xl-9", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "container", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "row justify-content-center", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "col-lg-10", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "border border-2 border-info position-relative overflow-hidden rounded-1", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "row", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "col-lg-5 border-end", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "card mb-lg-0 h-100", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card-body py-lg-7 d-flex flex-column justify-content-between h-100", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: plan.logo ?? "", alt: "" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("h4", { className: "fs-8 mt-6", children: plan.name }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: "Designed to meet the needs of all dog breeders, this plan gives you everything you need to succeed on Urpuppy.com" })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-dark fs-5 mb-0", children: "All this for just" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("h2", { className: "fs-12 mb-1", children: [
+            plan.money_formatted,
+            " ",
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "fs-5 text-muted", children: [
+              "/",
+              plan.plan_days
+            ] })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "mb-0 text-muted", children: "Billed annually." })
+        ] })
+      ] }) }) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "col-lg-7", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "card mb-lg-0", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card-body py-lg-7", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("ul", { className: "list-unstyled mb-4", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("li", { className: "d-flex align-items-start gap-6 mb-3 pb-1", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "round-40 bg-success bg-opacity-25 rounded-circle flex-shrink-0 d-flex align-items-center justify-content-center", children: /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: "../images/svgs/icon-paws-success.svg", alt: "" }) }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx("h6", { className: "mb-1 fs-3 font-work-sans", children: "Featured Directory Listing" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "mb-0", children: "Secure top-tier placement in the Urpuppy.com Breeders Directory for maximum visibility and buyer engagement." })
+            ] })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("li", { className: "d-flex align-items-start gap-6 mb-3 pb-1", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "round-40 bg-success bg-opacity-25 rounded-circle flex-shrink-0 d-flex align-items-center justify-content-center", children: /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: "../images/svgs/icon-video-display.svg", alt: "" }) }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx("h6", { className: "mb-1 fs-3 font-work-sans", children: "Full Multimedia Uploads" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "mb-0", children: "Showcase your puppies with stunning images and videos to grab attention and attract more buyers." })
+            ] })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("li", { className: "d-flex align-items-start gap-6 mb-3 pb-1", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "round-40 bg-success bg-opacity-25 rounded-circle flex-shrink-0 d-flex align-items-center justify-content-center", children: /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: "../images/svgs/icon-link.svg", alt: "" }) }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx("h6", { className: "mb-1 fs-3 font-work-sans", children: "Social Media Integration" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "mb-0", children: "Add your social media links to grow your following and enhance your online presence." })
+            ] })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("li", { className: "d-flex align-items-start gap-6 mb-3 pb-1", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "round-40 bg-success bg-opacity-25 rounded-circle flex-shrink-0 d-flex align-items-center justify-content-center", children: /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: "../images/svgs/icon-megephone.svg", alt: "" }) }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx("h6", { className: "mb-1 fs-3 font-work-sans", children: "Exclusive Bulletin Placement" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "mb-0", children: "Gain additional exposure by being featured in our subscriber bulletin, reaching a broader audience of potential buyers." })
+            ] })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("li", { className: "d-flex align-items-start gap-6 mb-3 pb-1", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "round-40 bg-success bg-opacity-25 rounded-circle flex-shrink-0 d-flex align-items-center justify-content-center", children: /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: "../images/svgs/icon-share-success.svg", alt: "" }) }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx("h6", { className: "mb-1 fs-3 font-work-sans", children: "Social Media Sharing" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "mb-0", children: "Share your breeder profile directly on your social media platforms to further promote your business." })
+            ] })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("li", { className: "d-flex align-items-start gap-6 mb-3 pb-1", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "round-40 bg-success bg-opacity-25 rounded-circle flex-shrink-0 d-flex align-items-center justify-content-center", children: /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: "../images/svgs/icon-call-user.svg", alt: "" }) }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx("h6", { className: "mb-1 fs-3 font-work-sans", children: "Priority Customer Support" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "mb-0", children: "Enjoy fast, dedicated assistance whenever you need it." })
+            ] })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("li", { className: "d-flex align-items-start gap-6 mb-3 pb-1", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "round-40 bg-success bg-opacity-25 rounded-circle flex-shrink-0 d-flex align-items-center justify-content-center", children: /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: "../images/svgs/icon-chat-heart.svg", alt: "" }) }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx("h6", { className: "mb-1 fs-3 font-work-sans", children: "Customer Reviews" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "mb-0", children: "Receive reviews from satisfied buyers to build trust and credibility within the community." })
+            ] })
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "row align-items-center", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "col-5", children: /* @__PURE__ */ jsxRuntimeExports.jsx($e, { href: `/checkout/${plan.id}`, className: "btn btn-primary d-block px-2", children: "Get a Plan" }) }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "col-7 border-start", children: /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "mb-0 fs-2", children: "Join Urpuppy.com today and elevate your breeding business to new heights!" }) })
+        ] })
+      ] }) }) })
+    ] }) }) }) }) }) })
+  ] });
+};
+export {
+  Breeder as default
+};

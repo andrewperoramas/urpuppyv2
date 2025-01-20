@@ -36,7 +36,14 @@ class SellerController extends Controller
 
     public function create(Request $request,?int $id = null)
     {
-        if (!$request->user()->premium_plan && $request->user()->puppies()->count() > 1) {
+        if (!$request->user()) {
+           return redirect()->to(route('login'))->with([
+                'message.error' => 'You are not logged in',
+                'puppy' => Puppy::query()->inRandomOrder()->first()
+            ]);
+        }
+
+        if (!$request->user()?->premium_plan && $request->user()->puppies()->count() > 1) {
             return redirect()->to(route('plans.index'))->with([
                 'message.success' => 'Subscribe to any plan to activate your listing'
             ]);
@@ -73,7 +80,7 @@ class SellerController extends Controller
     public function store(SellerRegistrationRequest $request)
     {
 
-        if (!$request->user()->premium_plan && $request->user()->puppies()->count() > 1) {
+        if (!$request->user()?->premium_plan && $request->user()->puppies()->count() > 1) {
             return redirect()->to(route('plans.index'))->with([
                 'message.success' => 'Subscribe to any plan to activate your listing'
             ]);
@@ -82,7 +89,7 @@ class SellerController extends Controller
         $data = $request->validated();
         $user = $request->user();
 
-        if (!$request->user()->premium_plan) {
+        if (!$request->user()?->premium_plan) {
 
             $user->update([
                 'phone' => $data['phone'],
@@ -126,7 +133,7 @@ class SellerController extends Controller
             $created_puppy->addMedia($image)->toMediaCollection('puppy_files');
         });
 
-        if (!$request->user()->premium_plan && $request->user()->puppies()->count() > 0) {
+        if (!$request->user()?->premium_plan && $request->user()->puppies()->count() > 0) {
             return redirect()->to(route('plans.index'))->with([
                 'message.success' => 'Subscribe to any plan to activate your listing'
             ]);

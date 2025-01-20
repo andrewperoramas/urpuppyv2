@@ -6,8 +6,9 @@ import PuppyCard from '@/Components/Puppy/Card';
 import TextInput from '@/Components/TextInput';
 import Button from '@/Components/ui/Button';
 import GuestLayout from '@/Layouts/GuestLayout';
-import { Head, Link, useForm } from '@inertiajs/react';
-import { FormEventHandler } from 'react';
+import { Head, Link, useForm, usePage } from '@inertiajs/react';
+import { FormEventHandler, useEffect } from 'react';
+import toast from 'react-hot-toast';
 
 export default function Login({
     status,
@@ -18,7 +19,13 @@ export default function Login({
     canResetPassword: boolean;
     puppy: App.Data.PuppyData
 }) {
-    const { data, setData, post, processing, errors, reset } = useForm({
+    const { data, setData, post, processing, errors, reset } = useForm<
+        {
+            email: string;
+            password: string;
+            remember: boolean;
+        }
+    >({
         email: '',
         password: '',
         remember: false,
@@ -31,6 +38,26 @@ export default function Login({
             onFinish: () => reset('password'),
         });
     };
+
+    const { flash }: any = usePage().props;
+
+    useEffect(() => {
+        if (flash?.message?.success) {
+
+            toast.success(flash.message.success,
+                {
+                    duration: 3000
+                });
+        }
+    }, [flash]);
+
+    useEffect(() => {
+        if (flash?.message?.error) {
+            toast.error(flash.message.error, {
+                duration: 3000
+            });
+        }
+    }, [flash]);
 
     return (
         <>

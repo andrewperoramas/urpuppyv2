@@ -152,7 +152,7 @@ class PuppyController extends Controller
         /* } */
         /* dd($slug); */
         // Fetch the primary puppy data
-        /* try { */
+        try {
 
         $puppy = Puppy::with([
             'breeds',
@@ -228,11 +228,11 @@ class PuppyController extends Controller
             'puppy' => PuppyData::from($puppy),
         ]);
 
-        /* } catch (\Exception $e) { */
+        } catch (\Exception $e) {
             return redirect()->route('home')->with([
                 'message.error' => 'This puppy is not available',
             ]);
-        /* } */
+        }
 
         /* ->title($puppy->name.' - Urpuppy') */
         /* ->ogLocale('en_US') */

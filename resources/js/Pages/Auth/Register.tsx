@@ -5,8 +5,9 @@ import PuppyCard from '@/Components/Puppy/Card';
 import TextInput from '@/Components/TextInput';
 import Button from '@/Components/ui/Button';
 import GuestLayout from '@/Layouts/GuestLayout';
-import { Head, Link, useForm } from '@inertiajs/react';
-import { FormEventHandler } from 'react';
+import { Head, Link, useForm, usePage } from '@inertiajs/react';
+import { FormEventHandler, useEffect } from 'react';
+import toast from 'react-hot-toast';
 
 export default function Register({puppy}: {
     puppy: App.Data.PuppyData
@@ -27,6 +28,26 @@ export default function Register({puppy}: {
             onFinish: () => reset('password', 'password_confirmation'),
         });
     };
+
+    const { flash }: any = usePage().props;
+
+    useEffect(() => {
+        if (flash?.message?.success) {
+
+            toast.success(flash.message.success,
+                {
+                    duration: 3000
+                });
+        }
+    }, [flash]);
+
+    useEffect(() => {
+        if (flash?.message?.error) {
+            toast.error(flash.message.error, {
+                duration: 3000
+            });
+        }
+    }, [flash]);
 
     return (
         <>
