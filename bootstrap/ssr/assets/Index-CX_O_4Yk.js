@@ -1,6 +1,6 @@
 import { r as reactExports, j as jsxRuntimeExports, U as Ue } from "../ssr.js";
 import { B as BannerSlider, S as SmallBannerWithContent } from "./SmallBannerWithContent-BAO0DCP6.js";
-import { B as BreederCard } from "./BreederCard-Cqo0W-Gl.js";
+import { B as BreederCard } from "./BreederCard-Clt6hHH7.js";
 import { B as BreedFilter } from "./BreedFilter-DBu7OSqh.js";
 import { S as StateFilter } from "./StateFilter-BjZaxTix.js";
 import { M as MetaTags } from "./MetaTags-HBKJhFkZ.js";
@@ -20,6 +20,9 @@ import "events";
 import "process";
 import "./create-element-if-not-defined-BZkVMZWb.js";
 import "./autoplay-2cQxpFDe.js";
+import "./ShareButton-MSW3JE6y.js";
+import "./index-B4jTMp6J.js";
+import "net";
 import "./Navbarv2-BzRXazE3.js";
 import "./ApplicationLogo-CiGjkOmI.js";
 const Index = ({ breeders }) => {

@@ -1,8 +1,9 @@
 import { j as jsxRuntimeExports, U as Ue } from "../ssr.js";
-import { I as ImageSlider, S as ShareButton } from "./ShareButton-Cl1IC7jW.js";
+import { I as ImageSlider } from "./ImageSlider-CNmV89Jt.js";
 import { F as FavoriteButton, P as PuppyCard } from "./Card-Ds_RKnkL.js";
 import { L as Layout } from "./Layout-BkOuLc1i.js";
-import { S as SellerCard } from "./SellerCard-Czm_yBAV.js";
+import { S as ShareButton } from "./ShareButton-MSW3JE6y.js";
+import { S as SellerCard } from "./SellerCard-DCWK1CvF.js";
 import { M as MetaTags } from "./MetaTags-HBKJhFkZ.js";
 import "util";
 import "stream";
@@ -18,10 +19,10 @@ import "zlib";
 import "events";
 import "process";
 import "./create-element-if-not-defined-BZkVMZWb.js";
-import "./index-Cu3W0YeZ.js";
-import "net";
 import "./Navbarv2-BzRXazE3.js";
 import "./ApplicationLogo-CiGjkOmI.js";
+import "./index-B4jTMp6J.js";
+import "net";
 import "./floating-ui.dom-BR6icdf6.js";
 const SiblingCard = ({ puppy }) => {
   return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "col-6 mb-3 pb-1", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "charlies-siblings", children: [
@@ -82,7 +83,11 @@ const Show = ({ related_puppies, puppy, siblings }) => {
                   /* @__PURE__ */ jsxRuntimeExports.jsx(
                     "a",
                     {
-                      onClick: window.print,
+                      onClick: () => {
+                        if (typeof window !== "undefined") {
+                          window.print();
+                        }
+                      },
                       href: "#",
                       "data-bs-toggle": "tooltip",
                       "data-bs-title": "Print",

@@ -1,6 +1,7 @@
 
 import { Link } from '@inertiajs/react'
 import React from 'react'
+import ShareButton from '../ShareButton'
 
 
 const BreederCard = ({breeder, hasBorder=false }: { breeder: App.Data.BreederFullData, hasBorder?: boolean }) => {
@@ -39,36 +40,8 @@ const BreederCard = ({breeder, hasBorder=false }: { breeder: App.Data.BreederFul
                     </div>
                     <div className="d-flex align-items-center gap-2">
 
-                      <div className="dropdown">
-                        <button type="button"
-                          className="btn btn-secondary p-0 shadow-none bg-white border d-flex align-items-center justify-content-center round-40 rounded-circle flex-shrink-0"
-                          data-bs-toggle="dropdown" aria-expanded="false">
-                          <img loading="lazy" src="/images/svgs/icon-share.svg" alt=""/>
-                        </button>
-                        <ul className="dropdown-menu dropdown-menu-end bg-primary social-icon px-6"
-                          style={{minWidth: 'auto'}}>
-                          <div className="d-flex align-items-center justify-content-center gap-2">
-                            <li>
-                              <a href="#"
-                                className="dropdown-item p-0 bg-white bg-opacity-25 d-flex align-items-center justify-content-center round-35 rounded-circle">
-                                <img loading="lazy" src="/images/svgs/icon-twitter.svg" alt="" width="16" height="16"/>
-                              </a>
-                            </li>
-                            <li>
-                              <a href="#"
-                                className="dropdown-item p-0 bg-white bg-opacity-25 d-flex align-items-center justify-content-center round-35 rounded-circle">
-                                <img loading="lazy" src="/images/svgs/icon-facebook.svg" alt="" width="16" height="16" />
-                              </a>
-                            </li>
-                            <li>
-                              <a href="#"
-                                className="dropdown-item p-0 bg-white bg-opacity-25 d-flex align-items-center justify-content-center round-35 rounded-circle">
-                                <img loading="lazy" src="/images/svgs/icon-instagram.svg" alt="" width="16" height="16"/>
-                              </a>
-                            </li>
-                          </div>
-                        </ul>
-                      </div>
+                        <ShareButton slug={breeder.slug} />
+
                     </div>
                   </div>
                 </div>

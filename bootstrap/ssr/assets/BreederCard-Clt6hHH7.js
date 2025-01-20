@@ -1,4 +1,5 @@
 import { j as jsxRuntimeExports, U as Ue } from "../ssr.js";
+import { S as ShareButton } from "./ShareButton-MSW3JE6y.js";
 const BreederCard = ({ breeder, hasBorder = false }) => {
   var _a;
   return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "col-lg-6", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -38,51 +39,7 @@ const BreederCard = ({ breeder, hasBorder = false }) => {
                   /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "mb-0", children: breeder.full_name })
                 ] })
               ] }),
-              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "d-flex align-items-center gap-2", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "dropdown", children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsx(
-                  "button",
-                  {
-                    type: "button",
-                    className: "btn btn-secondary p-0 shadow-none bg-white border d-flex align-items-center justify-content-center round-40 rounded-circle flex-shrink-0",
-                    "data-bs-toggle": "dropdown",
-                    "aria-expanded": "false",
-                    children: /* @__PURE__ */ jsxRuntimeExports.jsx("img", { loading: "lazy", src: "/images/svgs/icon-share.svg", alt: "" })
-                  }
-                ),
-                /* @__PURE__ */ jsxRuntimeExports.jsx(
-                  "ul",
-                  {
-                    className: "dropdown-menu dropdown-menu-end bg-primary social-icon px-6",
-                    style: { minWidth: "auto" },
-                    children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "d-flex align-items-center justify-content-center gap-2", children: [
-                      /* @__PURE__ */ jsxRuntimeExports.jsx("li", { children: /* @__PURE__ */ jsxRuntimeExports.jsx(
-                        "a",
-                        {
-                          href: "#",
-                          className: "dropdown-item p-0 bg-white bg-opacity-25 d-flex align-items-center justify-content-center round-35 rounded-circle",
-                          children: /* @__PURE__ */ jsxRuntimeExports.jsx("img", { loading: "lazy", src: "/images/svgs/icon-twitter.svg", alt: "", width: "16", height: "16" })
-                        }
-                      ) }),
-                      /* @__PURE__ */ jsxRuntimeExports.jsx("li", { children: /* @__PURE__ */ jsxRuntimeExports.jsx(
-                        "a",
-                        {
-                          href: "#",
-                          className: "dropdown-item p-0 bg-white bg-opacity-25 d-flex align-items-center justify-content-center round-35 rounded-circle",
-                          children: /* @__PURE__ */ jsxRuntimeExports.jsx("img", { loading: "lazy", src: "/images/svgs/icon-facebook.svg", alt: "", width: "16", height: "16" })
-                        }
-                      ) }),
-                      /* @__PURE__ */ jsxRuntimeExports.jsx("li", { children: /* @__PURE__ */ jsxRuntimeExports.jsx(
-                        "a",
-                        {
-                          href: "#",
-                          className: "dropdown-item p-0 bg-white bg-opacity-25 d-flex align-items-center justify-content-center round-35 rounded-circle",
-                          children: /* @__PURE__ */ jsxRuntimeExports.jsx("img", { loading: "lazy", src: "/images/svgs/icon-instagram.svg", alt: "", width: "16", height: "16" })
-                        }
-                      ) })
-                    ] })
-                  }
-                )
-              ] }) })
+              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "d-flex align-items-center gap-2", children: /* @__PURE__ */ jsxRuntimeExports.jsx(ShareButton, { slug: breeder.slug }) })
             ]
           }
         ) })

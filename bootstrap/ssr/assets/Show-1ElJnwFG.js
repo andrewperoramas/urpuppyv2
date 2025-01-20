@@ -3,7 +3,7 @@ import { M as MetaTags } from "./MetaTags-HBKJhFkZ.js";
 import { P as PuppyCard } from "./Card-Ds_RKnkL.js";
 import { S as Swiper, a as SwiperSlide } from "./create-element-if-not-defined-BZkVMZWb.js";
 import { P as Pagination, A as Autoplay } from "./autoplay-2cQxpFDe.js";
-import { S as SellerCard } from "./SellerCard-Czm_yBAV.js";
+import { S as SellerCard } from "./SellerCard-DCWK1CvF.js";
 import { L as Layout } from "./Layout-BkOuLc1i.js";
 import "util";
 import "stream";
@@ -19,7 +19,7 @@ import "zlib";
 import "events";
 import "process";
 import "./floating-ui.dom-BR6icdf6.js";
-import "./index-Cu3W0YeZ.js";
+import "./index-B4jTMp6J.js";
 import "./Navbarv2-BzRXazE3.js";
 import "./ApplicationLogo-CiGjkOmI.js";
 const d = (r2) => {

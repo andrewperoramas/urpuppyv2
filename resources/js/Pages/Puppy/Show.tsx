@@ -85,7 +85,14 @@ const Show = ({ related_puppies, puppy, siblings }: {
 
                             <FavoriteButton sellerId={puppy.seller.id} puppyId={puppy.id} isFavorite={puppy.is_favorite} />
 
-                          <a onClick={window.print} href="#" data-bs-toggle="tooltip" data-bs-title="Print"
+                          <a
+
+                                                                  onClick={() => {
+    if (typeof window !== 'undefined') {
+      window.print();
+    }
+  }}
+                                                                href="#" data-bs-toggle="tooltip" data-bs-title="Print"
                             className="bg-white border d-flex align-items-center justify-content-center round-40 rounded-circle">
                             <img src="/images/svgs/icon-print.svg" alt="" />
                           </a>

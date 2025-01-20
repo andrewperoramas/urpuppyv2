@@ -57,7 +57,7 @@ var classnames = { exports: {} };
   })();
 })(classnames);
 var classnamesExports = classnames.exports;
-const cx = /* @__PURE__ */ getDefaultExportFromCjs(classnamesExports);
+const y = /* @__PURE__ */ getDefaultExportFromCjs(classnamesExports);
 export {
-  cx as c
+  y
 };
