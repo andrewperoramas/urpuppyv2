@@ -109,7 +109,7 @@ const Navbarv2 = ({type} : {type?: string|undefined}) => {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link prefetch cacheFor="5m" className="nav-link active" aria-current="page" href="/seller/create">
+                <Link prefetch  className="nav-link active" aria-current="page" href="/seller/create">
                   + List Ur Puppy
                 </Link>
               </li>
@@ -188,7 +188,7 @@ const Navbarv2 = ({type} : {type?: string|undefined}) => {
               </Link>
             </li>
             <li className="nav-item">
-              <Link prefetch cacheFor="5m" className="nav-link text-white" href="/seller/create">
+              <Link prefetch  className="nav-link text-white" href="/seller/create">
                 + List Ur Puppy
               </Link>
             </li>
