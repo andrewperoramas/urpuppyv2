@@ -64,7 +64,7 @@ class Breed extends Model implements HasMedia, Sitemapable
     {
         $mediaItem = $this->getFirstMedia('media');
 
-        return $mediaItem ? $mediaItem->getUrl('thumbnail') : $mediaItem ?? "";
+        return $mediaItem ? $mediaItem->getUrl('thumbnail') : $mediaItem ?? "/paw.svg";
     }
 
     public function media(): MorphMany
