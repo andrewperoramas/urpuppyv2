@@ -17,5 +17,8 @@ export default defineConfig({
      ssr: {
         noExternal: true
         // noExternal: ['bootstrap'], // Externalize Bootstrap to avoid bundling it in SSR
-     }
+     },
+    server: {
+        cors: true
+    }
 });
