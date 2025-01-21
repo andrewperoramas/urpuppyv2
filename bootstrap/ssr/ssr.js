@@ -21631,7 +21631,8 @@ var D = typeof window > "u", U$1 = new q(), qe = !D && /CriOS/.test(window.navig
   }
   saveScrollPositions(e) {
     U$1.add(() => Promise.resolve().then(() => {
-      this.doReplaceState({ page: window.history.state.page, scrollRegions: e }, this.current.url);
+      var _a;
+      ((_a = window.history.state) == null ? void 0 : _a.page) && this.doReplaceState({ page: window.history.state.page, scrollRegions: e }, this.current.url);
     }));
   }
   saveDocumentScrollPosition(e) {
