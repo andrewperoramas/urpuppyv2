@@ -1,5 +1,5 @@
 import { j as jsxRuntimeExports, $ as $e } from "../ssr.js";
-import { S as ShareButton } from "./ShareButton-NBX8Igwg.js";
+import { S as ShareButton } from "./ShareButton-C0HknvhB.js";
 const BreederCard = ({ breeder, hasBorder = false }) => {
   var _a;
   return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "col-lg-6", children: /* @__PURE__ */ jsxRuntimeExports.jsx(

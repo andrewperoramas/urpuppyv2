@@ -1288,10 +1288,7 @@ const ShareButton = ({
   slug,
   route = "puppies"
 }) => {
-  let currentUrl = "";
-  if (typeof window !== "undefined") {
-    currentUrl = `${window.location.origin}/${route}/${slug}`;
-  }
+  let currentUrl = `https://urpuppy.com/${route}/${slug}`;
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "dropdown", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx("button", { type: "button", className: "btn btn-secondary p-0 shadow-none bg-white border d-flex align-items-center justify-content-center round-40 rounded-circle flex-shrink-0 show", "data-bs-toggle": "dropdown", "aria-expanded": "true", children: /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: "../images/svgs/icon-share.svg", alt: "" }) }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(

@@ -99,16 +99,16 @@
   "\u0000/home/adichan/upwork/puppy2/node_modules/debug/src/node.js?commonjs-module": [],
   "\u0000/home/adichan/upwork/puppy2/node_modules/follow-redirects/index.js?commonjs-module": [],
   "\u0000/home/adichan/upwork/puppy2/node_modules/jsonp/node_modules/debug/src/browser.js?commonjs-module": [
-    "/build/assets/ShareButton-NBX8Igwg.js"
+    "/build/assets/ShareButton-C0HknvhB.js"
   ],
   "\u0000/home/adichan/upwork/puppy2/node_modules/jsonp/node_modules/debug/src/debug.js?commonjs-module": [
-    "/build/assets/ShareButton-NBX8Igwg.js"
+    "/build/assets/ShareButton-C0HknvhB.js"
   ],
   "\u0000/home/adichan/upwork/puppy2/node_modules/jsonp/node_modules/debug/src/index.js?commonjs-module": [
-    "/build/assets/ShareButton-NBX8Igwg.js"
+    "/build/assets/ShareButton-C0HknvhB.js"
   ],
   "\u0000/home/adichan/upwork/puppy2/node_modules/jsonp/node_modules/debug/src/node.js?commonjs-module": [
-    "/build/assets/ShareButton-NBX8Igwg.js"
+    "/build/assets/ShareButton-C0HknvhB.js"
   ],
   "\u0000/home/adichan/upwork/puppy2/node_modules/lodash.isequal/index.js?commonjs-module": [],
   "\u0000/home/adichan/upwork/puppy2/node_modules/lodash/lodash.js?commonjs-module": [
@@ -345,7 +345,7 @@
     "/build/assets/StateCityDropdown-BKRcIAe7.js"
   ],
   "node_modules/@ctrl/react-adsense/dist/module/adsense.js": [
-    "/build/assets/Index-BHjOsW2V.js"
+    "/build/assets/Index-l2zOeAS-.js"
   ],
   "node_modules/@emotion/cache/dist/emotion-cache.esm.js": [
     "/build/assets/StateCityDropdown-BKRcIAe7.js"
@@ -1537,22 +1537,22 @@
     "/build/assets/StateCityDropdown-BKRcIAe7.js"
   ],
   "node_modules/jsonp/index.js": [
-    "/build/assets/ShareButton-NBX8Igwg.js"
+    "/build/assets/ShareButton-C0HknvhB.js"
   ],
   "node_modules/jsonp/node_modules/debug/node_modules/ms/index.js": [
-    "/build/assets/ShareButton-NBX8Igwg.js"
+    "/build/assets/ShareButton-C0HknvhB.js"
   ],
   "node_modules/jsonp/node_modules/debug/src/browser.js": [
-    "/build/assets/ShareButton-NBX8Igwg.js"
+    "/build/assets/ShareButton-C0HknvhB.js"
   ],
   "node_modules/jsonp/node_modules/debug/src/debug.js": [
-    "/build/assets/ShareButton-NBX8Igwg.js"
+    "/build/assets/ShareButton-C0HknvhB.js"
   ],
   "node_modules/jsonp/node_modules/debug/src/index.js": [
-    "/build/assets/ShareButton-NBX8Igwg.js"
+    "/build/assets/ShareButton-C0HknvhB.js"
   ],
   "node_modules/jsonp/node_modules/debug/src/node.js": [
-    "/build/assets/ShareButton-NBX8Igwg.js"
+    "/build/assets/ShareButton-C0HknvhB.js"
   ],
   "node_modules/krustykrab/dist/index.mjs": [
     "/build/assets/StateCityDropdown-BKRcIAe7.js"
@@ -1950,7 +1950,7 @@
     "/build/assets/StateCityDropdown-BKRcIAe7.js"
   ],
   "node_modules/react-share/dist/index.js": [
-    "/build/assets/ShareButton-NBX8Igwg.js"
+    "/build/assets/ShareButton-C0HknvhB.js"
   ],
   "node_modules/react-tooltip/dist/react-tooltip.min.mjs": [
     "/build/assets/SellerCard-Dn0N45Rc.js"
@@ -2103,7 +2103,7 @@
     "/build/assets/Breadcrumb-BSuKYpeP.js"
   ],
   "resources/js/Components/Breeder/BreederCard.tsx": [
-    "/build/assets/BreederCard-Cu4uQ5ok.js"
+    "/build/assets/BreederCard-C7ozKHmL.js"
   ],
   "resources/js/Components/Breeder/ReviewCard.tsx": [
     "/build/assets/Show-Dd6jkdhK.js",
@@ -2114,7 +2114,7 @@
     "/build/assets/Show-C3AFdEBK.css"
   ],
   "resources/js/Components/Breeds/BreedCard.tsx": [
-    "/build/assets/Index-BHjOsW2V.js"
+    "/build/assets/Index-l2zOeAS-.js"
   ],
   "resources/js/Components/Checkbox.tsx": [
     "/build/assets/Login-Dgpk1hWk.js"
@@ -2183,7 +2183,7 @@
     "/build/assets/Index-B-S1HEce.js"
   ],
   "resources/js/Components/List.tsx": [
-    "/build/assets/Show-BDHx8VsA.js"
+    "/build/assets/Show-DZFNLK6v.js"
   ],
   "resources/js/Components/ListPill.tsx": [
     "/build/assets/Edit-C5IwPWNj.js"
@@ -2223,22 +2223,22 @@
     "/build/assets/Card-CUelPOFb.js"
   ],
   "resources/js/Components/Puppy/FeaturedBreeds.tsx": [
-    "/build/assets/Index-BHjOsW2V.js"
+    "/build/assets/Index-l2zOeAS-.js"
   ],
   "resources/js/Components/Puppy/NewArrivals.tsx": [
-    "/build/assets/Index-BHjOsW2V.js"
+    "/build/assets/Index-l2zOeAS-.js"
   ],
   "resources/js/Components/Puppy/PuppySpotlight.tsx": [
-    "/build/assets/Index-BHjOsW2V.js"
+    "/build/assets/Index-l2zOeAS-.js"
   ],
   "resources/js/Components/Puppy/SiblingCard.tsx": [
-    "/build/assets/Show-BDHx8VsA.js"
+    "/build/assets/Show-DZFNLK6v.js"
   ],
   "resources/js/Components/Puppy/TopPicks.tsx": [
-    "/build/assets/Index-BHjOsW2V.js"
+    "/build/assets/Index-l2zOeAS-.js"
   ],
   "resources/js/Components/Puppy/TrustedBreeders.tsx": [
-    "/build/assets/Index-BHjOsW2V.js"
+    "/build/assets/Index-l2zOeAS-.js"
   ],
   "resources/js/Components/ReviewSlider.tsx": [
     "/build/assets/Show-Dd6jkdhK.js",
@@ -2265,10 +2265,10 @@
     "/build/assets/DateInput-RqFV4Sam.css"
   ],
   "resources/js/Components/ShareButton.tsx": [
-    "/build/assets/ShareButton-NBX8Igwg.js"
+    "/build/assets/ShareButton-C0HknvhB.js"
   ],
   "resources/js/Components/Slider.tsx": [
-    "/build/assets/Index-BHjOsW2V.js"
+    "/build/assets/Index-l2zOeAS-.js"
   ],
   "resources/js/Components/Sliders/SmallBannerWithContent.tsx": [
     "/build/assets/SmallBannerWithContent-CO86sZ1K.js"
@@ -2333,7 +2333,7 @@
     "/build/assets/Index-C4eZ2mdb.js"
   ],
   "resources/js/Pages/Breeders/Index.tsx": [
-    "/build/assets/Index-B4p7UOzO.js"
+    "/build/assets/Index-DGHv2j8W.js"
   ],
   "resources/js/Pages/Breeders/Registration.tsx": [
     "/build/assets/Registration-CJLm9Y13.js"
@@ -2352,7 +2352,7 @@
     "/build/assets/Index-C135lpkZ.js"
   ],
   "resources/js/Pages/Home/Index.tsx": [
-    "/build/assets/Index-BHjOsW2V.js"
+    "/build/assets/Index-l2zOeAS-.js"
   ],
   "resources/js/Pages/Home/Sections/Banner.tsx": [
     "/build/assets/Banner-CWRU2HtV.js"
@@ -2394,7 +2394,7 @@
     "/build/assets/Index-gJVyt2d1.js"
   ],
   "resources/js/Pages/Puppy/Show.tsx": [
-    "/build/assets/Show-BDHx8VsA.js"
+    "/build/assets/Show-DZFNLK6v.js"
   ],
   "resources/js/Pages/Seller/Registration.tsx": [
     "/build/assets/Registration-C0w1-sFc.js"

@@ -9,11 +9,7 @@ const ShareButton = ({
     route?: string
     }) => {
 
-    let currentUrl = '';
-
-    if (typeof window !== 'undefined') {
-        currentUrl = `${window.location.origin}/${route}/${slug}`;
-    }
+    let currentUrl = `https://urpuppy.com/${route}/${slug}`;
 
   return (
 

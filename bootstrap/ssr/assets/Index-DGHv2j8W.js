@@ -1,6 +1,6 @@
 import { r as reactExports, j as jsxRuntimeExports, $ as $e } from "../ssr.js";
 import { B as BannerSlider, S as SmallBannerWithContent } from "./SmallBannerWithContent-CO86sZ1K.js";
-import { B as BreederCard } from "./BreederCard-Cu4uQ5ok.js";
+import { B as BreederCard } from "./BreederCard-C7ozKHmL.js";
 import { B as BreedFilter } from "./BreedFilter-D1sH3Omv.js";
 import { S as StateFilter } from "./StateFilter-D2xKXu5R.js";
 import { M as MetaTags } from "./MetaTags-DV5IHhOb.js";
@@ -20,7 +20,7 @@ import "events";
 import "process";
 import "./create-element-if-not-defined-Lq8o-23T.js";
 import "./autoplay-DYmj4v-y.js";
-import "./ShareButton-NBX8Igwg.js";
+import "./ShareButton-C0HknvhB.js";
 import "./index-B4jTMp6J.js";
 import "net";
 import "./Navbarv2-MmrLApEr.js";
