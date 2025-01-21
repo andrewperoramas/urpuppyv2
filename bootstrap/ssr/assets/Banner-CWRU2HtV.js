@@ -1154,7 +1154,7 @@ const FilterBox = () => {
     breed: { label: "Golden Retriever", value: "" },
     gender: { label: "Male", value: "" },
     age: { label: "1 week", value: 0 },
-    price: { label: "$1 - $2,500", value: [100, 25e4] },
+    price: { label: "$1 - $2,500", value: [1, 25e4] },
     state: { label: "New York", value: "" }
   });
   const handleSearch = () => {

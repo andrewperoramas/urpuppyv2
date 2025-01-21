@@ -1,5 +1,5 @@
 import { j as jsxRuntimeExports, $ as $e } from "../ssr.js";
-import Banner from "./Banner-B7uvFA4o.js";
+import Banner from "./Banner-CWRU2HtV.js";
 import { P as PuppyCard } from "./Card-CUelPOFb.js";
 import { L as Layout } from "./Layout-B3ex8fkn.js";
 import { M as MetaTags } from "./MetaTags-DV5IHhOb.js";

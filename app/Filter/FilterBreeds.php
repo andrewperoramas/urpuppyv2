@@ -9,9 +9,8 @@ class FilterBreeds implements Filter
 {
     public function __invoke(Builder $query, $value, string $property)
     {
-        /* dd($value); */
         $query->whereHas('breeds', function (Builder $query) use ($value, $property) {
-            $query->whereIn('name', [$value]);
+            $query->where('name', 'LIKE', "%{$value}%");
         });
     }
 }

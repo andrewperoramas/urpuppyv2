@@ -26,7 +26,7 @@ const FilterBox = () => {
       breed: {label: "Golden Retriever", value: ""},
       gender: {label: "Male", value: ""},
       age: {label: "1 week", value: 0},
-      price: {label: "$1 - $2,500", value: [100, 250000]},
+      price: {label: "$1 - $2,500", value: [1, 250000]},
       state: {label: "New York", value: ""}
     })
 
