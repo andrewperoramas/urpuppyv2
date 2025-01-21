@@ -29,8 +29,8 @@ return [
 
     ],
     'history' => [
-        'encrypt' => true,
-        'fallback' => 'replace',
+        'encrypt' => false,
+        /* 'fallback' => 'replace', */
 
     ],
 
