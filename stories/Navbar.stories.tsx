@@ -5,7 +5,6 @@ import Navbarv2 from '@/Components/Navigation/Navbarv2'
 
 import {ComponentProps} from 'react'
 
-import { motion } from "motion/react"
 
 type StoryProps = ComponentProps<typeof Navbarv2>
 
@@ -97,60 +96,6 @@ export const NavigationTransparentBar: Story = {
 
                                 <p className="text-white text-center fs-7 mb-5 aos-init aos-animate" data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000">Discover healthy, happy puppies from trusted breeders across the
               USA</p>
-
-
-                <motion.div
-  initial={{ opacity: 0, y: 50 }} // Start off-screen and invisible
-  whileInView={{ opacity: 1, y: 0 }} // Animate to visible and in position
-  transition={{ duration: 0.8, ease: "easeOut" }} // Smooth animation
-
-  viewport={{ once: true }}
-
->
-
-
-                <h1></h1>
-            </motion.div>
-
-            <motion.div
-  initial="hidden"
-  whileInView="visible"
-  viewport={{ once: true }}
-  >
-                <h1></h1>
-            </motion.div>
-
-            <motion.div
-  initial="hidden"
-  whileInView="visible"
-  viewport={{ once: true }}
-  >
-                <h1></h1>
-            </motion.div>
-
-            <motion.div
-  initial="hidden"
-  whileInView="visible"
-  viewport={{ once: true }}
-  >
-                <h1></h1>
-            </motion.div>
-
-            <motion.div
-  initial="hidden"
-  whileInView="visible"
-  viewport={{ once: true }}
-  >
-                <h1></h1>
-            </motion.div>
-            <motion.div
-  initial="hidden"
-  whileInView="visible"
-  viewport={{ once: true }}
-  >
-                <h1></h1>
-            </motion.div>
-
                                 <p className="text-white text-center fs-7 mb-5 aos-init aos-animate" data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000">Discover healthy, happy puppies from trusted breeders across the
               USA</p>
 

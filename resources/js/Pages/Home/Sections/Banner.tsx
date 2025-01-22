@@ -1,5 +1,3 @@
-import EaseUp from '@/Components/Animation/EaseUp'
-import EaseUpContainer from '@/Components/Animation/EaseUpContainer'
 import FilterBox from '@/Components/FilterBox'
 import React from 'react'
 

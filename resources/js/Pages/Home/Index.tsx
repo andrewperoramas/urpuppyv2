@@ -1,9 +1,5 @@
-import Footer from '@/Components/Navigation/Footer';
-import Navbarv2 from '@/Components/Navigation/Navbarv2';
 import { PageProps } from '@/types';
-import { Head, Link, WhenVisible } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
-import { motion } from "framer-motion";
 import Banner from './Sections/Banner';
 import PriceFilter from '@/Components/Filters/PriceFilter';
 import FeaturedBreeds from '@/Components/Puppy/FeaturedBreeds';
