@@ -66,7 +66,7 @@ class User extends Authenticatable implements  HasMedia,  MustVerifyEmail, Sitem
         'is_breeder',
         'is_seller',
         'stripe_id',
-
+        'phone',
         'company_name',
         'company_address',
         'company_established_on',
