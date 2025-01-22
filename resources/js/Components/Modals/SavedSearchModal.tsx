@@ -1,6 +1,6 @@
 "use client"
 
-import { Link } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
@@ -11,6 +11,7 @@ function SavedSearchModal({has_search} : any) {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const user = usePage().props.auth.user;
   const [searchTitle, setSearchTitle] = useState('');
 
   return (
@@ -19,7 +20,10 @@ function SavedSearchModal({has_search} : any) {
     <>
 
            <div className="mb-8 text-end">
+                        {
+                            user &&
       <a onClick={handleShow} href="#" className="btn btn-outline-extralight border btn-white text-dark" data-bs-toggle="modal" data-bs-target="#SaveThisSearch">Save This Search</a>
+                        }
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Body className="py-8 px-4">
