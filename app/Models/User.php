@@ -221,9 +221,7 @@ class User extends Authenticatable implements  HasMedia,  MustVerifyEmail, Sitem
 
     public function canAccessPanel(Panel $panel): bool
     {
-        return true;
-        return str_ends_with($this->email, '@urpuppy.com');
-        /* return str_ends_with($this->email, '@urpuppy.com'); */
+        return str_ends_with($this->email, 'admin@urpuppy.com');
     }
 
     public function scopeBreeders($query)
