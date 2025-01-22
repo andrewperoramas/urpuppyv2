@@ -7,7 +7,6 @@ const EaseUp = ({ children }: { children: React.ReactNode }) => {
   const isJavaScriptEnabled = typeof window !== "undefined";
 
   if (!isJavaScriptEnabled) {
-    console.log('buratilya')
   }
 
   return (

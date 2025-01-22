@@ -1,4 +1,4 @@
-import { usePage } from "@inertiajs/react";
+import { router, usePage } from "@inertiajs/react";
 import React, { useRef, useState } from "react";
 
 interface AvatarInputProps {
@@ -30,8 +30,9 @@ const AvatarInput: React.FC<AvatarInputProps> = ({ onChange }) => {
 
   const handleDeletePicture = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-    setImagePreview("../images/logos/account.jpg"); // Reset to default image
+    setImagePreview(""); // Reset to default image
     if (fileInputRef.current) {
+      router.delete(`/profile/avatar`);
       fileInputRef.current.value = ""; // Clear the file input
     }
   };
@@ -39,12 +40,22 @@ const AvatarInput: React.FC<AvatarInputProps> = ({ onChange }) => {
   return (
     <div className="d-md-flex align-items-center gap-4">
       <span className="d-block round-120 flex-shrink-0 position-relative overflow-hidden rounded-circle mb-3 mb-md-0 ">
-        <img
-          src={imagePreview}
-          id="image-preview"
-          alt="Profile"
-          className="object-fit-cover w-100 h-100"
-        />
+                <div
+  className="d-flex align-items-center justify-content-center bg-secondary border border-1 text-white w-100 h-100"
+  style={{ position: 'relative' }}
+>
+  {imagePreview ? (
+    <img
+      src={imagePreview}
+      id="image-preview"
+      alt="Preview"
+      className="object-fit-cover w-100 h-100"
+    />
+  ) : (
+    <span>No image</span>
+  )}
+</div>
+
       </span>
       <div className="d-sm-flex align-items-center gap-6">
         <div className="position-relative">

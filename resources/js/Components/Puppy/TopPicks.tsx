@@ -4,6 +4,7 @@ import { Link } from '@inertiajs/react'
 import FavoriteButton from '../FavoriteButton'
 import ShareButton from '../ShareButton'
 import {Adsense} from '@ctrl/react-adsense';
+import Gender from '../Gender'
 
 const TopPicks = ({puppy}: { puppy: App.Data.PuppyData }) => {
   return (
@@ -44,10 +45,7 @@ const TopPicks = ({puppy}: { puppy: App.Data.PuppyData }) => {
                   <img src="/images/svgs/icon-calendar.svg" alt="" width="20" height="20"/>
                   <p className="mb-0">{puppy.age}</p>
                 </div>
-                <div className="d-flex align-items-center gap-2 ps-3">
-                  <img src="/images/svgs/icon-male.svg" alt="" width="20" height="20"/>
-                  <p className="mb-0">{puppy.gender}</p>
-                </div>
+                <Gender gender={puppy.gender} />
               </div>
               <div className="d-flex align-items-center gap-4 pb-4 mb-4 border-bottom">
                 <div>

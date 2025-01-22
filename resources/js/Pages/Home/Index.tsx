@@ -40,7 +40,7 @@ export default function Index({
         <>
             <Layout>
             <Banner header={header_label} subheader={subheader_label}/>
-            <MetaTags title="Checkout" />
+            <MetaTags title="Home" />
             <div className="page-wrapper position-relative overflow-hidden">
             <FeaturedBreeds featured_breeds={featured_breeds}/>
             <PuppySpotlight puppy_spotlights={puppy_spotlights}/>

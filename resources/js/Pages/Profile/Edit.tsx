@@ -41,16 +41,9 @@ export default function Edit({
 
 
     const errors = usePage().props.errors;
-    // const redirect_tab = usePage().props.redirect_tab as any ?? 'Account Settings';
 
     const [currentTab, setCurrentTab] = useState(tab ?? 'Account Settings')
 
-    // // console.log(saved_searches)
-    // useEffect(() => {
-    //     setCurrentTab(redirect_tab)
-    // }, [
-    //         redirect_tab
-    //     ])
 
     return (
         <Layout
@@ -65,10 +58,21 @@ export default function Edit({
           <div className="col-lg-3">
             <ul className="nav nav-pills justify-content-center flex-lg-column gap-2 mb-4 mb-lg-0" id="pills-tab"
               role="tablist">
-                {NavigationSettings.map((item, index) => (
+                {NavigationSettings.map((item, index) =>
+                                        {
+                                            if (item.name == 'My Subscription' ) {
+
+                                                if (!plan && !breeder_plan) {
+                                                    return
+                                                }
+
+                                            }
+
+                                        return (
+
                     <ListPill tab={tab} key={index} name={item.name} logo={item.logo} href={item.href}  />
 
-                ))}
+                ) } )}
             </ul>
           </div>
           <div className="col-lg-9">
@@ -90,22 +94,38 @@ export default function Edit({
                  <UserProfile />
 
               </div>
+              {
+                                    <>
               <div className={` tab-pane fade ${currentTab == 'My Subscription' ? 'show active' : ''} `}  id="pills-my-subscription" role="tabpanel"
                 aria-labelledby="pills-my-subscription-tab" tabIndex={0}>
                     {plan ? <SubscriptionCard next_billing={plan_next_billing} cancel_at={plan_cancel_at}  plan={plan}/> : ""}
                     {breeder_plan && <SubscriptionCard next_billing={breeder_next_billing} cancel_at={breeder_cancel_at}  plan={breeder_plan}/> }
 
+                    {!plan && !breeder_plan &&
+                <div className="card border">
+                  <div className="card-body pb-0">
+                    <div className="row">
+<h6 className="mb-4">
+                                            No Subscription</h6>
+                    </div>
+                  </div>
+                </div>
+
+                                            }
+
               </div>
+</> }
               <div className={` tab-pane fade ${currentTab == 'Saved Search' ? 'show active' : ''} `} id="pills-saved-search" role="tabpanel"
                 aria-labelledby="pills-saved-search-tab" tabIndex={0}>
                 <div className="card border">
                   <div className="card-body pb-0">
                     <div className="row">
-                    {saved_searches.length > 0 && saved_searches.map((saved_search: App.Data.SavedSearchData, index: number) => (
+                    {saved_searches.length > 0 ? saved_searches.map((saved_search: App.Data.SavedSearchData, index: number) => (
                                                         <div className="col-md-6 col-xx-4">
                         <SavedSearchCard key={index} saved_search={saved_search} />
                                                         </div>
-                    ))}
+                    )): <h6 className="mb-4"> No Saved Search</h6>
+                    }
                     </div>
                   </div>
                 </div>

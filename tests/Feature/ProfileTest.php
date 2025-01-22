@@ -1,6 +1,9 @@
 <?php
 
+use App\Mail\AccountDeletion;
+use App\Mail\AccountDeletionMail;
 use App\Models\User;
+use Illuminate\Support\Facades\Mail;
 
 test('profile page is displayed', function () {
     $user = User::factory()->create();
@@ -53,6 +56,8 @@ test('email verification status is unchanged when the email address is unchanged
 });
 
 test('user can delete their account', function () {
+    Mail::fake();
+
     $user = User::factory()->create();
 
     $response = $this
@@ -64,6 +69,8 @@ test('user can delete their account', function () {
     $response
         ->assertSessionHasNoErrors()
         ->assertRedirect('/');
+
+    Mail::assertQueued(AccountDeletionMail::class);
 
     $this->assertGuest();
     $this->assertNull($user->fresh());
@@ -86,3 +93,5 @@ test('correct password must be provided to delete account', function () {
 
     $this->assertNotNull($user->fresh());
 });
+
+

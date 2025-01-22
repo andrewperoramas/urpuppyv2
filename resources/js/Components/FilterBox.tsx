@@ -48,6 +48,7 @@ const FilterBox = () => {
             'puppies',
             'breed_filter_list',
             'state_filter_list',
+            'has_search'
             ],
         method: 'get',
         preserveState: true,

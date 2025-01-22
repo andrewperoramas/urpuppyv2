@@ -14,7 +14,7 @@ class CommentData extends Data
     public function __construct(
         public int $rating,
         public string $body,
-        public UserCommentData $reviewer,
+        public ?UserCommentData $reviewer,
         public string $review_on,
     ) {
 
@@ -27,7 +27,8 @@ class CommentData extends Data
 class UserCommentData extends Data {
     public function __construct(
         public string $full_name,
-        public string $avatar
+        public string $avatar,
+        public string $initial_name
     ) {
 
     }

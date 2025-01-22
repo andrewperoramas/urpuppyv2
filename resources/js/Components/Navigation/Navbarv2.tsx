@@ -21,6 +21,8 @@ const Navbarv2 = ({type} : {type?: string|undefined}) => {
     }
   }, []); // This effect runs only once when the component mounts
 
+    const page = usePage().url;
+
    const toggleOffcanvas = () => {
     if (typeof document !== 'undefined') {
       const sidebar = document.getElementById('offcanvasSidebar');
@@ -94,22 +96,22 @@ const Navbarv2 = ({type} : {type?: string|undefined}) => {
             <ul className="navbar-nav align-items-center">
               <li className="nav-item nav-item-line ms-4"></li>
               <li className="nav-item">
-                <Link prefetch cacheFor="5m" className="nav-link" href="/puppies">
+                <Link prefetch  className={`nav-link ${page.startsWith('/puppies') ? 'active' : '' }`} href="/puppies">
                   Puppies for Sale
                 </Link>
               </li>
               <li className="nav-item">
-                <Link prefetch cacheFor="5m" className="nav-link " href="/breeds">
+                <Link prefetch  className={`nav-link ${page.startsWith('/breeds') ? 'active' : '' }`} href="/breeds">
                 Breeds
               </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" href="/breeders">
+                <Link prefetch className={`nav-link ${page.startsWith('/breeders')  ? 'active' : '' }`} href="/breeders">
                   Breeders
                 </Link>
               </li>
               <li className="nav-item">
-                <Link prefetch  className="nav-link active" aria-current="page" href="/seller/create">
+                <Link prefetch  className={`nav-link ${page == '/seller/create' ? 'active' : '' }`} aria-current="page" href="/seller/create">
                   + List Ur Puppy
                 </Link>
               </li>
@@ -173,12 +175,12 @@ const Navbarv2 = ({type} : {type?: string|undefined}) => {
         <div className="offcanvas-body pt-0">
           <ul className="navbar-nav">
             <li className="nav-item">
-                <Link prefetch cacheFor="5m" className="nav-link text-white" href="/puppies">
+                <Link prefetch  className="nav-link text-white" href="/puppies">
                   Puppies for Sale
                 </Link>
             </li>
             <li className="nav-item">
-            <Link prefetch cacheFor="5m" className="nav-link text-white" href="/breeds">
+            <Link prefetch  className="nav-link text-white" href="/breeds">
                 Breeds
               </Link>
             </li>
@@ -198,10 +200,10 @@ const Navbarv2 = ({type} : {type?: string|undefined}) => {
 
           <div className="d-flex align-items-center flex-column gap-3 mt-4">
 
-            <Link preserveScroll={false} prefetch cacheFor="5m" className="btn btn-white bg-white text-dark w-100" href="/login">
+            <Link preserveScroll={false} prefetch  className="btn btn-white bg-white text-dark w-100" href="/login">
               Login
             </Link>
-            <Link preserveScroll={false} prefetch cacheFor="5m" className="btn btn-primary d-flex align-items-center justify-content-center gap-2 w-100" href="/register">
+            <Link preserveScroll={false} prefetch  className="btn btn-primary d-flex align-items-center justify-content-center gap-2 w-100" href="/register">
               <img src="/icon-user.svg" alt="" /> Sign Up
             </Link>
           </div>

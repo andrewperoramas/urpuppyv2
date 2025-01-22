@@ -16,7 +16,6 @@ const Show = ({breeder, puppies} : {
     puppies: App.Data.PuppyData[]
 }) => {
 
-        console.log(breeder);
   return (
             <Layout>
 

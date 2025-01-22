@@ -29,7 +29,7 @@ return [
 
     ],
     'history' => [
-        'encrypt' => false,
+        'encrypt' => true,
         /* 'fallback' => 'replace', */
 
     ],

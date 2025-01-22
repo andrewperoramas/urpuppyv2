@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import SocialMediaButtons from './SocialMediaButtons'
+import Avatar from './Avatar';
 
 const SellerCard = ({
     seller
@@ -15,10 +16,8 @@ const SellerCard = ({
             <div className="card shadow">
               <div className="card-body">
                 <div className="text-center position-relative mb-6 mx-auto d-table">
-                  <div className="round-96 object-fit-cover rounded-circle position-relative overflow-hidden">
-                    <img src={seller.avatar} alt=""
-                      className="object-fit-cover w-100 h-100" />
-                  </div>
+                <Avatar image_url={seller.avatar} />
+
                 {seller.is_breeder &&
                   <span
                     className="position-absolute bottom-0 end-0 d-block round-24 rounded-circle bg-primary d-flex align-items-center justify-content-center">

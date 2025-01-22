@@ -139,6 +139,7 @@ class UserFactory extends Factory
             'social_tiktok' => fake()->unique()->url,
             'social_x' => fake()->unique()->url,
             'social_ig' => fake()->unique()->url,
+            'enable_notification' => false,
         ];
     }
 

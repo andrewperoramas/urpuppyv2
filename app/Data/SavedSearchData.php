@@ -15,6 +15,7 @@ class SavedSearchData extends Data
 
     public function __construct(
         public int $id,
+        public ?string $name,
         public array $payload,
         public string $created_at,
         /* public string $image, */

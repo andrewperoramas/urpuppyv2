@@ -11,7 +11,6 @@ interface AgeFilterProps {
 const PriceFilter: React.FC<AgeFilterProps> = ( {setPrice, range = [1, 10000] }) => {
 
   const price_filter_range = usePage().props.price_filter_range as number[];
-    console.log(price_filter_range)
 
   const [priceRange, setValues] = React.useState(price_filter_range);
 
@@ -25,7 +24,6 @@ const PriceFilter: React.FC<AgeFilterProps> = ( {setPrice, range = [1, 10000] })
 
         }))
   };
-    console.log(price_filter_range)
 
   return (
   <>

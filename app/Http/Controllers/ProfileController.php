@@ -6,6 +6,7 @@ use App\Data\PlanData;
 use App\Data\SavedSearchData;
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Http\Resources\BreedResource;
+use App\Mail\AccountDeletionMail;
 use App\Models\Breed;
 use App\Models\Country;
 use Carbon\Carbon;
@@ -14,6 +15,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -107,7 +109,6 @@ class ProfileController extends Controller
             $request->user()->email_verified_at = null;
         }
 
-        /* dd($input['avatar']); */
         if ($input['avatar']) {
         $request->user()->clearMediaCollection('avatars');
         $request->user()->addMedia($input['avatar'])->toMediaCollection('avatars');
@@ -140,11 +141,23 @@ class ProfileController extends Controller
 
         $user->delete();
 
-        inertia()->clearHistory();
+        Mail::queue(new AccountDeletionMail($user));
+
+        /* inertia()->clearHistory(); */
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return Redirect::to('/');
+        return Redirect::to('/')->with([
+            'message.success' => 'Account deleted successfully.',
+        ]);
+    }
+
+    public function destroyAvatar(Request $request)
+    {
+        $request->user()->clearMediaCollection('avatars');
+        return redirect()->back()->with([
+            'message.success' => 'Avatar deleted successfully.'
+        ]);
     }
 }

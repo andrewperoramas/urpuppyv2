@@ -2,6 +2,7 @@ import React from 'react'
 
 import { Rating } from "@smastrom/react-rating";
 import '@smastrom/react-rating/style.css'
+import Avatar from '../Avatar';
 
 const ReviewCard = ({comment}: {comment: App.Data.CommentData}) => {
     const CustomStar = (
@@ -31,11 +32,11 @@ const ReviewCard = ({comment}: {comment: App.Data.CommentData}) => {
                                 {comment.body}
                           </p>
                           <div className="d-flex align-items-center gap-6">
-                            <div className="round-40 position-relative overflow-hidden rounded-circle flex-shrink-0">
-                              <img src={comment.reviewer.avatar} alt="" className="object-fit-cover"/>
+                            <div className=" position-relative overflow-hidden rounded-circle flex-shrink-0">
+                             <Avatar size={'sm'} image_url={comment?.reviewer?.avatar ?? ""} initial_name={comment?.reviewer?.initial_name ?? 'UP'} />
                             </div>
                             <div>
-                              <h6 className="fs-3 mb-0 swiper-no-swiping ">{comment.reviewer.full_name}</h6>
+                              <h6 className="fs-3 mb-0 swiper-no-swiping ">{comment?.reviewer?.full_name ?? 'Deleted User'}</h6>
                               <p className="mb-0 fs-2 swiper-no-swiping">{comment.review_on}</p>
                             </div>
                           </div>

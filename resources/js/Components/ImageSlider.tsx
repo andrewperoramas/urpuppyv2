@@ -22,8 +22,6 @@ const ImageSlider = ({
     const [thumbsSwiper, setThumbsSwiper] = useState<any>(null);
     // const swiperRef = useRef<SwiperInstance | null>(null);
     const swiperRef = useRef<any>(null); // Ref for Swiper instance
-    console.log('adi')
-    console.log(videos)
 
     // Effect to call swiper.update when the modal is visible
     useEffect(() => {

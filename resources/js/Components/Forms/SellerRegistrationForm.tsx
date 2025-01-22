@@ -62,7 +62,6 @@ const SellerRegistrationForm = ({
         image_upload: [],
    })
 
-    console.log(data)
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 

@@ -1,10 +1,21 @@
 
 .product-card-responsive-height {
-  height: 225px;
+    height: 450px;
 
-  @media (max-width: 1199px) {
-    height: 310px;
+      @media (min-width: 768px) {
+    // max-height: 300px;
+        height: 300px;
   }
+
+  @media (min-width: 992px) {
+        height: 410px;
+  }
+
+  @media (min-width: 1196px) {
+        height: 210px;
+  }
+
+
 }
 
 .swiper-thumbs .swiper-slide img {
@@ -173,3 +184,4 @@ input:disabled {
     background: rgba(8, 49, 78, 0.1)!important;
     cursor: not-allowed;
 }
+

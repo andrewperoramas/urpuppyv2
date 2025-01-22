@@ -1,12 +1,14 @@
 import { Link } from '@inertiajs/react'
 import React from 'react'
+import InitialName from '../InitialName'
+import Avatar from '../Avatar'
 
 const AccountDropdownButton = ({user} : { user: App.Data.UserData }) => {
   return (
 
       <div className="dropdown position-relative user-profile-dropdown">
             <a className="btn btn-primary p-0 round-44 overflow-hidden rounded-circle d-flex align-items-center justify-content-center" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <img className="w-100 h-100" src={user.avatar} alt="" />
+                <Avatar image_url={user.avatar} initial_name={user.initial_name} size={'sm'}  />
             </a>
             <ul className="dropdown-menu dropdown-menu-end p-3" style={{
                                 width: 'max-content'
@@ -15,9 +17,8 @@ const AccountDropdownButton = ({user} : { user: App.Data.UserData }) => {
                 <h5 className="mb-0">User Profile</h5>
               </div>
               <div className="d-flex align-items-center gap-6 my-4">
-                <span className="rounded-circle overflow-hidden flex-shrink-0">
-                  <img src={user.avatar} alt="" width="50" height="50" />
-                </span>
+                <Avatar image_url={user.avatar} initial_name={user.initial_name} size={'sm'}  />
+
                 <div>
                   <h6 className="mb-0">{user.full_name}</h6>
                   <p className="mb-0 fs-2 d-flex align-items-center gap-2">

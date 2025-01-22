@@ -20,7 +20,6 @@ const Index = ({breeders} : {
         }
 
     });
-    // console.log(filter)
 
   return (
         <Layout>

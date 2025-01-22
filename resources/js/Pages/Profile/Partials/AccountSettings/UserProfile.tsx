@@ -1,6 +1,6 @@
 import InputLabel from '@/Components/InputLabel'
 import TextInput from '@/Components/TextInput'
-import { useForm, usePage } from '@inertiajs/react'
+import { Link, useForm, usePage } from '@inertiajs/react'
 import React from 'react'
 import AvatarInput from './UserAvatar'
 import PrimaryButton from '@/Components/PrimaryButton'
@@ -8,6 +8,7 @@ import Button from '@/Components/ui/Button'
 import InputError from '@/Components/InputError'
 import StateCityDropdown from '@/Components/StateCityDropdown'
 import IconInput from '@/Components/IconInput'
+import DeleteAccountModal from '@/Components/Modals/DeleteAccountModal'
 
 const UserProfile = () => {
 
@@ -43,7 +44,6 @@ const UserProfile = () => {
     };
 
 
-    console.log(data)
 
   return (
                 <form action="" onSubmit={handleSubmit}>
@@ -160,7 +160,9 @@ const UserProfile = () => {
                             <h6 className="mb-0 fs-4 font-work-sans">Delete Account</h6>
                             <p className="mb-0">Permanently delete your urpuppy.com account.</p>
                           </div>
-                          <a className="btn btn-outline-extralight border btn-white text-dark" href="#">Delete Account</a>
+                          <DeleteAccountModal />
+
+
                         </div>
                       </div>
                       <div className="">

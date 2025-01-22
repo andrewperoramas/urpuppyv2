@@ -182,6 +182,11 @@ class User extends Authenticatable implements  HasMedia,  MustVerifyEmail, Sitem
         return null; // Return null if no media item exists
     }
 
+    public function getInitialNameAttribute()
+    {
+        return ucfirst($this->first_name[0]) . '' . ucfirst($this->last_name[0]);
+    }
+
     public function getVideoAttribute()
     {
         // Fetch the first media item

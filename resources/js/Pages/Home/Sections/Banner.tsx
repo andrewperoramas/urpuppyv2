@@ -6,15 +6,22 @@ import React from 'react'
 const Banner = ({
     header = "Find Ur Perfect Puppy Today!",
     subheader = "Discover healthy, happy puppies from trusted breeders across the USA",
-    enable_filter = true
+    enable_filter = true,
+    size = "lg"
 }: {
         header?: string | undefined,
         subheader?: string | undefined,
-        enable_filter?: boolean
+        enable_filter?: boolean,
+        size?: 'lg' | 'md'
     }) => {
   return (
-                    <section className="z-30 hero-section position-relative d-flex align-items-center">
-      <div className="container position-relative z-1">
+
+                    <section className={
+                size == 'lg' ? "z-30 hero-section position-relative d-flex align-items-center" : "hero-section position-relative d-flex align-items-center pt-11 pb-10"
+            }>
+                                    <div className={
+                size == 'lg' ? "container position-relative z-1" : "container position-relative z-1 mt-lg-3"
+            }>
         <div className="row justify-content-center">
           <div className="col-xl-10">
 

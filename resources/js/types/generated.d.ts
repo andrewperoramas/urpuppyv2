@@ -87,7 +87,7 @@ label: string;
 export type CommentData = {
 rating: number;
 body: string;
-reviewer: App.Data.UserCommentData;
+reviewer: App.Data.UserCommentData | null;
 review_on: string;
 };
 export type OptionData = {
@@ -211,6 +211,7 @@ gender: string;
 };
 export type SavedSearchData = {
 id: number;
+name: string | null;
 payload: Array<any>;
 created_at: string;
 };
@@ -225,6 +226,7 @@ name: string;
 export type UserCommentData = {
 full_name: string;
 avatar: string;
+initial_name: string;
 };
 export type UserData = {
 id: number;
@@ -238,6 +240,7 @@ city: App.Data.CityData | null;
 state: App.Data.StateData | null;
 zip_code: string | null;
 address: string;
+initial_name: string;
 email_verified_at: string | null;
 member_since: string;
 social_fb: string | null;

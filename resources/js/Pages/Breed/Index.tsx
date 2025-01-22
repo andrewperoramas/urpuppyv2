@@ -19,7 +19,6 @@ const Index = ({breeds, letter_param = 'A'} : {
         }
 
     });
-    // console.log(filter)
 
   return (
         <Layout>

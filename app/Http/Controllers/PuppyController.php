@@ -72,19 +72,22 @@ class PuppyController extends Controller
 
         $payload = $request->all(); // Convert payload to JSON string
 
-        $convert_payload = json_encode($payload);
 
-        $exists = $request->user()->saved_searches()
-            ->whereRaw('payload::jsonb = ?', [$convert_payload]) // Typecast payload for PostgreSQL
-            ->exists();
+        /* $convert_payload = json_encode($payload); */
 
-        /* dd($exists); */
+        /* /1* dd($convert_payload); *1/ */
 
-        if (!$exists) {
-            $request->user()->saved_searches()->create([
-                'payload' => $payload,
-            ]);
-        }
+        /* $exists = $request->user()->saved_searches() */
+        /*     ->whereRaw('payload::jsonb = ?', [$convert_payload]) // Typecast payload for PostgreSQL */
+        /*     ->exists(); */
+
+        /* /1* dd($exists); *1/ */
+
+        /* if (!$exists) { */
+        /*     $request->user()->saved_searches()->create([ */
+        /*         'payload' => $payload, */
+        /*     ]); */
+        /* } */
 
 
         if (auth()->user()) {
@@ -133,6 +136,7 @@ class PuppyController extends Controller
             'breeds' => BreedData::collect(Breed::query()->get()),
             'states' =>  StateData::collect($states),
             'puppies' => PuppyData::collect($puppies),
+            'has_search' => count($request->all()),
         'breed_filter_list' => inertia()->optional(fn () =>
                 Breed::select(['name'])->distinct()->orderBy('name')->pluck('name')
             ) ,

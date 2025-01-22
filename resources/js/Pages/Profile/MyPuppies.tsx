@@ -11,7 +11,6 @@ const MyPuppies = ({puppies} : {
     // breeds: App.Data.BreedData[]
 }) => {
 
-    console.log(puppies)
 
     return (
     <>

@@ -20,7 +20,6 @@ const CheckoutElement = ({plan_id, intent: clientSecret}: {
     const csrf = usePage().props.csrf_token as string;
 
 
-    console.log(clientSecret.client_secret)
     const handleSubmit = async (event: any) => {
 
   event.preventDefault();
@@ -46,7 +45,6 @@ const CheckoutElement = ({plan_id, intent: clientSecret}: {
       },
     });
 
-    console.log(adi)
 
 
     const res = await fetch('/checkout/complete', {
@@ -62,10 +60,8 @@ const CheckoutElement = ({plan_id, intent: clientSecret}: {
     console.log('Fail')
       setErrorMessage(adi.error.message as any);
     } else {
-      console.log('Payment successful');
     }
   } catch (err) {
-    console.error(err);
   }
     };
 

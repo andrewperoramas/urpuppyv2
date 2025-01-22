@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class SavedSearch extends Model
 {
-    protected $fillable = ['user_id', 'payload'];
+    protected $fillable = ['user_id', 'payload', 'name'];
 
     protected $casts = [
         'payload' => 'array',

@@ -49,7 +49,20 @@ class FavoriteController extends Controller
 
     public function index(Request $request)
     {
-        $favorites = $request->user()->getFavoriteItems(Puppy::class)->with('breeds', 'seller')->get();
+        $favorites = $request->user()->getFavoriteItems(Puppy::class)->with('breeds', 'seller')->paginate(12);
+
+
+        if (auth()->user()) {
+    $user_favorites = auth()->user()->favorites()->pluck('favoriteable_id');
+}
+
+    $favorites->getCollection()->transform(function ($puppy) use ($user_favorites) {
+        if (isset($user_favorites) && $user_favorites->contains($puppy->id)) {
+            $puppy->is_favorite = true;
+        }
+        return $puppy;
+    });
+
 
         return inertia()->render('Favorite/Index', [
             'favorite_puppies' => $favorites,

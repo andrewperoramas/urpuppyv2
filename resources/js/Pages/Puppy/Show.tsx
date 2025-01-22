@@ -16,32 +16,6 @@ const Show = ({ related_puppies, puppy, siblings }: {
     puppy: App.Data.PuppyData,
     siblings: App.Data.PuppyData[]
 }) => {
-    // useEffect(() => {
-    //     const debouncedVisit = debounce(() => {
-
-    //         // alert('wew');
-    //         if (query == null) {
-    //             return;
-    //         }
-
-    //         router.visit('/puppies', {
-    //             data: query,
-    //             preserveState: true,
-    //             onSuccess: () => {
-    //                 console.log('Filter applied:', query);
-    //                 // console.log(puppies.data)
-    //             },
-    //         });
-    //     }, 300);
-
-    //     debouncedVisit();
-
-    //     return () => {
-    //         debouncedVisit.cancel();
-    //     };
-
-
-    // }, [query]);
 
     return (
             <Layout>

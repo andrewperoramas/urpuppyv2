@@ -3,9 +3,12 @@ import React from 'react'
 import Banner from '../Home/Sections/Banner'
 import PuppyCard from '@/Components/Puppy/Card'
 import MetaTags from '@/Components/MetaTags'
+import { PaginatedCollection } from '@/types/global'
+import Pagination from '@/Components/Pagination'
 
-const Index = ({favorite_puppies}: any) => {
-    // console.log(favorite_puppies)
+const Index = ({favorite_puppies}: {
+    favorite_puppies: PaginatedCollection<App.Data.PuppyData>
+}) => {
   return (
   <Layout>
     <MetaTags title="Favorites" />
@@ -26,7 +29,7 @@ const Index = ({favorite_puppies}: any) => {
                 <div className="container">
                     <div className="row mb-4 mb-lg-8">
                         {
-                         favorite_puppies && favorite_puppies.length > 0 && favorite_puppies.map((puppy: any) => {
+                         favorite_puppies.data && favorite_puppies.data.length > 0 && favorite_puppies.data.map((puppy: any) => {
                                 return (
                                     <PuppyCard key={puppy.id} puppy={puppy}/>
                                 )
@@ -35,6 +38,7 @@ const Index = ({favorite_puppies}: any) => {
 
 
                     </div>
+                <Pagination links={favorite_puppies.links}/>
 
                 </div>
 

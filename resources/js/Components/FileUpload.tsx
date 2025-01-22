@@ -138,9 +138,7 @@ function FileUpload({
         <div className="dz-preview-container">
           {files.map((file, index) => {
              const errorKey = `${name}.${index}`;
-                                console.log(errors)
             const fileError = errors?.[errorKey] ?? null;
-                                console.log(fileError)
 
                                 return (
             <div key={file.name + file.size} className="dz-preview dz-file-preview">

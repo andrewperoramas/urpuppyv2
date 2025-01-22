@@ -22,7 +22,9 @@ createInertiaApp({
 
        createRoot(el).render(            <>  <PuppyToaster max={3} /><App {...props} /> </>);
     },
-    progress: {
-        color: '#4B5563',
+     progress: {
+        color: 'var(--bs-primary)',
+        delay: 250,
     },
+
 });

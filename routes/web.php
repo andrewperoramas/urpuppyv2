@@ -72,6 +72,8 @@ Route::post('/create-intent', function (Request $request) {
 });
 
 Route::get('/saved-search/{id}', [SavedSearchController::class, 'destroy']);
+Route::get('/saved-search', [SavedSearchController::class, 'show']);
+Route::post('/saved-search', [SavedSearchController::class, 'store']);
 
 Route::post('/complete-subscription', function (Request $request) {
     $user = $request->user();
@@ -266,6 +268,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::delete('/profile/avatar', [ProfileController::class, 'destroyAvatar'])->name('profile.destroy.avatar');
 });
 
 require __DIR__.'/auth.php';

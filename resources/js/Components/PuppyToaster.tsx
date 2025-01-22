@@ -3,6 +3,10 @@ import React, { useEffect } from "react";
 import toast, { Toaster, useToasterStore } from "react-hot-toast";
 
 function useMaxToasts(max: number) {
+
+
+
+
   const { toasts } = useToasterStore(); // Access toasts directly from useToasterStore
 
   useEffect(() => {

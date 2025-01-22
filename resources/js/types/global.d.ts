@@ -3,10 +3,17 @@ import { AxiosInstance } from 'axios';
 import { route as ziggyRoute } from 'ziggy-js';
 import { PageProps as AppPageProps } from './';
 
+ declare module 'momentum-modal-react' {
+   export const Modal: any;
+ }
+
+
+
 declare global {
     interface Window {
         axios: AxiosInstance;
     }
+
 
     /* eslint-disable no-var */
     var route: typeof ziggyRoute;
@@ -33,3 +40,6 @@ type PaginatedCollection<T extends object> = {
     total: number;
     // };
 };
+
+
+
