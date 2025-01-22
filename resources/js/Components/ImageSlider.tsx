@@ -103,33 +103,21 @@ const ImageSlider = ({
                             marginRight: '16px!important',
                         }}>
                         {images?.map((file, index) => (
-                            <SwiperSlide key={index} className="item overflow-hidden" style={{
-                                maxWidth: '105px',
-                                height: '90px',
-                            }}>
+                            <SwiperSlide key={index} className="thumbnail overflow-hidden">
                                 <img
-                                        style={{
-                                            height: '90px',
-                                            width: '90px',
-                                            borderRadius: 'var(--bs-border-radius-sm)',
-                                        }}
-                                    className=" h-100 object-fit-cover slide"
+                                    className=" slide"
                                     src={file}
                                     alt={`Thumbnail ${index + 1}`}
                                 />
                             </SwiperSlide>
                         ))}
                         {videos && videos.length > 0 && videos.map((video, index) => (
-                            <SwiperSlide key={index} className="item overflow-hidden" style={{
-                                maxWidth: '105px',
-                                height: '90px',
+                            <SwiperSlide key={index} className="thumbnail overflow-hidden" style={{
                             }}>
                             <img
                                     className="slide"
                                     style={{
-                                    height: '90px',
-                                            padding: '25px',
-                                    width: '90px',
+                                            padding: '20px',
                                             display: 'flex',
                                             alignItems: 'center',
                                             justifyContent: 'center',

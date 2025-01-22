@@ -35,6 +35,8 @@ class UserData extends Data
         public ?string $social_tiktok,
         public ?string $social_x,
         public bool $enable_notification,
+        public ?SubscriptionData $premium_plan,
+        public ?SubscriptionData $breeder_plan,
     ) {
 
 

@@ -9,6 +9,13 @@ class PlanController extends Controller
 {
     public function index(Request $request)
     {
+        /* dd($request->user()); */
+        /* if ($request->user()->phone == null ) { */
+        /*     return redirect()->route('seller.create')->with([ */
+        /*         'message.error' => 'Please fill up the details here' */
+        /*     ]); */
+        /* } */
+
         if ($request->user()?->isSubscribed()) {
             return redirect()->route('profile.edit', [
                 'tab' => 'My Subscription'
@@ -22,8 +29,14 @@ class PlanController extends Controller
         ]);
     }
 
-    public function breeder()
+    public function breeder(Request $request)
     {
+        if ($request->user()->company_phone == null) {
+            return redirect()->route('breeders.create')->with([
+                'message.error' => 'Please fill up the details here'
+            ]);
+        }
+
         $plan = Plan::ordered()->active()->where('is_featured', true)->first();
         return inertia()->render('Plan/Breeder', [
             'plan' => $plan

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Data\PlanData;
 use App\Models\Plan;
 use Illuminate\Http\Request;
 use Stripe\Stripe;
@@ -104,6 +105,7 @@ class CheckoutController extends Controller
 
     return inertia()->render('Subscription/Checkout', [
             'plan_id' => $plan->id,
+            'plan' => PlanData::from($plan),
             'intent' => auth()->user()->createSetupIntent()
     ]);
 

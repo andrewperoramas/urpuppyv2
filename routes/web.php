@@ -175,7 +175,7 @@ Route::group(['prefix' => 'puppies'], function () {
 });
 
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth', 'verified')->group(function () {
 
 Route::group(['prefix' => 'plans'], function () {
     Route::get('/', [PlanController::class, 'index'])->name('plans.index');
@@ -192,7 +192,7 @@ Route::group(['prefix' => 'breeds'], function () {
 Route::group(['prefix' => 'breeders'], function () {
     Route::post('/', [BreederController::class, 'store'])->name('breeders.store');
     Route::get('/', [BreederController::class, 'index'])->name('breeders.index');
-    Route::get('create', [BreederController::class, 'create'])->name('breeders.create');
+    Route::get('create', [BreederController::class, 'create'])->name('breeders.create')->middleware('verified');
     Route::get('/{slug}', [BreederController::class, 'show'])->name('breeders.show');
 });
 
@@ -210,9 +210,14 @@ Route::group(['prefix' => 'subscriptions'], function () {
 
 });
 
-Route::post('/comment/{seller}', [CommentController::class, 'store'])->name('comment.store');
 
-Route::group(['prefix' => 'checkout'], function () {
+Route::group(['middleware' => ['auth', 'verified']], function () {
+
+    Route::post('/comment/{seller}', [CommentController::class, 'store'])->name('comment.store');
+
+});
+
+Route::group(['prefix' => 'checkout', 'middleware' => ['auth', 'verified', 'checkout.ready']], function () {
 
     Route::get('{plan_id}', [CheckoutController::class, 'index'])->name('checkout.index');
     Route::get('/', CheckoutController::class)->name('checkout.pay');
@@ -226,7 +231,7 @@ Route::group(['prefix' => 'checkout'], function () {
 
 });
 
-Route::group(['prefix' => 'seller'], function () {
+Route::group(['prefix' => 'seller', 'middleware' => 'verified'], function () {
     Route::get('create/{id?}', [SellerController::class, 'create'])->name('seller.create');
     Route::delete('delete/{id?}', [SellerController::class, 'destroy'])->name('seller.delete');
     Route::post('store', [SellerController::class, 'store'])->name('seller.store');
@@ -261,7 +266,8 @@ Route::get('/privacy-policy', [PrivacyPolicyController::class, 'index']);
 Route::get('/terms-of-use', [PrivacyPolicyController::class, 'terms']);
 
 Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
+    return redirect()->to('/profile');
+    /* return Inertia::render('Dashboard'); */
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {

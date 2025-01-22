@@ -2,8 +2,10 @@ import { Link } from '@inertiajs/react'
 import React from 'react'
 
 const PlanCard = (
-    {plan} : {
-    plan: App.Data.PlanData
+    {plan, button = true} : {
+    plan: App.Data.PlanData,
+    button?: boolean
+
     }) => {
 
     // const handleSubscribe = (plan: App.Data.PlanData) => {
@@ -38,9 +40,12 @@ const PlanCard = (
                 <p className="text-dark mb-4 pb-2">{plan.savings_label}</p>
                 }
 
+
                 {
+
+                 button &&  (
                     plan.is_highlight ? <Link prefetch className="btn btn-primary w-100 mb-7" href={`/checkout/${plan.id}`} >Select plan</Link>
-                    : <Link prefetch className="btn btn-outline-extralight border btn-white text-dark w-100 mb-7" href={`/checkout/${plan.id}`}>Select plan</Link>
+                    : <Link prefetch className="btn btn-outline-extralight border btn-white text-dark w-100 mb-7" href={`/checkout/${plan.id}`}>Select plan</Link>)
                 }
                 <div className="pt-1">
                 { plan.features.length > 0 &&

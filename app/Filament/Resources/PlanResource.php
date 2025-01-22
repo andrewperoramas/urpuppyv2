@@ -31,7 +31,7 @@ class PlanResource extends Resource
         return $form
             ->schema([
                 TextInput::make('name')->required(),
-                MoneyInput::make('price')->decimals(0),
+                MoneyInput::make('price'),
                 Select::make('interval')->options([
                     'month' => 'Monthly',
                     'year' => 'Yearly',

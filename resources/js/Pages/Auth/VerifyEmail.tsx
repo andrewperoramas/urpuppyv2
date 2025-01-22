@@ -5,7 +5,7 @@ import Layout from '@/Layouts/Layout';
 import { Head, Link, useForm } from '@inertiajs/react';
 import { FormEventHandler } from 'react';
 
-export default function VerifyEmail({ status }: { status?: string }) {
+export default function VerifyEmail({ status, puppy }: { status?: string, puppy: App.Data.PuppyCardData }) {
     const { post, processing } = useForm({});
 
     const submit: FormEventHandler = (e) => {
@@ -15,12 +15,7 @@ export default function VerifyEmail({ status }: { status?: string }) {
     };
 
     return (
-        <Layout navType="secondary">
-              <div className="page-wrapper position-relative overflow-hidden">
-
-    <section className="information pt-4 pb-8 pb-lg-9">
-                  <div className="container">
-
+        <GuestLayout header="Email Verification" puppy={puppy}>
 
             <Head title="Email Verification" />
 
@@ -39,7 +34,7 @@ export default function VerifyEmail({ status }: { status?: string }) {
             )}
 
             <form onSubmit={submit}>
-                <div className="mt-4 flex items-center justify-between">
+                <div className="mt-4 d-flex justify-content-between">
                     <Button type="button" href="" >
                         Resend Verification Email
                     </Button>
@@ -54,10 +49,6 @@ export default function VerifyEmail({ status }: { status?: string }) {
                     </Link>
                 </div>
             </form>
-
-                </div>
-                </section>
-                </div>
-        </Layout>
+        </GuestLayout>
     );
 }

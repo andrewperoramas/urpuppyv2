@@ -1,68 +1,56 @@
 import InputError from '@/Components/InputError';
+import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import Button from '@/Components/ui/Button';
 import GuestLayout from '@/Layouts/GuestLayout';
 import Layout from '@/Layouts/Layout';
-import { Head, useForm } from '@inertiajs/react';
+import { Head, Link, useForm } from '@inertiajs/react';
 import { FormEventHandler } from 'react';
 
-export default function ForgotPassword({ status }: { status?: string }) {
-    const { data, setData, post, processing, errors } = useForm({
+export default function ForgotPassword({ status, puppy }: { status?: string, puppy: App.Data.PuppyCardData }) {
+    const { data, setData, post, processing, errors, reset } = useForm({
         email: '',
     });
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
 
-        post(route('password.email'));
+        post('/forgot-password');
+        reset();
     };
 
     return (
-        <Layout navType="secondary" >
-              <div className="page-wrapper position-relative overflow-hidden">
-
-    <section className="information pt-4 pb-8 pb-lg-9">
-                  <div className="container">
-
-            <Head title="Forgot Password" />
-
-
-
-            <div className="mb-4 text-sm text-gray-600">
+        <GuestLayout puppy={puppy} header="Forgot Password" subHeader="
                 Forgot your password? No problem. Just let us know your email
                 address and we will email you a password reset link that will
                 allow you to choose a new one.
-            </div>
+            ">
 
-            {status && (
-                <div className="mb-4 text-sm font-medium text-green-600">
-                    {status}
-                </div>
-            )}
 
-            <form onSubmit={submit} className="col-4">
+            <Head title="Forgot Password" />
+
+            <form onSubmit={submit} className="">
+                <InputLabel value="Email Address" />
                 <TextInput
                     id="email"
                     type="email"
                     name="email"
                     value={data.email}
+                                placeholder="user@example.com"
                     isFocused={true}
                     onChange={(e) => setData('email', e.target.value)}
                 />
 
                 <InputError message={errors.email} className="mt-2" />
 
-                <div className="mt-4 flex items-center justify-end">
-                    <Button type="button" href="#" className="ms-4" >
-                        Email Password Reset Link
-                    </Button>
-                </div>
+                <Button href="" type="button" className="btn mt-3 btn-primary w-100 mb-3">Email Password Reset Link</Button>
             </form>
-            </div>
+                <div className="d-flex align-items-center">
+                  <p className="fs-4 mb-0">I have an account?</p>
+                  <Link className="text-dark fw-semibold text-decoration-underline ms-2" href="/login">Login</Link>
+                </div>
 
-                          </section>
-                          </div>
-        </Layout>
+</GuestLayout>
     );
 }

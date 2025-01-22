@@ -25,7 +25,6 @@ use Joaopaulolndev\FilamentGeneralSettings\FilamentGeneralSettingsPlugin;
 use LaraZeus\Sky\Filament\Resources\LibraryResource;
 use LaraZeus\Sky\Filament\Resources\PostResource;
 use LaraZeus\Sky\SkyPlugin;
-use ShuvroRoy\FilamentSpatieLaravelBackup\FilamentSpatieLaravelBackupPlugin;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -65,16 +64,15 @@ class AdminPanelProvider extends PanelProvider
                 Authenticate::class,
             ])->plugins([
                 /* FilamentUsersPlugin::make(), */
-                FilamentSpatieLaravelBackupPlugin::make(),
                 FilamentGeneralSettingsPlugin::make()
                     ->setSort(16)
                     ->setIcon('heroicon-o-cog')
                     ->setNavigationGroup('Settings'),
 
                 SpatieLaravelTranslatablePlugin::make()->defaultLocales([config('app.locale')]),
-                SkyPlugin::make()->navigationGroupLabel('CMS')->hideResources([
-                    LibraryResource::class,
-                ]),
+                /* SkyPlugin::make()->navigationGroupLabel('CMS')->hideResources([ */
+                /*     LibraryResource::class, */
+                /* ]), */
                 FilamentClearCachePlugin::make(),
 
                 /* \BezhanSalleh\FilamentGoogleAnalytics\FilamentGoogleAnalyticsPlugin::make(), */

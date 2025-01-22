@@ -33,7 +33,6 @@ const TopPicks = ({puppy}: { puppy: App.Data.PuppyData }) => {
                 <div className="d-flex align-items-center gap-6">
                     <FavoriteButton sellerId={puppy.seller.id} puppyId={puppy.id} isFavorite={puppy.is_favorite} />
                     <ShareButton slug={puppy.slug} />
-
                 </div>
               </div>
               <div className="d-flex align-items-center mb-4">

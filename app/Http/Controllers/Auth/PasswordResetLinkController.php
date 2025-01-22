@@ -18,7 +18,7 @@ class PasswordResetLinkController extends Controller
     public function create(): Response
     {
         return Inertia::render('Auth/ForgotPassword', [
-            'status' => session('status'),
+            'puppy' => guest_puppy(),
         ]);
     }
 
@@ -41,7 +41,9 @@ class PasswordResetLinkController extends Controller
         );
 
         if ($status == Password::RESET_LINK_SENT) {
-            return back()->with('status', __($status));
+            return back()->with([
+                'message.success' => __($status),
+            ]);
         }
 
         throw ValidationException::withMessages([

@@ -223,6 +223,14 @@ export type StateData = {
 id: number;
 name: string;
 };
+export type SubscriptionData = {
+id: number;
+type: string;
+status: string;
+trial_ends_at: string;
+ends_at: string;
+created_at: string;
+};
 export type UserCommentData = {
 full_name: string;
 avatar: string;
@@ -248,6 +256,8 @@ social_ig: string | null;
 social_tiktok: string | null;
 social_x: string | null;
 enable_notification: boolean;
+premium_plan: App.Data.SubscriptionData | null;
+breeder_plan: App.Data.SubscriptionData | null;
 };
 }
 declare namespace App.Enum {

@@ -134,6 +134,7 @@ const CheckoutV2Form = ({ clientSecret, plan_id }: any) => {
     const csrf = usePage().props.csrf_token as string;
 
     return (
+        <>
         <form id="payment-form" onSubmit={handleSubmit}>
             <input type="hidden" name="_token" value={csrf} />
             <input type="hidden" name="plan_id" value={plan_id} />
@@ -154,6 +155,7 @@ const CheckoutV2Form = ({ clientSecret, plan_id }: any) => {
                 </div>
             )}
         </form>
+</>
     );
 };
 

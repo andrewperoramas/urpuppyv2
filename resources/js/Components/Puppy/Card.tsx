@@ -6,7 +6,7 @@ import Gender from '../Gender'
 
 const PuppyCard = ({puppy, className="col-md-6 col-lg-4 col-xl-3 mb-4", height="225px"}:
     {
-        puppy: App.Data.PuppyData,
+        puppy?: App.Data.PuppyCardData,
         className?: string
         height?: string
     }) => {

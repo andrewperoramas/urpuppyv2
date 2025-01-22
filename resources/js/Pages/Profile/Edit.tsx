@@ -1,5 +1,5 @@
 import { PageProps } from '@/types';
-import { Head, usePage } from '@inertiajs/react';
+import { Head, Link, usePage } from '@inertiajs/react';
 import DeleteUserForm from './Partials/DeleteUserForm';
 import UpdatePasswordForm from './Partials/UpdatePasswordForm';
 import UpdateProfileInformationForm from './Partials/UpdateProfileInformationForm';
@@ -11,6 +11,7 @@ import MyPuppies from './MyPuppies';
 import { PaginatedCollection } from '@/types/global';
 import SavedSearchCard from '@/Components/SavedSearchCard';
 import { useEffect, useState } from 'react';
+import AlertDismissible from '@/Components/AlertDismissible';
 
 const NavigationSettings = [
     {  name: 'Account Settings', href: '#pills-account-settings', id: 'pills-account-settings-tab', logo: '../images/svgs/icon-user-dark.svg' },
@@ -41,6 +42,7 @@ export default function Edit({
 
 
     const errors = usePage().props.errors;
+    const user = usePage().props.auth.user;
 
     const [currentTab, setCurrentTab] = useState(tab ?? 'Account Settings')
 
@@ -54,13 +56,30 @@ export default function Edit({
 
     <section className="account-settings py-7 py-md-5 py-xl-9">
       <div className="container">
+                        {
+                            mustVerifyEmail && user.email_verified_at == null &&
+                        <AlertDismissible variant="primary" heading="Verify your email" message={<> <p> Before you get started, could you verify your email address by clicking on the link we just emailed to you? If you didn't receive the email, we will gladly send you another.
+  <Link
+                                href="/email/verification-notification"
+                                method="post"
+                                as="button"
+                                className="border-0 bg-transparent text-primary text-decoration-underline "
+                            >
+                                Click here to re-send the verification email.
+                            </Link>
+                                </p> </>} />
+
+
+                        }
+
+
         <div className="row">
           <div className="col-lg-3">
             <ul className="nav nav-pills justify-content-center flex-lg-column gap-2 mb-4 mb-lg-0" id="pills-tab"
               role="tablist">
                 {NavigationSettings.map((item, index) =>
                                         {
-                                            if (item.name == 'My Subscription' ) {
+                                            if (item.name == 'My Subscription' || item.name == 'My Puppies' ) {
 
                                                 if (!plan && !breeder_plan) {
                                                     return

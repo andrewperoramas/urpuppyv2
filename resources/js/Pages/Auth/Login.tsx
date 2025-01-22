@@ -62,7 +62,6 @@ export default function Login({
     return (
         <>
             <Head title="Log in" />
-
               <div
     className="page-wrapper login-bg position-relative overflow-hidden min-vh-100 d-flex align-items-center justify-content-center">
     <div className="card position-relative overflow-hidden">
@@ -98,6 +97,9 @@ export default function Login({
                     />
 
                 </div>
+
+                {errors.email && <InputError message={errors.email} className="mt-2" />}
+                {errors.password && <InputError message={errors.password} className="mt-2" />}
                 <div className="d-flex align-items-center justify-content-between mb-4 pb-2">
                   <div className="form-check">
                         <Checkbox

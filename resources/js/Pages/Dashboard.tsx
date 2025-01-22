@@ -4,6 +4,7 @@ import { Head } from '@inertiajs/react';
 export default function Dashboard() {
     return (
         <Layout
+            navType="secondary"
             header={
                 <h2 className="text-xl font-semibold leading-tight text-gray-800">
                     Dashboard

@@ -28,15 +28,25 @@ const AccountDropdownButton = ({user} : { user: App.Data.UserData }) => {
                 </div>
               </div>
               <li><Link prefetch className="dropdown-item rounded py-2" href="/profile">Settings</Link></li>
+                {
+                    (user.premium_plan != null || user.breeder_plan != null) &&
               <li><Link className="dropdown-item rounded py-2" href="/profile" data={{
                     tab: 'My Subscription'
                 }}>My Subscriptions</Link></li>
+                }
+
+
               <li><Link className="dropdown-item rounded py-2" href="/profile" data={{
                     tab: 'Saved Search'
                 }} >Saved Search</Link></li>
+                {
+
+                (user.premium_plan != null || user.breeder_plan != null) &&
               <li><Link className="dropdown-item rounded py-2" href="/profile" data={{
                     tab: 'My Puppies'
                 }} >My Puppies</Link></li>
+                }
+
               <div className="mt-3">
                                                                         <Link
                                                                             method="post"
