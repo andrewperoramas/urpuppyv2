@@ -16,7 +16,7 @@ class PlanController extends Controller
         /*     ]); */
         /* } */
 
-        if ($request->user()?->isSubscribed()) {
+        if ($request->user()?->premium_plan) {
             return redirect()->route('profile.edit', [
                 'tab' => 'My Subscription'
             ]);
@@ -31,6 +31,13 @@ class PlanController extends Controller
 
     public function breeder(Request $request)
     {
+
+        if ($request->user()?->breeder_plan) {
+            return redirect()->route('profile.edit', [
+                'tab' => 'My Subscription'
+            ]);
+        }
+
         if ($request->user()->company_phone == null) {
             return redirect()->route('breeders.create')->with([
                 'message.error' => 'Please fill up the details here'

@@ -45,11 +45,12 @@ class SellerController extends Controller
             ]);
         }
 
-        /* if (!$request->user()?->premium_plan && $request->user()->puppies()->count() > 1) { */
-        /*     return redirect()->to(route('plans.index'))->with([ */
-        /*         'message.success' => 'Subscribe to any plan to activate your listing' */
-        /*     ]); */
-        /* } */
+        if (!$request->user()?->premium_plan && $request->user()->puppies()->count() > 1) {
+            return redirect()->to(route('plans.index'))->with([
+                'message.success' => 'Subscribe to any plan to activate your listing'
+            ]);
+        }
+
         /* dd($request->user()?->isSubscribed()); */
         /* if (!$request->user()?->isSubscribed() && */
         /*     $request->user()?->puppies()?->count() > 0 */
