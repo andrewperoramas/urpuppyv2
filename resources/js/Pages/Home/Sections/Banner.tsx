@@ -3,7 +3,7 @@ import React from 'react'
 
 const Banner = ({
     header = "Find Ur Perfect Puppy Today!",
-    subheader = "Discover healthy, happy puppies from trusted breeders across the USA",
+    subheader = "Find Your Perfect Pup: Healthy, Happy Puppies from Trusted Breeders!",
     enable_filter = true,
     size = "lg"
 }: {
