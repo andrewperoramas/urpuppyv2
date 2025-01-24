@@ -8,6 +8,8 @@ x-base: &base
   profiles: [app]
   environment:
     WITH_SSR: true
+    WITH_HORIZON: true
+    WITH_SCHEDULER: true
   depends_on:
     pgsql:
       condition: service_healthy
