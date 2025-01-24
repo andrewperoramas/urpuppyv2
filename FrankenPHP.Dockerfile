@@ -197,4 +197,4 @@ EXPOSE 8080
 
 ENTRYPOINT ["start-container"]
 
-HEALTHCHECK --start-period=40s --interval=50s --timeout=40s --retries=8 CMD healthcheck || exit 1
+#HEALTHCHECK --start-period=40s --interval=50s --timeout=40s --retries=8 CMD healthcheck || exit 1
