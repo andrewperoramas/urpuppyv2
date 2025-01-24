@@ -4,6 +4,7 @@ use App\Data\BreedData;
 use App\Data\BreederData;
 use App\Data\BreederFullData;
 use App\Data\PuppyData;
+use App\Data\VideoData;
 use App\Http\Controllers\BreedController;
 use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\BreederController;
@@ -25,6 +26,7 @@ use App\Models\Plan;
 use App\Models\Puppy;
 use App\Models\State;
 use App\Models\User;
+use App\Models\Video;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -100,7 +102,7 @@ Route::get('/', function () {
 
     $spotlights = PuppyData::collect(Puppy::with('breeds', 'seller')->hasSubscribedUsers()->inRandomOrder()->take(4)->get());
 
-    $new = PuppyData::collect(Puppy::with('breeds:name,slug', 'seller')->hasSubscribedUsers()->orderByDesc('id')->take(4)->get());
+    $new = PuppyData::collect(Puppy::with('breeds:name,slug', 'seller')->hasSubscribedUsers()->newArrivals()->orderByDesc('id')->take(4)->get());
 
     if ( auth()->user()) {
         $user_favorites = auth()->user()->favorites()->pluck('favoriteable_id');
@@ -146,6 +148,7 @@ Route::get('/', function () {
         'top_pick_puppy' => $top_picks,
 
         'puppy_spotlights' => $spotlights ,
+        'videos' => get_videos(),
         'trusted_breeders' => BreederFullData::collect(User::with(['breeds' => fn ($q) => $q->select('name') ])->breeders()->take(4)->inRandomOrder()->get()),
         'new_arrivals' => $new,
         'featured_breeds' => BreedData::collect(Breed::with('media')->inRandomOrder()->take(8)->get()),
@@ -192,7 +195,7 @@ Route::group(['prefix' => 'breeds'], function () {
 Route::group(['prefix' => 'breeders'], function () {
     Route::post('/', [BreederController::class, 'store'])->name('breeders.store');
     Route::get('/', [BreederController::class, 'index'])->name('breeders.index');
-    Route::get('create', [BreederController::class, 'create'])->name('breeders.create')->middleware('verified');
+    Route::get('create', [BreederController::class, 'create'])->name('breeders.create');
     Route::get('/{slug}', [BreederController::class, 'show'])->name('breeders.show');
 });
 

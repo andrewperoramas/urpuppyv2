@@ -32,6 +32,7 @@ class PuppyFactory extends Factory
         return [
             'name' => $this->faker->randomElement($dogNames),
             'gender' => collect(['Female', 'Male'])->random(),
+            'view_count' => 1 ,
             'birth_date' => $this->faker->dateTimeBetween('-2 years', 'now'),
             'user_id' => User::factory()->create()->id,
             'price' => (int) $this->faker->numberBetween(10, 50000),

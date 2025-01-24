@@ -13,8 +13,8 @@ const NewArrivals = ({new_arrivals}: { new_arrivals: App.Data.PuppyData[] }) => 
             href="/puppies" data-aos="fade-left" data-aos-delay="100" data-aos-duration="1000">Discover new</Link>
         </div>
         <div className="row">
-            {new_arrivals.map((puppy: App.Data.PuppyData) => (
-                <PuppyCard  key={puppy.slug} className="col-md-6 col-xl-3 mb-4 mb-xl-0" puppy={puppy} height="310px" />
+            {new_arrivals.map((puppy: App.Data.PuppyData, index) => (
+                <PuppyCard location="new-arrivals"  key={puppy.slug} className="col-md-6 col-xl-3 mb-4 mb-xl-0" puppy={puppy} height="310px" />
             ))}
 
             <div className="col-md-6 col-xl-3 mb-4 mb-xl-0">

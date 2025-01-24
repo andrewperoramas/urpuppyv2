@@ -51,6 +51,7 @@ RUN apt-get update; \
     procps \
     ca-certificates \
     supervisor \
+    ffmpeg \
     bash \
     libsodium-dev \
     libbrotli-dev \

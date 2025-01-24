@@ -30,6 +30,7 @@ slug: string;
 email: string;
 phone: string | null;
 address: string;
+short_address: string;
 member_since: string;
 breeds: Array<App.Data.BreedDataCollection> | null;
 is_breeder: boolean;
@@ -137,6 +138,7 @@ image: string;
 gender: string;
 formatted_price: string;
 is_favorite: boolean | null;
+is_new: boolean | null;
 age: string;
 view_count: number;
 breeds: Array<App.Data.BreedData>;
@@ -161,6 +163,7 @@ description: string;
 formatted_price: string;
 patterns: string;
 view_count: number;
+is_new: boolean;
 age: string;
 seller: App.Data.BreederData;
 puppy_colors: Array<App.Data.PuppyColorData> | null;
@@ -227,8 +230,8 @@ export type SubscriptionData = {
 id: number;
 type: string;
 status: string;
-trial_ends_at: string;
-ends_at: string;
+trial_ends_at: string | null;
+ends_at: string | null;
 created_at: string;
 };
 export type UserCommentData = {
@@ -248,6 +251,7 @@ city: App.Data.CityData | null;
 state: App.Data.StateData | null;
 zip_code: string | null;
 address: string;
+short_address: string;
 initial_name: string;
 email_verified_at: string | null;
 member_since: string;
@@ -258,6 +262,11 @@ social_x: string | null;
 enable_notification: boolean;
 premium_plan: App.Data.SubscriptionData | null;
 breeder_plan: App.Data.SubscriptionData | null;
+};
+export type VideoData = {
+title: string;
+url: string;
+video_thumbnail: string | null;
 };
 }
 declare namespace App.Enum {

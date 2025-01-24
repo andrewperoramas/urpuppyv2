@@ -31,7 +31,7 @@ const TopPicks = ({puppy}: { puppy: App.Data.PuppyData }) => {
                   <h2 className="fs-10">{puppy.name}</h2>
                 </div>
                 <div className="d-flex align-items-center gap-6">
-                    <FavoriteButton sellerId={puppy.seller.id} puppyId={puppy.id} isFavorite={puppy.is_favorite} />
+                    <FavoriteButton uniqueId={"top-picks" + puppy.id} sellerId={puppy.seller.id} puppyId={puppy.id} isFavorite={puppy.is_favorite} />
                     <ShareButton slug={puppy.slug} />
                 </div>
               </div>

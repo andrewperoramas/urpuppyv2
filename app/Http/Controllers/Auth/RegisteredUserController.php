@@ -76,6 +76,6 @@ class RegisteredUserController extends Controller
             return redirect(route('plans.index', absolute: false))->with('message.success', 'You have to purchase a plan to start selling');
         }
 
-        return redirect(route('home', absolute: false))->with('message.success', 'You have been registered successfully');
+        return redirect(route('verification.notice', absolute: false))->with('message.success', 'You have been registered successfully. Please verify your account');
     }
 }

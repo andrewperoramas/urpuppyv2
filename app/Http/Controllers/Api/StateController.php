@@ -16,7 +16,7 @@ class StateController extends Controller
 
         $states = [];
         if ($countryState !== null) {
-            $states = $countryState->select('id', 'name');
+            $states = $countryState->where('abbreviation', '!=', null)->select('id', 'name');
 
             if ($request->filled('search')) {
                 $searchTerm = strtolower($request->search);

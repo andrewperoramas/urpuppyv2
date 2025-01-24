@@ -1,14 +1,17 @@
 import React from 'react'
 import { Link, usePage } from '@inertiajs/react'
+import Tooltip from './Tooltip'
 
-const FavoriteButton = ({puppyId, sellerId, isFavorite} : {
+const FavoriteButton = ({puppyId, sellerId, isFavorite, uniqueId = null} : {
+    uniqueId?: string | null
     puppyId: number
     sellerId: number,
     isFavorite?: boolean | null
 }) => {
   const user = usePage().props?.auth?.user
 
-  return user?.id != sellerId && (
+  return user?.id != sellerId && <> <Tooltip content={  (
+
 
                           <Link method="patch" preserveScroll href={`/favorites/${puppyId}`} data-bs-toggle="tooltip" data-bs-title="Add To Favourite"
                             className="bg-white border d-flex align-items-center justify-content-center round-40 rounded-circle">
@@ -20,7 +23,9 @@ const FavoriteButton = ({puppyId, sellerId, isFavorite} : {
                     )
                 }
                           </Link>
-  )
+
+  )} tooltipMessage="Add To Favorite"  id={`favorite-${uniqueId ?? puppyId}`}/>
+</>
 }
 
 

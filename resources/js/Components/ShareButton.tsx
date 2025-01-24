@@ -1,5 +1,6 @@
 import React from 'react'
 import { FacebookShareButton, TwitterShareButton } from 'react-share'
+import Tooltip from './Tooltip'
 
 const ShareButton = ({
     slug,
@@ -12,6 +13,8 @@ const ShareButton = ({
     let currentUrl = `https://urpuppy.com/${route}/${slug}`;
 
   return (
+
+        <Tooltip content={
 
 <div className="dropdown">
                         <button type="button" className="btn btn-secondary p-0 shadow-none bg-white border d-flex align-items-center justify-content-center round-40 rounded-circle flex-shrink-0 show" data-bs-toggle="dropdown" aria-expanded="true">
@@ -43,6 +46,7 @@ const ShareButton = ({
                                               </div>
                         </ul>
                       </div>
+} id={`share-${slug}`} tooltipMessage="Share"/>
     )
 
 }

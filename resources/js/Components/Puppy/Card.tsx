@@ -4,11 +4,12 @@ import FavoriteButton from '../FavoriteButton'
 import Gender from '../Gender'
 
 
-const PuppyCard = ({puppy, className="col-md-6 col-lg-4 col-xl-3 mb-4", height="225px"}:
+const PuppyCard = ({puppy, className="col-md-6 col-lg-4 col-xl-3 mb-4", height="225px", location = "card"}:
     {
         puppy?: App.Data.PuppyCardData,
         className?: string
         height?: string
+        location?: string
     }) => {
 
     if (!puppy) {
@@ -31,12 +32,15 @@ const PuppyCard = ({puppy, className="col-md-6 col-lg-4 col-xl-3 mb-4", height="
                 <img loading="lazy" src={puppy.image} alt="" className="w-100 object-fit-cover product-card-responsive-height"  />
                 <div
                   className="d-flex align-items-center justify-content-between position-absolute top-0 start-0 w-100 p-3 pb-0">
-                  <div className="d-block"></div>
-                {
-                    user &&
-                        <FavoriteButton sellerId={puppy.seller.id} puppyId={puppy.id} isFavorite={puppy.is_favorite} />
+                            {
+                                puppy.is_new ?
+                                    <a href="#" className="puppy-spotlight-img position-relative overflow-hidden d-block">
+                  <span className="badge text-bg-success">NEW</span>
+                  </a> : <div></div>
 
-                }
+                            }
+                        <FavoriteButton uniqueId={location + puppy.id} sellerId={puppy.seller.id} puppyId={puppy.id} isFavorite={puppy.is_favorite} />
+
                 </div>
               </Link>
               <div className="puppy-spotlight-details">
@@ -47,7 +51,7 @@ const PuppyCard = ({puppy, className="col-md-6 col-lg-4 col-xl-3 mb-4", height="
                     <div className="col-6">
                       <div className="d-flex align-items-center gap-2 mb-2">
                         <img loading="lazy" src="/images/svgs/icon-map-pin.svg" alt="" width="20" height="20" />
-                        <p className="mb-0 ">{puppy.seller?.address}</p>
+                        <p className="mb-0 ">{puppy.seller?.short_address}</p>
                       </div>
                     </div>
                     <div className="col-6">

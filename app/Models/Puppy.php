@@ -211,6 +211,11 @@ class Puppy extends Model implements HasMedia, Sitemapable
         /* }); */
     }
 
+    public function scopeNewArrivals($query)
+    {
+        return $query->where('created_at', '>', Carbon::now()->subDays(5));
+    }
+
     public function getVideoAttribute()
     {
         // Fetch the first media item
@@ -428,6 +433,26 @@ class Puppy extends Model implements HasMedia, Sitemapable
         );
     }
 
+    public function getVideoThumbnailAttribute()
+    {
+        // Fetch the first media item
+        $mediaItem = $this?->getFirstMedia('thumbnails');
+
+        if ($mediaItem) {
+            try {
+                return $mediaItem->getUrl();
+            } catch (\Spatie\MediaLibrary\Exceptions\ConversionDoesNotExist $e) {
+                // Handle the case where the conversion does not exist
+                return null; // or handle as needed
+            }
+
+        }
+
+        return null; // Return null if no media item exists
+    }
+
+
+
     public function getPatternsAttribute()
     {
         return implode(', ', $this->puppy_patterns()->pluck('name')->toArray());
@@ -445,4 +470,10 @@ class Puppy extends Model implements HasMedia, Sitemapable
             }
         }
     }
+
+    public function getIsNewAttribute()
+    {
+        return $this->created_at->diffInDays(now()) <= 5 ? true : false;
+    }
+
 }

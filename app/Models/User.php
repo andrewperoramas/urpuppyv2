@@ -206,6 +206,24 @@ class User extends Authenticatable implements  HasMedia,  MustVerifyEmail, Sitem
         return null; // Return null if no media item exists
     }
 
+    public function getVideoThumbnailAttribute()
+    {
+        // Fetch the first media item
+        $mediaItem = $this?->getFirstMedia('thumbnails');
+
+        if ($mediaItem) {
+            try {
+                return $mediaItem->getUrl();
+            } catch (\Spatie\MediaLibrary\Exceptions\ConversionDoesNotExist $e) {
+                // Handle the case where the conversion does not exist
+                return null; // or handle as needed
+            }
+
+        }
+
+        return null; // Return null if no media item exists
+    }
+
     public function registerMediaConversions(?Media $media = null): void
     {
         $this->addMediaConversion('avatar')
@@ -285,6 +303,13 @@ class User extends Authenticatable implements  HasMedia,  MustVerifyEmail, Sitem
     {
         $state = $this->state?->abbreviation ?? $this->state?->name;
         return $this->city?->name . ', ' . $state ;
+    }
+
+    public function getShortAddressAttribute()
+    {
+        $state = $this->state?->abbreviation ?? $this->state?->name;
+        $city_name = substr($this->city?->name ?? "", 0, 7) . (strlen($this->city?->name ?? "") > 7 ? '.' : '');
+        return  $city_name . ', ' . $state ;
     }
 
     public function getCompanyAddressAttribute()

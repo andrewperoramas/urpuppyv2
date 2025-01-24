@@ -23,14 +23,18 @@ export default function Index({
     new_arrivals,
     featured_breeds,
     header_label,
+    videos,
     subheader_label,
-}: PageProps<{ laravelVersion: string; phpVersion: string; users: string, puppy_spotlights: App.Data.PuppyData[], top_pick_puppy: App.Data.PuppyData, trusted_breeders: App.Data.BreederFullData[] , new_arrivals: App.Data.PuppyData[], featured_breeds: App.Data.BreedData[], header_label: string, subheader_label: string }>) {
+}: PageProps<{ laravelVersion: string; phpVersion: string; users: string, puppy_spotlights: App.Data.PuppyData[], top_pick_puppy: App.Data.PuppyData, trusted_breeders: App.Data.BreederFullData[] , new_arrivals: App.Data.PuppyData[], featured_breeds: App.Data.BreedData[], header_label: string, subheader_label: string , videos: App.Data.VideoData[] }>) {
 
     const [userState, setUserState] = useState('');
+
+    console.log(videos);
 
     useEffect(() => {
         setUserState(users);
     }, [users])
+
 
     return (
         <>
@@ -45,9 +49,9 @@ export default function Index({
             }
             <TrustedBreeders breeders={trusted_breeders}/>
             <NewArrivals new_arrivals={new_arrivals}/>
-            { /*
-                <FooterVideos />
-            */}
+            { videos.length > 0 &&
+                <FooterVideos videos={videos} />
+            }
             </div>
             </Layout>
         </>

@@ -14,7 +14,7 @@ const PuppySpotlight = ({puppy_spotlights}: { puppy_spotlights: App.Data.PuppyDa
         </div>
         <div className="row">
             {puppy_spotlights.map((puppy: App.Data.PuppyData) => (
-                <PuppyCard key={puppy.slug} className="col-md-6 col-xl-3 mb-4 mb-xl-0" puppy={puppy} height="310px" />
+                <PuppyCard location="puppy-spotlight" key={puppy.slug} className="col-md-6 col-xl-3 mb-4 mb-xl-0" puppy={puppy} height="310px" />
             ))}
 
         </div>

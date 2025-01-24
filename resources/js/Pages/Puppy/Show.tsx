@@ -10,6 +10,7 @@ import SellerCard from '@/Components/SellerCard';
 import List from '@/Components/List';
 import { Head, Link } from '@inertiajs/react';
 import MetaTags from '@/Components/MetaTags';
+import Tooltip from '@/Components/Tooltip';
 
 const Show = ({ related_puppies, puppy, siblings }: {
     related_puppies: App.Data.PuppyData[]
@@ -59,6 +60,7 @@ const Show = ({ related_puppies, puppy, siblings }: {
 
                             <FavoriteButton sellerId={puppy.seller.id} puppyId={puppy.id} isFavorite={puppy.is_favorite} />
 
+                                                            <Tooltip content={
                           <a
 
                                                                   onClick={() => {
@@ -69,7 +71,7 @@ const Show = ({ related_puppies, puppy, siblings }: {
                                                                 href="#" data-bs-toggle="tooltip" data-bs-title="Print"
                             className="bg-white border d-flex align-items-center justify-content-center round-40 rounded-circle">
                             <img src="/images/svgs/icon-print.svg" alt="" />
-                          </a>
+                          </a> } id={`print`} tooltipMessage="Print" />
 
                                                                                 <ShareButton
                                                                 slug={puppy.slug}

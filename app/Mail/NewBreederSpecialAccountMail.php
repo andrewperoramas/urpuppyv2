@@ -40,7 +40,7 @@ class NewBreederSpecialAccountMail extends Mailable
 
     public function content(): Content
 {
-        $get_started_url = route('listing.create');
+        $get_started_url = route('breeders.create');
         $support_email = "support@urpuppy.com";
 
 

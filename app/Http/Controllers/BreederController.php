@@ -7,14 +7,17 @@ use App\Data\BreederData;
 use App\Data\BreederFullData;
 use App\Data\BreedOptionData;
 use App\Http\Requests\BreederRegistrationRequest;
+use App\Jobs\GenerateVideoThumbnail;
 use App\Models\Breed;
 use App\Models\State;
 use App\Models\User;
+use Illuminate\Http\Request;
 
 class BreederController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+
         /* dd(request()->all()); */
         $breeders = User::with([
             'breeds',
@@ -50,8 +53,12 @@ class BreederController extends Controller
 
     }
 
-    public function create()
+    public function create(Request $request)
     {
+        if (!$request->user()) {
+            return redirect()->intended(route('breeders.create', absolute: false))->to(route('register'));
+        }
+
         return inertia('Breeders/Registration', [
             'breeds' => BreedOptionData::collect(Breed::query()->get())
         ]);
@@ -85,7 +92,11 @@ class BreederController extends Controller
 
 
 
-        $user->addMedia(collect($data['videos'])->first())->toMediaCollection('videos');
+
+        $video = collect($data['videos'])->first();
+
+        $media = $user->addMedia($video)->toMediaCollection('videos');
+        GenerateVideoThumbnail::dispatch($media);
 
         $user->addMedia($data['company_logo'])->toMediaCollection('company_logo');
 

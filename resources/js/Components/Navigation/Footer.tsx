@@ -21,16 +21,13 @@ const Footer = () => {
                 <Link href="/puppies" className="fs-3 d-block fw-normal">View All Puppies</Link>
               </li>
               <li>
-                <Link href="/breeds" className="fs-3 d-block fw-normal">View All Characteristics</Link>
+                <Link href="/breeds" className="fs-3 d-block fw-normal">View All Breeds</Link>
               </li>
             </ul>
           </div>
           <div className="col-6 col-md-4 col-lg-2 mb-7 pb-1 pb-lg-0 mb-lg-0">
             <h6 className="fw-semibold font-work-sans mb-6 text-white">Customers</h6>
             <ul className="list-unstyled footer-memu mb-0">
-              <li className="mb-6">
-                <Link href="/contact-us" className="fs-3 d-block fw-normal">Support</Link>
-              </li>
               <li>
                <Link href="/breeders/create" className="fs-3 d-block fw-normal">Breeder Register</Link>
               </li>
@@ -45,9 +42,6 @@ const Footer = () => {
               <li>
                 <Link href="/contact-us" className="fs-3 d-block fw-normal">Contact Us</Link>
               </li>
-              <li>
-                <Link href="/seller/create" className="fs-3 d-block fw-normal">Dog Registration</Link>
-              </li>
             </ul>
           </div>
           <div className="col-6 col-md-4 col-lg-2 mb-7 pb-1 pb-lg-0 mb-lg-0">
@@ -59,9 +53,7 @@ const Footer = () => {
               <li className="mb-6">
                 <Link href="/terms-of-use" className="fs-3 d-block fw-normal">Terms of Use</Link>
               </li>
-              <li>
-                <a href="/sitemap.xml" className="fs-3 d-block fw-normal">Sitemap</a>
-              </li>
+
             </ul>
           </div>
           <div className="col-md-4 col-lg-2 mb-7 pb-1 pb-lg-0 mb-lg-0">
@@ -89,8 +81,22 @@ const Footer = () => {
         </div>
       </div>
       <div className="border-top border-white border-opacity-10 py-3 d-md-flex align-items-center justify-content-between">
-        <p className="mb-md-0 text-white fw-normal opacity-50">© 2025 urpuppy. All rights reserved.</p>
-        <p className="mb-0 text-white fw-normal opacity-50 d-flex align-items-center gap-2"><img src="/images/svgs/icon-mail.svg" alt="" /> support@urpuppy.com</p>
+        <p className="d-flex align-items-center gap-2  mb-md-0 text-white fw-normal  opacity-50"><span> ©2025 Urpuppy.com, LLC. All Right Reserved </span>
+
+                        <a href="" className=" items-center">
+<img src="/images/svgs/icon-facebook.svg" alt="" /> </a>
+
+                        <a target="_blank" href="https://x.com/UrpuppyDotCom" className=" items-center"  >
+<img src="/images/svgs/icon-twitter.svg" alt="" /> </a>
+
+                        <a href="https://www.instagram.com/urpupppydotcom" target="_blank" className=" items-center">
+<img src="/images/svgs/icon-instagram.svg"  /> </a>
+
+                    </p>
+
+        <p className="mb-0 text-white fw-normal opacity-50 d-flex align-items-center gap-2">
+
+                        <img src="/images/svgs/icon-mail.svg" alt="" /> support@urpuppy.com</p>
       </div>
     </div>
   </footer>

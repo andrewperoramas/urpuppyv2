@@ -44,6 +44,7 @@ RUN apt-get update; \
     git \
     ncdu \
     procps \
+    ffmpeg \
     ca-certificates \
     supervisor \
     libsodium-dev \

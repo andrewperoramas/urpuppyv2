@@ -10,6 +10,7 @@ use App\Data\PuppyEditData;
 use App\Data\SiblingData;
 use App\Http\Requests\PuppyUpdateRequest;
 use App\Http\Requests\SellerRegistrationRequest;
+use App\Jobs\GenerateVideoThumbnail;
 use App\Models\Breed;
 use App\Models\Puppy;
 use App\Models\PuppyColor;
@@ -62,18 +63,13 @@ class SellerController extends Controller
             return redirect()->route('register');
         }
 
-        $patterns = PatternData::collect(PuppyPattern::all());
-        $colors = ColorData::collect(PuppyColor::all());
-        $siblings = SiblingData::collect($request->user()->puppies()->where('id', '!=', $id)->get());
-        $breeds = BreedOptionData::collect(Breed::select('id', 'name')->get());
-
         return inertia('Seller/Registration', [
             'puppy_count' => $request->user()->puppies()->count(),
             'puppy_edit' => $id ? PuppyEditData::from(Puppy::with(['media', 'siblings', 'breeds', 'seller', 'puppy_patterns', 'puppy_colors'])->findOrFail($id)) : null,
-            'patterns' => $patterns,
-            'breeds' => $breeds,
-            'colors' => $colors,
-            'siblings' => $siblings
+            'patterns' => pattern_options(),
+            'breeds' => breed_options(),
+            'colors' => color_options(),
+            'siblings' => sibling_options($request, $id)
         ]);
     }
 
@@ -126,7 +122,10 @@ class SellerController extends Controller
         }
 
         collect($data['videos'])->each(function ($image) use ($created_puppy) {
-            $created_puppy->addMedia($image)->toMediaCollection('video');
+            $media = $created_puppy->addMedia($image)->toMediaCollection('video');
+
+            GenerateVideoThumbnail::dispatch($media);
+
         });
 
         collect($data['images'])->each(function ($image) use ($created_puppy) {
@@ -201,7 +200,8 @@ class SellerController extends Controller
 
         collect($data['videos'])->each(function ($image) use ($update_puppy) {
             $update_puppy->clearMediaCollection('video');
-            $update_puppy->addMedia($image)->toMediaCollection('video');
+            $media = $update_puppy->addMedia($image)->toMediaCollection('video');
+            GenerateVideoThumbnail::dispatch($media);
         });
 
         collect($data['images'])->each(function ($image) use ($update_puppy) {

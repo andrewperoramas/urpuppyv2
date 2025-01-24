@@ -14,7 +14,7 @@ use Nnjeim\World\Models\State as ModelsState;
 class State extends ModelsState
 {
     use HasFactory;
-    use Searchable;
+    /* use Searchable; */
     /* use Sluggable; */
     /* use SoftDeletes; */
 
