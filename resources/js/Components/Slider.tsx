@@ -1,18 +1,24 @@
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
+import { Autoplay } from "swiper/modules";
 
 interface SliderProps {
     children: React.ReactNode[]; // Expect an array of React nodes
-    slidesPerView: number
+    slidesPerView: number,
+    autoplay?: boolean
 }
 
-const Slider: React.FC<SliderProps> = ({ children, slidesPerView = 1 }) => {
+const Slider: React.FC<SliderProps> = ({ children, slidesPerView = 1, autoplay = false }) => {
     return (
         <div>
             <Swiper
                 spaceBetween={10}
                 slidesPerView={slidesPerView}
+                loop={true}
+                autoplay={autoplay ? { delay: 4000, disableOnInteraction: false } : false}
+                modules={[Autoplay]} // Add Autoplay module to Swiper
+
                 breakpoints={{
                     640: {
                         slidesPerView: 1,

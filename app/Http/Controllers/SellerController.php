@@ -15,6 +15,7 @@ use App\Models\Breed;
 use App\Models\Puppy;
 use App\Models\PuppyColor;
 use App\Models\PuppyPattern;
+use Exception;
 use Illuminate\Http\Request;
 
 class SellerController extends Controller
@@ -63,6 +64,8 @@ class SellerController extends Controller
             return redirect()->route('register');
         }
 
+
+
         return inertia('Seller/Registration', [
             'puppy_count' => $request->user()->puppies()->count(),
             'puppy_edit' => $id ? PuppyEditData::from(Puppy::with(['media', 'siblings', 'breeds', 'seller', 'puppy_patterns', 'puppy_colors'])->findOrFail($id)) : null,
@@ -75,6 +78,7 @@ class SellerController extends Controller
 
     public function store(SellerRegistrationRequest $request)
     {
+
 
         if (!$request->user()?->premium_plan && $request->user()->puppies()->count() > 1) {
             return redirect()->to(route('plans.index'))->with([

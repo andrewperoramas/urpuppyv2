@@ -17,7 +17,7 @@ const FeaturedBreeds = ({featured_breeds}: { featured_breeds: App.Data.BreedData
           <div className="owl-carousel owl-theme">
 
 
-            <Slider slidesPerView={1} children={
+            <Slider autoplay={true} slidesPerView={1} children={
                         featured_breeds.map((breed: App.Data.BreedData) => (
                             <BreedCard key={breed.slug} breed={breed} />
                         ))

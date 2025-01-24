@@ -17,6 +17,7 @@ const BreederRegistrationForm = ({breeds}: { breeds: App.Data.BreedOptionData[]}
    const { data, setData, post, errors } = useForm({
     health_certificate: 'yes',
     vaccinated: 'yes',
+    company_address: 'yes',
     vet_exam: 'yes',
     has_usda_registration: 'no',
     about_company: '',
@@ -155,6 +156,14 @@ const BreederRegistrationForm = ({breeds}: { breeds: App.Data.BreedOptionData[]}
 
               <div className="location-details border-bottom mb-4">
                 <SemiHeading title="Location Details"/>
+                  <div className="col-lg-12">
+                    <div className="mb-6">
+                    <InputLabel isRequired={true} value="Address"/>
+                <TextInput  value={data.company_address} onChange={(e: any) => setData('company_address', e.target.value)} />
+
+                {errors.company_address && <InputError message={errors.company_address} /> }
+                    </div>
+                  </div>
                 <StateCityDropdown errors={errors} setFormData={setData}/>
               </div>
 

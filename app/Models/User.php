@@ -312,10 +312,10 @@ class User extends Authenticatable implements  HasMedia,  MustVerifyEmail, Sitem
         return  $city_name . ', ' . $state ;
     }
 
-    public function getCompanyAddressAttribute()
+    public function getCompanyAddressAttribute($value)
     {
-        $state = $this->company_state?->name;
-        return $this->company_city?->name . ', ' . $state ;
+        $state = $this->company_state?->abbreviation ?? $this->company_state?->name;
+        return  $value ?? "" .', '. $this->company_city?->name . ', ' . $state ;
     }
 
     public function isSubscribed()

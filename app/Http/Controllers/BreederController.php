@@ -59,6 +59,12 @@ class BreederController extends Controller
             return redirect()->intended(route('breeders.create', absolute: false))->to(route('register'));
         }
 
+        if ($request->user()->is_breeder) {
+            return redirect()->to(route('home'))->with([
+                'message.error' => 'You are already a breeder'
+            ]);
+        }
+
         return inertia('Breeders/Registration', [
             'breeds' => BreedOptionData::collect(Breed::query()->get())
         ]);

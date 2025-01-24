@@ -47,9 +47,12 @@ class AppServiceProvider extends ServiceProvider
                 ->greeting('Hi! '. $notifiable->full_name)
 
                 ->line('Thank you for signing up with UrPuppy.com! To complete your registration, please verify your email address by clicking the button below:')
+
                 ->action('Verify Your Account', $url)
-                ->line('If you did not create an account with **Urpuppy.com**, please ignore this email.')
-                ->line('Thank you for being part of the Urpuppy community! We look forward to helping you and your dog make the most of our services.');
+                ->line('If the button doesn’t work, you can also copy and paste the following link into your browser:' . $url)
+
+                ->line('This step helps us ensure your account is secure and ready to go. If you didn’t sign up for an account with UrPuppy.com, please disregard this email.')
+                ->line('Thank you for choosing UrPuppy.com!');
         });
     }
 }
