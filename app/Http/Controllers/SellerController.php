@@ -45,20 +45,20 @@ class SellerController extends Controller
             ]);
         }
 
-        if (!$request->user()?->premium_plan && $request->user()->puppies()->count() > 1) {
-            return redirect()->to(route('plans.index'))->with([
-                'message.success' => 'Subscribe to any plan to activate your listing'
-            ]);
-        }
+        /* if (!$request->user()?->premium_plan && $request->user()->puppies()->count() > 1) { */
+        /*     return redirect()->to(route('plans.index'))->with([ */
+        /*         'message.success' => 'Subscribe to any plan to activate your listing' */
+        /*     ]); */
+        /* } */
         /* dd($request->user()?->isSubscribed()); */
-        if (!$request->user()?->isSubscribed() &&
-            $request->user()?->puppies()?->count() > 0
-        ) {
-            return redirect()->route('plans.index')->with([
-           'message.error' => 'You have to subscribe to to activate your listing'
+        /* if (!$request->user()?->isSubscribed() && */
+        /*     $request->user()?->puppies()?->count() > 0 */
+        /* ) { */
+        /*     return redirect()->route('plans.index')->with([ */
+        /*    'message.error' => 'You have to subscribe to to activate your listing' */
 
-            ]);
-        }
+        /*     ]); */
+        /* } */
 
         if (!auth()->user()) {
             return redirect()->route('register');
