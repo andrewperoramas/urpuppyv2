@@ -65,6 +65,7 @@ services:
           - ./data:/data
         ports:
           - 7025:8025
+          - 1025:1025
 
     glances:
         image: nicolargo/glances:latest-full

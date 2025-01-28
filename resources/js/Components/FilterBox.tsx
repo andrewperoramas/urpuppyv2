@@ -5,7 +5,8 @@ import AgeFilter from './Filters/AgeFilter'
 import GenderFilter from './Filters/GenderFilter'
 import StateFilter from './Filters/StateFilter'
 import { isArray } from 'lodash'
-import { Link, router } from '@inertiajs/react'
+import { Link, router, usePage } from '@inertiajs/react'
+import MobilePicker from './MobilePicker'
 
 type FilterObject = {
     value: number | string | [number, number],
@@ -21,17 +22,21 @@ export type FilterBoxProps = {
 }
 
 const FilterBox = () => {
+    const payload = usePage().props?.payload as any;
 
     const [filter, setFilter] = useState<FilterBoxProps>({
-      breed: {label: "Golden Retriever", value: ""},
-      gender: {label: "Male", value: ""},
-      age: {label: "1 week", value: 0},
+      // breed: {label: "Golden Retriever", value: ""},
+      breed: {label: payload?.filter?.breed ?? "e.g. (Breed)", value: payload?.filter?.breed ?? "All"},
+      gender: {label: payload?.filter?.gender ?? "e.g. (Male)", value: payload?.filter?.gender ?? "All"},
+      age: {label: "1 week", value: payload?.filter?.age ?? "0"},
       price: {label: "$1 - $2,500", value: [1, 250000]},
-      state: {label: "New York", value: ""}
+      state: {label: payload?.filter?.state ?? "e.g. (New York)", value: payload?.filter?.state ?? "All"}
     })
 
 
-    const handleSearch = () => {
+    const handleSearch = (e: any) => {
+
+    e.preventDefault();
     const payload = Object.entries(filter).map(([key, obj]) => ({
         [key]: obj?.value
     }));
@@ -52,10 +57,11 @@ const FilterBox = () => {
             ],
         method: 'get',
         preserveState: true,
+        preserveScroll: true
     });
 };
 
-
+    const isMobile = usePage().props.isMobile;
 
   return (
         <>
@@ -64,24 +70,24 @@ const FilterBox = () => {
             <div className="grid-filter d-none d-lg-block" data-aos="fade-up" data-aos-delay="300" data-aos-duration="1000">
               <div className="d-flex align-items-center justify-content-between">
                 <div className="breed d-flex gap-2 border-end">
-                        <BreedFilter setBreed={setFilter}/>
+                        <BreedFilter setBreed={setFilter} defaultValue={filter.breed}/>
                 </div>
 
                 <div className="sex d-flex gap-2 border-end">
-                        <GenderFilter setGender={setFilter}/>
+                        <GenderFilter defaultValue={filter.gender} setGender={setFilter}/>
                  </div>
                 <div className="age d-flex gap-2 border-end">
-                        <AgeFilter setAge={setFilter}/>
+                        <AgeFilter setAge={setFilter} defaultValue={filter?.age}/>
                 </div>
                 <div className="price-range d-flex gap-2 border-end flex-shrink-0">
                         <PriceFilter setPrice={setFilter}/>
                 </div>
 
                 <div className="state d-flex gap-2">
-                        <StateFilter setState={setFilter}/>
+                        <StateFilter setState={setFilter} defaultValue={filter.state}/>
                 </div>
                 <a
-                onClick={handleSearch}
+                onClick={!isMobile ? handleSearch : () => {}  }
                   className="btn btn-primary round-48 flex-shrink-0 p-2 d-flex align-items-center justify-content-center">
                   <img src="/images/svgs/icon-search.svg" alt="" />
                 </a>
@@ -109,8 +115,8 @@ Object.keys(filter)[index] !== 'state'  && Object.keys(filter)[index] !== 'price
                   </div>
                 </div>
 
-                <a href="/puppies"
-                    onClick={handleSearch}
+                <a href="#"
+                    onClick={  handleSearch}
                   className="btn btn-primary round-48 flex-shrink-0 p-2 d-flex align-items-center justify-content-center">
                   <img src="/images/svgs/icon-search.svg" alt="" />
                 </a>
@@ -119,15 +125,15 @@ Object.keys(filter)[index] !== 'state'  && Object.keys(filter)[index] !== 'price
                     zIndex: '999999999!important'
                 }}>
                 <div className="breed d-flex gap-2 border-bottom py-6">
-                        <BreedFilter setBreed={setFilter}/>
+                        <BreedFilter setBreed={setFilter} defaultValue={filter.breed} />
                 </div>
 
                 <div className="sex d-flex gap-2 border-bottom py-6">
-                        <GenderFilter setGender={setFilter} />
+                        <GenderFilter setGender={setFilter} defaultValue={filter.gender} />
                 </div>
 
                 <div className="age d-flex gap-2 border-bottom py-6">
-                        <AgeFilter setAge={setFilter}/>
+                        <AgeFilter setAge={setFilter} defaultValue={filter?.age}/>
                 </div>
 
                 <div className="price-range d-flex gap-2 border-bottom py-6">
@@ -135,9 +141,12 @@ Object.keys(filter)[index] !== 'state'  && Object.keys(filter)[index] !== 'price
                 </div>
 
                 <div className="state d-flex gap-2 py-6">
-                        <StateFilter setState={setFilter}/>
+                        <StateFilter setState={setFilter} defaultValue={filter.state} />
                 </div>
 
+                <a onClick={handleSearch} href="#" className="btn btn-primary w-100 d-flex align-items-center justify-content-center mt-3">
+                  Search
+                </a>
 
               </div>
             </div>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\BreedController;
 use App\Http\Controllers\Api\CityController;
 use App\Http\Controllers\Api\CountryController;
 use Illuminate\Support\Facades\Route;
@@ -12,5 +13,6 @@ use Stripe\Stripe;
 Route::get('/puppy/countries', CountryController::class);
 Route::get('/puppy/states', StateController::class);
 Route::get('/puppy/cities', CityController::class);
+Route::get('/puppy/breeds', BreedController::class);
 
 

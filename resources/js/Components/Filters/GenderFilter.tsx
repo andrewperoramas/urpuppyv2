@@ -1,33 +1,56 @@
 import React, { useState } from 'react'
 import { FilterBoxProps } from '../FilterBox';
+import SelectFilterInput from '../SelectFilterInput';
+import SelectMobile from '../SelectMobile';
 
 interface GenderFilterProps {
   setGender: React.Dispatch<React.SetStateAction<FilterBoxProps>>;
+  defaultValue?: any
 }
 
-const GenderFilter: React.FC<GenderFilterProps> = ({setGender}) => {
+const options = [
+  { value: 'All', label: 'All' },
+  { value: 'Male', label: 'Male' },
+  { value: 'Female', label: 'Female' },
+]
+
+const GenderFilter: React.FC<GenderFilterProps> = ({setGender, defaultValue}) => {
 
 
-    const [value, setValue] = useState("");
+    const [selectedAge, setSelectedAge] = useState<any>(defaultValue);
+    const [value, setValue] = useState(defaultValue);
     const handleInputChange = (e: any) => {
-    const selectedOption = e.target.selectedOptions[0]; // Get the selected option
-    const label = selectedOption.textContent; // Get the label of the selected option
-    setValue(selectedOption.value)
+    setValue(e)
     setGender((prev) => ({
       ...prev,
-      gender: { label, value: selectedOption.value },
+      gender: { label: e.label, value: e.value },
     }));
   };
+
+    const handleMobileInputChange = (selected: any) => {
+        setGender((prev: any) => ({
+          ...prev,
+          gender: {label: selected.value, value: selected.value},
+        }));
+         setValue({
+            label: selected.value,
+            value: selected.value
+        });
+    }
 
   return (
   <>
                   <span className="flex-shrink-0"><img src="/images/svgs/icon-gender.svg" alt="" /></span>
-                  <div>
+                  <div id="filter-box">
                     <h6 className="font-work-sans mb-0">Sex</h6>
-                    <select value={value}  onChange={handleInputChange} className="form-select p-0 shadow-none border-0 fs-2" aria-label="Default select example">
-                      <option value="Male">Male</option>
-                      <option value="Female">Female</option>
-                    </select>
+
+                <SelectMobile
+                    key="gender"
+                    title="Gender"
+                    handleMobileInputChange={handleMobileInputChange}
+                    selectedItem={value}
+                    options={options} handleInputChange={handleInputChange} value={value} />
+
                   </div>
 
         </>

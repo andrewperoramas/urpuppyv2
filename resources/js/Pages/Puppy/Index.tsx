@@ -13,7 +13,7 @@ const Index = ({puppies, states, breeds, has_search} : {
     puppies: PaginatedCollection<App.Data.PuppyData>
     states: App.Data.StateData[],
     breeds: App.Data.BreedData[],
-    has_search: boolean
+    has_search: boolean,
 }) => {
   return (
     <Layout>

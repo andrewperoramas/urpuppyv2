@@ -131,12 +131,14 @@ class PuppyController extends Controller
 
                     return $state;
                 });
+        /* dd($request->all()); */
 
         return inertia()->render('Puppy/Index', [
             'breeds' => BreedData::collect(Breed::query()->get()),
             'states' =>  StateData::collect($states),
             'puppies' => PuppyData::collect($puppies),
             'has_search' => count($request->all()),
+            'payload' => $request->all(),
         'breed_filter_list' => inertia()->optional(fn () =>
                 Breed::select(['name'])->distinct()->orderBy('name')->pluck('name')
             ) ,

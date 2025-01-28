@@ -7,6 +7,7 @@ use App\Models\Puppy;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 use Tighten\Ziggy\Ziggy;
+use Jenssegers\Agent\Agent;
 
 class HandleInertiaRequests extends Middleware
 {
@@ -35,6 +36,9 @@ class HandleInertiaRequests extends Middleware
     {
     $min = Puppy::min('price') ?? 1;
     $max = Puppy::max('price') ?? 500;
+    $agent = new Agent();
+
+
     /* $min--; */
         /* dd(UserData::from($request->user()->load('media','city', 'state'))); */
     /* $max++; */
@@ -48,6 +52,7 @@ class HandleInertiaRequests extends Middleware
             'flash' => [
                 'message' => fn () => $request->session()->get('message'),
             ],
+           'isMobile' => $agent->isMobile(),
 
 
             /* 'ziggy' => fn () => [ */

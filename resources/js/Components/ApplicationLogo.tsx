@@ -4,7 +4,7 @@ import { FaPaw } from 'react-icons/fa';
 
 export default function ApplicationLogo(props: SVGAttributes<SVGElement>) {
     return (
-        <Link prefetch cacheFor="30s" className="navbar-brand py-0 me-0" href="/">
+        <Link prefetch className="navbar-brand py-0 me-0" href="/">
           <img src="/logo.svg" alt="" />
         </Link>
     );

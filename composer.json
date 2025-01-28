@@ -11,6 +11,7 @@
     "require": {
         "php": "^8.2",
         "anhskohbo/no-captcha": "^3.6",
+        "austintoddj/canvas": "^6.0",
         "based/momentum-modal": "^0.4.0",
         "cknow/laravel-money": "^8.1",
         "cms-multi/filament-clear-cache": "^2.0",
@@ -19,6 +20,7 @@
         "filament/filament": "^3.2",
         "filament/spatie-laravel-media-library-plugin": "*",
         "inertiajs/inertia-laravel": "2.x-dev",
+        "jenssegers/agent": "^2.6",
         "joaopaulolndev/filament-general-settings": "^1.0",
         "lara-zeus/sky": "^3.4",
         "laravel/cashier": "^15.4",
@@ -44,6 +46,8 @@
         "spatie/laravel-sitemap": "^7.3",
         "spatie/laravel-typescript-transformer": "^2.5",
         "spatie/schema-org": "^3.23",
+        "spiral/roadrunner-cli": "^2.6.0",
+        "spiral/roadrunner-http": "^3.3.0",
         "stripe/stripe-php": "^13.18",
         "vinkla/hashids": "^12.0"
     },

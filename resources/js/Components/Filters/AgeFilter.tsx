@@ -1,45 +1,61 @@
 import React, { useState } from 'react';
 import { FilterBoxProps } from '../FilterBox';
+import SelectFilterInput from '../SelectFilterInput';
+import SelectMobile from '../SelectMobile';
+import { usePage } from '@inertiajs/react';
 
 interface AgeFilterProps {
   setAge: React.Dispatch<React.SetStateAction<FilterBoxProps>>;
+    defaultValue?: any
 }
 
-const AgeFilter: React.FC<AgeFilterProps> = ({ setAge }) => {
+const options = [
+  { value: '1', label: 'Up to 1 week' },
+  { value: '2', label: 'Up to 2 Weeks' },
+  { value: '4', label: 'Up to 4 Weeks' },
+  { value: '10', label: 'Up to 10 Weeks' },
+  { value: '18', label: 'Up to 18 Weeks' },
+  { value: '0', label: 'Older than 18 Weeks' },
+]
 
-  const [value, setValue] = useState("1");
-  const handleInputChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+const AgeFilter: React.FC<AgeFilterProps> = ({ setAge, defaultValue }) => {
 
-
-    const selectedOption = e.target.selectedOptions[0];
-    setValue(selectedOption.value)
-    const label = selectedOption.textContent || '';
+  const [value, setValue] = useState( options.find((option) => option.value === defaultValue?.value));
+  const handleInputChange = (e: any) => {
+    setValue(e)
     setAge((prev) => ({
       ...prev,
-      age: { label, value: selectedOption.value },
+      age: { label: e.label, value: e.value },
     }));
   };
+
+
+    const isMobile = usePage().props.isMobile;
+    const handleMobileInputChange = (selected: any) => {
+        let selectedValue: any = isMobile ? options.find((option) => option?.label === selectedValue)?.value || 0 : selected.value;
+        console.log(selectedValue)
+        setAge((prev: any) => ({
+          ...prev,
+          age: {label: selectedValue, value: options.find((option) => option.value === selectedValue?.value) },
+        }));
+         setValue({
+            label: selected.value,
+            value: selected.value
+        });
+    }
 
   return (
     <>
       <span className="flex-shrink-0">
         <img src="/images/svgs/icon-calendar.svg" alt="" />
       </span>
-      <div>
+      <div id="filter-box">
         <h6 className="font-work-sans mb-0">Age</h6>
-        <select
-          onChange={handleInputChange}
-          value={value}
-          className="form-select p-0 shadow-none border-0 fs-2"
-          aria-label="Default select example"
-        >
-          <option value="1">e.g. (1 week)</option>
-          <option value="2">Up to 2 Weeks</option>
-          <option value="4">Up to 4 Weeks</option>
-          <option value="10">Up to 10 Weeks</option>
-          <option value="18">Up to 18 Weeks</option>
-          <option value="0">Older than 18 Weeks</option>
-        </select>
+                <SelectMobile
+                    title="Age"
+                    handleMobileInputChange={handleMobileInputChange}
+                    selectedItem={value}
+                    options={options} handleInputChange={handleInputChange}  />
       </div>
     </>
   );

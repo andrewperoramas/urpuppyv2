@@ -23,7 +23,8 @@ class StateController extends Controller
                 $states = $countryState->whereRaw('LOWER(name) LIKE ?', ['%' . $searchTerm . '%']);
             }
 
-            $states = $states->paginate(10);
+            $pagination = $request->has('all') ? 1000 : 10;
+            $states = $states->paginate($pagination);
 
             $states->getCollection()->transform(function ($state) {
                 return [
@@ -31,6 +32,14 @@ class StateController extends Controller
                     'label' => ucwords($state->name),
                 ];
             });
+
+        if ($request->has('all')) {
+            $states->prepend([
+                'value' => 'All',
+                'label' => 'All',
+            ]);
+        }
+
         }
 
         return $states;
