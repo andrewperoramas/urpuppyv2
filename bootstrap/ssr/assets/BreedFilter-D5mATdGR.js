@@ -1,13 +1,14 @@
 import { j as jsxRuntimeExports, r as reactExports, U, K } from "../ssr.js";
-import { S as StateManagedSelect$1, A as AsyncPaginate } from "./index-DAcb-atf.js";
-import { M as Modal } from "./Modal-ayV8MtmB.js";
+import { S as StateManagedSelect$1, A as AsyncPaginate } from "./index-Cpvc9VWw.js";
+import { M as Modal } from "./Modal-B9RIpweI.js";
 const filterStyles = {
   control: (provided, state) => ({
     ...provided,
     borderRadius: "5px",
     border: "none",
-    width: "160px",
+    width: "100%",
     height: "21px",
+    maxWidth: "120px",
     minHeight: "unset",
     backgroundColor: "transparent",
     padding: "0px",
@@ -17,6 +18,7 @@ const filterStyles = {
   input: (provided, state) => ({
     ...provided,
     height: "21px",
+    width: "200px",
     padding: "0px",
     margin: "0px"
   }),

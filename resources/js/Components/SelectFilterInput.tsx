@@ -8,8 +8,9 @@ export const filterStyles = {
             ...provided,
             borderRadius: '5px',
             border: 'none',
-            width: '160px',
+            width: '100%',
             height: '21px',
+            maxWidth: '120px',
             minHeight: 'unset',
         backgroundColor: 'transparent',
             padding: '0px',
@@ -19,6 +20,8 @@ export const filterStyles = {
         input: (provided: any, state: any) => ({
             ...provided,
             height: '21px',
+
+        width: '200px',
             padding: '0px',
             margin: '0px'
         }),

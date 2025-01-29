@@ -1,6 +1,6 @@
 import { r as reactExports, j as jsxRuntimeExports, $ as $e } from "../ssr.js";
 import { B as BannerSlider, S as SmallBannerWithContent } from "./SmallBannerWithContent-BElCSd6P.js";
-import { B as BreedFilter } from "./BreedFilter-3FvDvIcR.js";
+import { B as BreedFilter } from "./BreedFilter-D5mATdGR.js";
 import { M as MetaTags } from "./MetaTags-DV5IHhOb.js";
 import { L as Layout } from "./Layout-CLsZFRNi.js";
 import "util";
@@ -19,10 +19,10 @@ import "process";
 import "./create-element-if-not-defined-Lq8o-23T.js";
 import "./pagination-7mXMRzzw.js";
 import "./autoplay-o8EHVtnj.js";
-import "./index-DAcb-atf.js";
+import "./index-Cpvc9VWw.js";
 import "./index-CmL8UXgL.js";
 import "./floating-ui.dom-D9vmQZx1.js";
-import "./Modal-ayV8MtmB.js";
+import "./Modal-B9RIpweI.js";
 import "./index-DbhDZzck.js";
 import "./index-BgmffWW1.js";
 const Index = ({ breeds, letter_param = "A" }) => {

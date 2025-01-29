@@ -1,6 +1,6 @@
 import { c as commonjsGlobal, a as requireReact, K, U, j as jsxRuntimeExports, t as tt, r as reactExports, S as Sr } from "../ssr.js";
-import { a as SelectFilterInput, G as GenericModal, M as MobilePicker, B as BreedFilter } from "./BreedFilter-3FvDvIcR.js";
-import { S as StateFilter } from "./StateFilter-D3c-vOqi.js";
+import { a as SelectFilterInput, G as GenericModal, M as MobilePicker, B as BreedFilter } from "./BreedFilter-D5mATdGR.js";
+import { S as StateFilter } from "./StateFilter-B1HhRDhP.js";
 import "util";
 import "stream";
 import "path";
@@ -14,10 +14,10 @@ import "os";
 import "zlib";
 import "events";
 import "process";
-import "./index-DAcb-atf.js";
+import "./index-Cpvc9VWw.js";
 import "./index-CmL8UXgL.js";
 import "./floating-ui.dom-D9vmQZx1.js";
-import "./Modal-ayV8MtmB.js";
+import "./Modal-B9RIpweI.js";
 import "./index-DbhDZzck.js";
 var lib = {};
 var Range$1 = {};
@@ -1203,11 +1203,10 @@ const GenderFilter = ({ setGender, defaultValue }) => {
 const FilterBox = () => {
   var _a, _b, _c, _d, _e, _f, _g, _h;
   const payload = (_a = K().props) == null ? void 0 : _a.payload;
-  console.log(payload);
   const [filter, setFilter] = reactExports.useState({
     // breed: {label: "Golden Retriever", value: ""},
-    breed: { label: ((_b = payload == null ? void 0 : payload.filter) == null ? void 0 : _b.breed) ?? "e.g. (Golden Retriever)", value: ((_c = payload == null ? void 0 : payload.filter) == null ? void 0 : _c.breed) ?? "All" },
-    gender: { label: ((_d = payload == null ? void 0 : payload.filter) == null ? void 0 : _d.gender) ?? "e.g. (Male, Female)", value: ((_e = payload == null ? void 0 : payload.filter) == null ? void 0 : _e.gender) ?? "All" },
+    breed: { label: ((_b = payload == null ? void 0 : payload.filter) == null ? void 0 : _b.breed) ?? "e.g. (Breed)", value: ((_c = payload == null ? void 0 : payload.filter) == null ? void 0 : _c.breed) ?? "All" },
+    gender: { label: ((_d = payload == null ? void 0 : payload.filter) == null ? void 0 : _d.gender) ?? "e.g. (Male)", value: ((_e = payload == null ? void 0 : payload.filter) == null ? void 0 : _e.gender) ?? "All" },
     age: { label: "1 week", value: ((_f = payload == null ? void 0 : payload.filter) == null ? void 0 : _f.age) ?? "0" },
     price: { label: "$1 - $2,500", value: [1, 25e4] },
     state: { label: ((_g = payload == null ? void 0 : payload.filter) == null ? void 0 : _g.state) ?? "e.g. (New York)", value: ((_h = payload == null ? void 0 : payload.filter) == null ? void 0 : _h.state) ?? "All" }

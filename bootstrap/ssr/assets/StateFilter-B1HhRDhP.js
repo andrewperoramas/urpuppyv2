@@ -1,5 +1,5 @@
 import { r as reactExports, K, j as jsxRuntimeExports } from "../ssr.js";
-import { S as SelectPaginate } from "./BreedFilter-3FvDvIcR.js";
+import { S as SelectPaginate } from "./BreedFilter-D5mATdGR.js";
 const StateFilter = ({ setState, defaultValue }) => {
   const [value, setValue] = reactExports.useState(defaultValue);
   const isMobile = K().props.isMobile;

@@ -20,7 +20,7 @@ class StateController extends Controller
 
             if ($request->filled('search')) {
                 $searchTerm = strtolower($request->search);
-                $states = $countryState->whereRaw('LOWER(name) LIKE ?', ['%' . $searchTerm . '%']);
+                $states = $countryState->whereRaw('LOWER(name) LIKE ?', ['%' . $searchTerm . '%'])->orderBy('name');
             }
 
             $pagination = $request->has('all') ? 1000 : 10;

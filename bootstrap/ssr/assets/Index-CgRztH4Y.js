@@ -1,5 +1,5 @@
 import { j as jsxRuntimeExports, U, $ as $e, r as reactExports } from "../ssr.js";
-import Banner from "./Banner-DH41PHXr.js";
+import Banner from "./Banner-CQwf0DRh.js";
 import { S as Swiper, a as SwiperSlide } from "./create-element-if-not-defined-Lq8o-23T.js";
 import { A as Autoplay } from "./autoplay-o8EHVtnj.js";
 import { P as PuppyCard, F as FavoriteButton, G as Gender } from "./Card-KG1vFpgU.js";
@@ -7,7 +7,7 @@ import { I as ImageSlider } from "./ImageSlider-B203WMpI.js";
 import { S as ShareButton } from "./ShareButton-C8v76dZk.js";
 import { _ as __rest } from "./tslib.es6-iWu3F_1J.js";
 import { B as BreederCard } from "./BreederCard-BDX4AMF4.js";
-import { G as GenericModal } from "./BreedFilter-3FvDvIcR.js";
+import { G as GenericModal } from "./BreedFilter-D5mATdGR.js";
 import { L as Layout } from "./Layout-CLsZFRNi.js";
 import { M as MetaTags } from "./MetaTags-DV5IHhOb.js";
 import "util";
@@ -23,14 +23,14 @@ import "os";
 import "zlib";
 import "events";
 import "process";
-import "./StateFilter-D3c-vOqi.js";
+import "./StateFilter-B1HhRDhP.js";
 import "./Tooltip-DenE-Fw-.js";
 import "./floating-ui.dom-D9vmQZx1.js";
 import "./index-DbhDZzck.js";
 import "net";
-import "./index-DAcb-atf.js";
+import "./index-Cpvc9VWw.js";
 import "./index-CmL8UXgL.js";
-import "./Modal-ayV8MtmB.js";
+import "./Modal-B9RIpweI.js";
 import "./index-BgmffWW1.js";
 const Slider = ({ children, slidesPerView = 1, autoplay = false }) => {
   return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { children: /* @__PURE__ */ jsxRuntimeExports.jsx(

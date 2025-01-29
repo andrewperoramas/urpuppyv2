@@ -1283,18 +1283,13 @@ function requireReactIs_development() {
   }
   return reactIs_development;
 }
-var hasRequiredReactIs;
-function requireReactIs() {
-  if (hasRequiredReactIs) return reactIs$1.exports;
-  hasRequiredReactIs = 1;
-  if (process.env.NODE_ENV === "production") {
-    reactIs$1.exports = requireReactIs_production_min();
-  } else {
-    reactIs$1.exports = requireReactIs_development();
-  }
-  return reactIs$1.exports;
+if (process.env.NODE_ENV === "production") {
+  reactIs$1.exports = requireReactIs_production_min();
+} else {
+  reactIs$1.exports = requireReactIs_development();
 }
-var reactIs = requireReactIs();
+var reactIsExports = reactIs$1.exports;
+var reactIs = reactIsExports;
 var FORWARD_REF_STATICS = {
   "$$typeof": true,
   render: true,
@@ -6216,7 +6211,7 @@ var hasRequiredFactoryWithTypeCheckers;
 function requireFactoryWithTypeCheckers() {
   if (hasRequiredFactoryWithTypeCheckers) return factoryWithTypeCheckers;
   hasRequiredFactoryWithTypeCheckers = 1;
-  var ReactIs = requireReactIs();
+  var ReactIs = reactIsExports;
   var assign2 = requireObjectAssign();
   var ReactPropTypesSecret = requireReactPropTypesSecret();
   var has2 = requireHas();
@@ -6709,7 +6704,7 @@ function requireFactoryWithThrowingShims() {
   return factoryWithThrowingShims;
 }
 if (process.env.NODE_ENV !== "production") {
-  var ReactIs = requireReactIs();
+  var ReactIs = reactIsExports;
   var throwOnDirectAccess = true;
   propTypes.exports = requireFactoryWithTypeCheckers()(ReactIs.isElement, throwOnDirectAccess);
 } else {
