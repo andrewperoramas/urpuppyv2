@@ -72,6 +72,7 @@ social_fb: string | null;
 social_tiktok: string | null;
 social_x: string | null;
 social_ig: string | null;
+video_thumbnail: string | null;
 description: string | null;
 breeds: Array<any>;
 gallery: Array<any>;

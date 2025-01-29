@@ -13,11 +13,13 @@ import { Swiper as SwiperInstance } from "swiper/types";
 const ImageSlider = ({
     images,
     enableNavigation = false,
-    videos
+    videos,
+    videoThumbnail
 }: {
         images: (string)[];
         videos?: (string)[] | null;
         enableNavigation?: boolean;
+        videoThumbnail?: (string)[] | null;
     }) => {
     const [thumbsSwiper, setThumbsSwiper] = useState<any>(null);
     // const swiperRef = useRef<SwiperInstance | null>(null);
@@ -117,7 +119,7 @@ const ImageSlider = ({
                             <img
                                     className="slide"
                                     style={{
-                                            padding: '20px',
+                                            padding: '15px',
                                             display: 'flex',
                                             alignItems: 'center',
                                             justifyContent: 'center',
@@ -126,7 +128,7 @@ const ImageSlider = ({
 
                                     }}
 
-                                          src="../images/svgs/icon-play.svg" alt="" width="25" height="30" />
+  src="../images/svgs/icon-play.svg" alt="" width="15" height="15" />
                             </SwiperSlide>
 
                         ))}

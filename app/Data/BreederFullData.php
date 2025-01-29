@@ -45,6 +45,7 @@ class BreederFullData extends Data
         public ?string $social_tiktok,
         public ?string $social_x,
         public ?string $social_ig,
+        public ?string $video_thumbnail,
 
         public ?string $description,
 

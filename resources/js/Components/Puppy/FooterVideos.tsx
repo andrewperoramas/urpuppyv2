@@ -22,12 +22,12 @@ const FooterVideos = ({videos} : { videos: App.Data.VideoData[] }) => {
                 <button type="button" className="btn btn-primary p-2 d-flex align-items-center justify-content-center round-48 rounded-circle flex-shrink-0" data-bs-toggle="modal" data-bs-target="#exampleModal">
                   <img src="../images/svgs/icon-play.svg" alt=""/>
                 </button>
-                                        }>
-                        <div>
-                                <video controls className="w-100" autoPlay>
-                                    <source src={video.url} />
-                                </video>
-                                            </div>
+                    }>
+                    <div>
+                        <video controls className="w-100" autoPlay>
+                            <source src={video.url} />
+                        </video>
+                    </div>
                 </GenericModal>
 
                 <h4 className="mb-0 text-white fs-8">{video.title}</h4>

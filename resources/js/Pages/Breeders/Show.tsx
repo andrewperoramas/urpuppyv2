@@ -2,6 +2,7 @@ import BreederCard from '@/Components/Breeder/BreederCard'
 import ReviewCard from '@/Components/Breeder/ReviewCard'
 import ReviewForm from '@/Components/Breeder/ReviewForm'
 import MetaTags from '@/Components/MetaTags'
+import GenericModal from '@/Components/Modals/GenericModal'
 import PuppyCard from '@/Components/Puppy/Card'
 import ReviewSlider from '@/Components/ReviewSlider'
 import SellerCard from '@/Components/SellerCard'
@@ -127,14 +128,21 @@ const Show = ({breeder, puppies} : {
             <div className="card border">
               <div className="card-body">
                 <h5 className="fs-5 mb-3 pb-1">Breeder’s Insight</h5>
-                    <div className="breders-insight position-relative rounded-1 overflow-hidden">
-
-                    <video
-                        className="w-100 h-100"
-                        controls>
-                        <source src={breeder.video}  />
-
-                    </video>
+                    <div className="breeders-insight position-relative rounded-1 overflow-hidden">
+                    <img style={{
+                                                    minHeight: "300px",
+                                                }} className="w-100 h-100 object-fit-cover" src={breeder.video_thumbnail ?? ""} />
+                <GenericModal buttonTitle={
+                <button type="button" className="position-absolute top-50 start-50 translate-middle z-2 btn btn-primary p-2 d-flex align-items-center justify-content-center round-72 rounded-circle flex-shrink-0" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                  <img src="../images/svgs/icon-play.svg" alt=""/>
+                </button>
+                    }>
+                    <div>
+                        <video controls className="w-100" autoPlay>
+                            <source src={breeder.video} />
+                        </video>
+                    </div>
+                </GenericModal>
                     </div>
 
               </div>
@@ -172,8 +180,13 @@ const Show = ({breeder, puppies} : {
             <img
               src={image}
               alt={`Gallery image ${index}`}
-              className="object-fit-cover w-100 h-100"
+                                                                            style={{
+                                                                                minHeight: "70px",
+                                                                                height: "70px",
+                                                                            }}
+              className="object-fit-cover w-100 "
             />
+
           </div>
         </div>
         {/* Check if there's a next image to pair with */}
@@ -182,8 +195,12 @@ const Show = ({breeder, puppies} : {
             <div className="gallery position-relative overflow-hidden rounded-1">
               <img
                 src={breeder.gallery[index + 1]}
+                                                                            style={{
+                                                                                minHeight: "70px",
+                                                                                height: "70px",
+                                                                            }}
                 alt={`Gallery image ${index + 1}`}
-                className="object-fit-cover w-100 h-100"
+                className="object-fit-cover w-100 "
               />
             </div>
           </div>
