@@ -119,11 +119,9 @@
     },
     "repositories": [
     {
-        "type": "path",
-        "url": "./packages/filament-blog",
-        "options": {
-            "symlink": true
-        }
+        "type": "vcs",
+        "url": "git@github.com:andrewperoramas/filament-blog.git",
+
     }
     ],
     "minimum-stability": "stable",
