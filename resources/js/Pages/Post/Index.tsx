@@ -30,7 +30,7 @@ const Index = ({posts} : {
                         }
 
                 </>
-                : "burat"
+                : "No posts found"
                             }
                 </div>
                 </div>
