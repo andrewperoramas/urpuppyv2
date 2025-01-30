@@ -120,7 +120,7 @@
     "repositories": [
     {
         "type": "vcs",
-        "url": "git@github.com:andrewperoramas/filament-blog.git",
+        "url": "git@github.com:andrewperoramas/filament-blog.git"
 
     }
     ],
