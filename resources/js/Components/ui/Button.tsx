@@ -4,7 +4,7 @@ import {cva} from 'class-variance-authority'
 import React from 'react'
 
 type ButtonProps = React.HTMLAttributes<HTMLButtonElement> & {
-    href: string
+    href?: string
     variant?: 'primary' | 'secondary' | 'white',
     size?: 'sm' | 'md' | 'lg' | 'full'
     type?: 'button' | 'a'
@@ -19,7 +19,7 @@ const Button = ({ type = 'a', className, size = 'md', variant, ...props }: Butto
             </>
     ):
     (
-        <Link href={props.href} as={type} className={cn(buttonVariants({variant, size}), className )}>{props.children}</Link>
+        <Link href={props.href ?? "#"} as={type} className={cn(buttonVariants({variant, size}), className )}>{props.children}</Link>
   )
 }
 

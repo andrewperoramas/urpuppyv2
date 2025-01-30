@@ -10,7 +10,6 @@ export const filterStyles = {
             border: 'none',
             width: '100%',
             height: '21px',
-            maxWidth: '120px',
             minHeight: 'unset',
         backgroundColor: 'transparent',
             padding: '0px',
@@ -21,7 +20,7 @@ export const filterStyles = {
             ...provided,
             height: '21px',
 
-        width: '200px',
+        width: '150px',
             padding: '0px',
             margin: '0px'
         }),

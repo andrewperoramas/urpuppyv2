@@ -16,6 +16,7 @@ use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\SellerController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\PlanController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\PrivacyPolicyController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PuppyController;
@@ -34,6 +35,17 @@ use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Stripe\PaymentIntent;
 use Stripe\Stripe;
+
+Route::group(['prefix' => 'posts'], function () {
+    Route::get('/', [PostController::class, 'index'])->name('posts.index');
+    Route::post('/{postId}/react/{reactionType}', [PostController::class, 'toggleReaction'])
+    ->middleware('auth');
+    Route::get('/{slug}', [PostController::class, 'show'])->name('posts.show');
+    Route::post('/{id}/comment', [PostController::class, 'comment'])->name('posts.comment');
+
+
+});
+
 
 Route::get('adi', function () {
     dd(State::first());
@@ -76,6 +88,9 @@ Route::post('/create-intent', function (Request $request) {
 Route::get('/saved-search/{id}', [SavedSearchController::class, 'destroy']);
 Route::get('/saved-search', [SavedSearchController::class, 'show']);
 Route::post('/saved-search', [SavedSearchController::class, 'store']);
+
+
+
 
 Route::post('/complete-subscription', function (Request $request) {
     $user = $request->user();
@@ -186,6 +201,9 @@ Route::group(['prefix' => 'plans'], function () {
 });
 
 });
+
+
+
 
 Route::group(['prefix' => 'breeds'], function () {
     Route::get('/', [BreedController::class, 'index'])->name('breeds.index');

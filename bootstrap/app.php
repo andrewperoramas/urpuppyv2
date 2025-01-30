@@ -41,7 +41,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withExceptions(function (Exceptions $exceptions) {
 
            $exceptions->respond(function (Response $response, Throwable $exception, Request $request) {
-        if (! app()->environment(['testing']) && in_array($response->getStatusCode(), [500, 503, 404, 403])) {
+        if (! app()->environment(['testing', 'local']) && in_array($response->getStatusCode(), [500, 503, 404, 403])) {
                 return Inertia::render('Error', ['status' => $response->getStatusCode(),
                     'puppy' => guest_puppy()
                 ])

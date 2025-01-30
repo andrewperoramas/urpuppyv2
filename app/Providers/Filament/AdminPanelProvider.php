@@ -25,6 +25,7 @@ use Joaopaulolndev\FilamentGeneralSettings\FilamentGeneralSettingsPlugin;
 use LaraZeus\Sky\Filament\Resources\LibraryResource;
 use LaraZeus\Sky\Filament\Resources\PostResource;
 use LaraZeus\Sky\SkyPlugin;
+use Stephenjude\FilamentBlog\BlogPlugin;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -64,6 +65,7 @@ class AdminPanelProvider extends PanelProvider
                 Authenticate::class,
             ])->plugins([
                 /* FilamentUsersPlugin::make(), */
+                BlogPlugin::make(),
                 FilamentGeneralSettingsPlugin::make()
                     ->setSort(16)
                     ->setIcon('heroicon-o-cog')

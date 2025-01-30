@@ -15,7 +15,7 @@ class BreedController extends Controller
 
         if ($request->filled('search')) {
             $searchTerm = strtolower($request->search);
-            $breeds = $breedsQuery->whereRaw('LOWER(name) LIKE ?', ['%' . $searchTerm . '%'])->orderBy('name');
+            $breeds = $breedsQuery->whereRaw('LOWER(name) LIKE ?', ['%' . $searchTerm . '%']);
         }
 
         $pagination = $request->has('all') ? 1000 : 10;

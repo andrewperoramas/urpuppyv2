@@ -243,3 +243,22 @@ body.modal-open {
   text-align: initial;
   height: 21px;
 }
+
+blockquote {
+    padding: 0.1rem 1.3rem;
+  font-size: 1.25rem;
+  font-style: italic;
+  border-left: 2px solid $primary; // Bootstrap Primary Color
+
+  p {
+    margin-bottom: 0;
+  }
+
+  footer {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #6c757d;
+    margin-top: 0.5rem;
+  }
+}
+

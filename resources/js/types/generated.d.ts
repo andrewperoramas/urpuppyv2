@@ -1,4 +1,10 @@
 declare namespace App.Data {
+export type AuthorData = {
+name: string;
+email: string;
+photo_url: string;
+bio: string;
+};
 export type BreedData = {
 name: string;
 slug: string;
@@ -125,6 +131,28 @@ count: number;
 export type PlanFeature = {
 name: string;
 active: boolean;
+};
+export type PostCategoryData = {
+name: string;
+slug: string;
+description: string;
+is_visible: boolean;
+};
+export type PostData = {
+id: number;
+title: string;
+slug: string;
+excerpt: string;
+banner_url: string;
+like_count: number;
+unlike_count: number;
+content: string;
+view_count: number;
+published_at: string;
+published_at_formatted: string;
+author: App.Data.AuthorData;
+category: App.Data.PostCategoryData;
+comments: Array<App.Data.CommentData> | null;
 };
 export type PriceData = {
 amount: number;

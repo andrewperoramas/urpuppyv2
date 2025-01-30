@@ -16,8 +16,6 @@ const PuppyCard = ({puppy, className="col-md-6 col-lg-4 col-xl-3 mb-4", height="
         return null
     }
 
-    const user = usePage().props.auth.user;
-
     // useEffect(() => {
     //     window.scrollTo(0, 0);
     // }, []);

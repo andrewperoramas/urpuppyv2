@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Observers\UserObserver;
 use Carbon\Carbon;
+use Cog\Laravel\Love\Reacterable\Models\Traits\Reacterable;
 use Fico7489\Laravel\Pivot\Traits\PivotEventTrait;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Models\Contracts\HasName;
@@ -24,16 +25,17 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\Permission\Traits\HasRoles;
+use Cog\Contracts\Love\Reacterable\Models\Reacterable as ReacterableInterface;
 use Spatie\Sitemap\Contracts\Sitemapable;
 use Spatie\Sitemap\Tags\Url;
 
 #[ObservedBy([UserObserver::class])]
-class User extends Authenticatable implements  HasMedia,  MustVerifyEmail, Sitemapable, HasName, FilamentUser
+class User extends Authenticatable implements  HasMedia,  MustVerifyEmail, Sitemapable, HasName, FilamentUser, ReacterableInterface
 {
     //FilamentUser
     //HasName
 
-    use Billable, Favoriter, HasFactory, HasRoles, InteractsWithMedia, Notifiable;
+    use Billable, Favoriter, HasFactory, HasRoles, InteractsWithMedia, Notifiable, Reacterable;
 
     /* use PivotEventTrait; */
 

@@ -70,26 +70,6 @@ class PuppyController extends Controller
 
         if ($request->user()) {
 
-        $payload = $request->all(); // Convert payload to JSON string
-
-
-        /* $convert_payload = json_encode($payload); */
-
-        /* /1* dd($convert_payload); *1/ */
-
-        /* $exists = $request->user()->saved_searches() */
-        /*     ->whereRaw('payload::jsonb = ?', [$convert_payload]) // Typecast payload for PostgreSQL */
-        /*     ->exists(); */
-
-        /* /1* dd($exists); *1/ */
-
-        /* if (!$exists) { */
-        /*     $request->user()->saved_searches()->create([ */
-        /*         'payload' => $payload, */
-        /*     ]); */
-        /* } */
-
-
         if (auth()->user()) {
     $user_favorites = auth()->user()->favorites()->pluck('favoriteable_id');
 }
