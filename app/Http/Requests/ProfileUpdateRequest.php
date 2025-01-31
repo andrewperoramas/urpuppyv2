@@ -22,7 +22,7 @@ class ProfileUpdateRequest extends FormRequest
             'avatar' => ['nullable', 'max:4096'],
             'current_password' => ['nullable',  'current_password'],
             'new_password' => ['nullable', 'string', 'min:8', 'confirmed'],
-            'city_id' => [''],
+            'city' => [''],
             'zip_code' => [''],
 
             'social_fb' => [''],

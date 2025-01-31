@@ -27,13 +27,32 @@ class RegisteredUserController extends Controller
         ]);
     }
 
+    public function createBreeder(): Response
+    {
+        return Inertia::render('Auth/RegisterBreeder', [
+            'puppy'  => PuppyData::optional(Puppy::with(['breeds', 'seller'])->hasSubscribedUsers()->inRandomOrder()->first())
+        ]);
+    }
+
+    public function createSeller(): Response
+    {
+        return Inertia::render('Auth/RegisterSeller', [
+            'puppy'  => PuppyData::optional(Puppy::with(['breeds', 'seller'])->hasSubscribedUsers()->inRandomOrder()->first())
+        ]);
+    }
+
     /**
      * Handle an incoming registration request.
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request, string $role): RedirectResponse
     {
+        if (!in_array($role, ['breeder', 'buyer', 'seller'])) {
+            return response()->json(['error' => 'Invalid role'], 400);
+        }
+
+
         $request->validate([
             'first_name' => 'required|string|max:40',
             'last_name' => 'required|string|max:40',
@@ -45,8 +64,6 @@ class RegisteredUserController extends Controller
             /* 'captcha' => 'required|captcha' */
         ]);
 
-
-        /* dd($request->all()); */
         $user = User::create([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
@@ -57,16 +74,13 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        /* if ($user->hasMedia('avatars')) { */
-        /*     $user->getFirstMedia('avatars')->delete(); */
-        /* } */
-
-/*         $user->addMedia($request->file('avatar')) */
-/*             ->toMediaCollection('avatars'); */
-
-
-        /* $user->assignRole('seller'); */
-        /* $user->assignRole('buyer'); */
+        if ($role == 'buyer') {
+            $user->assignRole('buyer');
+        } else if ($role == 'seller') {
+            $user->assignRole('seller');
+        } else if ($role == 'breeder') {
+            $user->assignRole('breeder');
+        }
 
         event(new Registered($user));
 

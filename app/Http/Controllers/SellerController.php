@@ -39,9 +39,15 @@ class SellerController extends Controller
     public function create(Request $request,?int $id = null)
     {
         if (!$request->user()) {
-           return redirect()->to(route('login'))->with([
+           return redirect()->to(route('register.seller'))->with([
                 'message.error' => 'You are not logged in',
                 'puppy' => Puppy::query()->inRandomOrder()->first()
+            ]);
+        }
+
+        if (! $request->user()->roles->contains('seller')) {
+            return redirect()->to(route('home'))->with([
+                'message.error' => 'You are not a seller'
             ]);
         }
 
@@ -50,6 +56,7 @@ class SellerController extends Controller
                 'message.success' => 'Subscribe to any plan to activate your listing'
             ]);
         }
+
 
         /* dd($request->user()?->isSubscribed()); */
         /* if (!$request->user()?->isSubscribed() && */
@@ -99,7 +106,7 @@ class SellerController extends Controller
                 'social_ig' => $data['social_ig'],
                 'social_tiktok' => $data['social_tiktok'],
                 'social_x' => $data['social_x'],
-                'city_id' => $data['city_id'],
+                'city' => $data['city'],
                 'state_id' => $data['state_id'],
                 'zip_code' => $data['zip_code'],
             ]);

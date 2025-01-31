@@ -129,7 +129,7 @@ class UserFactory extends Factory
             'email' => fake()->unique()->safeEmail(),
             'phone' => fake()->unique()->phoneNumber(),
             'email_verified_at' => now(),
-            'city_id' => $city?->id,
+            'city' => 'city',
             'description' => fake()->paragraphs(5, true),
             'state_id' => $state?->id,
             'password' => static::$password ??= Hash::make('password'),

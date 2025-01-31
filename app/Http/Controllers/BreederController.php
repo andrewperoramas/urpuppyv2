@@ -23,7 +23,6 @@ class BreederController extends Controller
             'breeds',
             'media',
             'state',
-            'city',
 
         ]);
 
@@ -55,8 +54,15 @@ class BreederController extends Controller
 
     public function create(Request $request)
     {
+
         if (!$request->user()) {
-            return redirect()->intended(route('breeders.create', absolute: false))->to(route('register'));
+            return redirect()->to(route('register.breeder'));
+        }
+
+        if (! $request->user()->roles->contains('breeder')) {
+            return redirect()->to(route('home'))->with([
+                'message.error' => 'You are not a breeder'
+            ]);
         }
 
         if ($request->user()->is_breeder) {
@@ -80,7 +86,8 @@ class BreederController extends Controller
             'company_name' => $data['fullname'],
             'company_email_address' => $data['email'],
             'company_phone' => $data['phone'],
-            'company_city_id' => $data['city_id'],
+            'company_address' => $data['company_address'],
+            'company_city' => $data['city'],
             'company_state_id' => $data['state_id'],
             'company_established_on' => $data['established_date'],
             'company_zip_code' => $data['zip_code'],

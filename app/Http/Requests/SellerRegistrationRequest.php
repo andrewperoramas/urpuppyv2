@@ -33,7 +33,7 @@ class SellerRegistrationRequest extends FormRequest
             'social_ig' => ['string', 'nullable',  'max:100'],
             'social_tiktok' => ['string', 'nullable',  'max:100'],
             'social_x' => ['string', 'nullable', 'max:100'],
-            'city_id' => ['nullable' ],
+            'city' => ['nullable' ],
             'state_id' => ['nullable' ],
             'zip_code' => ['nullable' ],
             'puppy_name' => ['required', 'string', 'max:100'],
@@ -69,7 +69,7 @@ class SellerRegistrationRequest extends FormRequest
 
         if (!$puppies_count) {
             $rules['phone'] = ['required', 'string', 'max:100'];
-            $rules['city_id'] = ['required'];
+            $rules['city'] = ['required'];
             $rules['state_id'] = ['required'];
         } else {
 
@@ -91,7 +91,7 @@ class SellerRegistrationRequest extends FormRequest
     {
         return [
             'phone.required' => 'Phone number is required',
-            'city_id.required' => 'City field is required',
+            'city.required' => 'City field is required',
             'state_id.required' => 'State field is required',
         ];
     }

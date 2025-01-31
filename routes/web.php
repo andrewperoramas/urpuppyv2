@@ -46,18 +46,11 @@ Route::group(['prefix' => 'posts'], function () {
 
 });
 
-
 Route::get('adi', function () {
-    dd(State::first());
-});
 
-Route::get('burat', function () {
-    Storage::disk('s3')->put('testz.txt', 'chikiting');
-
-    dd('burat kaba');
+    /* dd(auth()->user()->roles->first()); */
 
 });
-
 
 
 Route::post('/create-intent', function (Request $request) {
@@ -252,11 +245,11 @@ Route::group(['prefix' => 'checkout', 'middleware' => ['auth', 'verified', 'chec
 
 });
 
-Route::group(['prefix' => 'seller', 'middleware' => 'verified'], function () {
+Route::group(['prefix' => 'seller'], function () {
     Route::get('create/{id?}', [SellerController::class, 'create'])->name('seller.create');
-    Route::delete('delete/{id?}', [SellerController::class, 'destroy'])->name('seller.delete');
+    Route::delete('delete/{id?}', [SellerController::class, 'destroy'])->name('seller.delete')->middleware('auth');
     Route::post('store', [SellerController::class, 'store'])->name('seller.store');
-    Route::post('update/{id}', [SellerController::class, 'update'])->name('seller.update');
+    Route::post('update/{id}', [SellerController::class, 'update'])->name('seller.update')->middleware('auth');
 });
 
 Route::middleware(['auth', 'role:super_admin'])->group(function () {

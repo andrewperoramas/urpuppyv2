@@ -28,15 +28,16 @@ class PostController extends Controller
 
 
 
-         if (!$user->isRegisteredAsLoveReacter()) {
+         if ($user && !$user?->isRegisteredAsLoveReacter()) {
             $user->registerAsLoveReacter();
+
+            $reacterFacade = $user->viaLoveReacter();
          }
 
 
-        $reacterFacade = $user->viaLoveReacter();
 
 
-        if (!$post_model->isRegisteredAsLoveReactant()) {
+        if ( !$post_model?->isRegisteredAsLoveReactant()) {
         $post_model->registerAsLoveReactant();
         }
 
@@ -46,8 +47,8 @@ class PostController extends Controller
             ['post' => $post,
                 'comments' => CommentData::collect($post_model->comments()->with('reviewer')->paginate(12)),
 
-                'is_liked' => $user ? $reacterFacade->hasReactedTo($post_model, 'Like'): false,
-                'is_unliked' => $user ? $reacterFacade->hasReactedTo($post_model, 'Unlike') : false
+                'is_liked' => $user ? $reacterFacade?->hasReactedTo($post_model, 'Like'): false,
+                'is_unliked' => $user ? $reacterFacade?->hasReactedTo($post_model, 'Unlike') : false
         ]);
     }
 

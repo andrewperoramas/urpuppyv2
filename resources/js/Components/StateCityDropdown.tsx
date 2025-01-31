@@ -57,15 +57,15 @@ const StateCityDropdown = ({ formData, setFormData, errors, variant="lg" }: any)
              'country' , selectedCountry.value,
         );
 
-        if (user?.city) {
+        // if (user?.city) {
 
-            const transformedCity = {
-              value: user?.city?.id,
-              label: user?.city?.name
-            };
+        //     const transformedCity = {
+        //       value: user?.city?.id,
+        //       label: user?.city?.name
+        //     };
 
-            setSelectedCity(transformedCity);
-        }
+        //     setSelectedCity(transformedCity);
+        // }
 
         if (user?.state) {
 
@@ -84,9 +84,9 @@ const StateCityDropdown = ({ formData, setFormData, errors, variant="lg" }: any)
         setFormData('state_id' , state.value ); // Update form data with selected state
     };
 
-    const handleCityChange = (city: any) => {
-        setSelectedCity(city);
-        setFormData('city_id', city.value );
+    const handleCityChange = (e: any) => {
+        setSelectedCity(e.target.value);
+        setFormData('city', e.target.value );
     };
 
     const handleZipCodeChange = (e: any) => {
@@ -115,34 +115,18 @@ const StateCityDropdown = ({ formData, setFormData, errors, variant="lg" }: any)
 
                 <div>
                 <InputLabel isRequired={true} htmlFor="city" value="City" />
-                <AsyncPaginate
-                     styles={{
-                            option: (baseStyles, state) => ({
-                                    backgroundColor: state.isSelected ? 'var(--bs-primary)' : state.isFocused ? '#f0f0f0' : 'white',
-                                padding: '6px 10px',
-                            }),
-                        control: (baseStyles, state) => ({
-                          ...baseStyles,
-                          border: state.isFocused ? '1px solid var(--bs-primary)' :  '1px solid rgba(8, 49, 78, 0.2)',
-                            borderRadius: '100px',
-                                    // border: "1p,x solid rgb(209 213 219 / 1)",
-                            outlineColor:'red',
-                            boxShadow: 'none',
-                          '&:hover': {
-                            border: 'auto',
-                            },
-                            padding: '3px 4px'
-                        }),
-                    }}
-                    key={selectedState ? selectedState.value : "no-state"}
-                    loadOptions={fetchCities}
-                    onChange={handleCityChange}
-                    className="mb-4"
+                <TextInput
+                    id="city"
+                    type="text"
+                    name="city"
                     value={selectedCity}
-                    additional={{ page: 1 }}
-                />
+                    autoComplete="city"
+                    className="mb-4 form-control"
+                    onChange={handleCityChange}
+                    />
+
                 <InputError
-                    message={errors?.city_id}
+                    message={errors?.city}
                     className="mt-2"
                 />
 

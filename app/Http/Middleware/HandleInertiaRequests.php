@@ -45,7 +45,7 @@ class HandleInertiaRequests extends Middleware
         return [
             ...parent::share($request),
             'auth' => [
-                'user' => UserData::optional($request->user()?->load('city', 'state')),
+                'user' => UserData::optional($request->user()?->load('state')),
             ],
             'price_filter_range' => [$min, $max],
             'csrf_token' => csrf_token(),

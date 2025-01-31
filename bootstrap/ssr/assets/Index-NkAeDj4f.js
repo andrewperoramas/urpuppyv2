@@ -70,7 +70,7 @@ const Index = ({ posts }) => {
     /* @__PURE__ */ jsxRuntimeExports.jsx(MetaTags, { url: `https://urpuppy.com/posts`, title: "Blog", description: "Blog", image: "" }),
     /* @__PURE__ */ jsxRuntimeExports.jsx("section", { className: "puppy-spotlight py-7 py-md-5 py-xl-9", id: "scroll-target", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "container", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "row mb-4 mb-lg-8", children: posts.data.length > 0 ? /* @__PURE__ */ jsxRuntimeExports.jsx(jsxRuntimeExports.Fragment, { children: posts.data.map((post, index) => {
       return /* @__PURE__ */ jsxRuntimeExports.jsx(Card, { post }, index);
-    }) }) : "burat" }) }) })
+    }) }) : "No posts found" }) }) })
   ] });
 };
 export {

@@ -8,6 +8,7 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Spatie\SchemaOrg\Schema;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\ServiceProvider;
 
@@ -41,18 +42,52 @@ class AppServiceProvider extends ServiceProvider
             ]);
         });
 
+                  VerifyEmail::createUrlUsing(function ($notifiable) {
+                    return URL::temporarySignedRoute(
+                        'verification.verify',
+                        now()->addMinutes(60), // Expiry time
+                        [
+                            'id' => $notifiable->getKey(),
+                            'hash' => sha1($notifiable->getEmailForVerification()),
+                            'role' => $notifiable->roles->first(),
+                        ]
+                    );
+                });
+
                 VerifyEmail::toMailUsing(function ($notifiable, $url) {
-            return (new MailMessage)
-                ->subject('New User')
-                ->greeting('Hi! '. $notifiable->full_name)
 
-                ->line('Thank you for signing up with UrPuppy.com! To complete your registration, please verify your email address by clicking the button below:')
+                $roles = $notifiable->roles;
 
-                ->action('Verify Your Account', $url)
-                ->line('If the button doesn’t work, you can also copy and paste the following link into your browser:' . $url)
+                if ($roles->contains('buyer')) {
 
-                ->line('This step helps us ensure your account is secure and ready to go. If you didn’t sign up for an account with UrPuppy.com, please disregard this email.')
-                ->line('Thank you for choosing UrPuppy.com!');
+                    /* $url = $url . '&role=buyer'; */
+                     $mail =  (new MailMessage)
+                    ->subject('New Buyer')
+                    ->greeting('Hi! '. $notifiable->full_name)
+
+
+                    ->action('Verify Your Account', $url)
+
+                    ->line('Thank you for choosing UrPuppy.com!');
+                }  else if ($roles->contains('seller')) {
+
+                    /* $url = $url . '&role=seller'; */
+                    $mail =  (new MailMessage)
+                    ->subject('New Seller')
+                    ->greeting('Hi! '. $notifiable->full_name)
+                    ->action('Verify Your Account', $url)
+                    ->line('Thank you for choosing UrPuppy.com!');
+                } else if ($roles->contains('breeder')) {
+
+                    /* $url = $url . '&role=breeder'; */
+                    $mail =  (new MailMessage)
+                    ->subject('New Breeder')
+                    ->greeting('Hi! '. $notifiable->full_name)
+                    ->action('Verify Your Account', $url)
+                    ->line('Thank you for choosing UrPuppy.com!');
+                }
+
+                return $mail;
         });
     }
 }

@@ -61,7 +61,7 @@ test('seller can register', function () {
         'social_ig' => fake()->url(),
         'social_tiktok' => fake()->url(),
         'social_x' => fake()->url(),
-        'city_id' => 1,
+        'city' => 1,
         'state_id' => 1,
         'zip_code' => '1023',
         'puppy_name' => 'Puppy Test',

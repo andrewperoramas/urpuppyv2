@@ -99,8 +99,8 @@ class ProfileController extends Controller
             $input['state_id'] = $input['state_id']['id'];
         }
 
-        if (is_array(@$input['city_id'])) {
-            $input['city_id'] = $input['city_id']['id'];
+        if (is_array(@$input['city'])) {
+            $input['city'] = $input['city'];
         }
 
         $request->user()->fill($input);

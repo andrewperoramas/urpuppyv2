@@ -241,6 +241,9 @@ slug: string;
 image: string;
 gender: string;
 };
+export type RoleData = {
+name: Array<string>;
+};
 export type SavedSearchData = {
 id: number;
 name: string | null;
@@ -288,6 +291,7 @@ social_fb: string | null;
 social_ig: string | null;
 social_tiktok: string | null;
 social_x: string | null;
+roles: Array<string> | null;
 enable_notification: boolean;
 premium_plan: App.Data.SubscriptionData | null;
 breeder_plan: App.Data.SubscriptionData | null;

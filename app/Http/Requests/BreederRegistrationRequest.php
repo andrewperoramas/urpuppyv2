@@ -27,7 +27,7 @@ class BreederRegistrationRequest extends FormRequest
             'email' => ['required', 'email', 'string', 'max:100'],
             'phone' => ['required','string', 'max:100' ],
             'company_address' => ['required' ],
-            'city_id' => ['required' ],
+            'city' => ['required' ],
             'state_id' => ['required', ],
             'zip_code' => ['required' ],
             'breeds' => ['required', 'array', 'max:4'],
@@ -56,7 +56,7 @@ class BreederRegistrationRequest extends FormRequest
     {
         return [
             'phone.required' => 'Phone number is required',
-            'city_id.required' => 'City field is required',
+            'city.required' => 'City field is required',
             'state_id.required' => 'State field is required',
 
         ];

@@ -48,7 +48,7 @@ class PuppyController extends Controller
             ])
             ->with([
                 'breeds:id,name,slug',
-                'seller:id,first_name,email,phone,last_name,state_id,city_id,created_at,slug,is_breeder',
+                'seller:id,first_name,email,phone,last_name,state_id,city,created_at,slug,is_breeder',
                 'favorites',
                 'media',
                 'seller.state:id,name,abbreviation',

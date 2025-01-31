@@ -62,18 +62,30 @@ class HandleSubscriptionCreated
        /* $user->update(['is_breeder' => $plan->is_breeder]); */
         /* $user->update(['is_featured' => $plan->is_featured]); */
 
-        \Log::info('okay baby boy');
+        /* \Log::info('okay baby boy'); */
         \Log::channel('stripe')->info(@$meta_data['plan_type']);
             /* \Log::info(@$meta_data['plan_type']); */
 
         if (@$meta_data['plan_type'] == 'premium') {
 
+            $user->update([
+                'is_seller' => true
+            ]);
+
             Mail::queue(new \App\Mail\PremiumAccountMail($user));
         } else if (@$meta_data['plan_type'] == 'breeder') {
+
+            $user->update([
+                'is_breeder' => true
+            ]);
 
             \Log::info('okay baby boy');
             Mail::queue(new \App\Mail\NewBreederSpecialAccountMail($user));
         } else if (@$meta_data['plan_type'] == 'free') {
+
+            $user->update([
+                'is_seller' => true
+            ]);
 
             \Log::info('okay baby boy');
             Mail::queue(new \App\Mail\FreeAccountMail($user));

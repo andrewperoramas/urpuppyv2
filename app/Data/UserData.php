@@ -23,7 +23,7 @@ class UserData extends Data
         public string $avatar,
         public string $slug,
         public string $email,
-        public ?CityData $city,
+        public ?string $city,
         public ?StateData $state,
         public ?string $zip_code,
         public string $address,
@@ -35,6 +35,8 @@ class UserData extends Data
         public ?string $social_ig,
         public ?string $social_tiktok,
         public ?string $social_x,
+        /** @var string[] */
+        public ?Collection $roles,
         public bool $enable_notification,
         public ?SubscriptionData $premium_plan,
         public ?SubscriptionData $breeder_plan,

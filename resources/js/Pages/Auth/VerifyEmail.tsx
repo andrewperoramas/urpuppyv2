@@ -2,11 +2,13 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import Button from '@/Components/ui/Button';
 import GuestLayout from '@/Layouts/GuestLayout';
 import Layout from '@/Layouts/Layout';
-import { Head, Link, useForm } from '@inertiajs/react';
+import { Head, Link, useForm, usePage } from '@inertiajs/react';
 import { FormEventHandler } from 'react';
 
 export default function VerifyEmail({ status, puppy }: { status?: string, puppy: App.Data.PuppyCardData }) {
     const { post, processing } = useForm({});
+
+    const roles = usePage().props?.auth?.user?.roles;
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
@@ -19,12 +21,27 @@ export default function VerifyEmail({ status, puppy }: { status?: string, puppy:
 
             <Head title="Email Verification" />
 
+            {
+                roles?.includes("breeder") ? <>
             <div className="mb-4 text-sm text-gray-600">
-                Thanks for signing up! Before getting started, could you verify
-                your email address by clicking on the link we just emailed to
-                you? If you didn't receive the email, we will gladly send you
-                another.
+                        Thank you for signing up for our breeder directory. To get started, please verify your email by clicking the link in the email we just sent you.
             </div>
+
+                </> : roles?.includes("seller") ? <>
+            <div className="mb-4 text-sm text-gray-600">
+                            Thank you for signing up for a seller account. To get started, please verify your email by clicking the link in the email we just sent you.
+            </div>
+
+                </> :
+                <>
+            <div className="mb-4 text-sm text-gray-600">
+                                Thank you for signing up for a buyer account. To get started, please verify your email by clicking the link in the email we just sent you.
+            </div>
+
+
+                </>
+            }
+
 
             {status === 'verification-link-sent' && (
                 <div className="mb-4 text-sm font-medium text-green-600">
@@ -34,7 +51,11 @@ export default function VerifyEmail({ status, puppy }: { status?: string, puppy:
             )}
 
             <form onSubmit={submit}>
-                <div className="mt-4 d-flex justify-content-between">
+                    <div className="mt-4 mb-2" >
+                        Didn't receive it?
+                    </div>
+                <div className=" d-flex justify-content-between">
+
                     <Button type="button" href="" >
                         Resend Verification Email
                     </Button>
@@ -47,6 +68,11 @@ export default function VerifyEmail({ status, puppy }: { status?: string, puppy:
                     >
                         Log Out
                     </Link>
+                </div>
+
+                <div className="my-4">
+                    Need help? Contact us anytime!
+
                 </div>
             </form>
         </GuestLayout>

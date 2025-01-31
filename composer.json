@@ -14,6 +14,7 @@
         "anhskohbo/no-captcha": "^3.6",
         "austintoddj/canvas": "^6.0",
         "based/momentum-modal": "^0.4.0",
+        "bezhansalleh/filament-shield": "^3.3",
         "cknow/laravel-money": "^8.1",
         "cms-multi/filament-clear-cache": "^2.0",
         "cviebrock/eloquent-sluggable": "^11.0",

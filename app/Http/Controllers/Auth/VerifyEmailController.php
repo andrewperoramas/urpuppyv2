@@ -14,14 +14,24 @@ class VerifyEmailController extends Controller
      */
     public function __invoke(EmailVerificationRequest $request): RedirectResponse
     {
+        $role = $request->query('role');
+
+        $redirect_url = "home";
+
+        if ($role == 'breeder') {
+            $redirect_url = "breeders.create";
+        } else if ($role == 'seller') {
+            $redirect_url = "seller.create";
+        }
+
         if ($request->user()->hasVerifiedEmail()) {
-            return redirect()->intended(route('home', absolute: false).'?verified=1');
+            return redirect()->intended(route($redirect_url, absolute: false).'?verified=1&role='. $role);
         }
 
         if ($request->user()->markEmailAsVerified()) {
             event(new Verified($request->user()));
         }
 
-        return redirect()->intended(route('home', absolute: false).'?verified=1');
+        return redirect()->intended(route($redirect_url, absolute: false).'?verified=1'.'&role='. $role);
     }
 }

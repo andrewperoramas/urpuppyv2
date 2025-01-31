@@ -110,11 +110,15 @@ const Navbarv2 = ({type} : {type?: string|undefined}) => {
                   Breeders
                 </Link>
               </li>
+
+                            {
+                     (user?.roles?.includes('seller') || !user) &&
               <li className="nav-item">
                 <Link prefetch  className={`nav-link ${page == '/seller/create' ? 'active' : '' }`} aria-current="page" href="/seller/create">
                   + List Ur Puppy
                 </Link>
               </li>
+}
               <li className="nav-item">
                 <Link prefetch className={`nav-link ${page.startsWith('/posts')  ? 'active' : '' }`} href="/posts">
                   Blog
@@ -194,11 +198,14 @@ const Navbarv2 = ({type} : {type?: string|undefined}) => {
                 Breeders
               </Link>
             </li>
+            {
+                     (user?.roles?.includes('seller') || !user) &&
             <li className="nav-item">
               <Link prefetch  className="nav-link text-white" href="/seller/create">
                 + List Ur Puppy
               </Link>
             </li>
+                        }
             <li className="nav-item">
               <Link  className="nav-link text-white" href="/posts">
                 Blog

@@ -9,7 +9,7 @@ import { Head, Link, useForm, usePage } from '@inertiajs/react';
 import { FormEventHandler, useEffect } from 'react';
 import toast from 'react-hot-toast';
 
-export default function Register({puppy}: {
+export default function RegisterBreeder({puppy}: {
     puppy: App.Data.PuppyData
 }) {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -24,7 +24,7 @@ export default function Register({puppy}: {
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
 
-        post('/register/buyer', {
+        post('/register/breeder', {
             onFinish: () => reset('password', 'password_confirmation'),
         });
     };
@@ -51,7 +51,7 @@ export default function Register({puppy}: {
 
     return (
         <>
-            <Head title="Register" />
+            <Head title="Register Breeder" />
               <div
     className="page-wrapper login-bg position-relative overflow-hidden min-vh-100 d-flex align-items-center justify-content-center">
     <div className="card position-relative overflow-hidden">
@@ -59,7 +59,7 @@ export default function Register({puppy}: {
         <div className="row">
           <div className="col-lg-7 order-last order-lg-first">
             <div className="login-info d-flex flex-column justify-content-center h-100 py-5 px-3 ps-lg-0">
-              <h2>Buyer Registration</h2>
+              <h2>Breeder Registration</h2>
               <p className="mb-4 pb-2">Explore the best dog breeds! Signup
                 to discover more.</p>
             <form onSubmit={submit}>

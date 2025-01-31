@@ -1,7 +1,8 @@
-import { Link } from '@inertiajs/react'
+import { Link, usePage } from '@inertiajs/react'
 import React from 'react'
 
 const Footer = () => {
+    const user = usePage().props.auth.user
   return (
         <footer className="footer bg-secondary">
     <div className="container">
@@ -28,9 +29,14 @@ const Footer = () => {
           <div className="col-6 col-md-4 col-lg-2 mb-7 pb-1 pb-lg-0 mb-lg-0">
             <h6 className="fw-semibold font-work-sans mb-6 text-white">Customers</h6>
             <ul className="list-unstyled footer-memu mb-0">
+                {
+                     (user?.roles?.includes('breeder') || !user) &&
+
               <li>
                <Link href="/breeders/create" className="fs-3 d-block fw-normal">Breeder Register</Link>
               </li>
+
+                                }
             </ul>
           </div>
           <div className="col-6 col-md-4 col-lg-2 mb-7 pb-1 pb-lg-0 mb-lg-0">

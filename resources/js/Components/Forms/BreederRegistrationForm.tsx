@@ -17,7 +17,7 @@ const BreederRegistrationForm = ({breeds}: { breeds: App.Data.BreedOptionData[]}
    const { data, setData, post, errors } = useForm({
     health_certificate: 'yes',
     vaccinated: 'yes',
-    company_address: 'yes',
+    company_address: '',
     vet_exam: 'yes',
     has_usda_registration: 'no',
     about_company: '',
@@ -29,7 +29,7 @@ const BreederRegistrationForm = ({breeds}: { breeds: App.Data.BreedOptionData[]}
     travel_ready: 'yes',
     delivery_included: 'yes',
     breeds: [],
-    city_id: null,
+    city: null,
     state_id: null,
     zip_code: '',
     are_you_a_breeder: 'yes',

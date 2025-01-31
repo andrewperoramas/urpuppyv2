@@ -69,16 +69,16 @@ class CheckoutController extends Controller
         }
 
         if ($plan->type == 'breeder') {
-            $request->user()->update([
-                'is_breeder' => true
-            ]);
+            /* $request->user()->update([ */
+            /*     'is_breeder' => true */
+            /* ]); */
         }
         /* dd($plan->type); */
 
        if ($plan->type == 'premium') {
-            $request->user()->update([
-                'is_seller' => true
-            ]);
+            /* $request->user()->update([ */
+            /*     'is_seller' => true */
+            /* ]); */
         }
 
         /* } else { */

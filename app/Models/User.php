@@ -76,6 +76,8 @@ class User extends Authenticatable implements  HasMedia,  MustVerifyEmail, Sitem
         'company_email_address',
         'company_zip_code',
         'company_city_id',
+        'company_city',
+        'city',
         'company_state_id',
         'company_about',
         'has_usda_registration',
@@ -269,20 +271,20 @@ class User extends Authenticatable implements  HasMedia,  MustVerifyEmail, Sitem
         return $this->belongsTo(State::class);
     }
 
-    public function city()
-    {
-        return $this->belongsTo(City::class);
-    }
+    /* public function city() */
+    /* { */
+    /*     return $this->belongsTo(City::class); */
+    /* } */
 
     public function company_state()
     {
         return $this->belongsTo(State::class, 'company_state_id');
     }
 
-    public function company_city()
-    {
-        return $this->belongsTo(City::class, 'company_city_id');
-    }
+    /* public function company_city() */
+    /* { */
+    /*     return $this->belongsTo(City::class, 'company_city_id'); */
+    /* } */
 
     /* public function stripeAddress() */
     /* { */
@@ -304,20 +306,25 @@ class User extends Authenticatable implements  HasMedia,  MustVerifyEmail, Sitem
     public function getAddressAttribute()
     {
         $state = $this->state?->abbreviation ?? $this->state?->name;
-        return $this->city?->name . ', ' . $state ;
+        $address = $this->city . ', ' . $state ;
+        if ($this->city == null &&  $state == null) {
+            return $this->company_address;
+        }
+
+        return $address;
     }
 
     public function getShortAddressAttribute()
     {
         $state = $this->state?->abbreviation ?? $this->state?->name;
-        $city_name = substr($this->city?->name ?? "", 0, 7) . (strlen($this->city?->name ?? "") > 7 ? '.' : '');
+        $city_name = substr($this->city ?? "", 0, 7) . (strlen($this->city ?? "") > 7 ? '.' : '');
         return  $city_name . ', ' . $state ;
     }
 
     public function getCompanyAddressAttribute($value)
     {
         $state = $this->company_state?->abbreviation ?? $this->company_state?->name;
-        return  $value ?? "" .', '. $this->company_city?->name . ', ' . $state ;
+        return  $value ?? "" .', '. $this->company_city . ', ' . $state ;
     }
 
     public function isSubscribed()
@@ -377,6 +384,12 @@ class User extends Authenticatable implements  HasMedia,  MustVerifyEmail, Sitem
     public function saved_searches()
     {
         return $this->hasMany(SavedSearch::class);
+    }
+
+    public function getRolesAttribute()
+    {
+        return $this->roles()->pluck('name');
+
     }
 
     /*      static::pivotUpdated(function ($model, $relationName, $pivotIds, $pivotIdsAttributes) { */
