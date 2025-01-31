@@ -29,6 +29,13 @@ const AvatarInput: React.FC<AvatarInputProps> = ({ onChange }) => {
   };
 
   const handleDeletePicture = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (typeof window === "undefined") return;
+
+    if (!window.confirm("Are you sure you want to delete your profile picture?"))
+    {
+        return;
+    }
+
     e.preventDefault();
     setImagePreview(""); // Reset to default image
     if (fileInputRef.current) {

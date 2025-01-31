@@ -79,6 +79,13 @@ export default function Edit({
               role="tablist">
                 {NavigationSettings.map((item, index) =>
                                         {
+                                            if (item.name == 'Saved Search') {
+                                                if (!user?.roles?.includes('buyer')) {
+                                                    return;
+                                                }
+                                            }
+
+
                                             if (item.name == 'My Subscription' || item.name == 'My Puppies' ) {
 
                                                 if (!plan && !breeder_plan) {
