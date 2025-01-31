@@ -10,7 +10,7 @@ const FavoriteButton = ({puppyId, sellerId, isFavorite, uniqueId = null} : {
 }) => {
   const user = usePage().props?.auth?.user
 
-  return user?.id != sellerId && <> <Tooltip content={  (
+  return user?.roles?.includes('buyer') && <> <Tooltip content={  (
 
 
                           <Link method="patch" preserveScroll href={`/favorites/${puppyId}`} data-bs-toggle="tooltip" data-bs-title="Add To Favourite"

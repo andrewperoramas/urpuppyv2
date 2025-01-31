@@ -59,7 +59,7 @@ class RegisteredUserController extends Controller
             'state_id' => '',
             'city_id' => '',
             /* 'avatar' => 'required', */
-            'email' => 'confirmed|required|string|lowercase|email|max:255|unique:' . User::class,
+            'email' => 'confirmed|required|string|email|max:255|unique:' . User::class,
             'password' => ['required', 'confirmed', Password::defaults()],
             /* 'captcha' => 'required|captcha' */
         ]);

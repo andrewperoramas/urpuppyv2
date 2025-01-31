@@ -2,9 +2,6 @@ import React from 'react';
 import { Head } from '@inertiajs/react';
 
 
-
-
-
 const MetaTags = ({
   title = "UrPuppy",
   description = "Discover trusted dog breeders, buy or sell puppies online, and connect with pet lovers nationwide. UrPuppy.com is your go-to platform for finding purebred puppies and connecting with licensed breeders.",

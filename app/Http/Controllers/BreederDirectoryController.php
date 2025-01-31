@@ -13,7 +13,6 @@ class BreederDirectoryController extends Controller
         $breeders = User::with([
             'media',
             'state',
-            'city',
 
         ])->breeders()->get();
 

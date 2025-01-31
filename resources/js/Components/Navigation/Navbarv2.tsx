@@ -69,7 +69,7 @@ const Navbarv2 = ({type} : {type?: string|undefined}) => {
           </div>
           <div className="d-xl-none d-flex align-items-center gap-3">
 
-             { user && <>
+             { ( user?.roles?.includes('buyer')  ) && <>
             <Link className="position-relative me-1 d-xl-none" href="/favorites">
               <img src="/icon-heart-white.svg" alt="" />
             { /*
@@ -130,16 +130,13 @@ const Navbarv2 = ({type} : {type?: string|undefined}) => {
 
                 {user ? (
                                 <>
+                {
+                                        user?.roles?.includes('buyer') &&
               <Link className="position-relative me-1" href="/favorites">
                 <img src="/icon-heart-white.svg" alt="" />
-            { /*
-                <span className="position-absolute fs-1 p-1 top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                  9+
-                  <span className="visually-hidden">unread messages</span>
-
-                </span>
-                                      */  }
               </Link>
+                                    }
+
                 <AccountDropdownButton user={user}/>
                                 </>
                 ) : (

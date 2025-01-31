@@ -36,9 +36,13 @@ const AccountDropdownButton = ({user} : { user: App.Data.UserData }) => {
                 }
 
 
+                {
+                    user?.roles?.includes('breeder') &&
               <li><Link className="dropdown-item rounded py-2" href="/profile" data={{
                     tab: 'Saved Search'
                 }} >Saved Search</Link></li>
+                }
+
                 {
 
                 (user.premium_plan != null || user.breeder_plan != null) &&

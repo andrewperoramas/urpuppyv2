@@ -21,7 +21,7 @@ function SavedSearchModal({has_search} : any) {
 
            <div className="mb-8 text-end">
                         {
-                            user &&
+                            (user && user.roles?.includes('buyer') ) &&
       <a onClick={handleShow} href="#" className="btn btn-outline-extralight border btn-white text-dark" data-bs-toggle="modal" data-bs-target="#SaveThisSearch">Save This Search</a>
                         }
 

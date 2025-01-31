@@ -52,7 +52,6 @@ class PuppyController extends Controller
                 'favorites',
                 'media',
                 'seller.state:id,name,abbreviation',
-                'seller.city:id,name',
             ])
             ->allowedFilters([
             /* AllowedFilter::exact('breeds.name', null, false), */
@@ -150,7 +149,6 @@ class PuppyController extends Controller
             'puppy_traits',
             'siblings',
             'puppy_patterns',
-            'seller.city',
             'comments' => function ($query) {
                 $query->orderByDesc('created_at');
             },
