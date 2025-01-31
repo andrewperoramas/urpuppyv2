@@ -37,7 +37,7 @@ const AccountDropdownButton = ({user} : { user: App.Data.UserData }) => {
 
 
                 {
-                    user?.roles?.includes('breeder') &&
+                    user?.roles?.includes('buyer') &&
               <li><Link className="dropdown-item rounded py-2" href="/profile" data={{
                     tab: 'Saved Search'
                 }} >Saved Search</Link></li>

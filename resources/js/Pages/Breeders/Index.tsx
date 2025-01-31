@@ -3,6 +3,7 @@ import BreederCard from '@/Components/Breeder/BreederCard'
 import BreedFilter from '@/Components/Filters/BreedFilter'
 import StateFilter from '@/Components/Filters/StateFilter'
 import MetaTags from '@/Components/MetaTags'
+import Pagination from '@/Components/Pagination'
 import SmallBannerWithContent from '@/Components/Sliders/SmallBannerWithContent'
 import Layout from '@/Layouts/Layout'
 import { PaginatedCollection } from '@/types/global'
@@ -68,6 +69,7 @@ const Index = ({breeders} : {
                                 <BreederCard hasBorder={true} key={breeder.slug} breeder={breeder} />
                             ))}
           </div>
+                    <Pagination links={breeders.links}/>
 
         </div>
         </section>

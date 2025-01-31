@@ -317,14 +317,15 @@ class User extends Authenticatable implements  HasMedia,  MustVerifyEmail, Sitem
     public function getShortAddressAttribute()
     {
         $state = $this->state?->abbreviation ?? $this->state?->name;
-        $city_name = substr($this->city ?? "", 0, 7) . (strlen($this->city ?? "") > 7 ? '.' : '');
+        $city_name = substr($this->city ?? "", 0, 6) . (strlen($this->city ?? "") > 6 ? '.' : '');
         return  $city_name . ', ' . $state ;
     }
 
     public function getCompanyAddressAttribute($value)
     {
+
         $state = $this->company_state?->abbreviation ?? $this->company_state?->name;
-        return  $value ?? "" .', '. $this->company_city . ', ' . $state ;
+        return  ( $value ?? "" ) .', '. $this->company_city . ', ' . $state ;
     }
 
     public function isSubscribed()

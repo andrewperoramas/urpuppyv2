@@ -42,15 +42,15 @@ class AppServiceProvider extends ServiceProvider
             ]);
         });
 
-                  VerifyEmail::createUrlUsing(function ($notifiable) {
-                    return URL::temporarySignedRoute(
-                        'verification.verify',
-                        now()->addMinutes(60), // Expiry time
-                        [
-                            'id' => $notifiable->getKey(),
-                            'hash' => sha1($notifiable->getEmailForVerification()),
-                            'role' => $notifiable->roles->first(),
-                        ]
+              VerifyEmail::createUrlUsing(function ($notifiable) {
+                return URL::temporarySignedRoute(
+                    'verification.verify',
+                    now()->addMinutes(60), // Expiry time
+                    [
+                        'id' => $notifiable->getKey(),
+                        'hash' => sha1($notifiable->getEmailForVerification()),
+                        'role' => $notifiable->roles->first(),
+                    ]
                     );
                 });
 
