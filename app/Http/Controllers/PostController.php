@@ -20,6 +20,7 @@ class PostController extends Controller
     public function show(Request $request, string $slug)
     {
         $user = $request->user();
+        $reacterFacade = null;
         $post = PostData::from($post_model = Post::with(['category', 'author', 'comments', 'comments.reviewer'])->where('slug', $slug)->firstOrFail());
 
         defer(function () use ($post_model) {
