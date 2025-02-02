@@ -168,7 +168,7 @@ class BreederController extends Controller
         }
         /* dd($breeder->attr); */
 
-        $puppies = $breeder->puppies()->with(['breeds:id,name,slug','seller', 'media', 'favorites'])->limit(3)->get();
+        $puppies = $breeder->puppies()->with(['breeds:id,name,slug','seller', 'media', 'favorites'])->get();
 
         return inertia('Breeders/Show', [
             'rating_count' => $breeder->comments->count(),
