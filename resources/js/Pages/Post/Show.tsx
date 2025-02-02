@@ -41,7 +41,7 @@ const Show = ({post, comments, is_liked, is_unliked}: {
                             </p>
             </div>
 
-            <div className="d-flex  flex-row flex-sm-column flex-md-row  align-items-center justify-content-between  ">
+            <div className="d-flex  flex-column flex-sm-column flex-md-row  align-items-center justify-content-between  ">
                         <div className="d-flex gap-3 mb-2">
                             <img src={post.author.photo_url} className="rounded-circle object-fit-cover" width="50" height="50" />
                             <div>
@@ -59,7 +59,7 @@ const Show = ({post, comments, is_liked, is_unliked}: {
 
 
                         <div
-  className="d-flex justify-content-center align-items-center mb-2 gap-4"
+  className="d-flex justify-content-center align-items-center mb-2 gap-md-4 gap-3"
   style={{ height: "24px" }}
 >
   <div className="d-flex align-items-center gap-2">
@@ -171,7 +171,7 @@ style={{
 
                     </div>
 
-                    <div className="d-flex mb-8" style={{
+                    <div className="d-flex mb-8 flex-column flex-md-row text-center" style={{
                         justifyContent: "space-between"
                     }}>
                         <div>
@@ -185,7 +185,7 @@ style={{
                             </span>
                         </div>
 
-                        <div className="d-flex gap-2">
+                        <div className="d-flex gap-2 justify-content-center">
                             <CopyToClipboard link={currentUrl} />
 
                               <FacebookShareButton url={currentUrl} >

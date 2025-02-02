@@ -208,6 +208,36 @@ const Navbarv2 = ({type} : {type?: string|undefined}) => {
                 Blog
               </Link>
             </li>
+
+
+            {user && (
+            <>
+            <li className="nav-item">
+              <Link  className="nav-link text-white" href="/profile">
+                Profile
+              </Link>
+            </li>
+
+            <li className="nav-item">
+                                                <Link
+                                                    method="post"
+                                                    as="button"
+                                                    href="/logout"
+                                    style={{
+                                            background: 'transparent',
+                                            color: 'white',
+                                            margin: '0',
+                                            padding: '0',
+                                            border: 'none'
+                                        }}
+                                                >
+                                                    Logout
+                                                </Link>
+            </li>
+                            </>
+            )
+
+                        }
           </ul>
 
         {!user && (

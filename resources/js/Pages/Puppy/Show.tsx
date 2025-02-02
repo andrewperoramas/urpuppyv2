@@ -281,7 +281,7 @@ href={`/report/${puppy.slug}`} method="post" data={{
     <section className="bringing-through-puppies bg-extralight py-7 py-md-5 py-xl-9">
       <div className="container">
         <div className="d-flex align-items-center justify-content-between mb-4 mb-lg-8">
-          <h2 className="mb-0" data-aos="fade-right" data-aos-delay="100" data-aos-duration="1000">Other {puppy?.breeds[0]?.name } List</h2>
+          <h2 className="mb-0" data-aos="fade-right" data-aos-delay="100" data-aos-duration="1000">Other {puppy?.breeds[0]?.name } Listing</h2>
         </div>
 
         <div className="row">

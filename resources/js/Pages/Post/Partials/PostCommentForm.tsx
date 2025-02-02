@@ -8,7 +8,7 @@ const PostCommentForm = ({post_id} : {post_id: number}) => {
   return (
   <>
             <form onSubmit={(e) => {e.preventDefault(); post(`/posts/${post_id}/comment`); reset('body') }}>
-                <div className="mb-3 position-relative">
+                <div className="mb-3 position-relative post-reviews">
   <textarea
     value={data.body}
     onChange={(e) => {

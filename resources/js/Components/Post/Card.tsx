@@ -19,7 +19,10 @@ const Card = ({post} : {
               <div className="puppy-spotlight-details">
                 <div className="p-3">
                   <p className="fs-2 mb-1 text-uppercase fw-medium">{post.category.name}</p>
+
+              <Link prefetch  preserveScroll={false} href={`/posts/${post.slug}`} className="puppy-spotlight-img position-relative overflow-hidden d-block d-block">
                   <h6 className="fs-6 font-work-sans">{post.title}</h6>
+              </Link>
                   <div className="row">
 
 

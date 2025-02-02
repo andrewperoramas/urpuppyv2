@@ -41,7 +41,7 @@ const Show = ({breeder, puppies} : {
             <div className="card border">
               <div className="card-body">
                 <div className="row">
-                  <div className="col-xl-7 mb-4 mb-md-5 mb-xl-0">
+                  <div className="col-xl-7 mb-4 mb-md-5 mb-xl-5">
                     <div className="breeders-detail-img position-relative overflow-hidden rounded-1 me-xl-4">
                       <img src={breeder?.company_logo ?? ""} alt="" className="w-100 h-100"/>
                     </div>
