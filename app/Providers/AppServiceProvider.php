@@ -85,7 +85,6 @@ class AppServiceProvider extends ServiceProvider
 
                 } else if ($roles->contains('breeder')) {
 
-                    /* $url = $url . '&role=breeder'; */
                     $mail = (new MailMessage)
                 ->subject('New Breeder Account')
                 ->greeting('Hi! '. $notifiable->full_name)
@@ -97,7 +96,20 @@ class AppServiceProvider extends ServiceProvider
                 ->line('This step helps us ensure your account is secure and ready to go. If you didn’t sign up for an account with UrPuppy.com, please disregard this email.')
                 ->line('Thank you for choosing UrPuppy.com!');
 
-                }
+            } else {
+
+                    $mail = (new MailMessage)
+                ->subject('New Account')
+                ->greeting('Hi! '. $notifiable->full_name)
+
+                ->line('Thank you for signing up with UrPuppy.com! To complete your registration, please verify your email address by clicking the button below:')
+
+                ->action('Verify Your Account', $url)
+
+                ->line('This step helps us ensure your account is secure and ready to go. If you didn’t sign up for an account with UrPuppy.com, please disregard this email.')
+                ->line('Thank you for choosing UrPuppy.com!');
+
+            }
 
                 return $mail;
         });
