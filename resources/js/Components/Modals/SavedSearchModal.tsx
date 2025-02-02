@@ -16,7 +16,7 @@ function SavedSearchModal({has_search} : any) {
 
   return (
     <>
-    { has_search == true &&
+    { ( has_search == true && typeof window !== 'undefined' )&&
     <>
 
            <div className="mb-8 text-end">
