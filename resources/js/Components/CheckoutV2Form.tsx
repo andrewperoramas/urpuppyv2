@@ -3,7 +3,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import { usePage, router } from "@inertiajs/react";
 import Button from "./ui/Button";
 
-const stripePromise = loadStripe("pk_test_51Q8Qm3CLBiXa7V6ipLsyAZoGS5TmgpRuFwAxiT0nQzePjkyICHQn8mForFcLOlus2DMrEjVVlvfXIwAvARTIWDpA00HsFtZ171");
+const stripePromise = loadStripe("pk_test_51QoA8bPX6eO7ZftrJQdaiEDQR1qQvXYAGS1XU4UD94bXrrhKq0aIPCKiCfqzKxnbCX4kg0EJrRYyanggFIacjfTF00tM4KzZlN");
 
 const CheckoutV2Form = ({ clientSecret, plan_id }: any) => {
     const [elements, setElements] = useState(null);

@@ -76,7 +76,7 @@ const CheckoutElement = ({plan_id, intent: clientSecret}: {
   );
 };
 
-const stripePromise = loadStripe('pk_test_51Q8Qm3CLBiXa7V6ipLsyAZoGS5TmgpRuFwAxiT0nQzePjkyICHQn8mForFcLOlus2DMrEjVVlvfXIwAvARTIWDpA00HsFtZ171');
+const stripePromise = loadStripe('pk_test_51QoA8bPX6eO7ZftrJQdaiEDQR1qQvXYAGS1XU4UD94bXrrhKq0aIPCKiCfqzKxnbCX4kg0EJrRYyanggFIacjfTF00tM4KzZlN');
 
 const CheckoutForm = ({plan_id, intent}: any) => (
   <Elements stripe={stripePromise}>
