@@ -134,7 +134,12 @@ class SellerController extends Controller
         }
 
         collect($data['videos'])->each(function ($image) use ($created_puppy) {
-            $media = $created_puppy->addMedia($image)->toMediaCollection('video');
+            try {
+    $media = $created_puppy->addMedia($image)->toMediaCollection('video');
+} catch (\Exception $e) {
+    \Log::error('Error adding media: ' . $e->getMessage());
+}
+            /* $media = $created_puppy->addMedia($image)->toMediaCollection('video'); */
 
             GenerateVideoThumbnail::dispatch($media);
 

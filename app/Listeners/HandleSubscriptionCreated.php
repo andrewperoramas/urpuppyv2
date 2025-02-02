@@ -32,9 +32,14 @@ class HandleSubscriptionCreated
 
         $user = $this->getUser($subscription['customer']);
 
+        \Log::info(var_dump($user));
+
+
         if (! $user) {
             return;
         }
+
+        \Log::info('user found');
 
         $items = $subscription['items']['data'];
 

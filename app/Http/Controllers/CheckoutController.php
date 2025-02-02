@@ -41,57 +41,65 @@ class CheckoutController extends Controller
 }
 
     public function complete(Request $request)
-    {
-        $plan = Plan::find($request->plan_id);
+{
+    // Validate the request to ensure plan_id and paymentMethod are present
+    $request->validate([
+        'plan_id' => 'required|exists:plans,id',
+        'paymentMethod' => 'required',
+    ]);
 
-        if (! $plan) {
-            return response()->json([
-                'message' => 'Plan not found',
+    // Find the plan
+    $plan = Plan::find($request->plan_id);
+
+    if (!$plan) {
+        return response()->json([
+            'message' => 'Plan not found',
+        ], 404);
+    }
+
+    // Create the subscription with metadata
+    try {
+        $subscription = $request->user()
+            ->newSubscription($plan->type, $plan->stripe_plan_id)
+            ->withMetadata([
+                'plan_id' => (string) $plan->id,
+                'plan_name' => (string) $plan->name,
+                'plan_price' => (string) $plan->price,
+                'user_id' => (string) $request->user()->id,
+                'plan_type' => (string) $plan->type,
+            ])
+            ->create($request->paymentMethod, [
+                'email' => $request->user()->email, // User's email for customer creation
             ]);
+
+        if (!$subscription) {
+            throw new \Exception('Subscription creation failed.');
         }
 
-
-        /* $subscription = $request->user()->newSubscription('standard', $plan->stripe_plan_id); */
-
-        /* if ($plan->trial_days > 0) { */
-        /*     $subscription = $subscription->trialDays($plan->trial_days); */
-        /* } */
-
-        /* if ($plan->type == 'breeder') { */
-        $is_created = $request->user()->newSubscription($plan->type, $plan->stripe_plan_id)->create($request->paymentMethod);
-
-        if (!$is_created) {
-
-            return redirect()->back()->with([
-                'tab' => 'My Subscription',
-                'message.error' => 'Something went wrong. Please try again later',
-            ]);
-        }
-
+        // Update user roles based on the plan type
         if ($plan->type == 'breeder') {
-            $request->user()->update([
-                'is_breeder' => true
-            ]);
-        }
-        /* dd($plan->type); */
-
-        // URGENT WORKAROUND
-       if ($plan->type == 'premium') {
-            $request->user()->update([
-                'is_seller' => true
-            ]);
+            $request->user()->update(['is_breeder' => true]);
+        } elseif ($plan->type == 'premium') {
+            $request->user()->update(['is_seller' => true]);
         }
 
-        /* } else { */
-           /* $request->user()->newSubscription('standard', $plan->stripe_plan_id)->create($request->paymentMethod); */
-        /* } */
-
+        // Redirect with success message
         return redirect()->route('profile.edit', [
             'tab' => 'My Subscription',
-            'message.success' => 'Successfully subscribed to breeder plan',
+            'message.success' => 'Successfully subscribed to ' . $plan->type . ' plan',
         ]);
-        /* return inertia()->render(''); */
+
+    } catch (\Exception $e) {
+        // Log the error for debugging
+        \Log::error('Subscription Error: ' . $e->getMessage());
+
+        // Redirect back with an error message
+        return redirect()->back()->with([
+            'tab' => 'My Subscription',
+            'message.error' => 'Something went wrong. Please try again later.',
+        ]);
     }
+}
 
 
     public function index(int $plan_id, Request $request)

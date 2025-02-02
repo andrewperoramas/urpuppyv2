@@ -46,19 +46,14 @@ class SupportTeamEmailResponseMail extends Mailable
 
     $m = (new MailMessage)
         ->greeting("Dear {$this->name},")
-        ->line(' Thank you for contacting the **Urpuppy.com Support Team**.')
+        ->line('Thank you for contacting Urpuppy.com! We have received your email and appreciate you reaching out to us.')
 
 
-        ->line('We’ve received your inquiry and one of our representatives will get back to you within the next 24 hours.')
+        ->line('Our team works diligently to respond to inquiries, and we will get back to you within the next 24 hours. If your matter is urgent, please feel free to indicate that in your message, and we will do our best to prioritize your request.')
 
-        ->line('In the meantime, feel free to explore our **Help Center** for quick answers to common questions.')
+        ->line("Thank you for your patience!")
 
-        ->line('Thank you for your patience, and we look forward to assisting you!')
-
-        ->line("If you have any questions or need support, feel free to contact us at [support@urpuppy.com](mailto:{$support_email}).")
-
-
-        ->line(' Thank you for choosing **Urpuppy.com** to grow your business!');
+        ->line('Best regards,');
 
     return new Content(htmlString: $m->render());
 }
