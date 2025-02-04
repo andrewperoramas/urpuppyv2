@@ -23,7 +23,7 @@ const MyPuppies = ({puppies} : {
 
                         <div className="col-md-6 col-lg-5 col-xl-5 mb-4">
 
-                        <PuppyCard className="" puppy={puppy}/>
+                        <PuppyCard key={puppy.id} className="" puppy={puppy}/>
 
                         <Link className="btn btn-primary mt-2 btn-sm" style={{marginRight: "4px"}} href={`/seller/create/${puppy.id}`}>Edit </Link>
                                 <Link

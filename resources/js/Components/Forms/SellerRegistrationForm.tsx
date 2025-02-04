@@ -101,19 +101,19 @@ const SellerRegistrationForm = ({
                   <div className="col-lg-4">
                     <div className="mb-4">
                      <InputLabel isRequired={true} value="First Name "/>
-                     <TextInput  value={data.first_name}/>
+                     <TextInput  onChange={(e: any) => setData('first_name', e.target.value)} value={data.first_name}/>
                     </div>
                   </div>
                   <div className="col-lg-4">
                     <div className="mb-4">
                       <InputLabel isRequired={true} value="Last Name"/>
-                     <TextInput  value={data.last_name}/>
+                     <TextInput  onChange={(e: any) => setData('last_name', e.target.value)} value={data.last_name}/>
                     </div>
                   </div>
                   <div className="col-lg-4">
                     <div className="mb-4">
                       <InputLabel isRequired={true} value="Email"/>
-                     <TextInput  value={data.email}/>
+                     <TextInput onChange={(e: any) => setData('email', e.target.value)}  value={data.email}/>
                     </div>
                   </div>
                   <div className="col-lg-4">

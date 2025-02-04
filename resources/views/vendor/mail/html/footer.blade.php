@@ -12,7 +12,7 @@
       </a>
     </div>
 
-    <img src="{{ asset('images/email-template/Simplification.png') }}"
+    <img src="{{ imgconv64(public_path('images/email-template/puppies.png')) }}"
       alt="puppies" style="display: block; margin: 24px auto; max-width: 100%; height: auto;">
   </td>
 </tr>
@@ -25,22 +25,22 @@
     <div style="text-align: center; margin-top: 12px;">
       <a href="#"
         style="width: 44px; height: 44px; display: inline-flex; align-items: center; justify-content: center; color: white; background: #214660; border-radius: 100%; cursor: pointer; margin-left: 12px; text-align: center;">
-        <img src="{{ asset('images/email-template/tiktok.png') }}"
+        <img src="{{  imgconv64(public_path('images/email-template/tiktok.png')) }}"
           alt="tiktok" style="width: 20px; height: 20px; display: block; margin: 0;">
       </a>
       <a href="#"
         style="width: 44px; height: 44px; display: inline-flex; align-items: center; justify-content: center; color: white; background: #214660; border-radius: 100%; cursor: pointer; margin-left: 12px; text-align: center;">
-        <img src="{{ asset('images/email-template/facebook.png') }}"
+        <img src="{{ imgconv64(public_path('images/email-template/facebook.png')) }}"
           alt="facebook" style="width: 20px; height: 20px; display: block; margin: 0;">
       </a>
       <a href="https://www.instagram.com/urpupppydotcom"
         style="width: 44px; height: 44px; display: inline-flex; align-items: center; justify-content: center; color: white; background: #214660; border-radius: 100%; cursor: pointer; margin-left: 12px; text-align: center;">
-        <img src="{{ asset('images/email-template/instagram.png') }}"
+        <img src="{{ imgconv64(public_path('images/email-template/instagram.png')) }}"
           alt="instagram" style="width: 20px; height: 20px; display: block; margin: 0;">
       </a>
       <a href="https://x.com/UrpuppyDotCom"
         style="width: 44px; height: 44px; display: inline-flex; align-items: center; justify-content: center; color: white; background: #214660; border-radius: 100%; cursor: pointer; margin-left: 12px; text-align: center;">
-        <img src="{{ asset('images/email-template/twitter.png') }}"
+        <img src="{{ imgconv64(public_path('images/email-template/twitter.png')) }}"
           alt="twitter" style="width: 20px; height: 20px; display: block; margin: 0;">
       </a>
     </div>

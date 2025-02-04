@@ -98,4 +98,23 @@ if (!function_exists('breed_options')) {
 }
 
 
+if (!function_exists('imgconv64')) {
+    /**
+     * Convert an image file to base64.
+     *
+     * @param  string $imagePath
+     * @return string
+     */
+    function imgconv64($imagePath)
+    {
+        if (file_exists($imagePath)) {
+            $imageData = base64_encode(file_get_contents($imagePath));
+            $imageInfo = pathinfo($imagePath);
+            $mimeType = mime_content_type($imagePath);
+            return 'data:' . $mimeType . ';base64,' . $imageData;
+        }
+
+        return null;
+    }
+}
 

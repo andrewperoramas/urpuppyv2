@@ -53,7 +53,7 @@ export default function Guest({ variant = 'primary', children, puppy, header = "
               </div>
               <div className="card login-right-card mb-0">
                 <div className="card-body">
-                    <PuppyCard className="puppy-spotlight-item rounded-1 overflow-hidden" puppy={puppy} />
+                    <PuppyCard key={puppy?.id} className="puppy-spotlight-item rounded-1 overflow-hidden" puppy={puppy} />
                 </div>
               </div>
             </div>

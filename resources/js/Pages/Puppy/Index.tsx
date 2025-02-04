@@ -29,7 +29,7 @@ const Index = ({puppies, states, breeds, has_search} : {
             <div className="row mb-4 mb-lg-8">
                 {
                     puppies?.data && puppies?.data.map((puppy: App.Data.PuppyData) => (
-                        <PuppyCard puppy={puppy}/>
+                        <PuppyCard key={puppy.id} puppy={puppy}/>
                     ))
                 }
 

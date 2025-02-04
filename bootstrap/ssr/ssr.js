@@ -3473,7 +3473,7 @@ var objectInspect = function inspect_(obj, options, depth, seen) {
     var ys = arrObjKeys(obj, inspect2);
     var isPlainObject2 = gPO ? gPO(obj) === Object.prototype : obj instanceof Object || obj.constructor === Object;
     var protoTag = obj instanceof Object ? "" : "null prototype";
-    var stringTag = !isPlainObject2 && toStringTag && Object(obj) === obj && toStringTag in obj ? $slice.call(toStr$1(obj), 8, -1) : protoTag ? "Object" : "";
+    var stringTag = !isPlainObject2 && toStringTag && Object(obj) === obj && toStringTag in obj ? $slice.call(toStr(obj), 8, -1) : protoTag ? "Object" : "";
     var constructorTag = isPlainObject2 || typeof obj.constructor !== "function" ? "" : obj.constructor.name ? obj.constructor.name + " " : "";
     var tag = constructorTag + (stringTag || protoTag ? "[" + $join.call($concat$1.call([], stringTag || [], protoTag || []), ": ") + "] " : "");
     if (ys.length === 0) {
@@ -3495,25 +3495,25 @@ function quote(s2) {
   return $replace$1.call(String(s2), /"/g, "&quot;");
 }
 function isArray$4(obj) {
-  return toStr$1(obj) === "[object Array]" && (!toStringTag || !(typeof obj === "object" && toStringTag in obj));
+  return toStr(obj) === "[object Array]" && (!toStringTag || !(typeof obj === "object" && toStringTag in obj));
 }
 function isDate$1(obj) {
-  return toStr$1(obj) === "[object Date]" && (!toStringTag || !(typeof obj === "object" && toStringTag in obj));
+  return toStr(obj) === "[object Date]" && (!toStringTag || !(typeof obj === "object" && toStringTag in obj));
 }
 function isRegExp$2(obj) {
-  return toStr$1(obj) === "[object RegExp]" && (!toStringTag || !(typeof obj === "object" && toStringTag in obj));
+  return toStr(obj) === "[object RegExp]" && (!toStringTag || !(typeof obj === "object" && toStringTag in obj));
 }
 function isError(obj) {
-  return toStr$1(obj) === "[object Error]" && (!toStringTag || !(typeof obj === "object" && toStringTag in obj));
+  return toStr(obj) === "[object Error]" && (!toStringTag || !(typeof obj === "object" && toStringTag in obj));
 }
 function isString$2(obj) {
-  return toStr$1(obj) === "[object String]" && (!toStringTag || !(typeof obj === "object" && toStringTag in obj));
+  return toStr(obj) === "[object String]" && (!toStringTag || !(typeof obj === "object" && toStringTag in obj));
 }
 function isNumber$1(obj) {
-  return toStr$1(obj) === "[object Number]" && (!toStringTag || !(typeof obj === "object" && toStringTag in obj));
+  return toStr(obj) === "[object Number]" && (!toStringTag || !(typeof obj === "object" && toStringTag in obj));
 }
 function isBoolean$1(obj) {
-  return toStr$1(obj) === "[object Boolean]" && (!toStringTag || !(typeof obj === "object" && toStringTag in obj));
+  return toStr(obj) === "[object Boolean]" && (!toStringTag || !(typeof obj === "object" && toStringTag in obj));
 }
 function isSymbol(obj) {
   if (hasShammedSymbols) {
@@ -3549,7 +3549,7 @@ var hasOwn$1 = Object.prototype.hasOwnProperty || function(key) {
 function has$3(obj, key) {
   return hasOwn$1.call(obj, key);
 }
-function toStr$1(obj) {
+function toStr(obj) {
   return objectToString.call(obj);
 }
 function nameOf(f2) {
@@ -3858,7 +3858,7 @@ var syntax = SyntaxError;
 var uri = URIError;
 var abs$1 = Math.abs;
 var floor$1 = Math.floor;
-var max$2 = Math.max;
+var max$1 = Math.max;
 var min$1 = Math.min;
 var pow$1 = Math.pow;
 var round$1 = Math.round;
@@ -3987,78 +3987,99 @@ function requireObject_getPrototypeOf() {
   Object_getPrototypeOf = $Object2.getPrototypeOf || null;
   return Object_getPrototypeOf;
 }
-var ERROR_MESSAGE = "Function.prototype.bind called on incompatible ";
-var toStr = Object.prototype.toString;
-var max$1 = Math.max;
-var funcType = "[object Function]";
-var concatty = function concatty2(a, b2) {
-  var arr = [];
-  for (var i = 0; i < a.length; i += 1) {
-    arr[i] = a[i];
-  }
-  for (var j2 = 0; j2 < b2.length; j2 += 1) {
-    arr[j2 + a.length] = b2[j2];
-  }
-  return arr;
-};
-var slicy = function slicy2(arrLike, offset) {
-  var arr = [];
-  for (var i = offset, j2 = 0; i < arrLike.length; i += 1, j2 += 1) {
-    arr[j2] = arrLike[i];
-  }
-  return arr;
-};
-var joiny = function(arr, joiner) {
-  var str = "";
-  for (var i = 0; i < arr.length; i += 1) {
-    str += arr[i];
-    if (i + 1 < arr.length) {
-      str += joiner;
+var implementation;
+var hasRequiredImplementation;
+function requireImplementation() {
+  if (hasRequiredImplementation) return implementation;
+  hasRequiredImplementation = 1;
+  var ERROR_MESSAGE = "Function.prototype.bind called on incompatible ";
+  var toStr2 = Object.prototype.toString;
+  var max2 = Math.max;
+  var funcType = "[object Function]";
+  var concatty = function concatty2(a, b2) {
+    var arr = [];
+    for (var i = 0; i < a.length; i += 1) {
+      arr[i] = a[i];
     }
-  }
-  return str;
-};
-var implementation$1 = function bind(that) {
-  var target = this;
-  if (typeof target !== "function" || toStr.apply(target) !== funcType) {
-    throw new TypeError(ERROR_MESSAGE + target);
-  }
-  var args = slicy(arguments, 1);
-  var bound;
-  var binder = function() {
-    if (this instanceof bound) {
-      var result = target.apply(
-        this,
+    for (var j2 = 0; j2 < b2.length; j2 += 1) {
+      arr[j2 + a.length] = b2[j2];
+    }
+    return arr;
+  };
+  var slicy = function slicy2(arrLike, offset) {
+    var arr = [];
+    for (var i = offset, j2 = 0; i < arrLike.length; i += 1, j2 += 1) {
+      arr[j2] = arrLike[i];
+    }
+    return arr;
+  };
+  var joiny = function(arr, joiner) {
+    var str = "";
+    for (var i = 0; i < arr.length; i += 1) {
+      str += arr[i];
+      if (i + 1 < arr.length) {
+        str += joiner;
+      }
+    }
+    return str;
+  };
+  implementation = function bind2(that) {
+    var target = this;
+    if (typeof target !== "function" || toStr2.apply(target) !== funcType) {
+      throw new TypeError(ERROR_MESSAGE + target);
+    }
+    var args = slicy(arguments, 1);
+    var bound;
+    var binder = function() {
+      if (this instanceof bound) {
+        var result = target.apply(
+          this,
+          concatty(args, arguments)
+        );
+        if (Object(result) === result) {
+          return result;
+        }
+        return this;
+      }
+      return target.apply(
+        that,
         concatty(args, arguments)
       );
-      if (Object(result) === result) {
-        return result;
-      }
-      return this;
-    }
-    return target.apply(
-      that,
-      concatty(args, arguments)
-    );
-  };
-  var boundLength = max$1(0, target.length - args.length);
-  var boundArgs = [];
-  for (var i = 0; i < boundLength; i++) {
-    boundArgs[i] = "$" + i;
-  }
-  bound = Function("binder", "return function (" + joiny(boundArgs, ",") + "){ return binder.apply(this,arguments); }")(binder);
-  if (target.prototype) {
-    var Empty = function Empty2() {
     };
-    Empty.prototype = target.prototype;
-    bound.prototype = new Empty();
-    Empty.prototype = null;
-  }
-  return bound;
-};
-var implementation = implementation$1;
-var functionBind = Function.prototype.bind || implementation;
-var functionCall = Function.prototype.call;
+    var boundLength = max2(0, target.length - args.length);
+    var boundArgs = [];
+    for (var i = 0; i < boundLength; i++) {
+      boundArgs[i] = "$" + i;
+    }
+    bound = Function("binder", "return function (" + joiny(boundArgs, ",") + "){ return binder.apply(this,arguments); }")(binder);
+    if (target.prototype) {
+      var Empty = function Empty2() {
+      };
+      Empty.prototype = target.prototype;
+      bound.prototype = new Empty();
+      Empty.prototype = null;
+    }
+    return bound;
+  };
+  return implementation;
+}
+var functionBind;
+var hasRequiredFunctionBind;
+function requireFunctionBind() {
+  if (hasRequiredFunctionBind) return functionBind;
+  hasRequiredFunctionBind = 1;
+  var implementation2 = requireImplementation();
+  functionBind = Function.prototype.bind || implementation2;
+  return functionBind;
+}
+var functionCall;
+var hasRequiredFunctionCall;
+function requireFunctionCall() {
+  if (hasRequiredFunctionCall) return functionCall;
+  hasRequiredFunctionCall = 1;
+  functionCall = Function.prototype.call;
+  return functionCall;
+}
 var functionApply;
 var hasRequiredFunctionApply;
 function requireFunctionApply() {
@@ -4068,14 +4089,14 @@ function requireFunctionApply() {
   return functionApply;
 }
 var reflectApply = typeof Reflect !== "undefined" && Reflect && Reflect.apply;
-var bind$3 = functionBind;
+var bind$3 = requireFunctionBind();
 var $apply$1 = requireFunctionApply();
-var $call$2 = functionCall;
+var $call$2 = requireFunctionCall();
 var $reflectApply = reflectApply;
 var actualApply = $reflectApply || bind$3.call($call$2, $apply$1);
-var bind$2 = functionBind;
+var bind$2 = requireFunctionBind();
 var $TypeError$4 = type;
-var $call$1 = functionCall;
+var $call$1 = requireFunctionCall();
 var $actualApply = actualApply;
 var callBindApplyHelpers = function callBindBasic(args) {
   if (args.length < 1 || typeof args[0] !== "function") {
@@ -4141,8 +4162,8 @@ function requireHasown() {
   hasRequiredHasown = 1;
   var call = Function.prototype.call;
   var $hasOwn = Object.prototype.hasOwnProperty;
-  var bind3 = functionBind;
-  hasown = bind3.call(call, $hasOwn);
+  var bind2 = requireFunctionBind();
+  hasown = bind2.call(call, $hasOwn);
   return hasown;
 }
 var undefined$1;
@@ -4156,7 +4177,7 @@ var $TypeError$3 = type;
 var $URIError = uri;
 var abs = abs$1;
 var floor = floor$1;
-var max = max$2;
+var max = max$1;
 var min = min$1;
 var pow = pow$1;
 var round = round$1;
@@ -4190,7 +4211,7 @@ var getProto = requireGetProto();
 var $ObjectGPO = requireObject_getPrototypeOf();
 var $ReflectGPO = requireReflect_getPrototypeOf();
 var $apply = requireFunctionApply();
-var $call = functionCall;
+var $call = requireFunctionCall();
 var needsEval = {};
 var TypedArray = typeof Uint8Array === "undefined" || !getProto ? undefined$1 : getProto(Uint8Array);
 var INTRINSICS = {
@@ -4360,7 +4381,7 @@ var LEGACY_ALIASES = {
   "%WeakMapPrototype%": ["WeakMap", "prototype"],
   "%WeakSetPrototype%": ["WeakSet", "prototype"]
 };
-var bind$1 = functionBind;
+var bind$1 = requireFunctionBind();
 var hasOwn = requireHasown();
 var $concat = bind$1.call($call, Array.prototype.concat);
 var $spliceApply = bind$1.call($apply, Array.prototype.splice);
@@ -5372,7 +5393,7 @@ var lib = {
   parse,
   stringify: stringify2
 };
-function bind2(fn, thisArg) {
+function bind(fn, thisArg) {
   return function wrap2() {
     return fn.apply(thisArg, arguments);
   };
@@ -5492,7 +5513,7 @@ function merge2() {
 const extend = (a, b2, thisArg, { allOwnKeys } = {}) => {
   forEach(b2, (val, key) => {
     if (thisArg && isFunction$1(val)) {
-      a[key] = bind2(val, thisArg);
+      a[key] = bind(val, thisArg);
     } else {
       a[key] = val;
     }
@@ -21322,7 +21343,7 @@ Object.entries(HttpStatusCode).forEach(([key, value]) => {
 });
 function createInstance(defaultConfig) {
   const context = new Axios(defaultConfig);
-  const instance = bind2(Axios.prototype.request, context);
+  const instance = bind(Axios.prototype.request, context);
   utils$1.extend(instance, Axios.prototype, context, { allOwnKeys: true });
   utils$1.extend(instance, context, null, { allOwnKeys: true });
   instance.create = function create(instanceConfig) {
@@ -37328,7 +37349,7 @@ d(
     title: (title) => `${title} - ${appName}`,
     resolve: (name) => resolvePageComponent(
       `./Pages/${name}.tsx`,
-      /* @__PURE__ */ Object.assign({ "./Pages/Auth/ConfirmPassword.tsx": () => import("./assets/ConfirmPassword-XVD1fDXc.js"), "./Pages/Auth/ForgotPassword.tsx": () => import("./assets/ForgotPassword-BKgFhCFb.js"), "./Pages/Auth/Login.tsx": () => import("./assets/Login-DjRqm5v1.js"), "./Pages/Auth/Register.tsx": () => import("./assets/Register-BszNIpgm.js"), "./Pages/Auth/RegisterBreeder.tsx": () => import("./assets/RegisterBreeder-BJQEuRUd.js"), "./Pages/Auth/RegisterSeller.tsx": () => import("./assets/RegisterSeller-CDeo_Z_R.js"), "./Pages/Auth/ResetPassword.tsx": () => import("./assets/ResetPassword-DHftiao8.js"), "./Pages/Auth/VerifyEmail.tsx": () => import("./assets/VerifyEmail-C1d1gFw6.js"), "./Pages/Breed/Index.tsx": () => import("./assets/Index-C_lRxw_2.js"), "./Pages/Breed/Registration.tsx": () => import("./assets/Registration-l0sNRNKZ.js"), "./Pages/Breed/Show.tsx": () => import("./assets/Show-Dd0zs9tw.js"), "./Pages/BreederListing/Create.tsx": () => import("./assets/Create-D2Gz5Lm0.js"), "./Pages/BreederListing/Index.tsx": () => import("./assets/Index-Dztew7WO.js"), "./Pages/Breeders/Index.tsx": () => import("./assets/Index-vP4yrIuj.js"), "./Pages/Breeders/Registration.tsx": () => import("./assets/Registration-C_NBC2zx.js"), "./Pages/Breeders/Show.tsx": () => import("./assets/Show-B3YooWVi.js"), "./Pages/ContactUs.tsx": () => import("./assets/ContactUs-B5Zkbxh8.js"), "./Pages/Dashboard.tsx": () => import("./assets/Dashboard-NrgvtgQu.js"), "./Pages/Error.tsx": () => import("./assets/Error-JB-hKANX.js"), "./Pages/Favorite/Index.tsx": () => import("./assets/Index-BdtAMMH_.js"), "./Pages/Home/Index.tsx": () => import("./assets/Index-DzAtmxtr.js"), "./Pages/Home/Sections/Banner.tsx": () => import("./assets/Banner-C1Tq_6Oj.js"), "./Pages/Plan/Breeder.tsx": () => import("./assets/Breeder-CXi2ptge.js"), "./Pages/Plan/Index.tsx": () => import("./assets/Index-B4NUgtwI.js"), "./Pages/Post/Index.tsx": () => import("./assets/Index-CaQDzznj.js"), "./Pages/Post/Partials/PostCommentCard.tsx": () => import("./assets/PostCommentCard-DmJ7X53H.js"), "./Pages/Post/Partials/PostCommentForm.tsx": () => import("./assets/PostCommentForm-BJNrbaJf.js"), "./Pages/Post/Show.tsx": () => import("./assets/Show-B1-G58xQ.js"), "./Pages/PrivacyPolicy.tsx": () => import("./assets/PrivacyPolicy-Dw0iOcuJ.js"), "./Pages/Profile/Edit.tsx": () => import("./assets/Edit-DzNpxF8a.js"), "./Pages/Profile/MyPuppies.tsx": () => import("./assets/MyPuppies-B0N1GGHQ.js"), "./Pages/Profile/Partials/AccountSettings/UserAvatar.tsx": () => import("./assets/UserAvatar-C-GeSlva.js"), "./Pages/Profile/Partials/AccountSettings/UserProfile.tsx": () => import("./assets/UserProfile-B3KG14ke.js"), "./Pages/Profile/Partials/DeleteUserForm.tsx": () => import("./assets/DeleteUserForm-CI5x-ZKz.js"), "./Pages/Profile/Partials/SubscriptionCard.tsx": () => import("./assets/SubscriptionCard-CWta36nw.js"), "./Pages/Profile/Partials/UpdatePasswordForm.tsx": () => import("./assets/UpdatePasswordForm-DoV20RJg.js"), "./Pages/Profile/Partials/UpdateProfileInformationForm.tsx": () => import("./assets/UpdateProfileInformationForm-DHOmjBIu.js"), "./Pages/Puppy/Index.tsx": () => import("./assets/Index-BrMZOCHy.js"), "./Pages/Puppy/Show.tsx": () => import("./assets/Show-BQIJ6Ec7.js"), "./Pages/Seller/Registration.tsx": () => import("./assets/Registration-CANVpfTn.js"), "./Pages/Subscription/Checkout.tsx": () => import("./assets/Checkout-JXvT9BTC.js"), "./Pages/Subscription/Index.tsx": () => import("./assets/Index-COmjae2i.js"), "./Pages/Subscription/PaymentMethod.tsx": () => import("./assets/PaymentMethod-Q8Q1_OXj.js"), "./Pages/TermsConditions.tsx": () => import("./assets/TermsConditions-C45D-oVy.js") })
+      /* @__PURE__ */ Object.assign({ "./Pages/Auth/ConfirmPassword.tsx": () => import("./assets/ConfirmPassword-DlDXmLha.js"), "./Pages/Auth/ForgotPassword.tsx": () => import("./assets/ForgotPassword-erdJCVQE.js"), "./Pages/Auth/Login.tsx": () => import("./assets/Login-DY-ZHsV6.js"), "./Pages/Auth/Register.tsx": () => import("./assets/Register-B2czvTJJ.js"), "./Pages/Auth/RegisterBreeder.tsx": () => import("./assets/RegisterBreeder-DF24gXqD.js"), "./Pages/Auth/RegisterSeller.tsx": () => import("./assets/RegisterSeller-BYLFkbBx.js"), "./Pages/Auth/ResetPassword.tsx": () => import("./assets/ResetPassword-DD3Bs3ko.js"), "./Pages/Auth/VerifyEmail.tsx": () => import("./assets/VerifyEmail-DbY9MybL.js"), "./Pages/Breed/Index.tsx": () => import("./assets/Index-V6MEbGon.js"), "./Pages/Breed/Registration.tsx": () => import("./assets/Registration-l0sNRNKZ.js"), "./Pages/Breed/Show.tsx": () => import("./assets/Show-DRlvYiTj.js"), "./Pages/BreederListing/Create.tsx": () => import("./assets/Create-D2Gz5Lm0.js"), "./Pages/BreederListing/Index.tsx": () => import("./assets/Index-Dztew7WO.js"), "./Pages/Breeders/Index.tsx": () => import("./assets/Index-5fKm6D7R.js"), "./Pages/Breeders/Registration.tsx": () => import("./assets/Registration-CbcSQavY.js"), "./Pages/Breeders/Show.tsx": () => import("./assets/Show-ChO8cTKu.js"), "./Pages/ContactUs.tsx": () => import("./assets/ContactUs-BRMDVWb0.js"), "./Pages/Dashboard.tsx": () => import("./assets/Dashboard-CPTVBJsR.js"), "./Pages/Error.tsx": () => import("./assets/Error-C6KB6Lig.js"), "./Pages/Favorite/Index.tsx": () => import("./assets/Index-it983eX5.js"), "./Pages/Home/Index.tsx": () => import("./assets/Index-Cst2j4Xz.js"), "./Pages/Home/Sections/Banner.tsx": () => import("./assets/Banner-C1Tq_6Oj.js"), "./Pages/Plan/Breeder.tsx": () => import("./assets/Breeder-DfGPKAg0.js"), "./Pages/Plan/Index.tsx": () => import("./assets/Index-B7huphrh.js"), "./Pages/Post/Index.tsx": () => import("./assets/Index-CwNj-p0X.js"), "./Pages/Post/Partials/PostCommentCard.tsx": () => import("./assets/PostCommentCard-DmJ7X53H.js"), "./Pages/Post/Partials/PostCommentForm.tsx": () => import("./assets/PostCommentForm-BJNrbaJf.js"), "./Pages/Post/Show.tsx": () => import("./assets/Show-DtFkmIqP.js"), "./Pages/PrivacyPolicy.tsx": () => import("./assets/PrivacyPolicy-BJBy8hxO.js"), "./Pages/Profile/Edit.tsx": () => import("./assets/Edit-CPKKqJ4m.js"), "./Pages/Profile/MyPuppies.tsx": () => import("./assets/MyPuppies-gGpLtAAs.js"), "./Pages/Profile/Partials/AccountSettings/UserAvatar.tsx": () => import("./assets/UserAvatar-C-GeSlva.js"), "./Pages/Profile/Partials/AccountSettings/UserProfile.tsx": () => import("./assets/UserProfile-B3KG14ke.js"), "./Pages/Profile/Partials/DeleteUserForm.tsx": () => import("./assets/DeleteUserForm-CI5x-ZKz.js"), "./Pages/Profile/Partials/SubscriptionCard.tsx": () => import("./assets/SubscriptionCard-CWta36nw.js"), "./Pages/Profile/Partials/UpdatePasswordForm.tsx": () => import("./assets/UpdatePasswordForm-DoV20RJg.js"), "./Pages/Profile/Partials/UpdateProfileInformationForm.tsx": () => import("./assets/UpdateProfileInformationForm-DHOmjBIu.js"), "./Pages/Puppy/Index.tsx": () => import("./assets/Index-DRlBJEpE.js"), "./Pages/Puppy/Show.tsx": () => import("./assets/Show-DeA1e5RF.js"), "./Pages/Seller/Registration.tsx": () => import("./assets/Registration-BlzLhL9z.js"), "./Pages/Subscription/Checkout.tsx": () => import("./assets/Checkout-C5gYK0gu.js"), "./Pages/Subscription/Index.tsx": () => import("./assets/Index-COmjae2i.js"), "./Pages/Subscription/PaymentMethod.tsx": () => import("./assets/PaymentMethod-Dk1EJIkE.js"), "./Pages/TermsConditions.tsx": () => import("./assets/TermsConditions-D-4xMvgj.js") })
     ),
     setup: ({ App, props }) => {
       return /* @__PURE__ */ jsxRuntimeExports.jsx(App, { ...props });
