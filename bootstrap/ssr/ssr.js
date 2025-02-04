@@ -2265,7 +2265,7 @@ function requireReactJsxRuntime_development() {
   hasRequiredReactJsxRuntime_development = 1;
   if (process.env.NODE_ENV !== "production") {
     (function() {
-      var React = requireReact();
+      var React2 = requireReact();
       var REACT_ELEMENT_TYPE2 = Symbol.for("react.element");
       var REACT_PORTAL_TYPE = Symbol.for("react.portal");
       var REACT_FRAGMENT_TYPE = Symbol.for("react.fragment");
@@ -2291,7 +2291,7 @@ function requireReactJsxRuntime_development() {
         }
         return null;
       }
-      var ReactSharedInternals = React.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+      var ReactSharedInternals = React2.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
       function error(format) {
         {
           {
@@ -3473,7 +3473,7 @@ var objectInspect = function inspect_(obj, options, depth, seen) {
     var ys = arrObjKeys(obj, inspect2);
     var isPlainObject2 = gPO ? gPO(obj) === Object.prototype : obj instanceof Object || obj.constructor === Object;
     var protoTag = obj instanceof Object ? "" : "null prototype";
-    var stringTag = !isPlainObject2 && toStringTag && Object(obj) === obj && toStringTag in obj ? $slice.call(toStr(obj), 8, -1) : protoTag ? "Object" : "";
+    var stringTag = !isPlainObject2 && toStringTag && Object(obj) === obj && toStringTag in obj ? $slice.call(toStr$1(obj), 8, -1) : protoTag ? "Object" : "";
     var constructorTag = isPlainObject2 || typeof obj.constructor !== "function" ? "" : obj.constructor.name ? obj.constructor.name + " " : "";
     var tag = constructorTag + (stringTag || protoTag ? "[" + $join.call($concat$1.call([], stringTag || [], protoTag || []), ": ") + "] " : "");
     if (ys.length === 0) {
@@ -3495,25 +3495,25 @@ function quote(s2) {
   return $replace$1.call(String(s2), /"/g, "&quot;");
 }
 function isArray$4(obj) {
-  return toStr(obj) === "[object Array]" && (!toStringTag || !(typeof obj === "object" && toStringTag in obj));
+  return toStr$1(obj) === "[object Array]" && (!toStringTag || !(typeof obj === "object" && toStringTag in obj));
 }
 function isDate$1(obj) {
-  return toStr(obj) === "[object Date]" && (!toStringTag || !(typeof obj === "object" && toStringTag in obj));
+  return toStr$1(obj) === "[object Date]" && (!toStringTag || !(typeof obj === "object" && toStringTag in obj));
 }
 function isRegExp$2(obj) {
-  return toStr(obj) === "[object RegExp]" && (!toStringTag || !(typeof obj === "object" && toStringTag in obj));
+  return toStr$1(obj) === "[object RegExp]" && (!toStringTag || !(typeof obj === "object" && toStringTag in obj));
 }
 function isError(obj) {
-  return toStr(obj) === "[object Error]" && (!toStringTag || !(typeof obj === "object" && toStringTag in obj));
+  return toStr$1(obj) === "[object Error]" && (!toStringTag || !(typeof obj === "object" && toStringTag in obj));
 }
 function isString$2(obj) {
-  return toStr(obj) === "[object String]" && (!toStringTag || !(typeof obj === "object" && toStringTag in obj));
+  return toStr$1(obj) === "[object String]" && (!toStringTag || !(typeof obj === "object" && toStringTag in obj));
 }
 function isNumber$1(obj) {
-  return toStr(obj) === "[object Number]" && (!toStringTag || !(typeof obj === "object" && toStringTag in obj));
+  return toStr$1(obj) === "[object Number]" && (!toStringTag || !(typeof obj === "object" && toStringTag in obj));
 }
 function isBoolean$1(obj) {
-  return toStr(obj) === "[object Boolean]" && (!toStringTag || !(typeof obj === "object" && toStringTag in obj));
+  return toStr$1(obj) === "[object Boolean]" && (!toStringTag || !(typeof obj === "object" && toStringTag in obj));
 }
 function isSymbol(obj) {
   if (hasShammedSymbols) {
@@ -3549,7 +3549,7 @@ var hasOwn$1 = Object.prototype.hasOwnProperty || function(key) {
 function has$3(obj, key) {
   return hasOwn$1.call(obj, key);
 }
-function toStr(obj) {
+function toStr$1(obj) {
   return objectToString.call(obj);
 }
 function nameOf(f2) {
@@ -3858,7 +3858,7 @@ var syntax = SyntaxError;
 var uri = URIError;
 var abs$1 = Math.abs;
 var floor$1 = Math.floor;
-var max$1 = Math.max;
+var max$2 = Math.max;
 var min$1 = Math.min;
 var pow$1 = Math.pow;
 var round$1 = Math.round;
@@ -3987,99 +3987,78 @@ function requireObject_getPrototypeOf() {
   Object_getPrototypeOf = $Object2.getPrototypeOf || null;
   return Object_getPrototypeOf;
 }
-var implementation;
-var hasRequiredImplementation;
-function requireImplementation() {
-  if (hasRequiredImplementation) return implementation;
-  hasRequiredImplementation = 1;
-  var ERROR_MESSAGE = "Function.prototype.bind called on incompatible ";
-  var toStr2 = Object.prototype.toString;
-  var max2 = Math.max;
-  var funcType = "[object Function]";
-  var concatty = function concatty2(a, b2) {
-    var arr = [];
-    for (var i = 0; i < a.length; i += 1) {
-      arr[i] = a[i];
+var ERROR_MESSAGE = "Function.prototype.bind called on incompatible ";
+var toStr = Object.prototype.toString;
+var max$1 = Math.max;
+var funcType = "[object Function]";
+var concatty = function concatty2(a, b2) {
+  var arr = [];
+  for (var i = 0; i < a.length; i += 1) {
+    arr[i] = a[i];
+  }
+  for (var j2 = 0; j2 < b2.length; j2 += 1) {
+    arr[j2 + a.length] = b2[j2];
+  }
+  return arr;
+};
+var slicy = function slicy2(arrLike, offset) {
+  var arr = [];
+  for (var i = offset, j2 = 0; i < arrLike.length; i += 1, j2 += 1) {
+    arr[j2] = arrLike[i];
+  }
+  return arr;
+};
+var joiny = function(arr, joiner) {
+  var str = "";
+  for (var i = 0; i < arr.length; i += 1) {
+    str += arr[i];
+    if (i + 1 < arr.length) {
+      str += joiner;
     }
-    for (var j2 = 0; j2 < b2.length; j2 += 1) {
-      arr[j2 + a.length] = b2[j2];
-    }
-    return arr;
-  };
-  var slicy = function slicy2(arrLike, offset) {
-    var arr = [];
-    for (var i = offset, j2 = 0; i < arrLike.length; i += 1, j2 += 1) {
-      arr[j2] = arrLike[i];
-    }
-    return arr;
-  };
-  var joiny = function(arr, joiner) {
-    var str = "";
-    for (var i = 0; i < arr.length; i += 1) {
-      str += arr[i];
-      if (i + 1 < arr.length) {
-        str += joiner;
-      }
-    }
-    return str;
-  };
-  implementation = function bind2(that) {
-    var target = this;
-    if (typeof target !== "function" || toStr2.apply(target) !== funcType) {
-      throw new TypeError(ERROR_MESSAGE + target);
-    }
-    var args = slicy(arguments, 1);
-    var bound;
-    var binder = function() {
-      if (this instanceof bound) {
-        var result = target.apply(
-          this,
-          concatty(args, arguments)
-        );
-        if (Object(result) === result) {
-          return result;
-        }
-        return this;
-      }
-      return target.apply(
-        that,
+  }
+  return str;
+};
+var implementation$1 = function bind(that) {
+  var target = this;
+  if (typeof target !== "function" || toStr.apply(target) !== funcType) {
+    throw new TypeError(ERROR_MESSAGE + target);
+  }
+  var args = slicy(arguments, 1);
+  var bound;
+  var binder = function() {
+    if (this instanceof bound) {
+      var result = target.apply(
+        this,
         concatty(args, arguments)
       );
-    };
-    var boundLength = max2(0, target.length - args.length);
-    var boundArgs = [];
-    for (var i = 0; i < boundLength; i++) {
-      boundArgs[i] = "$" + i;
+      if (Object(result) === result) {
+        return result;
+      }
+      return this;
     }
-    bound = Function("binder", "return function (" + joiny(boundArgs, ",") + "){ return binder.apply(this,arguments); }")(binder);
-    if (target.prototype) {
-      var Empty = function Empty2() {
-      };
-      Empty.prototype = target.prototype;
-      bound.prototype = new Empty();
-      Empty.prototype = null;
-    }
-    return bound;
+    return target.apply(
+      that,
+      concatty(args, arguments)
+    );
   };
-  return implementation;
-}
-var functionBind;
-var hasRequiredFunctionBind;
-function requireFunctionBind() {
-  if (hasRequiredFunctionBind) return functionBind;
-  hasRequiredFunctionBind = 1;
-  var implementation2 = requireImplementation();
-  functionBind = Function.prototype.bind || implementation2;
-  return functionBind;
-}
-var functionCall;
-var hasRequiredFunctionCall;
-function requireFunctionCall() {
-  if (hasRequiredFunctionCall) return functionCall;
-  hasRequiredFunctionCall = 1;
-  functionCall = Function.prototype.call;
-  return functionCall;
-}
+  var boundLength = max$1(0, target.length - args.length);
+  var boundArgs = [];
+  for (var i = 0; i < boundLength; i++) {
+    boundArgs[i] = "$" + i;
+  }
+  bound = Function("binder", "return function (" + joiny(boundArgs, ",") + "){ return binder.apply(this,arguments); }")(binder);
+  if (target.prototype) {
+    var Empty = function Empty2() {
+    };
+    Empty.prototype = target.prototype;
+    bound.prototype = new Empty();
+    Empty.prototype = null;
+  }
+  return bound;
+};
+var implementation = implementation$1;
+var functionBind = Function.prototype.bind || implementation;
+var functionCall = Function.prototype.call;
 var functionApply;
 var hasRequiredFunctionApply;
 function requireFunctionApply() {
@@ -4089,14 +4068,14 @@ function requireFunctionApply() {
   return functionApply;
 }
 var reflectApply = typeof Reflect !== "undefined" && Reflect && Reflect.apply;
-var bind$3 = requireFunctionBind();
+var bind$3 = functionBind;
 var $apply$1 = requireFunctionApply();
-var $call$2 = requireFunctionCall();
+var $call$2 = functionCall;
 var $reflectApply = reflectApply;
 var actualApply = $reflectApply || bind$3.call($call$2, $apply$1);
-var bind$2 = requireFunctionBind();
+var bind$2 = functionBind;
 var $TypeError$4 = type;
-var $call$1 = requireFunctionCall();
+var $call$1 = functionCall;
 var $actualApply = actualApply;
 var callBindApplyHelpers = function callBindBasic(args) {
   if (args.length < 1 || typeof args[0] !== "function") {
@@ -4162,8 +4141,8 @@ function requireHasown() {
   hasRequiredHasown = 1;
   var call = Function.prototype.call;
   var $hasOwn = Object.prototype.hasOwnProperty;
-  var bind2 = requireFunctionBind();
-  hasown = bind2.call(call, $hasOwn);
+  var bind3 = functionBind;
+  hasown = bind3.call(call, $hasOwn);
   return hasown;
 }
 var undefined$1;
@@ -4177,7 +4156,7 @@ var $TypeError$3 = type;
 var $URIError = uri;
 var abs = abs$1;
 var floor = floor$1;
-var max = max$1;
+var max = max$2;
 var min = min$1;
 var pow = pow$1;
 var round = round$1;
@@ -4211,7 +4190,7 @@ var getProto = requireGetProto();
 var $ObjectGPO = requireObject_getPrototypeOf();
 var $ReflectGPO = requireReflect_getPrototypeOf();
 var $apply = requireFunctionApply();
-var $call = requireFunctionCall();
+var $call = functionCall;
 var needsEval = {};
 var TypedArray = typeof Uint8Array === "undefined" || !getProto ? undefined$1 : getProto(Uint8Array);
 var INTRINSICS = {
@@ -4381,7 +4360,7 @@ var LEGACY_ALIASES = {
   "%WeakMapPrototype%": ["WeakMap", "prototype"],
   "%WeakSetPrototype%": ["WeakSet", "prototype"]
 };
-var bind$1 = requireFunctionBind();
+var bind$1 = functionBind;
 var hasOwn = requireHasown();
 var $concat = bind$1.call($call, Array.prototype.concat);
 var $spliceApply = bind$1.call($apply, Array.prototype.splice);
@@ -5393,7 +5372,7 @@ var lib = {
   parse,
   stringify: stringify2
 };
-function bind(fn, thisArg) {
+function bind2(fn, thisArg) {
   return function wrap2() {
     return fn.apply(thisArg, arguments);
   };
@@ -5513,7 +5492,7 @@ function merge2() {
 const extend = (a, b2, thisArg, { allOwnKeys } = {}) => {
   forEach(b2, (val, key) => {
     if (thisArg && isFunction$1(val)) {
-      a[key] = bind(val, thisArg);
+      a[key] = bind2(val, thisArg);
     } else {
       a[key] = val;
     }
@@ -21343,7 +21322,7 @@ Object.entries(HttpStatusCode).forEach(([key, value]) => {
 });
 function createInstance(defaultConfig) {
   const context = new Axios(defaultConfig);
-  const instance = bind(Axios.prototype.request, context);
+  const instance = bind2(Axios.prototype.request, context);
   utils$1.extend(instance, Axios.prototype, context, { allOwnKeys: true });
   utils$1.extend(instance, context, null, { allOwnKeys: true });
   instance.create = function create(instanceConfig) {
@@ -21380,7 +21359,7 @@ function F(r, e) {
 function P(r, e) {
   return document.dispatchEvent(new CustomEvent(`inertia:${r}`, e));
 }
-var _ = (r) => P("before", { cancelable: true, detail: { visit: r } }), pe = (r) => P("error", { detail: { errors: r } }), de = (r) => P("exception", { cancelable: true, detail: { exception: r } }), he = (r) => P("finish", { detail: { visit: r } }), me$1 = (r) => P("invalid", { cancelable: true, detail: { response: r } }), R = (r) => P("navigate", { detail: { page: r } }), fe = (r) => P("progress", { detail: { progress: r } }), ge = (r) => P("start", { detail: { visit: r } }), ve = (r) => P("success", { detail: { page: r } }), be = (r, e) => P("prefetched", { detail: { fetchedAt: Date.now(), response: r.data, visit: e } }), ye$1 = (r) => P("prefetching", { detail: { visit: r } });
+var _ = (r) => P("before", { cancelable: true, detail: { visit: r } }), pe = (r) => P("error", { detail: { errors: r } }), de = (r) => P("exception", { cancelable: true, detail: { exception: r } }), he = (r) => P("finish", { detail: { visit: r } }), me$1 = (r) => P("invalid", { cancelable: true, detail: { response: r } }), R = (r) => P("navigate", { detail: { page: r } }), fe = (r) => P("progress", { detail: { progress: r } }), ge$1 = (r) => P("start", { detail: { visit: r } }), ve = (r) => P("success", { detail: { page: r } }), be = (r, e) => P("prefetched", { detail: { fetchedAt: Date.now(), response: r.data, visit: e } }), ye$1 = (r) => P("prefetching", { detail: { visit: r } });
 var u = class {
   static set(e, t2) {
     typeof window < "u" && window.sessionStorage.setItem(e, JSON.stringify(t2));
@@ -21605,7 +21584,7 @@ var q = class {
     return e ? Promise.resolve(e()).then(() => this.processNext()) : Promise.resolve();
   }
 };
-var D = typeof window > "u", U$1 = new q(), qe = !D && /CriOS/.test(window.navigator.userAgent), re = class {
+var D = typeof window > "u", U = new q(), qe = !D && /CriOS/.test(window.navigator.userAgent), re = class {
   constructor() {
     this.rememberedState = "rememberedState";
     this.scrollRegions = "scrollRegions";
@@ -21627,7 +21606,7 @@ var D = typeof window > "u", U$1 = new q(), qe = !D && /CriOS/.test(window.navig
         t2 && t2();
         return;
       }
-      this.current = e, U$1.add(() => this.getPageData(e).then((i) => {
+      this.current = e, U.add(() => this.getPageData(e).then((i) => {
         let n = () => {
           this.doPushState({ page: i }, e.url), t2 && t2();
         };
@@ -21639,7 +21618,7 @@ var D = typeof window > "u", U$1 = new q(), qe = !D && /CriOS/.test(window.navig
     return new Promise((t2) => e.encryptHistory ? Pe(e).then(t2) : t2(e));
   }
   processQueue() {
-    return U$1.process();
+    return U.process();
   }
   decrypt(e = null) {
     var _a;
@@ -21654,13 +21633,13 @@ var D = typeof window > "u", U$1 = new q(), qe = !D && /CriOS/.test(window.navig
     return e instanceof ArrayBuffer ? we(e) : Promise.resolve(e);
   }
   saveScrollPositions(e) {
-    U$1.add(() => Promise.resolve().then(() => {
+    U.add(() => Promise.resolve().then(() => {
       var _a;
       ((_a = window.history.state) == null ? void 0 : _a.page) && this.doReplaceState({ page: window.history.state.page, scrollRegions: e }, this.current.url);
     }));
   }
   saveDocumentScrollPosition(e) {
-    U$1.add(() => Promise.resolve().then(() => {
+    U.add(() => Promise.resolve().then(() => {
       this.doReplaceState({ page: window.history.state.page, documentScrollPosition: e }, this.current.url);
     }));
   }
@@ -21676,7 +21655,7 @@ var D = typeof window > "u", U$1 = new q(), qe = !D && /CriOS/.test(window.navig
         t2 && t2();
         return;
       }
-      this.current = e, U$1.add(() => this.getPageData(e).then((i) => {
+      this.current = e, U.add(() => this.getPageData(e).then((i) => {
         let n = () => {
           this.doReplaceState({ page: i }, e.url), t2 && t2();
         };
@@ -22149,7 +22128,7 @@ var V = class {
     return new V(e, t2);
   }
   async send() {
-    this.requestParams.onCancelToken(() => this.cancel({ cancelled: true })), ge(this.requestParams.all()), this.requestParams.onStart(), this.requestParams.all().prefetch && (this.requestParams.onPrefetching(), ye$1(this.requestParams.all()));
+    this.requestParams.onCancelToken(() => this.cancel({ cancelled: true })), ge$1(this.requestParams.all()), this.requestParams.onStart(), this.requestParams.all().prefetch && (this.requestParams.onPrefetching(), ye$1(this.requestParams.all()));
     let e = this.requestParams.all().prefetch;
     return axios({ method: this.requestParams.all().method, url: I(this.requestParams.all().url).href, data: this.requestParams.data(), params: this.requestParams.queryParams(), signal: this.cancelToken.signal, headers: this.getHeaders(), onUploadProgress: this.onProgress.bind(this), responseType: "text" }).then((t2) => (this.response = A.create(this.requestParams, t2, this.page), this.response.handle())).catch((t2) => (t2 == null ? void 0 : t2.response) ? (this.response = A.create(this.requestParams, t2.response, this.page), this.response.handle()) : Promise.reject(t2)).catch((t2) => {
       if (!axios.isCancel(t2) && de(t2)) return Promise.reject(t2);
@@ -22554,10 +22533,10 @@ var Wr = new K$1();
 /* NProgress, (c) 2013, 2014 Rico Sta. Cruz - http://ricostacruz.com/nprogress
 * @license MIT */
 var reactExports = requireReact();
-const U = /* @__PURE__ */ getDefaultExportFromCjs(reactExports);
+const React = /* @__PURE__ */ getDefaultExportFromCjs(reactExports);
 const t = /* @__PURE__ */ _mergeNamespaces({
   __proto__: null,
-  default: U
+  default: React
 }, [reactExports]);
 var lodash_isequal = { exports: {} };
 lodash_isequal.exports;
@@ -23269,13 +23248,13 @@ var Me = function({ children: u2, title: o2 }) {
     return e.props.children && (f2 += p2(e)), e.props.dangerouslySetInnerHTML && (f2 += e.props.dangerouslySetInnerHTML.__html), a(e) || (f2 += `</${e.type}>`), f2;
   }
   function P2(e) {
-    return U.cloneElement(e, { inertia: e.props["head-key"] !== void 0 ? e.props["head-key"] : "" });
+    return React.cloneElement(e, { inertia: e.props["head-key"] !== void 0 ? e.props["head-key"] : "" });
   }
   function y2(e) {
     return g3(P2(e));
   }
   function l2(e) {
-    let f2 = U.Children.toArray(e).filter((t2) => t2).map((t2) => y2(t2));
+    let f2 = React.Children.toArray(e).filter((t2) => t2).map((t2) => y2(t2));
     return o2 && !f2.find((t2) => t2.startsWith("<title")) && f2.push(`<title inertia>${o2}</title>`), f2;
   }
   return s2.update(l2(u2)), null;
@@ -23376,6 +23355,10 @@ function me(u2, o2) {
     F2.current = i;
   }, []);
   return { data: P2, setData: Q2, isDirty: !Ke(P2, a), errors: l2, hasErrors: f2, processing: h, progress: x2, wasSuccessful: q2, recentlySuccessful: J2, transform: j2, setDefaults: Y2, reset: z, setError: V2, clearErrors: D2, submit: b2, get: G2, post: U2, put: $, patch: w2, delete: C2, cancel: X2 };
+}
+function ge(u2, o2 = {}, n = { keepAlive: false, autoStart: true }) {
+  let s2 = reactExports.useRef(Wr.poll(u2, o2, { ...n, autoStart: false }));
+  return reactExports.useEffect(() => ((n.autoStart ?? true) && s2.current.start(), () => s2.current.stop()), []), { stop: s2.current.stop, start: s2.current.start };
 }
 var ye = ({ children: u2, data: o2, params: n, buffer: s2, as: a, always: m, fallback: p2 }) => {
   m = m ?? false, a = a ?? "div", p2 = p2 ?? null;
@@ -26564,10 +26547,10 @@ function requireReactDomServerLegacy_node_development() {
   hasRequiredReactDomServerLegacy_node_development = 1;
   if (process.env.NODE_ENV !== "production") {
     (function() {
-      var React = requireReact();
+      var React2 = requireReact();
       var stream$1 = stream;
       var ReactVersion = "18.3.1";
-      var ReactSharedInternals = React.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+      var ReactSharedInternals = React2.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
       function warn(format) {
         {
           {
@@ -28432,7 +28415,7 @@ function requireReactDomServerLegacy_node_development() {
       }
       function flattenOptionChildren(children) {
         var content = "";
-        React.Children.forEach(children, function(child) {
+        React2.Children.forEach(children, function(child) {
           if (child == null) {
             return;
           }
@@ -31946,10 +31929,10 @@ function requireReactDomServer_node_development() {
   hasRequiredReactDomServer_node_development = 1;
   if (process.env.NODE_ENV !== "production") {
     (function() {
-      var React = requireReact();
+      var React2 = requireReact();
       var util2 = require$$1;
       var ReactVersion = "18.3.1";
-      var ReactSharedInternals = React.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+      var ReactSharedInternals = React2.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
       function warn(format) {
         {
           {
@@ -33938,7 +33921,7 @@ function requireReactDomServer_node_development() {
       }
       function flattenOptionChildren(children) {
         var content = "";
-        React.Children.forEach(children, function(child) {
+        React2.Children.forEach(children, function(child) {
           if (child == null) {
             return;
           }
@@ -37345,7 +37328,7 @@ d(
     title: (title) => `${title} - ${appName}`,
     resolve: (name) => resolvePageComponent(
       `./Pages/${name}.tsx`,
-      /* @__PURE__ */ Object.assign({ "./Pages/Auth/ConfirmPassword.tsx": () => import("./assets/ConfirmPassword-BHVhHfty.js"), "./Pages/Auth/ForgotPassword.tsx": () => import("./assets/ForgotPassword-CStF8cl9.js"), "./Pages/Auth/Login.tsx": () => import("./assets/Login-Bz0piCGt.js"), "./Pages/Auth/Register.tsx": () => import("./assets/Register-BIV-qHd4.js"), "./Pages/Auth/RegisterBreeder.tsx": () => import("./assets/RegisterBreeder-BgK4lPe8.js"), "./Pages/Auth/RegisterSeller.tsx": () => import("./assets/RegisterSeller-C5S0A5MK.js"), "./Pages/Auth/ResetPassword.tsx": () => import("./assets/ResetPassword-ClVXadcj.js"), "./Pages/Auth/VerifyEmail.tsx": () => import("./assets/VerifyEmail-CfB_30OP.js"), "./Pages/Breed/Index.tsx": () => import("./assets/Index-508L-_nF.js"), "./Pages/Breed/Registration.tsx": () => import("./assets/Registration-l0sNRNKZ.js"), "./Pages/Breed/Show.tsx": () => import("./assets/Show-Ch6czK37.js"), "./Pages/BreederListing/Create.tsx": () => import("./assets/Create-D2Gz5Lm0.js"), "./Pages/BreederListing/Index.tsx": () => import("./assets/Index-Dztew7WO.js"), "./Pages/Breeders/Index.tsx": () => import("./assets/Index-hAWoiE6G.js"), "./Pages/Breeders/Registration.tsx": () => import("./assets/Registration-ymfWFc4M.js"), "./Pages/Breeders/Show.tsx": () => import("./assets/Show-Bi73gZIV.js"), "./Pages/ContactUs.tsx": () => import("./assets/ContactUs-BPXT1_Rn.js"), "./Pages/Dashboard.tsx": () => import("./assets/Dashboard-DbjvDtp-.js"), "./Pages/Error.tsx": () => import("./assets/Error-Dq2napaC.js"), "./Pages/Favorite/Index.tsx": () => import("./assets/Index-CNsztgqy.js"), "./Pages/Home/Index.tsx": () => import("./assets/Index-CS3Z2XX-.js"), "./Pages/Home/Sections/Banner.tsx": () => import("./assets/Banner-C3ElKCdH.js"), "./Pages/Plan/Breeder.tsx": () => import("./assets/Breeder-C4Je6D8X.js"), "./Pages/Plan/Index.tsx": () => import("./assets/Index-Bir8Uki3.js"), "./Pages/Post/Index.tsx": () => import("./assets/Index-Se-VuXKn.js"), "./Pages/Post/Partials/PostCommentCard.tsx": () => import("./assets/PostCommentCard-DmJ7X53H.js"), "./Pages/Post/Partials/PostCommentForm.tsx": () => import("./assets/PostCommentForm-BJNrbaJf.js"), "./Pages/Post/Show.tsx": () => import("./assets/Show-DlS3qs2S.js"), "./Pages/PrivacyPolicy.tsx": () => import("./assets/PrivacyPolicy-C2GZMq0f.js"), "./Pages/Profile/Edit.tsx": () => import("./assets/Edit-foD4nGxy.js"), "./Pages/Profile/MyPuppies.tsx": () => import("./assets/MyPuppies-1Y9cYcKP.js"), "./Pages/Profile/Partials/AccountSettings/UserAvatar.tsx": () => import("./assets/UserAvatar-C-GeSlva.js"), "./Pages/Profile/Partials/AccountSettings/UserProfile.tsx": () => import("./assets/UserProfile-CDU6uLe-.js"), "./Pages/Profile/Partials/DeleteUserForm.tsx": () => import("./assets/DeleteUserForm-rZ-gamBw.js"), "./Pages/Profile/Partials/SubscriptionCard.tsx": () => import("./assets/SubscriptionCard-CWta36nw.js"), "./Pages/Profile/Partials/UpdatePasswordForm.tsx": () => import("./assets/UpdatePasswordForm-C1k-Qtqa.js"), "./Pages/Profile/Partials/UpdateProfileInformationForm.tsx": () => import("./assets/UpdateProfileInformationForm-CF-m_7LG.js"), "./Pages/Puppy/Index.tsx": () => import("./assets/Index-7IDinHsr.js"), "./Pages/Puppy/Show.tsx": () => import("./assets/Show-MF1Y_Dut.js"), "./Pages/Seller/Registration.tsx": () => import("./assets/Registration-D_AAmAS8.js"), "./Pages/Subscription/Checkout.tsx": () => import("./assets/Checkout-Bm4jNdWc.js"), "./Pages/Subscription/Index.tsx": () => import("./assets/Index-COmjae2i.js"), "./Pages/Subscription/PaymentMethod.tsx": () => import("./assets/PaymentMethod-CIMDYKm8.js"), "./Pages/TermsConditions.tsx": () => import("./assets/TermsConditions-15Vsmv8b.js") })
+      /* @__PURE__ */ Object.assign({ "./Pages/Auth/ConfirmPassword.tsx": () => import("./assets/ConfirmPassword-XVD1fDXc.js"), "./Pages/Auth/ForgotPassword.tsx": () => import("./assets/ForgotPassword-BKgFhCFb.js"), "./Pages/Auth/Login.tsx": () => import("./assets/Login-DjRqm5v1.js"), "./Pages/Auth/Register.tsx": () => import("./assets/Register-BszNIpgm.js"), "./Pages/Auth/RegisterBreeder.tsx": () => import("./assets/RegisterBreeder-BJQEuRUd.js"), "./Pages/Auth/RegisterSeller.tsx": () => import("./assets/RegisterSeller-CDeo_Z_R.js"), "./Pages/Auth/ResetPassword.tsx": () => import("./assets/ResetPassword-DHftiao8.js"), "./Pages/Auth/VerifyEmail.tsx": () => import("./assets/VerifyEmail-C1d1gFw6.js"), "./Pages/Breed/Index.tsx": () => import("./assets/Index-C_lRxw_2.js"), "./Pages/Breed/Registration.tsx": () => import("./assets/Registration-l0sNRNKZ.js"), "./Pages/Breed/Show.tsx": () => import("./assets/Show-Dd0zs9tw.js"), "./Pages/BreederListing/Create.tsx": () => import("./assets/Create-D2Gz5Lm0.js"), "./Pages/BreederListing/Index.tsx": () => import("./assets/Index-Dztew7WO.js"), "./Pages/Breeders/Index.tsx": () => import("./assets/Index-vP4yrIuj.js"), "./Pages/Breeders/Registration.tsx": () => import("./assets/Registration-C_NBC2zx.js"), "./Pages/Breeders/Show.tsx": () => import("./assets/Show-B3YooWVi.js"), "./Pages/ContactUs.tsx": () => import("./assets/ContactUs-B5Zkbxh8.js"), "./Pages/Dashboard.tsx": () => import("./assets/Dashboard-NrgvtgQu.js"), "./Pages/Error.tsx": () => import("./assets/Error-JB-hKANX.js"), "./Pages/Favorite/Index.tsx": () => import("./assets/Index-BdtAMMH_.js"), "./Pages/Home/Index.tsx": () => import("./assets/Index-DzAtmxtr.js"), "./Pages/Home/Sections/Banner.tsx": () => import("./assets/Banner-C1Tq_6Oj.js"), "./Pages/Plan/Breeder.tsx": () => import("./assets/Breeder-CXi2ptge.js"), "./Pages/Plan/Index.tsx": () => import("./assets/Index-B4NUgtwI.js"), "./Pages/Post/Index.tsx": () => import("./assets/Index-CaQDzznj.js"), "./Pages/Post/Partials/PostCommentCard.tsx": () => import("./assets/PostCommentCard-DmJ7X53H.js"), "./Pages/Post/Partials/PostCommentForm.tsx": () => import("./assets/PostCommentForm-BJNrbaJf.js"), "./Pages/Post/Show.tsx": () => import("./assets/Show-B1-G58xQ.js"), "./Pages/PrivacyPolicy.tsx": () => import("./assets/PrivacyPolicy-Dw0iOcuJ.js"), "./Pages/Profile/Edit.tsx": () => import("./assets/Edit-DzNpxF8a.js"), "./Pages/Profile/MyPuppies.tsx": () => import("./assets/MyPuppies-B0N1GGHQ.js"), "./Pages/Profile/Partials/AccountSettings/UserAvatar.tsx": () => import("./assets/UserAvatar-C-GeSlva.js"), "./Pages/Profile/Partials/AccountSettings/UserProfile.tsx": () => import("./assets/UserProfile-B3KG14ke.js"), "./Pages/Profile/Partials/DeleteUserForm.tsx": () => import("./assets/DeleteUserForm-CI5x-ZKz.js"), "./Pages/Profile/Partials/SubscriptionCard.tsx": () => import("./assets/SubscriptionCard-CWta36nw.js"), "./Pages/Profile/Partials/UpdatePasswordForm.tsx": () => import("./assets/UpdatePasswordForm-DoV20RJg.js"), "./Pages/Profile/Partials/UpdateProfileInformationForm.tsx": () => import("./assets/UpdateProfileInformationForm-DHOmjBIu.js"), "./Pages/Puppy/Index.tsx": () => import("./assets/Index-BrMZOCHy.js"), "./Pages/Puppy/Show.tsx": () => import("./assets/Show-BQIJ6Ec7.js"), "./Pages/Seller/Registration.tsx": () => import("./assets/Registration-CANVpfTn.js"), "./Pages/Subscription/Checkout.tsx": () => import("./assets/Checkout-JXvT9BTC.js"), "./Pages/Subscription/Index.tsx": () => import("./assets/Index-COmjae2i.js"), "./Pages/Subscription/PaymentMethod.tsx": () => import("./assets/PaymentMethod-Q8Q1_OXj.js"), "./Pages/TermsConditions.tsx": () => import("./assets/TermsConditions-C45D-oVy.js") })
     ),
     setup: ({ App, props }) => {
       return /* @__PURE__ */ jsxRuntimeExports.jsx(App, { ...props });
@@ -37356,13 +37339,14 @@ export {
   $e as $,
   K2 as K,
   Le as L,
+  React as R,
   Sr as S,
-  U,
-  requireReact as a,
-  t as b,
+  getDefaultExportFromCjs as a,
+  requireReact as b,
   commonjsGlobal as c,
-  getAugmentedNamespace as d,
-  getDefaultExportFromCjs as g,
+  t as d,
+  getAugmentedNamespace as e,
+  ge as g,
   jsxRuntimeExports as j,
   me as m,
   reactExports as r,
