@@ -1,5 +1,5 @@
 @props(['url'])
-<tr style="background-image: url({{ imgconv64(public_path('images/email-template/banner-bg.png')) }}); background-size: cover; background-position: center;">
+<tr style="background-image: url('{{ imgconv64(public_path('images/email-template/banner-bg.png')) }}'); background-size: cover; background-position: center;">
                         <td style="padding: 32px 24px;">
                             <a href="" style="display: inline-block; margin-bottom: 87px;">
                                 <img src="{{ imgconv64(public_path('images/email-template/Logo.png')) }}"
