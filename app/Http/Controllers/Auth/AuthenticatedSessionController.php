@@ -20,6 +20,10 @@ class AuthenticatedSessionController extends Controller
      */
     public function create(): Response
     {
+        if (request()->get('redirect') == 'back') {
+            session()->put('redirect', url()->previous());
+        }
+
         return Inertia::render('Auth/Login', [
             'canResetPassword' => Route::has('password.request'),
             'status' => session('status'),
@@ -32,18 +36,18 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
-        inertia()->clearHistory();
+        /* dd('login'); */
+        /* inertia()->clearHistory(); */
         $request->authenticate();
 
         $request->session()->regenerate();
 
         /* dd($request->user()->puppies()->count()); */
         if ($request->user()->puppies()->count() && !$request->user()->is_subscribed ) {
-            return redirect()->intended(route('plans.index', absolute: false));
-
+            /* return redirect()->intended(route('plans.index', absolute: false)); */
         }
 
-        return redirect()->intended(route('home', absolute: false));
+        return redirect()->intended(session('redirect') ?? route('home', absolute: false));
     }
 
     /**

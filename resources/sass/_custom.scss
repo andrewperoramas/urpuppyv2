@@ -262,3 +262,30 @@ blockquote {
   }
 }
 
+.PhoneInputInput{
+    border: none !important;
+    // border: 'none!impo';
+    // border-radius: 99px;
+    // padding: 8px 16px;
+    // font-size: 1rem
+
+}
+
+.PhoneInputInput:focus{
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+    // background: red !important;
+    // border: 'none!impo';
+    // border-radius: 99px;
+    // padding: 8px 16px;
+    // font-size: 1rem
+
+}
+
+
+.phone-input:focus-within {
+    // border: none !important;
+    border: 1px solid $primary !important;
+}
+

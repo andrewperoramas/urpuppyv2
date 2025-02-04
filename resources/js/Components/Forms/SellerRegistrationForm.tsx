@@ -13,6 +13,7 @@ import SelectInput, { Option } from '../SelectInput'
 import CheckoutV2Form from '../CheckoutV2Form'
 import InputError from '../InputError'
 import { parseInt } from 'lodash'
+import PhoneNumberInput from '../PhoneNumberInput'
 
 
 
@@ -119,7 +120,9 @@ const SellerRegistrationForm = ({
                     <div className="mb-4">
 
                       <InputLabel isRequired={true} value="Phone"/>
-                      <TextInput type="text" onChange={(e: any) => setData('phone', e.target.value)} />
+                                            <PhoneNumberInput
+onChange={(e: any) => setData('phone', e.value)}
+                                                className="phone-input form-control"/>
                     {errors.phone && <InputError message={errors.phone} /> }
                     </div>
                   </div>

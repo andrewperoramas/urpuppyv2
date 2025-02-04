@@ -57,9 +57,8 @@ class SellerRegistrationRequest extends FormRequest
         'mimes:jpeg,png,jpg',
         'max:2048'
     ],
-   'videos' => 'required|array', // Ensure 'gallery' is an array
+   'videos' => 'nullable|array', // Ensure 'gallery' is an array
     'videos.*' => [
-        'required',
         'mimes:mpeg,mp4,ogg,webm',
         'max:10512'
     ],

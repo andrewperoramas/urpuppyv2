@@ -24,7 +24,7 @@ class StateController extends Controller
             }
 
             $pagination = $request->has('all') ? 1000 : 10;
-            $states = $states->paginate($pagination);
+            $states = $states->orderBy('name')->paginate($pagination);
 
             $states->getCollection()->transform(function ($state) {
                 return [

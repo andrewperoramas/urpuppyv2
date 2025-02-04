@@ -28,7 +28,7 @@ const ImageSlider = ({
     // Effect to call swiper.update when the modal is visible
     useEffect(() => {
         if (swiperRef.current) {
-            swiperRef.current.swiper.update();
+            swiperRef.current?.swiper?.update();
         }
     }, [images]); // Dependency on images and thumbnails
 

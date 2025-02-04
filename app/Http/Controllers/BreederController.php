@@ -23,31 +23,39 @@ class BreederController extends Controller
             'breeds',
             'media',
             'state',
+            'company_state',
 
         ]);
 
-        if (request()->breed && request()->breed != 'undefined') {
+        if (request()->breed && request()->breed != 'undefined' && request()->breed != 'All') {
           $breeders = $breeders->whereHas('breeds' , function ($query) {
                 $query->where('name', request()->breed);
             });
         }
 
-        if (request()->state && request()->state != 'undefined') {
-            $breeders->whereHas('state' , function ($query) {
-            $query->where('name', request()->state);
-        });
+        /* dd($breeders->whereHas('state')->first()->state); */
+        if (request()->state && request()->state != 'undefined' && request()->state != 'All') {
+            $breeders->where(function ($query) {
+            $query->whereHas('state', function ($query) {
+                $query->where('name', request()->state);
+            })
+            ->orWhereHas('company_state', function ($query) {
+                $query->where('name', request()->state);
+            });
+            });
+
         }
 
         $breeders = $breeders->breeders()->orderBy('created_at')->paginate(12);
 
         return inertia()->render('Breeders/Index', [
             'breeders' => BreederFullData::collect($breeders),
-            'breed_filter_list' => fn () =>
-                Breed::select(['name'])->distinct()->orderBy('name')->pluck('name')
-             ,
-            'state_filter_list' => fn () =>
-                State::select(['name'])->distinct()->orderBy('name')->pluck('name')
-             ,
+            /* 'breed_filter_list' => fn () => */
+            /*     Breed::select(['name'])->distinct()->orderBy('name')->pluck('name') */
+            /*  , */
+            /* 'state_filter_list' => fn () => */
+            /*     State::select(['name'])->distinct()->orderBy('name')->pluck('name') */
+            /*  , */
         ]);
 
     }

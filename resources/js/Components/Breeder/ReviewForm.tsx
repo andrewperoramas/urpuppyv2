@@ -1,7 +1,7 @@
 import { Rating } from '@smastrom/react-rating'
 import React from 'react'
 import '@smastrom/react-rating/style.css'
-import { useForm } from '@inertiajs/react'
+import { Link, useForm, usePage } from '@inertiajs/react'
 
 const ReviewForm = ({breeder_id}: {breeder_id: number}) => {
     // const [value, setValue] = React.useState(0)
@@ -10,6 +10,8 @@ const ReviewForm = ({breeder_id}: {breeder_id: number}) => {
         rating: 0,
         body: '',
     })
+
+    const user = usePage().props.auth.user
 
    const CustomStar = (
         <path xmlns="http://www.w3.org/2000/svg" d="M11.0008 16.75L4.82881 19.995L6.00781 13.122L1.00781 8.25495L7.90781 7.25495L10.9938 1.00195L14.0798 7.25495L20.9798 8.25495L15.9798 13.122L17.1588 19.995L11.0008 16.75Z" stroke="#08314E" stroke-opacity="0.8" stroke-width="1.5" strokeLinecap="round" stroke-linejoin="round"/>
@@ -31,7 +33,8 @@ const ReviewForm = ({breeder_id}: {breeder_id: number}) => {
         reset()
     }
 
-  return (
+  return user ? (
+
             <div className="card border post-reviews">
               <div className="card-body">
                 <div className="d-flex align-items-center gap-3 mb-3 pb-1">
@@ -60,7 +63,11 @@ const ReviewForm = ({breeder_id}: {breeder_id: number}) => {
                 </form>
               </div>
             </div>
-  )
+  ) : <div>
+
+            <Link href={`/login?redirect=back`}> Login </Link>to post a review
+
+        </div>
 }
 
 export default ReviewForm

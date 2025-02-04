@@ -20,7 +20,7 @@ class BreedController extends Controller
 
         $pagination = $request->has('all') ? 1000 : 10;
 
-        $breeds = $breedsQuery->select('id', 'name')->paginate($pagination);
+        $breeds = $breedsQuery->select('id', 'name')->orderBy('name')->paginate($pagination);
 
         $breeds->getCollection()->transform(function ($city) {
             return [

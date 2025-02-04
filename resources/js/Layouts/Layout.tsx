@@ -14,6 +14,7 @@ export default function Layout({
 }: PropsWithChildren<{ header?: ReactNode, headerLabel?: string, subheaderLabel?: string, navType?: string }>) {
     const { flash }: any = usePage().props;
 
+
     useEffect(() => {
         if (flash?.message?.success) {
 

@@ -89,23 +89,13 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <div className="border-top border-white border-opacity-10 py-3 d-md-flex align-items-center justify-content-between">
+      <div className="border-top   border-white border-opacity-10 py-3 d-md-flex align-items-center justify-content-center">
         <p className="d-flex align-items-center gap-2  mb-md-0 text-white fw-normal  opacity-50"><span> ©2025 Urpuppy.com, LLC. All Right Reserved </span>
 
-                        <a href="" className=" items-center">
-<img src="/images/svgs/icon-facebook.svg" alt="" /> </a>
-
-                        <a target="_blank" href="https://x.com/UrpuppyDotCom" className=" items-center"  >
-<img src="/images/svgs/icon-twitter.svg" alt="" /> </a>
-
-                        <a href="https://www.instagram.com/urpupppydotcom" target="_blank" className=" items-center">
-<img src="/images/svgs/icon-instagram.svg"  /> </a>
 
                     </p>
 
-        <p className="mb-0 text-white fw-normal opacity-50 d-flex align-items-center gap-2">
 
-                        <img src="/images/svgs/icon-mail.svg" alt="" /> support@urpuppy.com</p>
       </div>
     </div>
   </footer>

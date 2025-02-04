@@ -2,13 +2,16 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import Button from '@/Components/ui/Button';
 import GuestLayout from '@/Layouts/GuestLayout';
 import Layout from '@/Layouts/Layout';
-import { Head, Link, useForm, usePage } from '@inertiajs/react';
+import { Head, Link, useForm, usePage, usePoll } from '@inertiajs/react';
 import { FormEventHandler } from 'react';
 
 export default function VerifyEmail({ status, puppy }: { status?: string, puppy: App.Data.PuppyCardData }) {
     const { post, processing } = useForm({});
 
     const roles = usePage().props?.auth?.user?.roles;
+
+
+    usePoll(3000, { only: ['status'] })
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();

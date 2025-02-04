@@ -75,7 +75,10 @@ const Show = ({breeder, puppies} : {
               </div>
             </div>
             <div className="andrews-listings mb-xl-4">
-              <h5 className="mb-6 fs-5 mb-3 pb-1">{breeder.full_name} Listings</h5>
+
+                {puppies.length > 0 &&
+              <h5 className="mb-6 fs-5 mb-3 pb-1">{breeder.full_name} Listings</h5> }
+
               <div className="row">
                 {puppies.length > 0 &&
                     puppies.map((puppy: App.Data.PuppyData, index: number) => (

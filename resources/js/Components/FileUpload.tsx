@@ -1,5 +1,6 @@
 import React, { useRef, useCallback, useState, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
+import Button from './ui/Button';
 
 function FileUpload({
   required,
@@ -112,71 +113,88 @@ function FileUpload({
     [files, name, setData]
   );
 
+  const handleAddMoreClick = (e: any) => {
+     e.preventDefault();
+    if (hiddenInputRef.current) {
+      hiddenInputRef.current.click();
+    }
+  };
+
   return (
-    <div {...getRootProps()} className={`dropzone ${isDragActive ? 'dz-drag-hover' : ''}`}>
-      <input
-        type="file"
-        name={name}
-        style={{ opacity: 0, position: 'absolute' }}
-        ref={hiddenInputRef}
-        multiple
-      />
-      <input {...getInputProps()} />
-      {isLoading ? (
-        <div className="dz-message">
-          <div className="dz-message-text">
-            <p>Loading images...</p>
-          </div>
-        </div>
-      ) : files.length === 0 ? (
-        <div className="dz-message">
-          <div className="dz-message-text">
-            <p>Drop files here or click to upload</p>
-          </div>
-        </div>
-      ) : (
-        <div className="dz-preview-container">
-          {files.map((file, index) => {
-             const errorKey = `${name}.${index}`;
-            const fileError = errors?.[errorKey] ?? null;
-
-                                return (
-            <div key={file.name + file.size} className="dz-preview dz-file-preview">
-              <div className="dz-image">
-                {file.type.startsWith('image/') ? (
-                  <img src={URL.createObjectURL(file)} alt={file.name} />
-                ) : (
-                  <div className="dz-file-representation">📄</div>
-                )}
-              </div>
-              <div className="dz-details">
-                <div className="dz-filename">
-                  <span>{file.name}</span>
-                </div>
-                <div className="dz-size">
-                  <span>{(file.size / 1024).toFixed(1)} KB</span>
-                </div>
-                                              {fileError && (
-                    <div className="text-danger" style={{ color: 'red', marginTop: '5px' }}>
-                      {fileError}
-                    </div>
-                  )}
-              </div>
-              <div
-                className="dz-remove"
-                onClick={(e) => handleRemove(file, e)}
-                role="button"
-                tabIndex={0}
-              >
-                ✕
-              </div>
+    <div>
+      <div {...getRootProps()} className={`dropzone ${isDragActive ? 'dz-drag-hover' : ''}`}>
+        <input
+          type="file"
+          name={name}
+          style={{ opacity: 0, position: 'absolute' }}
+          ref={hiddenInputRef}
+          multiple
+        />
+        <input {...getInputProps()} />
+        {isLoading ? (
+          <div className="dz-message">
+            <div className="dz-message-text">
+              <p>Loading images...</p>
             </div>
-          ) }
+          </div>
+        ) : files.length === 0 ? (
+          <div className="dz-message">
+            <div className="dz-message-text">
+              <p>Drop files here or click to upload</p>
+            </div>
+          </div>
+        ) : (
+          <div className="dz-preview-container">
+            {files.map((file, index) => {
+              const errorKey = `${name}.${index}`;
+              const fileError = errors?.[errorKey] ?? null;
 
-                            )}
+              return (
+                <div key={file.name + file.size} className="dz-preview dz-file-preview">
+                  <div className="dz-image">
+                    {file.type.startsWith('image/') ? (
+                      <img src={URL.createObjectURL(file)} alt={file.name} />
+                    ) : (
+                      <div className="dz-file-representation">📄</div>
+                    )}
+                  </div>
+                  <div className="dz-details">
+                    <div className="dz-filename">
+                      <span>{file.name}</span>
+                    </div>
+                    <div className="dz-size">
+                      <span>{(file.size / 1024).toFixed(1)} KB</span>
+                    </div>
+                    {fileError && (
+                      <div className="text-danger" style={{ color: 'red', marginTop: '5px' }}>
+                        {fileError}
+                      </div>
+                    )}
+                  </div>
+                  <div
+                    className="dz-remove"
+                    onClick={(e) => handleRemove(file, e)}
+                    role="button"
+                    tabIndex={0}
+                  >
+                    ✕
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </div>
 
-        </div>
-      )}
+
+    {
+                files.length > 0 &&
+      <Button type="button" onClick={handleAddMoreClick} style={{ marginTop: '20px' }}>
+        Add More Files
+      </Button>
+            }
+
+
       <style>{`
         .dropzone {
           border: 2px dashed #0087F7;
@@ -279,9 +297,24 @@ function FileUpload({
         .dz-preview:hover .dz-remove {
           opacity: 1;
         }
+
+        button {
+          background-color: #0087f7;
+          color: white;
+          padding: 10px 20px;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+          background-color: #005bb5;
+        }
       `}</style>
     </div>
   );
 }
 
 export default FileUpload;
+

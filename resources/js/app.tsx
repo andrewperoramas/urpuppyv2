@@ -7,13 +7,13 @@ import { PuppyToaster } from './Components/PuppyToaster';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
- router.on('error', (errors: any) => {
-      if (errors.some((error: any) => error.message.includes('window.history.state is null'))) {
-        console.warn('Refreshing page due to Inertia error.');
-        window.location.reload();
-    }
-    window.location.reload();
- })
+ // router.on('error', (errors: any) => {
+ //      if (errors.some((error: any) => error.message.includes('window.history.state is null'))) {
+ //        console.warn('Refreshing page due to Inertia error.');
+ //        window.location.reload();
+ //    }
+ //    window.location.reload();
+ // })
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,

@@ -133,6 +133,7 @@ class SellerController extends Controller
             $created_puppy->attachSiblings($data['puppy_siblings']);
         }
 
+        if (isset($data['videos'])) {
         collect($data['videos'])->each(function ($image) use ($created_puppy) {
             try {
     $media = $created_puppy->addMedia($image)->toMediaCollection('video');
@@ -144,6 +145,7 @@ class SellerController extends Controller
             GenerateVideoThumbnail::dispatch($media);
 
         });
+}
 
         collect($data['images'])->each(function ($image) use ($created_puppy) {
             $created_puppy->addMedia($image)->toMediaCollection('puppy_files');
