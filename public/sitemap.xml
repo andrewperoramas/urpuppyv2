@@ -13,39 +13,67 @@
     
             </url>
     <url>
-        <loc>http://localhost:8000/breeds/keenan</loc>
+        <loc>http://localhost:8000/puppies?filter%5Bbreed%5D=Annetta</loc>
     
             </url>
     <url>
-        <loc>http://localhost:8000/breeds/melisa</loc>
+        <loc>http://localhost:8000/breeds/casper</loc>
     
             </url>
     <url>
-        <loc>http://localhost:8000/breeds/margarete</loc>
+        <loc>http://localhost:8000/puppies?filter%5Bbreed%5D=Casper</loc>
     
             </url>
     <url>
-        <loc>http://localhost:8000/breeds/drake</loc>
+        <loc>http://localhost:8000/breeds/arnaldo</loc>
     
             </url>
     <url>
-        <loc>http://localhost:8000/breeds/titus</loc>
+        <loc>http://localhost:8000/puppies?filter%5Bbreed%5D=Arnaldo</loc>
     
             </url>
     <url>
-        <loc>http://localhost:8000/breeds/kristofer</loc>
+        <loc>http://localhost:8000/breeds/gwen</loc>
     
             </url>
     <url>
-        <loc>http://localhost:8000/breeders</loc>
+        <loc>http://localhost:8000/puppies?filter%5Bbreed%5D=Gwen</loc>
     
             </url>
     <url>
-        <loc>http://localhost:8000/login</loc>
+        <loc>http://localhost:8000/breeds/elizabeth</loc>
     
             </url>
     <url>
-        <loc>http://localhost:8000/breeds/tibetan-spaniel</loc>
+        <loc>http://localhost:8000/puppies?filter%5Bbreed%5D=Elizabeth</loc>
+    
+            </url>
+    <url>
+        <loc>http://localhost:8000/breeds/vince</loc>
+    
+            </url>
+    <url>
+        <loc>http://localhost:8000/posts</loc>
+    
+            </url>
+    <url>
+        <loc>http://localhost:8000/breeds/eden</loc>
+    
+            </url>
+    <url>
+        <loc>http://localhost:8000/puppies?filter%5Bbreed%5D=Vince</loc>
+    
+            </url>
+    <url>
+        <loc>http://localhost:8000/puppies?filter%5Bbreed%5D=Eden</loc>
+    
+            </url>
+    <url>
+        <loc>http://localhost:8000/breeds/litzy</loc>
+    
+            </url>
+    <url>
+        <loc>http://localhost:8000/breeds/annetta</loc>
     
             </url>
     <url>
@@ -53,43 +81,31 @@
     
             </url>
     <url>
-        <loc>http://localhost:8000/breeders/-bPq3wEQ7nk</loc>
+        <loc>http://localhost:8000/register</loc>
     
             </url>
     <url>
-        <loc>http://localhost:8000/breeders/-9VMQe9Q82B</loc>
+        <loc>http://localhost:8000/puppies/hjkh-2</loc>
     
             </url>
     <url>
-        <loc>http://localhost:8000/breeders/-n6P3kG3Wyp</loc>
+        <loc>http://localhost:8000/login</loc>
     
             </url>
     <url>
-        <loc>http://localhost:8000/breeders/-ZO2QW65Xkr</loc>
+        <loc>http://localhost:8000/puppies?filter%5Bbreed%5D=Litzy</loc>
     
             </url>
     <url>
-        <loc>http://localhost:8000/puppies</loc>
+        <loc>http://localhost:8000/puppies/hjkh</loc>
     
             </url>
     <url>
-        <loc>http://localhost:8000/puppies/espiluks</loc>
+        <loc>http://localhost:8000/puppies/bubuka-2</loc>
     
             </url>
     <url>
-        <loc>http://localhost:8000/puppies/buratilya</loc>
-    
-            </url>
-    <url>
-        <loc>http://localhost:8000/puppies/isgarute</loc>
-    
-            </url>
-    <url>
-        <loc>http://localhost:8000/contact-us</loc>
-    
-            </url>
-    <url>
-        <loc>http://localhost:8000/privacy-policy</loc>
+        <loc>http://localhost:8000/puppies/qceqwe-qwe</loc>
     
             </url>
     <url>
@@ -97,11 +113,19 @@
     
             </url>
     <url>
-        <loc>http://localhost:8000/sitemap.xml</loc>
+        <loc>http://localhost:8000/puppies</loc>
     
             </url>
     <url>
-        <loc>http://localhost:8000/puppies/luha</loc>
+        <loc>http://localhost:8000/contact-us</loc>
+    
+            </url>
+    <url>
+        <loc>http://localhost:8000/breeders/-Bmo5y032Mp</loc>
+    
+            </url>
+    <url>
+        <loc>http://localhost:8000/privacy-policy</loc>
     
             </url>
     <url>
@@ -109,59 +133,99 @@
     
             </url>
     <url>
-        <loc>http://localhost:8000/breeders?breed=Melisa</loc>
+        <loc>http://localhost:8000/breeders/-LvbjBEgQDn</loc>
     
             </url>
     <url>
-        <loc>http://localhost:8000/breeders?breed=Keenan</loc>
+        <loc>http://localhost:8000/breeders</loc>
     
             </url>
     <url>
-        <loc>http://localhost:8000/puppies?filter%5Bbreed%5D=Melisa</loc>
+        <loc>http://localhost:8000/register-seller</loc>
     
             </url>
     <url>
-        <loc>http://localhost:8000/puppies/qwec-3</loc>
+        <loc>http://localhost:8000/breeders/-LvbjBg3Dnk</loc>
     
             </url>
     <url>
-        <loc>http://localhost:8000/puppies?filter%5Bbreed%5D=Keenan</loc>
+        <loc>http://localhost:8000/breeders?breed=Arnaldo</loc>
     
             </url>
     <url>
-        <loc>http://localhost:8000/puppies/burguniks</loc>
+        <loc>http://localhost:8000/breeders?breed=Gwen</loc>
     
             </url>
     <url>
-        <loc>http://localhost:8000/puppies/bargunasya</loc>
+        <loc>http://localhost:8000/breeders?breed=Casper</loc>
     
             </url>
     <url>
-        <loc>http://localhost:8000/puppies/et-aliquip-nemo-et-a</loc>
+        <loc>http://localhost:8000/breeders?breed=Elizabeth</loc>
     
             </url>
     <url>
-        <loc>http://localhost:8000/breeders?breed=Margarete</loc>
+        <loc>http://localhost:8000/puppies/index.html</loc>
     
             </url>
     <url>
-        <loc>http://localhost:8000/breeders?breed=Drake</loc>
+        <loc>http://localhost:8000/breeders?breed=Litzy</loc>
     
             </url>
     <url>
-        <loc>http://localhost:8000/puppies?filter%5Bbreed%5D=Drake</loc>
+        <loc>http://localhost:8000/breeders/-ZO2QW65Xkr</loc>
     
             </url>
     <url>
-        <loc>http://localhost:8000/puppies?filter%5Bbreed%5D=Titus</loc>
+        <loc>http://localhost:8000/forgot-password</loc>
     
             </url>
     <url>
-        <loc>http://localhost:8000/puppies?filter%5Bbreed%5D=Kristofer</loc>
+        <loc>http://localhost:8000/breeders?breed=Annetta</loc>
     
             </url>
     <url>
-        <loc>http://localhost:8000/puppies?filter%5Bbreed%5D=Margarete</loc>
+        <loc>http://localhost:8000/breeders?breed=Vince</loc>
+    
+            </url>
+    <url>
+        <loc>http://localhost:8000/register-breeder</loc>
+    
+            </url>
+    <url>
+        <loc>http://localhost:8000/puppies/bubuka</loc>
+    
+            </url>
+    <url>
+        <loc>http://localhost:8000/puppies/buratsa</loc>
+    
+            </url>
+    <url>
+        <loc>http://localhost:8000/puppies/qceqwe-qwe-2</loc>
+    
+            </url>
+    <url>
+        <loc>http://localhost:8000/breeders?breed=Eden</loc>
+    
+            </url>
+    <url>
+        <loc>http://localhost:8000</loc>
+    
+            </url>
+    <url>
+        <loc>http://localhost:8000/breeds/giles</loc>
+    
+            </url>
+    <url>
+        <loc>http://localhost:8000/breeds/sonia</loc>
+    
+            </url>
+    <url>
+        <loc>http://localhost:8000/breeders/-67RjR783kn</loc>
+    
+            </url>
+    <url>
+        <loc>http://localhost:8000/breeders/-oJ85GqojD2</loc>
     
             </url>
     <url>
@@ -169,115 +233,59 @@
     
             </url>
     <url>
-        <loc>http://localhost:8000/breeders?breed=Titus</loc>
+        <loc>http://localhost:8000/puppies?filter%5Bbreed%5D=Giles</loc>
     
             </url>
     <url>
-        <loc>http://localhost:8000/breeders?breed=Kristofer</loc>
+        <loc>http://localhost:8000/puppies?filter%5Bbreed%5D=Sonia</loc>
     
             </url>
     <url>
-        <loc>http://localhost:8000/breeders/-NRZ5qrQlqY</loc>
+        <loc>http://localhost:8000/breeders?breed=Giles</loc>
     
             </url>
     <url>
-        <loc>http://localhost:8000/breeders?breed=Tibetan%20Spaniel</loc>
+        <loc>http://localhost:8000/breeders?breed=Sonia</loc>
     
             </url>
     <url>
-        <loc>http://localhost:8000/breeds/</loc>
+        <loc>http://localhost:8000/puppies/charlie</loc>
     
             </url>
     <url>
-        <loc>http://localhost:8000/breeds/athena</loc>
+        <loc>http://localhost:8000/puppies/charlie-2</loc>
     
             </url>
     <url>
-        <loc>http://localhost:8000/breeders?breed=&amp;state=undefined</loc>
+        <loc>http://localhost:8000/puppies/samson</loc>
     
             </url>
     <url>
-        <loc>http://localhost:8000/breeders/-xgJ3LVQ8RB</loc>
+        <loc>http://localhost:8000/puppies/duke</loc>
     
             </url>
     <url>
-        <loc>http://localhost:8000/puppies?filter%5Bbreed%5D=Tibetan%20Spaniel</loc>
+        <loc>http://localhost:8000/puppies/leo</loc>
     
             </url>
     <url>
-        <loc>http://localhost:8000/puppies?page=2</loc>
+        <loc>http://localhost:8000/puppies/chloe</loc>
     
             </url>
     <url>
-        <loc>http://localhost:8000/puppies/qwec-2</loc>
+        <loc>http://localhost:8000/puppies/rocky</loc>
     
             </url>
     <url>
-        <loc>http://localhost:8000/puppies/dolor-totam-ullamco</loc>
+        <loc>http://localhost:8000/puppies/jack</loc>
     
             </url>
     <url>
-        <loc>http://localhost:8000/puppies/qwe</loc>
+        <loc>http://localhost:8000/puppies/buddy</loc>
     
             </url>
     <url>
-        <loc>http://localhost:8000/puppies/asdxz-asd</loc>
-    
-            </url>
-    <url>
-        <loc>http://localhost:8000/puppies/gaspar</loc>
-    
-            </url>
-    <url>
-        <loc>http://localhost:8000/puppies?page=1</loc>
-    
-            </url>
-    <url>
-        <loc>http://localhost:8000/puppies?filter%5Bbreed%5D=Athena</loc>
-    
-            </url>
-    <url>
-        <loc>http://localhost:8000/breeders?breed=Athena</loc>
-    
-            </url>
-    <url>
-        <loc>http://localhost:8000/breeds/arvel</loc>
-    
-            </url>
-    <url>
-        <loc>http://localhost:8000/puppies/qweq-qwe</loc>
-    
-            </url>
-    <url>
-        <loc>http://localhost:8000/puppies/ismakol</loc>
-    
-            </url>
-    <url>
-        <loc>http://localhost:8000/puppies/qwecqwec</loc>
-    
-            </url>
-    <url>
-        <loc>http://localhost:8000/puppies/qwec</loc>
-    
-            </url>
-    <url>
-        <loc>http://localhost:8000/register</loc>
-    
-            </url>
-    <url>
-        <loc>http://localhost:8000/breeders?breed=Arvel</loc>
-    
-            </url>
-    <url>
-        <loc>http://localhost:8000/puppies?filter%5Bbreed%5D=Arvel</loc>
-    
-            </url>
-    <url>
-        <loc>http://localhost:8000/puppies/qwecqwe</loc>
-    
-            </url>
-    <url>
-        <loc>http://localhost:8000/puppies/aqwejkl</loc>
+        <loc>http://localhost:8000/puppies/bear</loc>
     
             </url>
     <url>
@@ -285,43 +293,59 @@
     
             </url>
     <url>
-        <loc>http://localhost:8000/puppies/max</loc>
+        <loc>http://localhost:8000/puppies/oliver</loc>
     
             </url>
     <url>
-        <loc>http://localhost:8000/puppies/ruby</loc>
+        <loc>http://localhost:8000/puppies/penny</loc>
     
             </url>
     <url>
-        <loc>http://localhost:8000/puppies/aqwejkl-2</loc>
+        <loc>http://localhost:8000/puppies/finn</loc>
     
             </url>
     <url>
-        <loc>http://localhost:8000/puppies/barubal</loc>
+        <loc>http://localhost:8000/puppies/bailey</loc>
     
             </url>
     <url>
-        <loc>http://localhost:8000/breeds/raquel</loc>
+        <loc>http://localhost:8000/puppies/luna</loc>
     
             </url>
     <url>
-        <loc>http://localhost:8000/breeds/curt</loc>
+        <loc>http://localhost:8000/breeders/-bPq3wEQ7nk</loc>
     
             </url>
     <url>
-        <loc>http://localhost:8000/breeders/-Dla3VlQ0e9</loc>
+        <loc>http://localhost:8000/breeders/-7XY32gW5pa</loc>
     
             </url>
     <url>
-        <loc>http://localhost:8000/breeders/-Y2r3YE3kgK</loc>
+        <loc>http://localhost:8000/breeders/-lLP5gxaQxg</loc>
     
             </url>
     <url>
-        <loc>http://localhost:8000/breeders/-LOa3P95dKv</loc>
+        <loc>http://localhost:8000/breeders/-xgJ3L1V58R</loc>
     
             </url>
     <url>
-        <loc>http://localhost:8000/breeders/-VKojag58NA</loc>
+        <loc>http://localhost:8000/breeders/-2KnQ8EJj7V</loc>
+    
+            </url>
+    <url>
+        <loc>http://localhost:8000/breeders/-BKXQKea39z</loc>
+    
+            </url>
+    <url>
+        <loc>http://localhost:8000/breeders/-qe2Qr7jgLx</loc>
+    
+            </url>
+    <url>
+        <loc>http://localhost:8000/breeders/-94pQvObjNR</loc>
+    
+            </url>
+    <url>
+        <loc>http://localhost:8000/breeders/-NRZ5qrQlqY</loc>
     
             </url>
     <url>
@@ -330,6 +354,18 @@
             </url>
     <url>
         <loc>http://localhost:8000/breeders/-7XY32W5pa6</loc>
+    
+            </url>
+    <url>
+        <loc>http://localhost:8000/breeders/-ZDqQ7Vp5ln</loc>
+    
+            </url>
+    <url>
+        <loc>http://localhost:8000/breeders/-awyjDw7QWV</loc>
+    
+            </url>
+    <url>
+        <loc>http://localhost:8000/breeders/-vrqjXEz3x8</loc>
     
             </url>
     <url>
@@ -345,7 +381,11 @@
     
             </url>
     <url>
-        <loc>http://localhost:8000/breeders/-LPa3m25NBd</loc>
+        <loc>http://localhost:8000/breeders/-lnV3xEg5Wx</loc>
+    
+            </url>
+    <url>
+        <loc>http://localhost:8000/breeders/-z4bQNO4jOG</loc>
     
             </url>
     <url>
@@ -354,6 +394,18 @@
             </url>
     <url>
         <loc>http://localhost:8000/breeders/-LaK5nXjBdN</loc>
+    
+            </url>
+    <url>
+        <loc>http://localhost:8000/breeders/-A4J5dOq3Xp</loc>
+    
+            </url>
+    <url>
+        <loc>http://localhost:8000/breeders/-N6Zj6zyjxg</loc>
+    
+            </url>
+    <url>
+        <loc>http://localhost:8000/breeders/-LKaj4dDjGZ</loc>
     
             </url>
     <url>
@@ -369,7 +421,15 @@
     
             </url>
     <url>
-        <loc>http://localhost:8000/breeders/-oJ85Go5D2R</loc>
+        <loc>http://localhost:8000/breeders/-4Bv3zw25Jk</loc>
+    
+            </url>
+    <url>
+        <loc>http://localhost:8000/breeders/-wA73bkp5Op</loc>
+    
+            </url>
+    <url>
+        <loc>http://localhost:8000/breeders/-XRE5A6YQyp</loc>
     
             </url>
     <url>
@@ -378,6 +438,10 @@
             </url>
     <url>
         <loc>http://localhost:8000/breeders/-z4bQN43OGq</loc>
+    
+            </url>
+    <url>
+        <loc>http://localhost:8000/breeders/-LaK5noXQBd</loc>
     
             </url>
     <url>
@@ -397,7 +461,15 @@
     
             </url>
     <url>
+        <loc>http://localhost:8000/breeders/-ZKp3pONjG2</loc>
+    
+            </url>
+    <url>
         <loc>http://localhost:8000/breeders/-67RjR85knX</loc>
+    
+            </url>
+    <url>
+        <loc>http://localhost:8000/breeders/-oJ85Go5D2R</loc>
     
             </url>
     <url>
@@ -413,19 +485,19 @@
     
             </url>
     <url>
-        <loc>http://localhost:8000/breeders/-LvbjBg3Dnk</loc>
-    
-            </url>
-    <url>
         <loc>http://localhost:8000/breeders/-awyjD7QWVL</loc>
     
             </url>
     <url>
-        <loc>http://localhost:8000/breeders/-Dl0Q1JjPEg</loc>
+        <loc>http://localhost:8000/breeders/-1MDQEkG3eo</loc>
     
             </url>
     <url>
-        <loc>http://localhost:8000/breeders/-qe2Qr7jgLx</loc>
+        <loc>http://localhost:8000/breeders/-xgJ3LVQ8RB</loc>
+    
+            </url>
+    <url>
+        <loc>http://localhost:8000/breeders/-Dl0Q1JjPEg</loc>
     
             </url>
     <url>
@@ -437,7 +509,71 @@
     
             </url>
     <url>
-        <loc>http://localhost:8000/breeders/-Bmo5y032Mp</loc>
+        <loc>http://localhost:8000/breeders/-Y2r3YE3kgK</loc>
+    
+            </url>
+    <url>
+        <loc>http://localhost:8000/breeders/-LOa3P95dKv</loc>
+    
+            </url>
+    <url>
+        <loc>http://localhost:8000/breeders/-n6P3kG3Wyp</loc>
+    
+            </url>
+    <url>
+        <loc>http://localhost:8000/breeders/-Dla3VlQ0e9</loc>
+    
+            </url>
+    <url>
+        <loc>http://localhost:8000/breeders/-9VMQe9Q82B</loc>
+    
+            </url>
+    <url>
+        <loc>http://localhost:8000/breeders/-VKojag58NA</loc>
+    
+            </url>
+    <url>
+        <loc>http://localhost:8000/breeders/-LPa3m25NBd</loc>
+    
+            </url>
+    <url>
+        <loc>http://localhost:8000/breeders/-AxE3lWjb7G</loc>
+    
+            </url>
+    <url>
+        <loc>http://localhost:8000/breeders/-4DWjJg3wAP</loc>
+    
+            </url>
+    <url>
+        <loc>http://localhost:8000/breeders/-paOj9DQdJE</loc>
+    
+            </url>
+    <url>
+        <loc>http://localhost:8000/breeders/-qe2Qr77jgL</loc>
+    
+            </url>
+    <url>
+        <loc>http://localhost:8000/breeders/-BbK3Mqp3V0</loc>
+    
+            </url>
+    <url>
+        <loc>http://localhost:8000/breeders/-bPq3wVEj7n</loc>
+    
+            </url>
+    <url>
+        <loc>http://localhost:8000/breeders/-d7q3ZA2j4r</loc>
+    
+            </url>
+    <url>
+        <loc>http://localhost:8000/breeders/-ZO2QWW6QXk</loc>
+    
+            </url>
+    <url>
+        <loc>http://localhost:8000/breeders/-NRZ5qpr3lq</loc>
+    
+            </url>
+    <url>
+        <loc>http://localhost:8000/breeders/-xBm3Oe2QLZ</loc>
     
             </url>
 </urlset>
