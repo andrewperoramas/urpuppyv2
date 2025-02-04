@@ -1,5 +1,5 @@
 import { j as jsxRuntimeExports, R as React, $ as $e, r as reactExports } from "../ssr.js";
-import Banner from "./Banner-C1Tq_6Oj.js";
+import Banner from "./Banner-CfYvZljY.js";
 import { S as Swiper, a as SwiperSlide } from "./create-element-if-not-defined-BgUbPFNl.js";
 import { A as Autoplay } from "./autoplay-CCcZb5pa.js";
 import { P as PuppyCard, F as FavoriteButton, G as Gender } from "./Card-Cc0Fg7O7.js";

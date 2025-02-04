@@ -1,6 +1,6 @@
 import { j as jsxRuntimeExports, $ as $e } from "../ssr.js";
 import { L as Layout } from "./Layout-B-dagMuq.js";
-import Banner from "./Banner-C1Tq_6Oj.js";
+import Banner from "./Banner-CfYvZljY.js";
 import { M as MetaTags } from "./MetaTags-DV5IHhOb.js";
 import "util";
 import "stream";

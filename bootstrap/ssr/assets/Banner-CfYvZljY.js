@@ -1203,109 +1203,92 @@ const GenderFilter = ({ setGender, defaultValue }) => {
   ] });
 };
 const FilterBox = () => {
-  var _a, _b, _c, _d, _e, _f, _g, _h;
-  const payload = (_a = K().props) == null ? void 0 : _a.payload;
-  const [filter, setFilter] = reactExports.useState({
-    // breed: {label: "Golden Retriever", value: ""},
-    breed: { label: ((_b = payload == null ? void 0 : payload.filter) == null ? void 0 : _b.breed) ?? "e.g. (Breed)", value: ((_c = payload == null ? void 0 : payload.filter) == null ? void 0 : _c.breed) ?? "All" },
-    gender: { label: ((_d = payload == null ? void 0 : payload.filter) == null ? void 0 : _d.gender) ?? "e.g. (Male)", value: ((_e = payload == null ? void 0 : payload.filter) == null ? void 0 : _e.gender) ?? "All" },
-    age: { label: "1 week", value: ((_f = payload == null ? void 0 : payload.filter) == null ? void 0 : _f.age) ?? "0" },
+  var _a, _b, _c, _d, _e, _f, _g;
+  const { props } = K();
+  const { payload, isMobile } = props;
+  const initialFilters = {
+    breed: { label: ((_a = payload == null ? void 0 : payload.filter) == null ? void 0 : _a.breed) ?? "e.g. (Breed)", value: ((_b = payload == null ? void 0 : payload.filter) == null ? void 0 : _b.breed) ?? "All" },
+    gender: { label: ((_c = payload == null ? void 0 : payload.filter) == null ? void 0 : _c.gender) ?? "e.g. (Male)", value: ((_d = payload == null ? void 0 : payload.filter) == null ? void 0 : _d.gender) ?? "All" },
+    age: { label: "1 week", value: ((_e = payload == null ? void 0 : payload.filter) == null ? void 0 : _e.age) ?? "0" },
     price: { label: "$1 - $2,500", value: [1, 25e4] },
-    state: { label: ((_g = payload == null ? void 0 : payload.filter) == null ? void 0 : _g.state) ?? "e.g. (New York)", value: ((_h = payload == null ? void 0 : payload.filter) == null ? void 0 : _h.state) ?? "All" }
-  });
+    state: { label: ((_f = payload == null ? void 0 : payload.filter) == null ? void 0 : _f.state) ?? "e.g. (New York)", value: ((_g = payload == null ? void 0 : payload.filter) == null ? void 0 : _g.state) ?? "All" }
+  };
+  const [filter, setFilter] = reactExports.useState(initialFilters);
   const handleSearch = (e) => {
     e.preventDefault();
-    const payload2 = Object.entries(filter).map(([key, obj]) => ({
-      [key]: obj == null ? void 0 : obj.value
-    }));
-    const flattenedPayload = payload2.reduce((acc, current) => {
-      const [key, value] = Object.entries(current)[0];
-      acc[key] = value;
+    const flattenedPayload = Object.entries(filter).reduce((acc, [key, obj]) => {
+      acc[key] = obj.value;
       return acc;
     }, {});
-    Sr.visit(`/puppies`, {
+    Sr.visit("/puppies", {
       data: { filter: flattenedPayload },
-      only: [
-        "puppies",
-        "breed_filter_list",
-        "state_filter_list",
-        "has_search"
-      ],
+      only: ["puppies", "breed_filter_list", "state_filter_list", "has_search"],
       method: "get",
       preserveState: true,
       preserveScroll: true
     });
   };
-  const isMobile = K().props.isMobile;
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "grid-filter d-none d-lg-block", "data-aos": "fade-up", "data-aos-delay": "300", "data-aos-duration": "1000", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "d-flex align-items-center justify-content-between", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "breed d-flex gap-2 border-end", children: /* @__PURE__ */ jsxRuntimeExports.jsx(BreedFilter, { setBreed: setFilter, defaultValue: filter.breed }) }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "sex d-flex gap-2 border-end", children: /* @__PURE__ */ jsxRuntimeExports.jsx(GenderFilter, { defaultValue: filter.gender, setGender: setFilter }) }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "age d-flex gap-2 border-end", children: /* @__PURE__ */ jsxRuntimeExports.jsx(AgeFilter, { setAge: setFilter, defaultValue: filter == null ? void 0 : filter.age }) }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "price-range d-flex gap-2 border-end flex-shrink-0", children: /* @__PURE__ */ jsxRuntimeExports.jsx(PriceFilter, { setPrice: setFilter }) }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "state d-flex gap-2", children: /* @__PURE__ */ jsxRuntimeExports.jsx(StateFilter, { setState: setFilter, defaultValue: filter.state }) }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        "a",
-        {
-          onClick: !isMobile ? handleSearch : () => {
-          },
-          className: "btn btn-primary round-48 flex-shrink-0 p-2 d-flex align-items-center justify-content-center",
-          children: /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: "/images/svgs/icon-search.svg", alt: "" })
-        }
-      )
-    ] }) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs(
-      "div",
+  const renderFilterLabel = () => {
+    return Object.entries(filter).filter(([key]) => key !== "state" && key !== "price").map(([key, item], index, array) => /* @__PURE__ */ jsxRuntimeExports.jsxs(React$1.Fragment, { children: [
+      item.label,
+      index < array.length - 1 && " ・"
+    ] }, key));
+  };
+  const renderDesktopFilters = () => /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "grid-filter d-none d-lg-block", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "d-flex align-items-center justify-content-between", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "breed d-flex gap-2 border-end", children: /* @__PURE__ */ jsxRuntimeExports.jsx(BreedFilter, { setBreed: setFilter, defaultValue: filter.breed }) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "sex d-flex gap-2 border-end", children: /* @__PURE__ */ jsxRuntimeExports.jsx(GenderFilter, { setGender: setFilter, defaultValue: filter.gender }) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "age d-flex gap-2 border-end", children: /* @__PURE__ */ jsxRuntimeExports.jsx(AgeFilter, { setAge: setFilter, defaultValue: filter.age }) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "price-range d-flex gap-2 border-end flex-shrink-0", children: /* @__PURE__ */ jsxRuntimeExports.jsx(PriceFilter, { setPrice: setFilter }) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "state d-flex gap-2", children: /* @__PURE__ */ jsxRuntimeExports.jsx(StateFilter, { setState: setFilter, defaultValue: filter.state }) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      "a",
       {
-        className: "grid-filter-mobile aos-init aos-animate dropdown d-grid d-lg-none",
-        "data-aos": "fade-up",
-        "data-aos-delay": "300",
-        "data-aos-duration": "1000",
-        children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsxs(
-            "button",
-            {
-              type: "button",
-              className: "btn btn-white bg-white py-6 d-flex align-items-center justify-content-between gap-4",
-              "data-bs-toggle": "dropdown",
-              "aria-expanded": "false",
-              "data-bs-auto-close": "outside",
-              children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "breed d-flex gap-2", children: [
-                  /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "flex-shrink-0", children: /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: "/images/svgs/icon-breed.svg", alt: "" }) }),
-                  /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "text-start", children: [
-                    /* @__PURE__ */ jsxRuntimeExports.jsx("h6", { className: "font-work-sans mb-0", children: "Find your puppy" }),
-                    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "mb-0 fs-2 text-muted fw-normal", children: Object.values(filter).map((item, index, array) => Object.keys(filter)[index] !== "state" && Object.keys(filter)[index] !== "price" && /* @__PURE__ */ jsxRuntimeExports.jsxs(React$1.Fragment, { children: [
-                      item == null ? void 0 : item.label,
-                      index < array.length - 3 && " ・"
-                    ] }, index)) })
-                  ] })
-                ] }),
-                /* @__PURE__ */ jsxRuntimeExports.jsx(
-                  "a",
-                  {
-                    href: "#",
-                    onClick: handleSearch,
-                    className: "btn btn-primary round-48 flex-shrink-0 p-2 d-flex align-items-center justify-content-center",
-                    children: /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: "/images/svgs/icon-search.svg", alt: "" })
-                  }
-                )
-              ]
-            }
-          ),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "dropdown-menu px-4 py-3 w-100 mt-n1", style: {
-            zIndex: "999999999!important"
-          }, children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "breed d-flex gap-2 border-bottom py-6", children: /* @__PURE__ */ jsxRuntimeExports.jsx(BreedFilter, { setBreed: setFilter, defaultValue: filter.breed }) }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "sex d-flex gap-2 border-bottom py-6", children: /* @__PURE__ */ jsxRuntimeExports.jsx(GenderFilter, { setGender: setFilter, defaultValue: filter.gender }) }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "age d-flex gap-2 border-bottom py-6", children: /* @__PURE__ */ jsxRuntimeExports.jsx(AgeFilter, { setAge: setFilter, defaultValue: filter == null ? void 0 : filter.age }) }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "price-range d-flex gap-2 border-bottom py-6", children: /* @__PURE__ */ jsxRuntimeExports.jsx(PriceFilter, { setPrice: setFilter }) }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "state d-flex gap-2 py-6", children: /* @__PURE__ */ jsxRuntimeExports.jsx(StateFilter, { setState: setFilter, defaultValue: filter.state }) }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("a", { onClick: handleSearch, href: "#", className: "btn btn-primary w-100 d-flex align-items-center justify-content-center mt-3", children: "Search" })
-          ] })
-        ]
+        onClick: handleSearch,
+        className: "btn btn-primary round-48 flex-shrink-0 p-2 d-flex align-items-center justify-content-center",
+        children: /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: "/images/svgs/icon-search.svg", alt: "" })
       }
     )
+  ] }) });
+  const renderMobileFilters = () => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid-filter-mobile aos-init aos-animate dropdown d-grid d-lg-none", "data-aos": "fade-up", "data-aos-delay": "300", "data-aos-duration": "1000", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(
+      "button",
+      {
+        type: "button",
+        className: "btn btn-white bg-white py-6 d-flex align-items-center justify-content-between gap-4",
+        "data-bs-toggle": "dropdown",
+        "aria-expanded": "false",
+        "data-bs-auto-close": "outside",
+        children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "breed d-flex gap-2", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "flex-shrink-0", children: /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: "/images/svgs/icon-breed.svg", alt: "" }) }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "text-start", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx("h6", { className: "font-work-sans mb-0", children: "Find your puppy" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "mb-0 fs-2 text-muted fw-normal", children: renderFilterLabel() })
+            ] })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            "a",
+            {
+              onClick: handleSearch,
+              className: "btn btn-primary round-48 flex-shrink-0 p-2 d-flex align-items-center justify-content-center",
+              children: /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: "/images/svgs/icon-search.svg", alt: "" })
+            }
+          )
+        ]
+      }
+    ),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "dropdown-menu px-4 py-3 w-100 mt-n1", style: { zIndex: "999999999!important" }, children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "breed d-flex gap-2 border-bottom py-6", children: /* @__PURE__ */ jsxRuntimeExports.jsx(BreedFilter, { setBreed: setFilter, defaultValue: filter.breed }) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "sex d-flex gap-2 border-bottom py-6", children: /* @__PURE__ */ jsxRuntimeExports.jsx(GenderFilter, { setGender: setFilter, defaultValue: filter.gender }) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "age d-flex gap-2 border-bottom py-6", children: /* @__PURE__ */ jsxRuntimeExports.jsx(AgeFilter, { setAge: setFilter, defaultValue: filter.age }) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "price-range d-flex gap-2 border-bottom py-6", children: /* @__PURE__ */ jsxRuntimeExports.jsx(PriceFilter, { setPrice: setFilter }) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "state d-flex gap-2 py-6", children: /* @__PURE__ */ jsxRuntimeExports.jsx(StateFilter, { setState: setFilter, defaultValue: filter.state }) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("a", { onClick: handleSearch, href: "#", className: "btn btn-primary w-100 d-flex align-items-center justify-content-center mt-3", children: "Search" })
+    ] })
+  ] });
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+    renderDesktopFilters(),
+    renderMobileFilters()
   ] });
 };
 const Banner = ({

@@ -1,5 +1,5 @@
 import { r as reactExports, K, j as jsxRuntimeExports, $ as $e } from "../ssr.js";
-import Banner from "./Banner-C1Tq_6Oj.js";
+import Banner from "./Banner-CfYvZljY.js";
 import { P as PuppyCard } from "./Card-Cc0Fg7O7.js";
 import { P as Pagination } from "./Pagination-BnURosuv.js";
 import { L as Layout } from "./Layout-B-dagMuq.js";
