@@ -118,10 +118,9 @@ const SellerRegistrationForm = ({
                   </div>
                   <div className="col-lg-4">
                     <div className="mb-4">
-
                       <InputLabel isRequired={true} value="Phone"/>
                                             <PhoneNumberInput
-onChange={(e: any) => setData('phone', e.value)}
+onChange={(e: any) => setData('phone', e)}
                                                 className="phone-input form-control"/>
                     {errors.phone && <InputError message={errors.phone} /> }
                     </div>

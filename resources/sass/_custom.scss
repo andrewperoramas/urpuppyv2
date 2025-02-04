@@ -155,6 +155,13 @@ input[type="number"] {
     border-radius: 10px;
 }
 
+.react-date-picker__calendar-button:hover
+{
+    background: $primary !important;
+    color: $white !important;
+    border-radius: 10px;
+}
+
 abbr {
       text-decoration: none!important;
 }
@@ -183,6 +190,24 @@ abbr {
 .react-date-picker__inputGroup__input:invalid {
     background: transparent!important;
 
+}
+
+.react-calendar__month-view__days__day {
+    color: $secondary !important;
+}
+
+.react-calendar__month-view__days__day--weekend {
+    color: $primary !important;
+}
+
+.react-calendar__navigation__arrow  {
+    color: $secondary !important;
+}
+
+.react-calendar__tile--active {
+    background: $primary !important;
+    color: $white !important;
+    border-radius: 10px;
 }
 
 input:disabled {
