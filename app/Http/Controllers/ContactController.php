@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\AdminNewContact;
 use App\Mail\SupportTeamEmailResponseMail;
 use App\Models\Contact;
 use Illuminate\Http\Request;
@@ -27,6 +28,8 @@ class ContactController extends Controller
         ]);
 
         Contact::create($validated);
+
+        Mail::queue(new AdminNewContact($validated));
 
         Mail::queue(new SupportTeamEmailResponseMail($validated['first_name'] . " " . $validated['last_name'], $validated['email']));
 
