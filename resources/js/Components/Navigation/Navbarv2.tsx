@@ -119,11 +119,6 @@ const Navbarv2 = ({type} : {type?: string|undefined}) => {
                 </Link>
               </li>
 }
-              <li className="nav-item">
-                <Link prefetch className={`nav-link ${page.startsWith('/posts')  ? 'active' : '' }`} href="/posts">
-                  Blog
-                </Link>
-              </li>
             </ul>
             <div className="d-flex align-items-center gap-6">
 
@@ -203,11 +198,7 @@ const Navbarv2 = ({type} : {type?: string|undefined}) => {
               </Link>
             </li>
                         }
-            <li className="nav-item">
-              <Link  className="nav-link text-white" href="/posts">
-                Blog
-              </Link>
-            </li>
+
 
 
             {user && (

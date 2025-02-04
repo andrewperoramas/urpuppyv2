@@ -70,6 +70,7 @@ class SellerRegistrationRequest extends FormRequest
         if (!$puppies_count) {
             $rules['phone'] = ['required', 'string', 'max:100'];
             $rules['city'] = ['required'];
+            $rules['zip_code'] = ['required'];
             $rules['state_id'] = ['required'];
         } else {
 

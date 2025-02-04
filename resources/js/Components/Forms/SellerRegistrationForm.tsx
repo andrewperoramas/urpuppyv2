@@ -190,7 +190,7 @@ const SellerRegistrationForm = ({
                   </div>
                   <div className="col-12">
                     <div className="mb-4">
-                      <InputLabel value="About (Puppy Profile)" isRequired={true}/>
+                      <InputLabel value="Puppy Bio" isRequired={true}/>
                       <textarea value={data?.puppy_about} onChange={(e) => setData('puppy_about', e.target.value)} className="form-control rounded-1" id="About" rows={3} placeholder=""></textarea>
                     {errors.puppy_about && <InputError message={errors.puppy_about} /> }
                     </div>

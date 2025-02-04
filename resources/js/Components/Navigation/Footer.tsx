@@ -42,6 +42,9 @@ const Footer = () => {
           <div className="col-6 col-md-4 col-lg-2 mb-7 pb-1 pb-lg-0 mb-lg-0">
             <h6 className="fw-semibold font-work-sans mb-6 text-white">About urpuppy</h6>
             <ul className="list-unstyled footer-memu mb-0">
+              <li>
+                <Link href="/posts" className="fs-3 d-block fw-normal">Blog</Link>
+              </li>
               <li className="mb-6">
                 <a href="#" className="fs-3 d-block fw-normal">About Us</a>
               </li>
