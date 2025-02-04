@@ -12,7 +12,7 @@
       </a>
     </div>
 
-    <img src="{{ imgconv64(public_path('images/email-template/puppies.png')) }}"
+    <img src="{{ imgconv64(public_path('images/email-template/Simplification.png')) }}"
       alt="puppies" style="display: block; margin: 24px auto; max-width: 100%; height: auto;">
   </td>
 </tr>
