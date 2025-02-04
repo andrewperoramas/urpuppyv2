@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { usePage, router } from "@inertiajs/react";
 import Button from "./ui/Button";
-
-const stripePromise = loadStripe("pk_test_51QoA8bPX6eO7ZftrJQdaiEDQR1qQvXYAGS1XU4UD94bXrrhKq0aIPCKiCfqzKxnbCX4kg0EJrRYyanggFIacjfTF00tM4KzZlN");
+const stripePromise = loadStripe("pk_test_51QCFB5B0xRl9Df0eV4ta5t579Iw9aI8EZmIZD9hXiExP7hibkAneNzoUbglZnjnZ7QoZfbYnk7cazjMTXNX261As00vAyhQqED");
 
 const CheckoutV2Form = ({ clientSecret, plan_id }: any) => {
     const [elements, setElements] = useState(null);
