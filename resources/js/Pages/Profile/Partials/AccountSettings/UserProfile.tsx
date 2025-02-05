@@ -19,7 +19,7 @@ const UserProfile = () => {
         last_name: string,
         email: string,
         avatar: File | null,
-        current_password?: string, new_password?: string, new_password_confirmation?: string, state?: App.Data.StateData| null, city?: App.Data.CityData | null, zip_code?: string,
+        current_password?: string, new_password?: string, new_password_confirmation?: string, state?: App.Data.StateData| null, city?: string | null, zip_code?: string,
         social_fb?: string, social_ig?: string, social_tiktok?: string, social_x?: string, enable_notification:  boolean }>({
         first_name: user?.first_name ?? "",
         last_name: user?.last_name ?? "",
