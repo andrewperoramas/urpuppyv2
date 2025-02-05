@@ -218,11 +218,27 @@ class SellerController extends Controller
             $update_puppy->attachSiblings($siblings_input);
         }
 
-        collect($data['videos'])->each(function ($image) use ($update_puppy) {
+        /* collect($data['videos'])->each(function ($image) use ($update_puppy) { */
+        /*     $media = $update_puppy->addMedia($image)->toMediaCollection('video'); */
+        /*     GenerateVideoThumbnail::dispatch($media); */
+        /* }); */
+
+        if (isset($data['videos'])) {
             $update_puppy->clearMediaCollection('video');
+        collect($data['videos'])->each(function ($image) use ($update_puppy) {
+            try {
             $media = $update_puppy->addMedia($image)->toMediaCollection('video');
             GenerateVideoThumbnail::dispatch($media);
+
+} catch (\Exception $e) {
+    \Log::error('Error adding media: ' . $e->getMessage());
+}
+            /* $media = $created_puppy->addMedia($image)->toMediaCollection('video'); */
+
+
         });
+}
+
 
         collect($data['images'])->each(function ($image) use ($update_puppy) {
             $update_puppy->clearMediaCollection('puppy_files');

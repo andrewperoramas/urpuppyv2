@@ -114,10 +114,24 @@ class BreederController extends Controller
 
 
 
-        $video = collect($data['videos'])->first();
+        if (isset($data['videos'])) {
+            $user->clearMediaCollection('videos');
+        collect($data['videos'])->each(function ($image) use ($user) {
+            try {
+            $media = $user->addMedia($image)->toMediaCollection('videos');
+            GenerateVideoThumbnail::dispatch($media);
 
-        $media = $user->addMedia($video)->toMediaCollection('videos');
-        GenerateVideoThumbnail::dispatch($media);
+} catch (\Exception $e) {
+    \Log::error('Error adding media: ' . $e->getMessage());
+}
+
+        });
+}
+
+        /* $video = collect($data['videos'])->first(); */
+
+        /* $media = $user->addMedia($video)->toMediaCollection('videos'); */
+        /* GenerateVideoThumbnail::dispatch($media); */
 
         $user->addMedia($data['company_logo'])->toMediaCollection('company_logo');
 
