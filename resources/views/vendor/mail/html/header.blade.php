@@ -1,7 +1,7 @@
-<tr style="background-image: url({{ asset('images/email-template/banner-bg.png') }}); background-size: cover; background-position: center;">
+<tr style="background-image: url('https://urpuppy.com/images/email-template/banner-bg.png'); background-size: cover; background-position: center;">
                         <td style="padding: 32px 24px;">
                             <a href="" style="display: inline-block; margin-bottom: 87px;">
-                                <img src="{{ asset('images/email-template/Logo.png') }}"
+                                <img src="https://urpuppy.com/images/email-template/Logo.png"
                                     alt="logo" style="display: block;">
                             </a>
                             <h1
