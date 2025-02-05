@@ -14,7 +14,7 @@ class PostData extends Data
         public int $id,
         public string $title,
         public string $slug,
-        public string $excerpt,
+        public ?string $excerpt,
         public string $banner_url,
         public int $like_count,
         public int $unlike_count,

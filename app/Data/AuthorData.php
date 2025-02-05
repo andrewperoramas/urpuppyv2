@@ -13,7 +13,6 @@ class AuthorData extends Data
         public string $name,
         public string $email,
         public string $photo_url,
-        public ?string $bio,
     ) {
 
 
