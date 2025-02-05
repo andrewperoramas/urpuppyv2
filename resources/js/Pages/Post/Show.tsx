@@ -24,7 +24,7 @@ const Show = ({post, comments, is_liked, is_unliked}: {
   return (
         <Layout navType="secondary">
 
-       <MetaTags url={currentUrl} title={post.title} description={post.excerpt} image={post.banner_url} />
+       <MetaTags url={currentUrl} title={post.title} description={post.excerpt ?? ""} image={post.banner_url} />
         <section className="puppy-spotlight py-7 py-md-5 py-xl-9" id="scroll-target">
           <div className="container" >
             <div className="mb-8">

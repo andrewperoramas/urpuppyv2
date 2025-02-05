@@ -28,7 +28,11 @@ const Card = ({post} : {
 
                     <div className="col-12">
 
+                                    {
+                                        post.excerpt &&
+
                      <p className="mb-3">{post.excerpt.length > 100 ? post.excerpt.substring(0, 93) + '...' : post.excerpt}</p>
+                                    }
                     </div>
 
                     <div className="col-12">

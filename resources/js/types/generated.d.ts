@@ -3,7 +3,6 @@ export type AuthorData = {
 name: string;
 email: string;
 photo_url: string;
-bio: string | null;
 };
 export type BreedData = {
 name: string;
@@ -142,7 +141,7 @@ export type PostData = {
 id: number;
 title: string;
 slug: string;
-excerpt: string;
+excerpt: string | null;
 banner_url: string;
 like_count: number;
 unlike_count: number;
