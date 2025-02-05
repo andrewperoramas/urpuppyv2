@@ -24,44 +24,20 @@
     </p>
     <div style="text-align: center; margin-top: 12px;">
       <!-- TikTok -->
-      <a href="#" style="width: 44px; height: 44px; display: inline-block; color: white; background: #214660; border-radius: 100%; cursor: pointer; margin-left: 12px; text-align: center;">
-        <table width="100%" height="100%" style="border-collapse: collapse;">
-          <tr>
-            <td style="text-align: center; vertical-align: middle;">
-              <img src="https://urpuppy.com/images/email-template/tiktok.png" alt="tiktok" style="width: 20px; height: 20px; display: inline-block;">
-            </td>
-          </tr>
-        </table>
+      <a href="#" style="width: 44px; height: 44px; display: inline-block; color: white; background: #214660; border-radius: 100%; cursor: pointer; margin-left: 12px; text-align: center; line-height: 44px;">
+        <img src="https://urpuppy.com/images/email-template/tiktok.png" alt="tiktok" style="width: 20px; height: 20px; display: inline-block; vertical-align: middle;">
       </a>
       <!-- Facebook -->
-      <a href="#" style="width: 44px; height: 44px; display: inline-block; color: white; background: #214660; border-radius: 100%; cursor: pointer; margin-left: 12px; text-align: center;">
-        <table width="100%" height="100%" style="border-collapse: collapse;">
-          <tr>
-            <td style="text-align: center; vertical-align: middle;">
-              <img src="https://urpuppy.com/images/email-template/facebook.png" alt="facebook" style="width: 20px; height: 20px; display: inline-block;">
-            </td>
-          </tr>
-        </table>
+      <a href="#" style="width: 44px; height: 44px; display: inline-block; color: white; background: #214660; border-radius: 100%; cursor: pointer; margin-left: 12px; text-align: center; line-height: 44px;">
+        <img src="https://urpuppy.com/images/email-template/facebook.png" alt="facebook" style="width: 20px; height: 20px; display: inline-block; vertical-align: middle;">
       </a>
       <!-- Instagram -->
-      <a href="https://www.instagram.com/urpupppydotcom" style="width: 44px; height: 44px; display: inline-block; color: white; background: #214660; border-radius: 100%; cursor: pointer; margin-left: 12px; text-align: center;">
-        <table width="100%" height="100%" style="border-collapse: collapse;">
-          <tr>
-            <td style="text-align: center; vertical-align: middle;">
-              <img src="https://urpuppy.com/images/email-template/instagram.png" alt="instagram" style="width: 20px; height: 20px; display: inline-block;">
-            </td>
-          </tr>
-        </table>
+      <a href="https://www.instagram.com/urpupppydotcom" style="width: 44px; height: 44px; display: inline-block; color: white; background: #214660; border-radius: 100%; cursor: pointer; margin-left: 12px; text-align: center; line-height: 44px;">
+        <img src="https://urpuppy.com/images/email-template/instagram.png" alt="instagram" style="width: 20px; height: 20px; display: inline-block; vertical-align: middle;">
       </a>
       <!-- Twitter -->
-      <a href="https://x.com/UrpuppyDotCom" style="width: 44px; height: 44px; display: inline-block; color: white; background: #214660; border-radius: 100%; cursor: pointer; margin-left: 12px; text-align: center;">
-        <table width="100%" height="100%" style="border-collapse: collapse;">
-          <tr>
-            <td style="text-align: center; vertical-align: middle;">
-              <img src="https://urpuppy.com/images/email-template/twitter.png" alt="twitter" style="width: 20px; height: 20px; display: inline-block;">
-            </td>
-          </tr>
-        </table>
+      <a href="https://x.com/UrpuppyDotCom" style="width: 44px; height: 44px; display: inline-block; color: white; background: #214660; border-radius: 100%; cursor: pointer; margin-left: 12px; text-align: center; line-height: 44px;">
+        <img src="https://urpuppy.com/images/email-template/twitter.png" alt="twitter" style="width: 20px; height: 20px; display: inline-block; vertical-align: middle;">
       </a>
     </div>
   </td>
