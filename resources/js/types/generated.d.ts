@@ -3,7 +3,7 @@ export type AuthorData = {
 name: string;
 email: string;
 photo_url: string;
-bio: string;
+bio: string | null;
 };
 export type BreedData = {
 name: string;
@@ -279,7 +279,7 @@ last_name: string;
 avatar: string;
 slug: string;
 email: string;
-city: App.Data.CityData | null;
+city: string | null;
 state: App.Data.StateData | null;
 zip_code: string | null;
 address: string;
