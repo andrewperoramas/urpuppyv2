@@ -39,6 +39,7 @@
         "overtrue/laravel-favorite": "^5.2",
         "pelmered/filament-money-field": "^1.4",
         "php-ffmpeg/php-ffmpeg": "^1.3",
+        "phpsa/filament-authentication": "^5.0",
         "spatie/eloquent-sortable": "^4.4",
         "spatie/enum": "^3.13",
         "spatie/laravel-data": "^4.11",

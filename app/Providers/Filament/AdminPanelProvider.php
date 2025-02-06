@@ -25,6 +25,7 @@ use Joaopaulolndev\FilamentGeneralSettings\FilamentGeneralSettingsPlugin;
 use LaraZeus\Sky\Filament\Resources\LibraryResource;
 use LaraZeus\Sky\Filament\Resources\PostResource;
 use LaraZeus\Sky\SkyPlugin;
+use Phpsa\FilamentAuthentication\Widgets\LatestUsersWidget;
 use Stephenjude\FilamentBlog\BlogPlugin;
 
 class AdminPanelProvider extends PanelProvider
@@ -43,13 +44,19 @@ class AdminPanelProvider extends PanelProvider
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([
-                /* Pages\Dashboard::class, */
+                Pages\Dashboard::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
                 Widgets\AccountWidget::class,
-                Widgets\FilamentInfoWidget::class,
+                LatestUsersWidget::class
             ])
+            ->font('Poppins')
+            ->breadcrumbs(false)
+            ->globalSearchDebounce('750ms')
+            ->sidebarWidth('70')
+            ->maxContentWidth('full')
+            ->sidebarFullyCollapsibleOnDesktop()
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
@@ -76,6 +83,7 @@ class AdminPanelProvider extends PanelProvider
                 /*     LibraryResource::class, */
                 /* ]), */
                 FilamentClearCachePlugin::make(),
+                \Phpsa\FilamentAuthentication\FilamentAuthentication::make(),
 
                 /* \BezhanSalleh\FilamentGoogleAnalytics\FilamentGoogleAnalyticsPlugin::make(), */
                 /* \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make() */

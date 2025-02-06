@@ -26,6 +26,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\Permission\Traits\HasRoles;
 use Cog\Contracts\Love\Reacterable\Models\Reacterable as ReacterableInterface;
+use Lab404\Impersonate\Models\Impersonate;
 use Spatie\Sitemap\Contracts\Sitemapable;
 use Spatie\Sitemap\Tags\Url;
 
@@ -34,6 +35,7 @@ class User extends Authenticatable implements  HasMedia,  MustVerifyEmail, Sitem
 {
     //FilamentUser
     //HasName
+    use Impersonate;
 
     use Billable, Favoriter, HasFactory, HasRoles, InteractsWithMedia, Notifiable, Reacterable;
 
@@ -189,6 +191,11 @@ class User extends Authenticatable implements  HasMedia,  MustVerifyEmail, Sitem
     public function getInitialNameAttribute()
     {
         return ucfirst($this->first_name[0]) . '' . ucfirst($this->last_name[0]);
+    }
+
+    public function getNameAttribute()
+    {
+        return $this->first_name . ' ' . $this->last_name;
     }
 
     public function getVideoAttribute()
