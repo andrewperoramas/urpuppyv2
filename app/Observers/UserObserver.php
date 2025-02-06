@@ -14,7 +14,13 @@ class UserObserver
     public function updated(User $user)
     {
         if ($user->hasStripeId()) {
-            $user->syncStripeCustomerDetails();
+            try {
+                $user->syncStripeCustomerDetails();
+            } catch (\Exception $e) {
+                $user->stripe_id = null;
+                $user->save();
+                $user->createAsStripeCustomer();
+            }
         }
 
         Cache::flush();

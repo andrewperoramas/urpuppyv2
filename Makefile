@@ -2,7 +2,9 @@
 # Makefile readme (en): <https://www.gnu.org/software/make/manual/html_node/index.html#SEC_Contents>
 
 SHELL = /bin/bash
-DC_RUN_ARGS = --env-file ./.env.production --profile app --profile administration  -f docker-compose.production.yml
+DC_RUN_ARGS = --env-file ./.env.production --profile app  -f docker-compose.production.yml
+MAINTENANCEUP = --env-file ./.env.production --profile app --profile administration  -f docker-compose.production.yml
+MAINTENANCEDOWN = --env-file ./.env.production --profile administration  -f docker-compose.production.yml
 HOST_UID=$(shell id -u)
 HOST_GID=$(shell id -g)
 
@@ -17,11 +19,20 @@ help: ## Show this help
 up: ## Up containers
 	docker compose ${DC_RUN_ARGS} up -d --remove-orphans
 
+maintenance\:up: ## Maintenance up
+	docker compose ${MAINTENANCEUP} up -d --remove-orphans
+
+maintenance\:down: ## Maintenance up
+	docker compose stop glances pgadmin && docker kill netdatapuppy
+
+app\:restart: ## Maintenance up
+	docker compose --env-file ./.env.production -f docker-compose.production.yml up app -d --build
+
 logs: ## Tail all containers logs
 	docker compose ${DC_RUN_ARGS} logs -f
 
 logs\:app: ## app container logs
-	docker compose ${DC_RUN_ARGS} logs app
+	docker compose logs app
 
 down: ## Stop containers
 	docker compose ${DC_RUN_ARGS} down

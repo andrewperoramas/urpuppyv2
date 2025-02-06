@@ -26,6 +26,7 @@ x-base: &base
       WWWGROUP: ${HOST_GID:-1000}
       WITH_SSR: true
   image: laravel/app
+  container_name: app
   user: "${HOST_UID:-1000}:${HOST_GID:-1000}"
   ulimits:
     nofile:
@@ -208,6 +209,7 @@ services:
       docker-volume-backup.archive-pre: /bin/sh -c 'pg_dump -U ${DB_USERNAME} -F t ${DB_DATABASE} > /backup/${DB_DATABASE}-database.tar'
   glances:
       profiles: [administration]
+      container_name: glances
       image: nicolargo/glances:latest-full
       pid: host
       security_opt:
@@ -237,6 +239,7 @@ services:
 
   pgadmin:
     profiles: [administration]
+    container_name: pgadmin
     image: 'dpage/pgadmin4:latest'
     security_opt:
       - no-new-privileges:true
@@ -293,6 +296,7 @@ services:
 
   netdata:
     profiles: [administration]
+    container_name: netdatapuppy
     image: netdata/netdata
     restart: unless-stopped
     cap_add:
