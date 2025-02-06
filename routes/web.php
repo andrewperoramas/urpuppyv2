@@ -15,6 +15,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\SellerController;
 use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PrivacyPolicyController;
@@ -101,72 +102,7 @@ Route::post('/complete-subscription', function (Request $request) {
 Route::post('/report/{slug}', [ReportController::class, 'store']);
 
 
-Route::get('/', function () {
-
-    $top_picks = Puppy::with('breeds', 'seller')->hasSubscribedUsers()->inRandomOrder()->first();
-
-
-
-
-    $spotlights = PuppyData::collect(Puppy::with('breeds', 'seller')->hasSubscribedUsers()->inRandomOrder()->take(4)->get());
-
-    $new = PuppyData::collect(Puppy::with('breeds:name,slug', 'seller')->hasSubscribedUsers()->newArrivals()->orderByDesc('id')->take(4)->get());
-
-    if ( auth()->user()) {
-        $user_favorites = auth()->user()->favorites()->pluck('favoriteable_id');
-
-    if ($top_picks != null) {
-      $top_picks = PuppyData::from($top_picks);
-
-            if (in_array($top_picks->id, $user_favorites->toArray())){
-
-                $top_picks->is_favorite = true;
-            }
-    }
-
-    $spotlights->map(function ($puppy) use ($user_favorites) {
-
-            if (in_array($puppy->id , $user_favorites->toArray())){
-
-                $puppy->is_favorite = true;
-            }
-    });
-
-    $new->map(function ($puppy) use ($user_favorites) {
-
-            if (in_array($puppy->id , $user_favorites->toArray())){
-
-                $puppy->is_favorite = true;
-            }
-    });
-
-    }
-
-
-    return Inertia::render('Home/Index', [
-        'breed_filter_list' => inertia()->optional(fn () =>
-                Breed::select(['name'])->distinct()->orderBy('name')->pluck('name')
-            ) ,
-        /* 'favorites' => auth()->user() ? auth()->user()->favorites()->pluck('favoriteable_id') : [], */
-
-        'state_filter_list' => inertia()->optional(fn () =>
-                State::select(['name'])->distinct()->orderBy('name')->pluck('name')
-
-            ) ,
-        'top_pick_puppy' => $top_picks,
-
-        'puppy_spotlights' => $spotlights ,
-        'videos' => get_videos(),
-        'trusted_breeders' => BreederFullData::collect(User::with(['breeds' => fn ($q) => $q->select('name') ])->breeders()->take(4)->inRandomOrder()->get()),
-        'new_arrivals' => $new,
-        'featured_breeds' => BreedData::collect(Breed::with('media')->inRandomOrder()->take(8)->get()),
-
-        /* 'canLogin' => Route::has('login'), */
-        /* 'canRegister' => Route::has('register'), */
-        /* 'laravelVersion' => Application::VERSION, */
-        /* 'phpVersion' => PHP_VERSION, */
-    ]);
-})->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/ui/{path?}', function ($path = null) {
     $storybookPath = public_path();

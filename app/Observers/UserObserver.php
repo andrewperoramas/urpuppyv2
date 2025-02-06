@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use App\Jobs\PromptNewListingJob;
 use App\Models\User;
 use Fico7489\Laravel\Pivot\Traits\PivotEventTrait;
 use Hashids\Hashids;
@@ -26,5 +27,6 @@ class UserObserver
 
         $user->slug = str()->slug($user->name) . '-' . $id;
         $user->save();
+
     }
 }

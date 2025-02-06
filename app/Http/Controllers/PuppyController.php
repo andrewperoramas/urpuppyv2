@@ -17,6 +17,7 @@ use App\Models\Breed;
 use App\Models\Puppy;
 use App\Models\SavedSearch;
 use App\Models\State;
+use App\Services\PuppyService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Spatie\QueryBuilder\AllowedFilter;
@@ -24,109 +25,23 @@ use Spatie\QueryBuilder\QueryBuilder;
 
 class PuppyController extends Controller
 {
-    public function index(Request $request)
-    {
-        /* dd($request->all()); */
 
-        /* dd(request()->all()); */
-        /* $mergedData = collect(request()->get('payload'))->reduce(function ($carry, $item) { */
-    /* foreach ($item as $key => $value) { */
-        /* if (isset($carry[$key])) { */
-        /*     $carry[$key] = is_array($carry[$key]) ? array_merge($carry[$key], (array) $value) : [$carry[$key], (array) $value]; */
-        /* } else { */
-        /*     $carry[$key] = $value; */
-        /* } */
-    /* } */
-    /* return $carry; */
-/* }, []); */
 
-        $puppies = QueryBuilder::for(Puppy::class)
-            ->select([
-                'id', 'user_id', 'name', 'price', 'birth_date', 'slug',
-                'gender', 'created_at',
-                'view_count', 'is_featured', 'description',
-            ])
-            ->with([
-                'breeds:id,name,slug',
-                'seller:id,first_name,email,phone,last_name,state_id,city,created_at,slug,is_breeder',
-                'favorites',
-                'media',
-                'seller.state:id,name,abbreviation',
-            ])
-            ->allowedFilters([
-            /* AllowedFilter::exact('breeds.name', null, false), */
-            AllowedFilter::custom('breed', new FilterBreeds),
-            AllowedFilter::custom('age', new FilterAge),
-            AllowedFilter::custom('state', new FilterState),
-            AllowedFilter::custom('price', new FilterPrice),
-            AllowedFilter::custom('gender', new FilterGender),
-                'name', // Allows filtering by name
-                /* 'price', // Allows filtering by price if needed */
-            ])
-            ->hasSubscribedUsers()
-            ->latest()
-            ->paginate(12);
+public function index(Request $request, PuppyService $puppyService)
+{
+    $filters = $request->all();
+    $userId = auth()->id(); // Get the user ID safely
 
-        if ($request->user()) {
+    $puppies = $puppyService->getPuppies($request, paginate: true);
+    /* $states = $puppyService->getStates(); */
 
-        if (auth()->user()) {
-    $user_favorites = auth()->user()->favorites()->pluck('favoriteable_id');
+    return inertia()->render('Puppy/Index', [
+        'puppies' => PuppyData::collect($puppies),
+        /* 'states' => $states, */
+        'has_search' => count($filters),
+        'payload' => $filters,
+    ]);
 }
-
-    $puppies->getCollection()->transform(function ($puppy) use ($user_favorites) {
-        if (isset($user_favorites) && $user_favorites->contains($puppy->id)) {
-            $puppy->is_favorite = true;
-        }
-        return $puppy;
-    });
-
-
-
-}
-
-
-
-
-         /* try { */
-
-        /*     $puppies = PuppyData::collect($puppies); */
-        /*     /1* dd($puppies); *1/ */
-        /* } catch (\Exception $e) { */
-
-        /*     /1* dd($e->getMessage()); *1/ */
-
-        /* } */
-        /* dd($puppies); */
-
-        /* dd($puppies->toArray()['data']); */
-
-        $states = State::select(['id', 'name'])
-                ->whereHas('country', function ($query) {
-                    $query->where('country_code', 'US');
-                })
-                ->orderBy('name')
-                ->get()->map(function ($state) {
-                    $state->name = ucwords($state->name);
-
-                    return $state;
-                });
-        /* dd($request->all()); */
-
-        return inertia()->render('Puppy/Index', [
-            'breeds' => BreedData::collect(Breed::query()->get()),
-            'states' =>  StateData::collect($states),
-            'puppies' => PuppyData::collect($puppies),
-            'has_search' => count($request->all()),
-            'payload' => $request->all(),
-        'breed_filter_list' => inertia()->optional(fn () =>
-                Breed::select(['name'])->distinct()->orderBy('name')->pluck('name')
-            ) ,
-        'state_filter_list' => inertia()->optional(fn () =>
-                State::select(['name'])->distinct()->orderBy('name')->pluck('name')
-            ) ,
-
-        ]);
-    }
 
     public function show(Request $request, string $slug)
     {

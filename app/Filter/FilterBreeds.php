@@ -9,7 +9,6 @@ class FilterBreeds implements Filter
 {
     public function __invoke(Builder $query, $value, string $property)
     {
-
         if ($value == "0" || $value == "All") {
         } else {
 
