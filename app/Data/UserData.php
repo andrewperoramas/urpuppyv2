@@ -4,6 +4,7 @@ namespace App\Data;
 
 use App\PuppyStatus;
 use Illuminate\Support\Collection;
+use Spatie\LaravelData\Attributes\MapInputName;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\DataCollection;
 use Spatie\TypeScriptTransformer\Attributes\TypeScript;
@@ -23,6 +24,7 @@ class UserData extends Data
         public string $avatar,
         public string $slug,
         public string $email,
+        public ?string $phone,
         public ?string $city,
         public ?StateData $state,
         public ?string $zip_code,
@@ -40,6 +42,19 @@ class UserData extends Data
         public bool $enable_notification,
         public ?SubscriptionData $premium_plan,
         public ?SubscriptionData $breeder_plan,
+
+        public ?string $kennel_name,
+        public ?StateData $company_state,
+        public ?string $company_city,
+        public ?string $company_zip_code,
+        public ?string $company_about,
+        public ?string $company_phone,
+        public ?string $company_name,
+        public ?string $company_email_address,
+        public ?string $company_address,
+        public ?string $company_address_formatted,
+        public ?string $company_established_on,
+        public ?string $company_logo
     ) {
 
 

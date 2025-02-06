@@ -137,7 +137,13 @@ class User extends Authenticatable implements  HasMedia,  MustVerifyEmail, Sitem
 
     public function getPremiumPlanAttribute()
     {
+try {
+
         return $this->getActiveSubscriptions()?->where('type', 'premium')?->first();
+} catch (Exception $e) {
+
+
+}
     }
 
     public function getBreederPlanAttribute()
@@ -315,7 +321,7 @@ class User extends Authenticatable implements  HasMedia,  MustVerifyEmail, Sitem
         $state = $this->state?->abbreviation ?? $this->state?->name;
         $address = $this->city . ', ' . $state ;
         if ($this->city == null &&  $state == null) {
-            return $this->company_address;
+            return $this->company_address_formatted;
         }
 
         return $address;
@@ -328,7 +334,12 @@ class User extends Authenticatable implements  HasMedia,  MustVerifyEmail, Sitem
         return  $city_name . ', ' . $state ;
     }
 
-    public function getCompanyAddressAttribute($value)
+    public function getOriginalCompanyAddressAttribute($value)
+    {
+
+    }
+
+    public function getCompanyAddressFormattedAttribute($value)
     {
 
         $state = $this->company_state?->abbreviation ?? $this->company_state?->name;

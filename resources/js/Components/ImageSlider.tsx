@@ -57,9 +57,11 @@ const ImageSlider = ({
                                 />
                         </SwiperSlide>
                     ))}
-                    {videos && videos.length > 0 && videos.map((video, index) => (
-                        <SwiperSlide key={index} className=" puppy-spotlight-img  position-relative overflow-hidden rounded-1">
+                    {videos && videos.length > 0 && videos.map((video, index) =>
 
+                        video != "" &&
+                        (
+                        <SwiperSlide key={index} className=" puppy-spotlight-img  position-relative overflow-hidden rounded-1">
                             <video
                                 controls
                                 className=" w-100 h-100 object-fit-cover rounded-1 "
@@ -113,7 +115,11 @@ const ImageSlider = ({
                                 />
                             </SwiperSlide>
                         ))}
-                        {videos && videos.length > 0 && videos.map((video, index) => (
+                        {videos && videos.length > 0 && videos.map((video, index) =>
+
+                            video != "" &&
+
+                                (
                             <SwiperSlide key={index} className="thumbnail overflow-hidden" style={{
                             }}>
                             <img

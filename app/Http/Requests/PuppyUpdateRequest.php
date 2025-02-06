@@ -49,14 +49,14 @@ class PuppyUpdateRequest extends FormRequest
             'has_travel_ready' => [''],
             'has_delivery_included' => [''],
             'images' => ['array', 'required'],
-            'videos' => ['array', 'required'],
+            'videos' => ['array'],
         ];
         $user = $this->user();
         $plan = $user?->premium_plan?->plan;
 
         if ($plan) {
             $rules['images'] = "required|array|max:$plan->image_per_listing";
-            $rules['videos'] = "required|array|max:$plan->video_per_listing";
+            $rules['videos'] = "array|max:$plan->video_per_listing";
         }
 
         return $rules;

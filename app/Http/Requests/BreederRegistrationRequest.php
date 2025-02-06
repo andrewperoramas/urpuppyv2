@@ -24,9 +24,10 @@ class BreederRegistrationRequest extends FormRequest
         return [
             'fullname' => ['required', 'string', 'max:100'],
             'kennel_name' => ['required', 'string', 'max:100'],
-            'email' => ['required', 'email', 'string', 'max:100'],
-            'phone' => ['required','string', 'max:100' ],
+            /* 'company_email' => ['required', 'email', 'string', 'max:100'], */
+            'company_phone' => ['required','string', 'max:100' ],
             'company_address' => ['required' ],
+            'company_email_address' => ['required', 'email', 'string' ],
             'city' => ['required' ],
             'state_id' => ['required', ],
             'zip_code' => ['required' ],
@@ -41,13 +42,12 @@ class BreederRegistrationRequest extends FormRequest
         'required',
         'image',
         'mimes:jpeg,png,jpg',
-        'max:2048'
+        'max:12048'
     ],
-   'videos' => 'required|array', // Ensure 'gallery' is an array
+   'videos' => 'array', // Ensure 'gallery' is an array
     'videos.*' => [
-        'required',
         'mimes:mpeg,mp4,ogg,webm',
-        'max:10512'
+        'max:50512'
     ],
         ];
     }
@@ -55,7 +55,7 @@ class BreederRegistrationRequest extends FormRequest
     public function messages()
     {
         return [
-            'phone.required' => 'Phone number is required',
+            'company_phone.required' => 'Phone number is required',
             'city.required' => 'City field is required',
             'state_id.required' => 'State field is required',
 

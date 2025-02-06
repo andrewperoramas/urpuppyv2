@@ -26,7 +26,7 @@ class PuppyData extends Data
         public string $image,
         /** @var string[] */
         public Collection $preview_images,
-        public string $video,
+        public ?string $video,
         public string $description,
         public string $formatted_price,
         public string $patterns,

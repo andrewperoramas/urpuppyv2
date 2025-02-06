@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
 class ProfileUpdateRequest extends FormRequest
@@ -13,9 +14,9 @@ class ProfileUpdateRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\Rule|array|string>
      */
-    public function rules(): array
+    public function rules(Request $request): array
     {
-        return [
+        $rules = [
             'first_name' => [ 'string', 'max:40'],
             'last_name' => [ 'string', 'max:40'],
             'state_id' => [''],
@@ -30,7 +31,7 @@ class ProfileUpdateRequest extends FormRequest
             'social_ig' => [''],
             'social_tiktok' => [''],
             'social_x' => [''],
-
+            'phone' => [''],
             'email' => [
                 'string',
                 'lowercase',
@@ -39,5 +40,23 @@ class ProfileUpdateRequest extends FormRequest
                 Rule::unique(User::class)->ignore($this->user()->id),
             ],
         ];
+
+        $user = $request->user();
+
+        if ($user?->breeder_plan) {
+            $rules['kennel_name'] = ['required', 'string', 'max:100'];
+            $rules['company_zip_code'] = ['required'];
+            $rules['company_email_address'] = ['required'];
+            $rules['company_name'] = ['required'];
+            $rules['company_about'] = ['required'];
+            $rules['company_state'] = ['required'];
+            $rules['company_city'] = ['required'];
+            /* $rules['company_city_id'] = ['']; */
+            $rules['company_address'] = ['required'];
+            $rules['company_established_on'] = ['required'];
+            $rules['company_logo'] = [''];
+        }
+
+        return $rules;
     }
 }

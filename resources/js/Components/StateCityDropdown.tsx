@@ -39,19 +39,6 @@ const StateCityDropdown = ({ formData, setFormData, errors, variant="lg" }: any)
         };
     };
 
-    const fetchCities = async (search: any, loadedOptions: any, { page }: any) => {
-            const response = await fetch(
-                `/api/puppy/cities?page=${page}&search=${search}`,
-            );
-        const data = await response.json();
-
-        return {
-            options: data.data,
-            hasMore: data.current_page !== data.last_page,
-            additional: { page: data.current_page + 1 },
-        };
-    };
-
     useEffect(() => {
         setFormData(
              'country' , selectedCountry.value,

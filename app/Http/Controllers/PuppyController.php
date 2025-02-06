@@ -45,11 +45,7 @@ public function index(Request $request, PuppyService $puppyService)
 
     public function show(Request $request, string $slug)
     {
-        /* if (! $request->user()->is_seller ) { */
-        /*     return redirect()->route('home')->with([ */
-        /*         'message.error' => 'This puppy is not available', */
-        /*     ]); */
-        /* } */
+
         /* dd($slug); */
         // Fetch the primary puppy data
         try {
@@ -69,6 +65,12 @@ public function index(Request $request, PuppyService $puppyService)
             },
             'comments.breeder',
         ])->hasSubscribedUsers()->where('slug', $slug)->firstOrFail();
+
+/*         if (! $puppy->seller->is_seller ) { */
+/*             return redirect()->route('home')->with([ */
+/*                 'message.error' => 'This puppy is not available', */
+/*             ]); */
+/*         } */
 
 
         /* if ($puppy) */

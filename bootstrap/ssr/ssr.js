@@ -2265,7 +2265,7 @@ function requireReactJsxRuntime_development() {
   hasRequiredReactJsxRuntime_development = 1;
   if (process.env.NODE_ENV !== "production") {
     (function() {
-      var React2 = requireReact();
+      var React = requireReact();
       var REACT_ELEMENT_TYPE2 = Symbol.for("react.element");
       var REACT_PORTAL_TYPE = Symbol.for("react.portal");
       var REACT_FRAGMENT_TYPE = Symbol.for("react.fragment");
@@ -2291,7 +2291,7 @@ function requireReactJsxRuntime_development() {
         }
         return null;
       }
-      var ReactSharedInternals = React2.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+      var ReactSharedInternals = React.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
       function error(format) {
         {
           {
@@ -21605,7 +21605,7 @@ var q = class {
     return e ? Promise.resolve(e()).then(() => this.processNext()) : Promise.resolve();
   }
 };
-var D = typeof window > "u", U = new q(), qe = !D && /CriOS/.test(window.navigator.userAgent), re = class {
+var D = typeof window > "u", U$1 = new q(), qe = !D && /CriOS/.test(window.navigator.userAgent), re = class {
   constructor() {
     this.rememberedState = "rememberedState";
     this.scrollRegions = "scrollRegions";
@@ -21627,7 +21627,7 @@ var D = typeof window > "u", U = new q(), qe = !D && /CriOS/.test(window.navigat
         t2 && t2();
         return;
       }
-      this.current = e, U.add(() => this.getPageData(e).then((i) => {
+      this.current = e, U$1.add(() => this.getPageData(e).then((i) => {
         let n = () => {
           this.doPushState({ page: i }, e.url), t2 && t2();
         };
@@ -21639,7 +21639,7 @@ var D = typeof window > "u", U = new q(), qe = !D && /CriOS/.test(window.navigat
     return new Promise((t2) => e.encryptHistory ? Pe(e).then(t2) : t2(e));
   }
   processQueue() {
-    return U.process();
+    return U$1.process();
   }
   decrypt(e = null) {
     var _a;
@@ -21654,13 +21654,13 @@ var D = typeof window > "u", U = new q(), qe = !D && /CriOS/.test(window.navigat
     return e instanceof ArrayBuffer ? we(e) : Promise.resolve(e);
   }
   saveScrollPositions(e) {
-    U.add(() => Promise.resolve().then(() => {
+    U$1.add(() => Promise.resolve().then(() => {
       var _a;
       ((_a = window.history.state) == null ? void 0 : _a.page) && this.doReplaceState({ page: window.history.state.page, scrollRegions: e }, this.current.url);
     }));
   }
   saveDocumentScrollPosition(e) {
-    U.add(() => Promise.resolve().then(() => {
+    U$1.add(() => Promise.resolve().then(() => {
       this.doReplaceState({ page: window.history.state.page, documentScrollPosition: e }, this.current.url);
     }));
   }
@@ -21676,7 +21676,7 @@ var D = typeof window > "u", U = new q(), qe = !D && /CriOS/.test(window.navigat
         t2 && t2();
         return;
       }
-      this.current = e, U.add(() => this.getPageData(e).then((i) => {
+      this.current = e, U$1.add(() => this.getPageData(e).then((i) => {
         let n = () => {
           this.doReplaceState({ page: i }, e.url), t2 && t2();
         };
@@ -22554,10 +22554,10 @@ var Wr = new K$1();
 /* NProgress, (c) 2013, 2014 Rico Sta. Cruz - http://ricostacruz.com/nprogress
 * @license MIT */
 var reactExports = requireReact();
-const React = /* @__PURE__ */ getDefaultExportFromCjs(reactExports);
+const U = /* @__PURE__ */ getDefaultExportFromCjs(reactExports);
 const t = /* @__PURE__ */ _mergeNamespaces({
   __proto__: null,
-  default: React
+  default: U
 }, [reactExports]);
 var lodash_isequal = { exports: {} };
 lodash_isequal.exports;
@@ -23269,13 +23269,13 @@ var Me = function({ children: u2, title: o2 }) {
     return e.props.children && (f2 += p2(e)), e.props.dangerouslySetInnerHTML && (f2 += e.props.dangerouslySetInnerHTML.__html), a(e) || (f2 += `</${e.type}>`), f2;
   }
   function P2(e) {
-    return React.cloneElement(e, { inertia: e.props["head-key"] !== void 0 ? e.props["head-key"] : "" });
+    return U.cloneElement(e, { inertia: e.props["head-key"] !== void 0 ? e.props["head-key"] : "" });
   }
   function y2(e) {
     return g3(P2(e));
   }
   function l2(e) {
-    let f2 = React.Children.toArray(e).filter((t2) => t2).map((t2) => y2(t2));
+    let f2 = U.Children.toArray(e).filter((t2) => t2).map((t2) => y2(t2));
     return o2 && !f2.find((t2) => t2.startsWith("<title")) && f2.push(`<title inertia>${o2}</title>`), f2;
   }
   return s2.update(l2(u2)), null;
@@ -26568,10 +26568,10 @@ function requireReactDomServerLegacy_node_development() {
   hasRequiredReactDomServerLegacy_node_development = 1;
   if (process.env.NODE_ENV !== "production") {
     (function() {
-      var React2 = requireReact();
+      var React = requireReact();
       var stream$1 = stream;
       var ReactVersion = "18.3.1";
-      var ReactSharedInternals = React2.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+      var ReactSharedInternals = React.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
       function warn(format) {
         {
           {
@@ -28436,7 +28436,7 @@ function requireReactDomServerLegacy_node_development() {
       }
       function flattenOptionChildren(children) {
         var content = "";
-        React2.Children.forEach(children, function(child) {
+        React.Children.forEach(children, function(child) {
           if (child == null) {
             return;
           }
@@ -31950,10 +31950,10 @@ function requireReactDomServer_node_development() {
   hasRequiredReactDomServer_node_development = 1;
   if (process.env.NODE_ENV !== "production") {
     (function() {
-      var React2 = requireReact();
+      var React = requireReact();
       var util2 = require$$1;
       var ReactVersion = "18.3.1";
-      var ReactSharedInternals = React2.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+      var ReactSharedInternals = React.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
       function warn(format) {
         {
           {
@@ -33942,7 +33942,7 @@ function requireReactDomServer_node_development() {
       }
       function flattenOptionChildren(children) {
         var content = "";
-        React2.Children.forEach(children, function(child) {
+        React.Children.forEach(children, function(child) {
           if (child == null) {
             return;
           }
@@ -37349,7 +37349,7 @@ d(
     title: (title) => `${title} - ${appName}`,
     resolve: (name) => resolvePageComponent(
       `./Pages/${name}.tsx`,
-      /* @__PURE__ */ Object.assign({ "./Pages/Auth/ConfirmPassword.tsx": () => import("./assets/ConfirmPassword-DlDXmLha.js"), "./Pages/Auth/ForgotPassword.tsx": () => import("./assets/ForgotPassword-erdJCVQE.js"), "./Pages/Auth/Login.tsx": () => import("./assets/Login-DY-ZHsV6.js"), "./Pages/Auth/Register.tsx": () => import("./assets/Register-B2czvTJJ.js"), "./Pages/Auth/RegisterBreeder.tsx": () => import("./assets/RegisterBreeder-DF24gXqD.js"), "./Pages/Auth/RegisterSeller.tsx": () => import("./assets/RegisterSeller-BYLFkbBx.js"), "./Pages/Auth/ResetPassword.tsx": () => import("./assets/ResetPassword-DD3Bs3ko.js"), "./Pages/Auth/VerifyEmail.tsx": () => import("./assets/VerifyEmail-DbY9MybL.js"), "./Pages/Breed/Index.tsx": () => import("./assets/Index-V6MEbGon.js"), "./Pages/Breed/Registration.tsx": () => import("./assets/Registration-l0sNRNKZ.js"), "./Pages/Breed/Show.tsx": () => import("./assets/Show-DRlvYiTj.js"), "./Pages/BreederListing/Create.tsx": () => import("./assets/Create-D2Gz5Lm0.js"), "./Pages/BreederListing/Index.tsx": () => import("./assets/Index-Dztew7WO.js"), "./Pages/Breeders/Index.tsx": () => import("./assets/Index-5fKm6D7R.js"), "./Pages/Breeders/Registration.tsx": () => import("./assets/Registration-CbcSQavY.js"), "./Pages/Breeders/Show.tsx": () => import("./assets/Show-ChO8cTKu.js"), "./Pages/ContactUs.tsx": () => import("./assets/ContactUs-BRMDVWb0.js"), "./Pages/Dashboard.tsx": () => import("./assets/Dashboard-CPTVBJsR.js"), "./Pages/Error.tsx": () => import("./assets/Error-C6KB6Lig.js"), "./Pages/Favorite/Index.tsx": () => import("./assets/Index-it983eX5.js"), "./Pages/Home/Index.tsx": () => import("./assets/Index-Dip3eFZ0.js"), "./Pages/Home/Sections/Banner.tsx": () => import("./assets/Banner-CfYvZljY.js"), "./Pages/Plan/Breeder.tsx": () => import("./assets/Breeder-DfGPKAg0.js"), "./Pages/Plan/Index.tsx": () => import("./assets/Index-B7huphrh.js"), "./Pages/Post/Index.tsx": () => import("./assets/Index-Dvj5z0hV.js"), "./Pages/Post/Partials/PostCommentCard.tsx": () => import("./assets/PostCommentCard-DmJ7X53H.js"), "./Pages/Post/Partials/PostCommentForm.tsx": () => import("./assets/PostCommentForm-BJNrbaJf.js"), "./Pages/Post/Show.tsx": () => import("./assets/Show-DEJrPNS0.js"), "./Pages/PrivacyPolicy.tsx": () => import("./assets/PrivacyPolicy-BJBy8hxO.js"), "./Pages/Profile/Edit.tsx": () => import("./assets/Edit-CPKKqJ4m.js"), "./Pages/Profile/MyPuppies.tsx": () => import("./assets/MyPuppies-gGpLtAAs.js"), "./Pages/Profile/Partials/AccountSettings/UserAvatar.tsx": () => import("./assets/UserAvatar-C-GeSlva.js"), "./Pages/Profile/Partials/AccountSettings/UserProfile.tsx": () => import("./assets/UserProfile-B3KG14ke.js"), "./Pages/Profile/Partials/DeleteUserForm.tsx": () => import("./assets/DeleteUserForm-CI5x-ZKz.js"), "./Pages/Profile/Partials/SubscriptionCard.tsx": () => import("./assets/SubscriptionCard-CWta36nw.js"), "./Pages/Profile/Partials/UpdatePasswordForm.tsx": () => import("./assets/UpdatePasswordForm-DoV20RJg.js"), "./Pages/Profile/Partials/UpdateProfileInformationForm.tsx": () => import("./assets/UpdateProfileInformationForm-DHOmjBIu.js"), "./Pages/Puppy/Index.tsx": () => import("./assets/Index-DVHkySXw.js"), "./Pages/Puppy/Show.tsx": () => import("./assets/Show-DeA1e5RF.js"), "./Pages/Seller/Registration.tsx": () => import("./assets/Registration-B_vYUWuO.js"), "./Pages/Subscription/Checkout.tsx": () => import("./assets/Checkout-C5gYK0gu.js"), "./Pages/Subscription/Index.tsx": () => import("./assets/Index-COmjae2i.js"), "./Pages/Subscription/PaymentMethod.tsx": () => import("./assets/PaymentMethod-Dk1EJIkE.js"), "./Pages/TermsConditions.tsx": () => import("./assets/TermsConditions-D-4xMvgj.js") })
+      /* @__PURE__ */ Object.assign({ "./Pages/Auth/ConfirmPassword.tsx": () => import("./assets/ConfirmPassword-D5JEWvho.js"), "./Pages/Auth/ForgotPassword.tsx": () => import("./assets/ForgotPassword-BUNkEG9R.js"), "./Pages/Auth/Login.tsx": () => import("./assets/Login-BaUqjOla.js"), "./Pages/Auth/Register.tsx": () => import("./assets/Register-CDvCwg0a.js"), "./Pages/Auth/RegisterBreeder.tsx": () => import("./assets/RegisterBreeder-C_YbYGwp.js"), "./Pages/Auth/RegisterSeller.tsx": () => import("./assets/RegisterSeller-C16IndK6.js"), "./Pages/Auth/ResetPassword.tsx": () => import("./assets/ResetPassword-BjUYYTAB.js"), "./Pages/Auth/VerifyEmail.tsx": () => import("./assets/VerifyEmail-D1m0J-ZI.js"), "./Pages/Breed/Index.tsx": () => import("./assets/Index-C_Z1jqVF.js"), "./Pages/Breed/Registration.tsx": () => import("./assets/Registration-l0sNRNKZ.js"), "./Pages/Breed/Show.tsx": () => import("./assets/Show-glGcx8Fr.js"), "./Pages/BreederListing/Create.tsx": () => import("./assets/Create-D2Gz5Lm0.js"), "./Pages/BreederListing/Index.tsx": () => import("./assets/Index-Dztew7WO.js"), "./Pages/Breeders/Index.tsx": () => import("./assets/Index-DaCFvC4k.js"), "./Pages/Breeders/Registration.tsx": () => import("./assets/Registration-COXvnEs5.js"), "./Pages/Breeders/Show.tsx": () => import("./assets/Show-BmbPDyMe.js"), "./Pages/ContactUs.tsx": () => import("./assets/ContactUs-D03ad-O1.js"), "./Pages/Dashboard.tsx": () => import("./assets/Dashboard-DPc37waJ.js"), "./Pages/Error.tsx": () => import("./assets/Error-p-zjqWfS.js"), "./Pages/Favorite/Index.tsx": () => import("./assets/Index-fZLQzorD.js"), "./Pages/Home/Index.tsx": () => import("./assets/Index-D_T0-YxX.js"), "./Pages/Home/Sections/Banner.tsx": () => import("./assets/Banner-BZISrjFl.js"), "./Pages/Plan/Breeder.tsx": () => import("./assets/Breeder-B6gmmACk.js"), "./Pages/Plan/Index.tsx": () => import("./assets/Index-DrxWHANy.js"), "./Pages/Post/Index.tsx": () => import("./assets/Index-CKLNnjVD.js"), "./Pages/Post/Partials/PostCommentCard.tsx": () => import("./assets/PostCommentCard-DmJ7X53H.js"), "./Pages/Post/Partials/PostCommentForm.tsx": () => import("./assets/PostCommentForm-BJNrbaJf.js"), "./Pages/Post/Show.tsx": () => import("./assets/Show-BlUyohTL.js"), "./Pages/PrivacyPolicy.tsx": () => import("./assets/PrivacyPolicy-DGqqNKRe.js"), "./Pages/Profile/Edit.tsx": () => import("./assets/Edit-CGPKy4jG.js"), "./Pages/Profile/MyPuppies.tsx": () => import("./assets/MyPuppies-Bi2K5k_x.js"), "./Pages/Profile/Partials/AccountSettings/UserAvatar.tsx": () => import("./assets/UserAvatar-C-GeSlva.js"), "./Pages/Profile/Partials/AccountSettings/UserProfile.tsx": () => import("./assets/UserProfile-BJoHSc74.js"), "./Pages/Profile/Partials/DeleteUserForm.tsx": () => import("./assets/DeleteUserForm-Dj9k2sjZ.js"), "./Pages/Profile/Partials/SubscriptionCard.tsx": () => import("./assets/SubscriptionCard-CWta36nw.js"), "./Pages/Profile/Partials/UpdatePasswordForm.tsx": () => import("./assets/UpdatePasswordForm-DmlEvg_2.js"), "./Pages/Profile/Partials/UpdateProfileInformationForm.tsx": () => import("./assets/UpdateProfileInformationForm-BVxJUKYH.js"), "./Pages/Puppy/Index.tsx": () => import("./assets/Index-S-AntkxL.js"), "./Pages/Puppy/Show.tsx": () => import("./assets/Show-BXj4hTBE.js"), "./Pages/Seller/Registration.tsx": () => import("./assets/Registration-Dx53vD2z.js"), "./Pages/Subscription/Checkout.tsx": () => import("./assets/Checkout-s-xh29EC.js"), "./Pages/Subscription/Index.tsx": () => import("./assets/Index-COmjae2i.js"), "./Pages/Subscription/PaymentMethod.tsx": () => import("./assets/PaymentMethod-Bmrq6i7o.js"), "./Pages/TermsConditions.tsx": () => import("./assets/TermsConditions-9WzL4-mk.js") })
     ),
     setup: ({ App, props }) => {
       return /* @__PURE__ */ jsxRuntimeExports.jsx(App, { ...props });
@@ -37360,8 +37360,8 @@ export {
   $e as $,
   K2 as K,
   Le as L,
-  React as R,
   Sr as S,
+  U,
   getDefaultExportFromCjs as a,
   requireReact as b,
   commonjsGlobal as c,

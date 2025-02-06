@@ -45,13 +45,16 @@ class SellerController extends Controller
             ]);
         }
 
-        if (! $request->user()->roles->contains('seller')) {
+        if (! $request->user()->roles->contains('seller') && ! $request->user()->roles->contains('breeder')) {
             return redirect()->to(route('home'))->with([
                 'message.error' => 'You are not a seller'
             ]);
         }
 
-        if (!$request->user()?->premium_plan && $request->user()->puppies()->count() > 1) {
+        if (
+        !$request->user()?->premium_plan && $request->user()->puppies()->count() > 1 &&
+        !$request->user()?->breeder_plan
+    ) {
             return redirect()->to(route('plans.index'))->with([
                 'message.success' => 'Subscribe to any plan to activate your listing'
             ]);
@@ -73,7 +76,6 @@ class SellerController extends Controller
         }
 
 
-
         return inertia('Seller/Registration', [
             'puppy_count' => $request->user()->puppies()->count(),
             'puppy_edit' => $id ? PuppyEditData::from(Puppy::with(['media', 'siblings', 'breeds', 'seller', 'puppy_patterns', 'puppy_colors'])->findOrFail($id)) : null,
@@ -86,9 +88,9 @@ class SellerController extends Controller
 
     public function store(SellerRegistrationRequest $request)
     {
-
-
-        if (!$request->user()?->premium_plan && $request->user()->puppies()->count() > 1) {
+        if (
+         !$request->user()?->breeder_plan &&
+        !$request->user()?->premium_plan && $request->user()->puppies()->count() > 1) {
             return redirect()->to(route('plans.index'))->with([
                 'message.success' => 'Subscribe to any plan to activate your listing'
             ]);
@@ -97,7 +99,7 @@ class SellerController extends Controller
         $data = $request->validated();
         $user = $request->user();
 
-        if (!$request->user()?->premium_plan) {
+        if (!$request->user()?->premium_plan || $request->user()?->breeder_plan && $request->user()->puppies()->count() == 0) {
 
             $user->update([
                 'phone' => $data['phone'],
@@ -152,7 +154,11 @@ class SellerController extends Controller
             $created_puppy->addMedia($image)->toMediaCollection('puppy_files');
         });
 
-        if (!$request->user()?->premium_plan && $request->user()->puppies()->count() > 0) {
+        if (
+        !$request->user()?->breeder_plan &&
+        !$request->user()?->premium_plan && $request->user()->puppies()->count() > 0
+
+    ) {
             return redirect()->to(route('plans.index'))->with([
                 'message.success' => 'Subscribe to any plan to activate your listing'
             ]);

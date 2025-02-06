@@ -112,7 +112,7 @@ const Navbarv2 = ({type} : {type?: string|undefined}) => {
               </li>
 
                             {
-                     (user?.roles?.includes('seller') || !user) &&
+                     (user?.roles?.includes('breeder') || user?.roles?.includes('seller') || !user) &&
               <li className="nav-item">
                 <Link prefetch  className={`nav-link ${page == '/seller/create' ? 'active' : '' }`} aria-current="page" href="/seller/create">
                   + List Ur Puppy

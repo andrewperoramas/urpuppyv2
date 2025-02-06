@@ -92,8 +92,8 @@ class BreederController extends Controller
         $user->update([
             'kennel_name' => $data['kennel_name'],
             'company_name' => $data['fullname'],
-            'company_email_address' => $data['email'],
-            'company_phone' => $data['phone'],
+            'company_email_address' => $data['company_email_address'],
+            'company_phone' => $data['company_phone'],
             'company_address' => $data['company_address'],
             'company_city' => $data['city'],
             'company_state_id' => $data['state_id'],

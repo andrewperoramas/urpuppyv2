@@ -15,6 +15,5 @@ class PuppyObserver
 
     public function created(Puppy $puppy)
     {
-        PromptNewListingJob::dispatch($puppy);
     }
 }

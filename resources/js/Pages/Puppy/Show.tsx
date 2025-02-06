@@ -46,7 +46,7 @@ const Show = ({ related_puppies, puppy, siblings }: {
                   <div className="col-xl-7 mb-4 mb-md-5 mb-xl-0">
                     <div className="top-picks-slider me-xl-4">
                       <div id="sync1" className="owl-carousel owl-theme mb-4">
-                                    <ImageSlider videos={[puppy.video]} images={puppy.preview_images}/>
+                                    <ImageSlider videos={[puppy.video ?? ""]} images={puppy.preview_images}/>
 
                       </div>
 

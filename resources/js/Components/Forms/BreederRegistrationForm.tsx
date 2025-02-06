@@ -11,6 +11,7 @@ import SelectInput from '../SelectInput'
 import InputError from '../InputError'
 import DateInput from '../DateInput'
 import StateCityDropdown from '../StateCityDropdown'
+import PhoneNumberInput from '../PhoneNumberInput'
 
 const BreederRegistrationForm = ({breeds}: { breeds: App.Data.BreedOptionData[]}) => {
 
@@ -22,10 +23,10 @@ const BreederRegistrationForm = ({breeds}: { breeds: App.Data.BreedOptionData[]}
     has_usda_registration: 'no',
     about_company: '',
     established_date: '',
-    phone: '',
+    company_phone: '',
     kennel_name: '',
     fullname: '',
-    email: '',
+    company_email_address: '',
     travel_ready: 'yes',
     delivery_included: 'yes',
     breeds: [],
@@ -110,17 +111,19 @@ const BreederRegistrationForm = ({breeds}: { breeds: App.Data.BreedOptionData[]}
                   <div className="col-lg-6">
                     <div className="mb-4">
                      <InputLabel isRequired={true} value="Email"/>
-                     <TextInput type="email" onChange={(e: any) => setData('email', e.target.value)} />
+                     <TextInput type="email" onChange={(e: any) => setData('company_email_address', e.target.value)} />
 
-                    {errors.email && <InputError message={errors.email} /> }
+                    {errors.company_email_address && <InputError message={errors.company_email_address} /> }
                     </div>
                   </div>
                   <div className="col-lg-6">
                     <div className="mb-4">
                      <InputLabel isRequired={true} value="Phone"/>
-                     <TextInput onChange={(e: any) => setData('phone', e.target.value)} />
+                      <PhoneNumberInput onChange={(e: any) => setData('company_phone', e)}
+                 className="phone-input form-control"
+                                    />
 
-                    {errors.phone && <InputError message={errors.phone} /> }
+                    {errors.company_phone && <InputError message={errors.company_phone} /> }
                     </div>
                   </div>
 

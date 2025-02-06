@@ -25,67 +25,98 @@ class ProfileController extends Controller
     /**
      * Display the user's profile form.
      */
+
     public function edit(Request $request): Response
-    {
-        $countryState = Country::query()->where('iso2', 'US')->first()?->states();
+{
+    $user = $request->user();
+    $countryState = Country::where('iso2', 'US')->first()?->states();
 
-        $states = [];
-        if ($countryState !== null) {
+    $states = $countryState?->select('id', 'name')->get()->map(fn($state) => [
+        'value' => $state->id,
+        'label' => ucwords($state->name),
+    ]) ?? [];
 
-            $states = $countryState->select('id', 'name')->get()->map(function ($state) {
-                return [
-                    'value' => $state->id,
-                    'label' => ucwords($state->name),
-                ];
-            });
+    $selectedStateId = request('state_id') ?: $user->state_id ?? $countryState?->first()?->id;
+    $stateCities = $countryState?->where('id', $selectedStateId)?->first();
+
+    $cities = $stateCities?->cities()->exists()
+        ? $stateCities->cities()->select('id', 'name')->get()->map(fn($city) => [
+            'value' => $city->id,
+            'label' => ucwords($city->name),
+        ])
+        : [];
+
+    $breeds = BreedResource::collection(Breed::select('id', 'name')->orderBy('name')->get());
+
+    return Inertia::render('Profile/Edit', [
+        'mustVerifyEmail' => $user instanceof MustVerifyEmail,
+        'puppies' => $user->puppies()->with('breeds', 'seller')->paginate(12),
+        'status' => session('status'),
+        'plan' => PlanData::optional($user?->premium_plan?->plan),
+        'breeder_plan' => PlanData::optional($user?->breeder_plan?->plan),
+        'saved_searches' => SavedSearchData::collect($user->saved_searches()->latest()->get()),
+        'plan_next_billing' => $this->getStripeDate($user?->premium_plan),
+        'plan_cancel_at' => $this->getStripeCancelStatus($user?->premium_plan),
+        'breeder_next_billing' => $this->getStripeDate($user?->breeder_plan),
+        'breeder_cancel_at' => $this->getStripeCancelStatus($user?->breeder_plan),
+        'tab' => $request->tab ?? 'Account Settings',
+        'breeds' => $breeds,
+        'states' => $states,
+        'cities' => $cities,
+    ]);
+}
+
+
+    private function getStripeDate($plan)
+{
+    try {
+        if (!$plan) {
+            return null;
         }
 
-        $selectedStateId = request('state_id') ?: $request->user()->state_id ?? $countryState?->first()?->id;
+        // Retrieve the subscription from Stripe
+        $subscription = $plan->asStripeSubscription();
 
-        $stateCities = $countryState?->where('id', $selectedStateId)?->first();
-
-        if ($stateCities && $stateCities->cities()->exists()) {
-            $cities = $stateCities->cities()->select('id', 'name')->get()->map(function ($city) {
-                return [
-                    'value' => $city->id,
-                    'label' => ucwords($city->name),
-                ];
-            });
-        } else {
-            $cities = [];
+        // Check if the subscription exists and has a current_period_end
+        if ($subscription && isset($subscription->current_period_end)) {
+            return Carbon::parse($subscription->current_period_end)->format('d M Y');
         }
 
-        $breed_query = Breed::select('id', 'name');
-        $breeds = BreedResource::collection($breed_query->orderBy('name')->get());
-
-        $subscription = auth()->user()?->getActiveSubscriptions()?->first();
-
-        /* dd($request->user()->saved_searches()->get()); */
-
-        /* dd($request->user()?->breeder_plan); */
-        return Inertia::render('Profile/Edit', [
-            'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
-            'puppies' => $request->user()->puppies()->with('breeds', 'seller')->paginate(12),
-            'status' => session('status'),
-
-            'plan' => PlanData::optional($request->user()?->premium_plan?->plan),
-            'breeder_plan' => PlanData::optional($request->user()?->breeder_plan?->plan),
-            'saved_searches' => SavedSearchData::collect($request->user()->saved_searches()->latest()->get()),
-
-            'plan_next_billing' => $request->user()?->premium_plan != null ? Carbon::parse($request->user()?->premium_plan?->asStripeSubscription()?->current_period_end)->format('d M Y') : null,
-            'plan_cancel_at' =>  $request->user()?->premium_plan != null ? $request->user()?->premium_plan->asStripeSubscription()?->cancel_at_period_end : null,
-
-            'breeder_next_billing' => $request->user()?->breeder_plan != null ? Carbon::parse($request->user()?->breeder_plan?->asStripeSubscription()?->current_period_end)->format('d M Y') : null,
-
-            'breeder_cancel_at' => $request->user()?->breeder_plan  != null ? $request->user()?->breeder_plan?->asStripeSubscription()?->cancel_at_period_end : null,
-
-            /* 'subscription' => $subscription, */
-            'tab' => $request->tab ?? 'Account Settings',
-            'breeds' => $breeds,
-            'states' => $states ?? [],
-            'cities' => $cities ?? [],
-        ]);
+        return null;
+    } catch (\Stripe\Exception\InvalidRequestException $e) {
+        // Handle the case where the subscription does not exist
+        return null;
+    } catch (Exception $e) {
+        // Handle any other exceptions
+        return null;
     }
+}
+
+private function getStripeCancelStatus($plan)
+{
+    try {
+        if (!$plan) {
+            return null;
+        }
+
+        // Retrieve the subscription from Stripe
+        $subscription = $plan->asStripeSubscription();
+
+        // Check if the subscription exists and has the `cancel_at_period_end` property
+        if ($subscription && isset($subscription->cancel_at_period_end)) {
+            return $subscription->cancel_at_period_end;
+        }
+
+        return null;
+    } catch (\Stripe\Exception\InvalidRequestException $e) {
+        // Handle the case where the subscription does not exist
+        return null;
+    } catch (Exception $e) {
+        // Handle any other exceptions
+        return null;
+    }
+}
+
 
     /**
      * Update the user's profile information.
@@ -93,10 +124,22 @@ class ProfileController extends Controller
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
 
-        /* dd(request()->all()); */
         $input = $request->validated();
+        $avatar = $input['avatar'];
+
+        /* unset($input['avatar']); */
+        /* /1* unset($input['company_logo']); *1/ */
+
         if (is_array(@$input['state_id'])) {
             $input['state_id'] = $input['state_id']['id'];
+        }
+
+        if ($input['company_state'] && !is_array(@$input['company_state'])) {
+            $input['company_state_id'] = $input['company_state'];
+        }
+
+        if (is_array(@$input['company_state'])) {
+            $input['company_state_id'] = $input['company_state']['id'];
         }
 
         if (is_array(@$input['city'])) {
@@ -109,9 +152,15 @@ class ProfileController extends Controller
             $request->user()->email_verified_at = null;
         }
 
-        if ($input['avatar']) {
+        if ($avatar) {
         $request->user()->clearMediaCollection('avatars');
-        $request->user()->addMedia($input['avatar'])->toMediaCollection('avatars');
+        $request->user()->addMedia($avatar)->toMediaCollection('avatars');
+        }
+
+if (isset($input['company_logo']) && !is_string($input['company_logo'])) {
+         $company_logo = $input['company_logo'];
+        $request->user()->clearMediaCollection('company_logo');
+        $request->user()->addMedia($company_logo)->toMediaCollection('company_logo');
         }
 
         if ($input['current_password'] != null && $input['new_password']) {

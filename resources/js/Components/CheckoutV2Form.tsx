@@ -98,7 +98,7 @@ const CheckoutV2Form = ({ clientSecret, plan_id }: any) => {
         const { setupIntent, error }: any = await stripe?.confirmSetup({
             elements,
             confirmParams: {
-                return_url: "http://localhost:4242/public/checkout.html",
+                return_url: "https://urpuppy.com/checkout/" + plan_id,
             },
             redirect: "if_required",
         });

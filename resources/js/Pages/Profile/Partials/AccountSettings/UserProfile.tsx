@@ -9,6 +9,9 @@ import InputError from '@/Components/InputError'
 import StateCityDropdown from '@/Components/StateCityDropdown'
 import IconInput from '@/Components/IconInput'
 import DeleteAccountModal from '@/Components/Modals/DeleteAccountModal'
+import StateDropdown from '@/Components/StateDropdown'
+import DateInput from '@/Components/DateInput'
+import PhoneNumberInput from '@/Components/PhoneNumberInput'
 
 const UserProfile = () => {
 
@@ -20,10 +23,19 @@ const UserProfile = () => {
         email: string,
         avatar: File | null,
         current_password?: string, new_password?: string, new_password_confirmation?: string, state?: App.Data.StateData| null, city?: string | null, zip_code?: string,
-        social_fb?: string, social_ig?: string, social_tiktok?: string, social_x?: string, enable_notification:  boolean }>({
+        social_fb?: string, social_ig?: string, social_tiktok?: string, social_x?: string, enable_notification:  boolean ,
+        kennel_name?: string, company_state?:  App.Data.StateData | null, company_city?: string | null, company_address?: string | null, company_established_on?: string | null, company_logo?: any | null, company_zip_code: string | null, phone: string,
+        company_name?: string | null,
+        company_email_address?: string | null,
+        company_about?: string | null
+        company_phone?: string | null
+
+
+    }>({
         first_name: user?.first_name ?? "",
         last_name: user?.last_name ?? "",
         email: user?.email ?? "",
+        phone: user?.phone ?? "",
         avatar: null,
         current_password: '',
         new_password: '',
@@ -36,6 +48,18 @@ const UserProfile = () => {
         social_tiktok: user?.social_tiktok ?? "",
         social_x: user?.social_x ?? "",
         enable_notification: user.enable_notification,
+        kennel_name: user.kennel_name ?? "",
+        company_zip_code: user.company_zip_code ?? "",
+        company_state: user.company_state ?? null,
+        company_city: user.company_city ?? null,
+        company_phone: user.company_phone ?? null,
+        company_address: user.company_address ?? null,
+        company_established_on: user.company_established_on ?? null,
+        company_logo: user.company_logo ?? "",
+
+        company_name: user.company_name ?? null,
+        company_email_address: user.company_email_address ?? null,
+        company_about: user.company_about ?? null,
     });
 
     const handleSubmit = (e: React.SyntheticEvent) => {
@@ -46,7 +70,7 @@ const UserProfile = () => {
 
 
   return (
-                <form action="" onSubmit={handleSubmit}>
+                <form action="" onSubmit={handleSubmit} encType="multipart/form-data">
                   <div className="card border">
                     <div className="card-body">
                       <div className="pb-4 mb-4 border-bottom">
@@ -82,7 +106,7 @@ const UserProfile = () => {
                                     }
                             </div>
                           </div>
-                          <div className="col-12">
+                          <div className="col-6">
                             <div className="">
                               <InputLabel value="Email"  />
                               <TextInput disabled type="email" onChange={e => setData('email', e.target.value)} placeholder="Email" value={data.email} />
@@ -91,6 +115,18 @@ const UserProfile = () => {
                                     }
                             </div>
                           </div>
+                          <div className="col-6">
+                            <div className="">
+                              <InputLabel value="Phone"  />
+                      <PhoneNumberInput value={data.phone} onChange={(e: any) => setData('phone', e)}
+                 className="phone-input form-control"
+                                    />
+ {                                errors.phone &&
+                                <InputError message={errors.phone} />
+                                    }
+                            </div>
+                          </div>
+
                         </div>
                       </div>
                       <div className="pb-4 mb-4 border-bottom">
@@ -99,6 +135,149 @@ const UserProfile = () => {
                             <StateCityDropdown formData={data} errors={errors} setFormData={setData} />
                         </div>
                       </div>
+                    {
+                        user?.breeder_plan && <>
+                      <div className="pb-4 mb-4 border-bottom">
+                        <h5 className="mb-4 fs-7">Company Details</h5>
+                        <div className="row">
+
+
+                          <div className="col-lg-12">
+                            <div className="mb-3 pb-1">
+                     <InputLabel isRequired={true} value="Company Logo"/>
+                                            <div className="row align-items-center">
+
+                                                <div className="col-lg-2">
+                      {data.company_logo && <img style={{
+                                                height: "100px",
+                                                width: "100px",
+                                            }} className=" object-fit-cover  rounded-circle"
+
+        src={typeof data.company_logo === 'string' ? data.company_logo : URL.createObjectURL(data.company_logo)}
+                                                        alt="Company Logo" />}
+</div>
+                                                <div className="col-lg-10">
+                     <TextInput  className=" file-upload-wrapper " type="file" onChange={(e: any) => setData('company_logo', e.target.files[0] )} />
+</div>
+</div>
+
+                    {errors.company_logo && <InputError message={errors.company_logo} /> }
+                            </div>
+                          </div>
+
+
+                          <div className="col-lg-6">
+                            <div className="mb-3 pb-1">
+                              <InputLabel value="Full Name"  />
+                              <TextInput placeholder="Full Name" onChange={e => setData('company_name', e.target.value)} value={data.company_name ?? ""} />
+ {                                errors.company_name &&
+                                <InputError message={errors.company_name} />
+                                    }
+                            </div>
+                          </div>
+
+                          <div className="col-lg-6">
+                            <div className="mb-3 pb-1">
+                              <InputLabel value="Kennel Name"  />
+                              <TextInput placeholder="Kennel Name" onChange={e => setData('kennel_name', e.target.value)} value={data.kennel_name} />
+ {                                errors.kennel_name &&
+                                <InputError message={errors.kennel_name} />
+                                    }
+                            </div>
+                          </div>
+
+                          <div className="col-lg-6">
+                            <div className="mb-3 pb-1">
+                              <InputLabel value="Company Email Address"  />
+                              <TextInput placeholder="Company Email Address" onChange={e => setData('company_email_address', e.target.value)} value={data.company_email_address ?? ""} />
+ {                                errors.company_name &&
+                                <InputError message={errors.company_email_address} />
+                                    }
+                            </div>
+                          </div>
+
+                          <div className="col-lg-6">
+                            <div className="mb-3 pb-1">
+                              <InputLabel value="Company Phone"  />
+
+                      <PhoneNumberInput value={data.company_phone} onChange={(e: any) => setData('company_phone', e)}
+                 className="phone-input form-control"
+                                            />
+ {                                errors.company_name &&
+                                <InputError message={errors.company_phone} />
+                                    }
+                            </div>
+                          </div>
+
+
+
+                          <div className="col-lg-6">
+                            <div className="mb-3 pb-1">
+                      <InputLabel value="Company Established on" isRequired={true}/>
+                      <DateInput name="company_established_on" setData={setData} value={data.company_established_on}  />
+                    {errors.company_established_on && <InputError message={errors.company_established_on} /> }
+                            </div>
+                          </div>
+
+                          <div className="col-lg-6">
+                            <div className="mb-3 pb-1">
+                    <InputLabel isRequired={true} value="Address"/>
+                <TextInput  value={data.company_address ?? ""} onChange={(e: any) => setData('company_address', e.target.value)} />
+
+                {errors.company_address && <InputError message={errors.company_address} /> }
+                            </div>
+                          </div>
+
+                          <div className="col-lg-6">
+                            <div className="mb-3 pb-1">
+                    <InputLabel isRequired={true} value="City"/>
+                <TextInput  value={data.company_city ?? ""} onChange={(e: any) => setData('company_city', e.target.value)} />
+
+                {errors.company_address && <InputError message={errors.company_city} /> }
+                            </div>
+                          </div>
+
+                          <div className="col-lg-6">
+                            <div className="mb-3 pb-1">
+                    <InputLabel isRequired={true} value="State"/>
+                                    <StateDropdown
+                                        defaultValue={{
+                                            value: data?.company_state?.id,
+                                            label: data?.company_state?.name
+                                        }}
+                                        onChange={(e: any) => setData('company_state', e)}
+                                    />
+                            </div>
+                          </div>
+
+                          <div className="col-lg-6">
+                            <div className="mb-3 pb-1">
+                    <InputLabel isRequired={true} value="Zip Code"/>
+                <TextInput  value={data.company_zip_code ?? ""} onChange={(e: any) => setData('company_zip_code', e.target.value)} />
+
+                {errors.company_address && <InputError message={errors.company_zip_code} /> }
+                            </div>
+                          </div>
+
+                          <div className="col-lg-12">
+                            <div className="mb-3 pb-1">
+                              <InputLabel value="About"  />
+                              <TextInput placeholder="About" onChange={e => setData('company_about', e.target.value)} value={data.company_about ?? ""} />
+ {                                errors.company_about &&
+                                <InputError message={errors.company_about} />
+                                    }
+                            </div>
+                          </div>
+
+
+
+                        </div>
+                      </div>
+                        </>
+
+                    }
+
+
                       <div className="pb-4 mb-4 border-bottom">
                         <h5 className="mb-4 fs-7">Social Profiles</h5>
                         <div className="row">
