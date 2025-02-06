@@ -119,10 +119,14 @@ class UserResource extends Resource
     {
         /* dd('adi'); */
         $columns = [
-            'full_name'              => TextColumn::make('full_name')
+            'first_name'              => TextColumn::make('first_name')
                 ->searchable()
                 ->sortable()
-                ->label(strval(__('filament-authentication::filament-authentication.field.user.name'))),
+                ->label('First Name'),
+            'last_name'              => TextColumn::make('last_name')
+                ->searchable()
+                ->sortable()
+                ->label('Last Name'),
             'email'             => TextColumn::make('email')
                 ->searchable()
                 ->sortable()

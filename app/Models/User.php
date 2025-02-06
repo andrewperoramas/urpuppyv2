@@ -26,6 +26,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\Permission\Traits\HasRoles;
 use Cog\Contracts\Love\Reacterable\Models\Reacterable as ReacterableInterface;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Lab404\Impersonate\Models\Impersonate;
 use Spatie\Sitemap\Contracts\Sitemapable;
 use Spatie\Sitemap\Tags\Url;
@@ -36,6 +37,7 @@ class User extends Authenticatable implements  HasMedia,  MustVerifyEmail, Sitem
     //FilamentUser
     //HasName
     use Impersonate;
+    use SoftDeletes;
 
     use Billable, Favoriter, HasFactory, HasRoles, InteractsWithMedia, Notifiable, Reacterable;
 
