@@ -1,10 +1,11 @@
 <?php
 
-namespace Illuminate\Foundation\Auth;
+namespace App\Http\Requests;
 
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Validator;
+use App\Models\User;
 
 class EmailVerificationRequest extends FormRequest
 {
@@ -15,11 +16,17 @@ class EmailVerificationRequest extends FormRequest
      */
     public function authorize()
     {
-        if (! hash_equals((string) $this->user()->getKey(), (string) $this->route('id'))) {
+        $user = User::find($this->route('id'));
+
+        if (! $user) {
             return false;
         }
 
-        if (! hash_equals(sha1($this->user()->getEmailForVerification()), (string) $this->route('hash'))) {
+        if (! hash_equals((string) $user->getKey(), (string) $this->route('id'))) {
+            return false;
+        }
+
+        if (! hash_equals(sha1($user->getEmailForVerification()), (string) $this->route('hash'))) {
             return false;
         }
 
@@ -45,10 +52,12 @@ class EmailVerificationRequest extends FormRequest
      */
     public function fulfill()
     {
-        if (! $this->user()->hasVerifiedEmail()) {
-            $this->user()->markEmailAsVerified();
+        $user = User::find($this->route('id'));
 
-            event(new Verified($this->user()));
+        if (! $user->hasVerifiedEmail()) {
+            $user->markEmailAsVerified();
+
+            event(new Verified($user));
         }
     }
 
