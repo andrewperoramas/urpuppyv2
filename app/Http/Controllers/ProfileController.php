@@ -134,7 +134,7 @@ private function getStripeCancelStatus($plan)
             $input['state_id'] = $input['state_id']['id'];
         }
 
-        if ($input['company_state'] && !is_array(@$input['company_state'])) {
+        if (@$input['company_state'] && !is_array(@$input['company_state'])) {
             $input['company_state_id'] = $input['company_state'];
         }
 

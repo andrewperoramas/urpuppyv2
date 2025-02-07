@@ -37,7 +37,7 @@ export default function Layout({
     <div >
             <AOSInit />
             <Navbarv2 type={navType}/>
-            <main  >
+            <main scroll-region >
             {children}
             </main>
             <Footer/>

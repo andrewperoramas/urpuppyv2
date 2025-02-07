@@ -240,20 +240,20 @@ class Puppy extends Model implements HasMedia, Sitemapable
         // Fetch the first media item
         $mediaItem = $this?->getMedia('puppy_files')->sortBy('order_column')->first();
 
-        /* dd($mediaItem->getUrl()); */
+        /* dd($mediaItem); */
 
         // Check for 'grid' URL, then 'preview', then return null
         if ($mediaItem) {
             try {
-                return $mediaItem?->getUrl('grid') ?? $mediaItem?->getUrl('preview') ?? $mediaItem->getUrl() ?? "";
+                return $mediaItem?->getUrl('grid') ?? $mediaItem?->getUrl('preview') ?? $mediaItem->getUrl() ?? asset('paw.svg');
             } catch (\Spatie\MediaLibrary\Exceptions\ConversionDoesNotExist $e) {
                 // Handle the case where the conversion does not exist
-                return ""; // or handle as needed
+                return asset('paw.svg'); // or handle as needed
             }
 
         }
 
-        return ""; // Return null if no media item exists
+        return asset('paw.svg'); // Return null if no media item exists
     }
 
     public function getPreviewImagesAttribute()
@@ -263,15 +263,15 @@ class Puppy extends Model implements HasMedia, Sitemapable
         if ($mediaItems->isNotEmpty()) {
             return $mediaItems->map(function ($item) {
                 try {
-                    return $item->getUrl('preview') ?? "";
+                    return $item->getUrl('preview') ?? asset('paw.svg');
                 } catch (\Spatie\MediaLibrary\Exceptions\ConversionDoesNotExist $e) {
                     // Handle the case where the conversion does not exist
-                    return collect([]); // or handle as needed
+                    return collect( asset('paw.svg')); // or handle as needed
                 }
             });
         }
 
-        return collect([]);
+        return collect( asset('paw.svg')); // or handle as needed
     }
 
     public function getThumbnailsAttribute()

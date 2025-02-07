@@ -185,15 +185,15 @@ try {
         // Check for 'grid' URL, then 'preview', then return null
         if ($mediaItem) {
             try {
-                return $mediaItem->getUrl();
+                return $mediaItem->getUrl() ?? asset('paw.svg') ;
             } catch (\Spatie\MediaLibrary\Exceptions\ConversionDoesNotExist $e) {
                 // Handle the case where the conversion does not exist
-                return null; // or handle as needed
+                return  asset('paw.svg'); // or handle as needed
             }
 
         }
 
-        return null; // Return null if no media item exists
+        return  asset('paw.svg'); // Return null if no media item exists
     }
 
     public function getInitialNameAttribute()
@@ -333,6 +333,13 @@ try {
     {
         $state = $this->state?->abbreviation ?? $this->state?->name;
         $city_name = substr($this->city ?? "", 0, 6) . (strlen($this->city ?? "") > 6 ? '.' : '');
+
+        if (!empty($state) && !empty($city_name)) {
+            return  $city_name . ', ' . $state ;
+        }
+
+        $state = $this->company_state?->abbreviation ?? $this->company_state?->name;
+        $city_name = substr($this->company_city ?? "", 0, 6) . (strlen($this->company_city ?? "") > 6 ? '.' : '');
         return  $city_name . ', ' . $state ;
     }
 

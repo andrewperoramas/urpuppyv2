@@ -35,7 +35,7 @@ const SellerRegistrationForm = ({
         last_name: user.last_name,
         email: user.email,
         website: null,
-        phone: '',
+        phone: user?.phone ?? '',
         images: puppy_edit?.preview_images ?? [],
         puppy_breeds: puppy_edit?.breeds ?? [],
         videos: puppy_edit?.video != null?  [puppy_edit?.video] : [],
@@ -50,10 +50,11 @@ const SellerRegistrationForm = ({
         social_ig: null,
         social_tiktok: null,
         social_x: null,
-        zip_code: '',
+        zip_code: user.zip_code ?? '',
         puppy_name: puppy_edit?.name ?? '',
         puppy_gender: puppy_edit?.gender ?? 'Male',
-        city_id: null,
+        city_id: user.city ?? null,
+        city: user.city ?? null,
         state_id: null,
         puppy_about: puppy_edit?.description ?? '',
         puppy_patterns: puppy_edit?.puppy_patterns ?? [],
@@ -121,6 +122,7 @@ const SellerRegistrationForm = ({
                       <InputLabel isRequired={true} value="Phone"/>
                                             <PhoneNumberInput
 onChange={(e: any) => setData('phone', e)}
+                                                value={data.phone}
                                                 className="phone-input form-control"/>
                     {errors.phone && <InputError message={errors.phone} /> }
                     </div>
@@ -154,7 +156,7 @@ onChange={(e: any) => setData('phone', e)}
               </div>
               <div className="location-details border-bottom mb-4">
                 <SemiHeading title="Location Details"/>
-                <StateCityDropdown errors={errors} setFormData={setData}/>
+                <StateCityDropdown errors={errors} formData={data} setFormData={setData}/>
               </div>
                     </> }
               <div className="puppy-details border-bottom mb-4">

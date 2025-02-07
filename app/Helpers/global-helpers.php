@@ -65,7 +65,7 @@ if (!function_exists('get_videos')) {
 if (!function_exists('pattern_options')) {
 
     function pattern_options() {
-        return PatternData::collect(PuppyPattern::all());
+        return PatternData::collect(PuppyPattern::query()->orderBy('name')->select('id', 'name')->orderBy('name')->get());
     }
 
 }
@@ -74,7 +74,7 @@ if (!function_exists('pattern_options')) {
 if (!function_exists('color_options')) {
 
     function color_options() {
-        return ColorData::collect(PuppyColor::all());
+        return ColorData::collect(PuppyColor::query()->orderBy('name')->select('id', 'name')->orderBy('name')->get());
     }
 
 }
@@ -92,7 +92,7 @@ if (!function_exists('color_options')) {
 if (!function_exists('breed_options')) {
 
     function breed_options() {
-        return BreedOptionData::collect(Breed::select('id', 'name')->get());
+        return BreedOptionData::collect(Breed::select('id', 'name')->orderBy('name')->get());
     }
 
 }

@@ -77,7 +77,7 @@ class SellerRegistrationRequest extends FormRequest
 
             if ($plan) {
                 $rules['images'] = "required|array|max:$plan->image_per_listing";
-                $rules['videos'] = "required|array|max:$plan->video_per_listing";
+                $rules['videos'] = "array|max:$plan->video_per_listing";
             }
 
             /* dd($rules); */
