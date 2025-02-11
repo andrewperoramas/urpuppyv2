@@ -72,6 +72,11 @@ Route::post('/create-intent', function (Request $request) {
     }
 });
 
+Route::get('adi', function () {
+
+    dd('updated');
+});
+
 Route::get('/saved-search/{id}', [SavedSearchController::class, 'destroy']);
 Route::get('/saved-search', [SavedSearchController::class, 'show']);
 Route::post('/saved-search', [SavedSearchController::class, 'store']);
