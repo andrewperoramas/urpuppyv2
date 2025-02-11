@@ -42,4 +42,12 @@ jobs:
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
 
+      - name: Add ssh private key
+        uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Run Command on VPS
+        run: ssh -o StrictHostKeyChecking=no -p 143 ubuntu@64.176.209.49 "cd /home/ubuntu/staging && make rollout"
+
 
