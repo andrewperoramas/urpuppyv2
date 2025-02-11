@@ -55,7 +55,7 @@ Route::get('adi', function () {
 });
 
 Route::get('modatax', function () {
-    dd('steady betlog');
+    dd('raganutma');
 
     /* dd(auth()->user()->roles->first()); */
 
