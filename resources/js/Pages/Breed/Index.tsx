@@ -26,7 +26,7 @@ const Index = ({breeds, letter_param = 'A'} : {
 
 
             <BannerSlider slidesPerView={1} children={[
-                <SmallBannerWithContent title="Siberian Husky: Your Winter Companion" />,
+                <SmallBannerWithContent key="1" title="Siberian Husky: Your Winter Companion" />,
             ]} />
 
     <MetaTags title="Breeds" />
@@ -66,7 +66,7 @@ const Index = ({breeds, letter_param = 'A'} : {
 
                                 {
                                     ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'].map((letter, index) => (
-<li className="nav-item" role="presentation">
+<li className="nav-item" role="presentation" key={index}>
                                         <Link
                                             preserveState
                                             preserveScroll

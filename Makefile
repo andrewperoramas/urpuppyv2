@@ -71,3 +71,12 @@ images\:clean: ## Remove all dangling images and images not referenced by any co
 
 containers\:health: ## Check all containers health
 	docker compose ${DC_RUN_ARGS} ps --format "table {{.Name}}\t{{.Service}}\t{{.Status}}"
+
+deploy\:production: ## Remove all dangling images and images not referenced by any container
+	docker build -t ghcr.io/andrewperoramas/urpuppyv2:production -f FrankenPHP.Dockerfile . && docker push ghcr.io/andrewperoramas/urpuppyv2:production
+
+deploy\:staging: ## Remove all dangling images and images not referenced by any container
+	docker build -t ghcr.io/andrewperoramas/urpuppyv2:staging -f FrankenPHP.Dockerfile . && docker push ghcr.io/andrewperoramas/urpuppyv2:staging
+
+rollout: ## Remove all dangling images and images not referenced by any container
+	docker pull ghcr.io/andrewperoramas/urpuppyv2:staging && docker rollout --env-file ./.env.production -t 120 app

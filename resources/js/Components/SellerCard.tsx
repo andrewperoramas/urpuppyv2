@@ -63,7 +63,7 @@ const SellerCard = ({
           Show Phone Number
         </a>
       ) : (
-        <div className=" btn-outline-extralight btn-white text-dark hstack justify-content-center gap-2 mb-6">{seller.phone}</div>
+        <div className=" btn-outline-extralight btn-white text-dark hstack justify-content-center gap-2 mb-6">{seller.phone_formatted}</div>
       )}
     </div>
 

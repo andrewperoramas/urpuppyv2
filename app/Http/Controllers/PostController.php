@@ -59,6 +59,7 @@ class PostController extends Controller
             'user_id' => $request->user()->id,
             'body' => $request->body
         ]);
+
         return redirect()->back()->with([
             'message.success' => 'Comment added successfully'
         ]);

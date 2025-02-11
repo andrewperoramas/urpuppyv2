@@ -18,12 +18,9 @@ const MyPuppies = ({puppies} : {
                     <div className="row">
                 {
                     puppies?.data && puppies.data.length ? puppies?.data.map((puppy: App.Data.PuppyData) => (
-                        <>
+                        <div key={puppy.id}  className="col-md-6 col-lg-5 col-xl-5 mb-4">
 
-
-                        <div className="col-md-6 col-lg-5 col-xl-5 mb-4">
-
-                        <PuppyCard key={puppy.id} className="" puppy={puppy}/>
+                        <PuppyCard className="" puppy={puppy}/>
 
                         <Link className="btn btn-primary mt-2 btn-sm" style={{marginRight: "4px"}} href={`/seller/create/${puppy.id}`}>Edit </Link>
                                 <Link
@@ -44,7 +41,6 @@ const MyPuppies = ({puppies} : {
 </Link>
 </div>
 
-                        </>
                     )): <h6 className="mb-4">No puppies found..</h6>
                 }
                     </div>

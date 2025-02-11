@@ -32,7 +32,7 @@ const buttonVariants = cva(
     variants: {
       variant: {
         white:
-          "btn btn-white text-dark bg-white",
+          "btn btn-outline-extralight btn-white text-dark d-none d-md-flex align-items-center gap-2 aos-init aos-animate",
         primary:
           "btn btn-primary ",
         secondary:

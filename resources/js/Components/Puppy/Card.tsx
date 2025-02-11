@@ -32,9 +32,9 @@ const PuppyCard = ({puppy, className="col-md-6 col-lg-4 col-xl-3 mb-4", height="
                   className="d-flex align-items-center justify-content-between position-absolute top-0 start-0 w-100 p-3 pb-0">
                             {
                                 puppy.is_new ?
-                                    <a href="#" className="puppy-spotlight-img position-relative overflow-hidden d-block">
+                                    <span className="puppy-spotlight-img position-relative overflow-hidden d-block">
                   <span className="badge text-bg-success">NEW</span>
-                  </a> : <div></div>
+                  </span> : <div></div>
 
                             }
                         <FavoriteButton uniqueId={location + puppy.id} sellerId={puppy.seller.id} puppyId={puppy.id} isFavorite={puppy.is_favorite} />

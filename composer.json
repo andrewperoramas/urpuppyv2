@@ -21,7 +21,7 @@
         "cybercog/laravel-love": "^10.0",
         "filament/filament": "^3.2",
         "filament/spatie-laravel-media-library-plugin": "*",
-        "inertiajs/inertia-laravel": "2.x-dev",
+        "inertiajs/inertia-laravel": "2.0.0",
         "jenssegers/agent": "^2.6",
         "joaopaulolndev/filament-general-settings": "^1.0",
         "lara-zeus/sky": "^3.4",

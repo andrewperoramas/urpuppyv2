@@ -16,7 +16,7 @@ class RedirectIfNotSubscribed
     public function handle(Request $request, Closure $next): Response
     {
         if (! $request->user()->subscriptions()->active()->count()) {
-            return redirect()->route('plans.index');
+            return success('plans.index');
         }
 
         return $next($request);

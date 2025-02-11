@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\CreatePuppy;
 use App\Data\BreedOptionData;
 use App\Data\ColorData;
 use App\Data\PatternData;
@@ -15,49 +16,49 @@ use App\Models\Breed;
 use App\Models\Puppy;
 use App\Models\PuppyColor;
 use App\Models\PuppyPattern;
+use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 
 class SellerController extends Controller
 {
-    public function index()
+    public function show(Request $request, string $slug)
     {
+        $seller = User::where('slug', $slug)->firstOrFail();
 
-        return inertia('Seller/Dashboard');
+        return inertia('Seller/AllPuppies', [
+            'seller_name' => $seller?->company_name ?? $seller->full_name,
+            'all_puppies' => PuppyData::collect($seller->puppies()->with(['media', 'siblings', 'breeds', 'seller', 'puppy_patterns', 'puppy_colors'])->paginate(12)),
+        ]);
     }
 
     public function destroy(int $id) {
 
         $puppy = Puppy::findOrFail($id);
         $puppy->delete();
-        return redirect()->back()->with([
-            'message.success' => 'Puppy deleted successfully'
-        ]);
 
+        success('register.seller', 'Puppy deleted successfully');
     }
 
     public function create(Request $request,?int $id = null)
     {
-        if (!$request->user()) {
-           return redirect()->to(route('register.seller'))->with([
-                'message.error' => 'You are not logged in',
-                'puppy' => Puppy::query()->inRandomOrder()->first()
-            ]);
+        if (!$request->user()?->breeder_plan && $request->user()->roles?->contains('breeder')) {
+            return error('breeders.create', 'Register as a breeder to create puppies');
         }
 
-        if (! $request->user()->roles->contains('seller') && ! $request->user()->roles->contains('breeder')) {
-            return redirect()->to(route('home'))->with([
-                'message.error' => 'You are not a seller'
-            ]);
+        if (!$request->user()) {
+            return error('register.seller', 'You are not logged in');
+        }
+
+        if (! $request->user()?->roles->contains('seller') && ! $request->user()->roles?->contains('breeder')) {
+            return error('home', 'You are not a seller/breeder');
         }
 
         if (
-        !$request->user()?->premium_plan && $request->user()->puppies()->count() > 1 &&
-        !$request->user()?->breeder_plan
+        !$request->user()?->premium_plan && $request->user()->puppies()->count() == 1  &&
+            $request->user()->roles?->contains('seller')
     ) {
-            return redirect()->to(route('plans.index'))->with([
-                'message.success' => 'Subscribe to any plan to activate your listing'
-            ]);
+            return success('plans.index', 'Subscribe to any plan to activate your listing');
         }
 
 
@@ -72,7 +73,8 @@ class SellerController extends Controller
         /* } */
 
         if (!auth()->user()) {
-            return redirect()->route('register');
+            return success('register');
+            /* return inertia_location(route('register')); */
         }
 
 
@@ -91,9 +93,8 @@ class SellerController extends Controller
         if (
          !$request->user()?->breeder_plan &&
         !$request->user()?->premium_plan && $request->user()->puppies()->count() > 1) {
-            return redirect()->to(route('plans.index'))->with([
-                'message.success' => 'Subscribe to any plan to activate your listing'
-            ]);
+            return success('plans.index', 'Subscribe to any plan to activate your listing');
+
         }
 
         $data = $request->validated();
@@ -116,7 +117,7 @@ class SellerController extends Controller
         }
 
         $created_puppy = $user->puppies()->create([
-            'name' => $data['puppy_name'],
+            'name' => ucwords($data['puppy_name']),
             'gender' => $data['puppy_gender'],
             'description' => $data['puppy_about'],
             'birth_date' => $data['puppy_birth_date'],
@@ -159,15 +160,12 @@ class SellerController extends Controller
         !$request->user()?->premium_plan && $request->user()->puppies()->count() > 0
 
     ) {
-            return redirect()->to(route('plans.index'))->with([
-                'message.success' => 'Subscribe to any plan to activate your listing'
-            ]);
+            return success('plans.index', 'Subscribe to any plan to activate your listing');
+
         }
 
-        return redirect()->to(route('puppies.show', $created_puppy->slug))->with([
-            'message.success' => 'Puppy created successfully'
-        ]);
 
+        return success('puppies.show', 'Puppy created successfully', $created_puppy->slug);
     }
 
     public function update(PuppyUpdateRequest $request, int $id)
@@ -245,11 +243,14 @@ class SellerController extends Controller
         });
 }
 
+        if (isset($data['images'])) {
 
-        collect($data['images'])->each(function ($image) use ($update_puppy) {
             $update_puppy->clearMediaCollection('puppy_files');
-            $update_puppy->addMedia($image)->toMediaCollection('puppy_files');
-        });
+
+            collect($data['images'])->each(function ($image) use ($update_puppy) {
+                $update_puppy->addMedia($image)->toMediaCollection('puppy_files');
+            });
+        }
 
         /* if (!$request->user()->premium_plan && $request->user()->puppies()->count() == 1) { */
         /*     return redirect()->to(route('plans.index'))->with([ */
@@ -257,10 +258,9 @@ class SellerController extends Controller
         /*     ]); */
         /* } */
 
+        return success('puppies.show', 'Puppy updated successfully', $update_puppy->slug);
 
-        return redirect()->to(route('puppies.show', $update_puppy->slug))->with([
-            'message.success' => 'Puppy updated successfully'
-        ]);
+
 
     }
 }

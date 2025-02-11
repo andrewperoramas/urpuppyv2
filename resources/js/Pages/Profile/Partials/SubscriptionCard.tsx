@@ -58,7 +58,7 @@ const SubscriptionCard = ({plan, next_billing, cancel_at} : {
                         {
                                                             plan.features.map((feature : any, index) => (
 
-                        <li className="d-flex align-items-start gap-2">
+                        <li className="d-flex align-items-start gap-2" key={index}>
                           <img src="../images/svgs/icon-check-filled.svg" alt="" className="flex-shrink-0" />
                           <h5 className="fs-3 mb-0 font-work-sans fw-normal">{feature.name}</h5>
                         </li>

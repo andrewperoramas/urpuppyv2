@@ -14,7 +14,7 @@ const ReviewForm = ({breeder_id}: {breeder_id: number}) => {
     const user = usePage().props.auth.user
 
    const CustomStar = (
-        <path xmlns="http://www.w3.org/2000/svg" d="M11.0008 16.75L4.82881 19.995L6.00781 13.122L1.00781 8.25495L7.90781 7.25495L10.9938 1.00195L14.0798 7.25495L20.9798 8.25495L15.9798 13.122L17.1588 19.995L11.0008 16.75Z" stroke="#08314E" stroke-opacity="0.8" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+        <path xmlns="http://www.w3.org/2000/svg" d="M11.0008 16.75L4.82881 19.995L6.00781 13.122L1.00781 8.25495L7.90781 7.25495L10.9938 1.00195L14.0798 7.25495L20.9798 8.25495L15.9798 13.122L17.1588 19.995L11.0008 16.75Z" stroke="#08314E" strokeOpacity="0.8" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
 )
 
     const myStyles = {

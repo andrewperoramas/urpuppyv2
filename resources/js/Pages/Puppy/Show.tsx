@@ -148,7 +148,7 @@ const Show = ({ related_puppies, puppy, siblings }: {
                         <p className="mb-0 fw-medium">Colors:</p>
                         <div className="hstack gap-6">
                             {puppy.puppy_colors && puppy.puppy_colors.map((color: App.Data.PuppyColorData) => (
-                              <div className="hstack gap-1">
+                              <div className="hstack gap-1" key={color.name}>
                                 <span className="flex-shrink-0 d-block round-20 rounded-circle" style={{background: color.color}}></span>
                                 <p className="mb-0">{color.name}</p>
                               </div>
@@ -189,8 +189,8 @@ href={`/report/${puppy.slug}`} method="post" data={{
                   <h5 className="mb-3 pb-1 fs-5">{puppy.name}’s Characteristics</h5>
                   <div className="d-flex align-items-center flex-wrap gap-4 pb-1">
                   {
-                     puppy.characteristics.map((characteristic: string) => (
-                    <List label={characteristic} />
+                     puppy.characteristics.map((characteristic: string, index: number) => (
+                    <List label={characteristic} key={index} />
                     ))}
                   </div>
                 </div>
@@ -200,8 +200,8 @@ href={`/report/${puppy.slug}`} method="post" data={{
                 <div className="charlies-features mt-3 pt-1">
                   <h5 className="mb-3 pb-1 fs-5">{puppy.name}’s Features</h5>
                   <div className="d-flex align-items-center flex-wrap gap-4">
-                    {puppy.features && puppy.features.map((feature: string) => (
-                    <List label={feature} />
+                    {puppy.features && puppy.features.map((feature: string, index: number) => (
+                    <List label={feature} key={index} />
                     ))}
                   </div>
                 </div>

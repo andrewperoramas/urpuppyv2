@@ -43,6 +43,7 @@ export default function Index({
             <MetaTags title="Home" />
             <div className="page-wrapper position-relative overflow-hidden">
             <FeaturedBreeds featured_breeds={featured_breeds}/>
+                    <h1>adii</h1>
             <PuppySpotlight puppy_spotlights={puppy_spotlights}/>
             {top_pick_puppy &&
                 <TopPicks puppy={top_pick_puppy}/>

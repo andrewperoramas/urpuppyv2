@@ -48,6 +48,14 @@ Route::group(['prefix' => 'posts'], function () {
 });
 
 Route::get('adi', function () {
+    dd('your sskin and bones');
+
+    /* dd(auth()->user()->roles->first()); */
+
+});
+
+Route::get('modatax', function () {
+    dd('your skin, yeah your skin and bones');
 
     /* dd(auth()->user()->roles->first()); */
 
@@ -180,6 +188,9 @@ Route::group(['prefix' => 'checkout', 'middleware' => ['auth', 'verified', 'chec
     Route::get('subscription/success', [CheckoutController::class, 'success'])->name('subscription.success');
 
 });
+
+Route::get('/all-puppies/{slug}', [SellerController::class, 'show'])->name('seller.show');
+
 
 Route::group(['prefix' => 'seller'], function () {
     Route::get('create/{id?}', [SellerController::class, 'create'])->name('seller.create');

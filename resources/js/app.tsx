@@ -7,13 +7,19 @@ import { PuppyToaster } from './Components/PuppyToaster';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
- // router.on('error', (errors: any) => {
- //      if (errors.some((error: any) => error.message.includes('window.history.state is null'))) {
- //        console.warn('Refreshing page due to Inertia error.');
- //        window.location.reload();
- //    }
- //    window.location.reload();
- // })
+ router.on('error', (errors: any) => {
+
+   if (errors?.response.status === 422) {
+    router.reload({ only: ['errors'] });
+  } else if (errors?.response.status === 500) {
+    // Handle server errors
+  } else {
+    setTimeout(() => {
+      router.reload();
+    }, 1000); // Increase the timeout to 1 second
+  }
+
+ })
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,

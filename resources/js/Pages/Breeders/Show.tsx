@@ -7,6 +7,7 @@ import PuppyCard from '@/Components/Puppy/Card'
 import ReviewSlider from '@/Components/ReviewSlider'
 import SellerCard from '@/Components/SellerCard'
 import Slider from '@/Components/Slider'
+import Button from '@/Components/ui/Button'
 import VideoPlayer from '@/Components/VideoPlayer'
 import Layout from '@/Layouts/Layout'
 import { Head } from '@inertiajs/react'
@@ -77,7 +78,14 @@ const Show = ({breeder, puppies} : {
             <div className="andrews-listings mb-xl-4">
 
                 {puppies.length > 0 &&
-              <h5 className="mb-6 fs-5 mb-3 pb-1">{breeder.full_name} Listings</h5> }
+                                        <div className="d-flex justify-content-between">
+              <h5 className="mb-6 fs-5 mb-3 pb-1">{breeder.full_name} Listings</h5>
+                                            <div>
+                                                <Button href={`/all-puppies/${breeder.slug}`} variant="white" >See All Listings</Button>
+                                            </div>
+                                        </div>
+
+                                    }
 
               <div className="row">
                 {puppies.length > 0 &&
@@ -184,8 +192,8 @@ const Show = ({breeder, puppies} : {
               src={image}
               alt={`Gallery image ${index}`}
                                                                             style={{
-                                                                                minHeight: "70px",
-                                                                                height: "70px",
+                                                                                minHeight: "100px",
+                                                                                height: "100px",
                                                                             }}
               className="object-fit-cover w-100 "
             />
@@ -199,8 +207,8 @@ const Show = ({breeder, puppies} : {
               <img
                 src={breeder.gallery[index + 1]}
                                                                             style={{
-                                                                                minHeight: "70px",
-                                                                                height: "70px",
+                                                                                minHeight: "100px",
+                                                                                height: "100px",
                                                                             }}
                 alt={`Gallery image ${index + 1}`}
                 className="object-fit-cover w-100 "

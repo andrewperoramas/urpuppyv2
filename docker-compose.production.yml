@@ -6,27 +6,16 @@ x-logging: &default-logging
 
 x-base: &base
   profiles: [app]
-  environment:
-    WITH_SSR: true
-    WITH_HORIZON: true
-    WITH_SCHEDULER: true
+  env_file:
+    - .env.production
   depends_on:
-    pgsql:
+    postgres:
       condition: service_healthy
     redis:
       condition: service_healthy
     minio:
       condition: service_healthy
-  build:
-    context: .
-    dockerfile: FrankenPHP.Dockerfile
-    args:
-      APP_ENV: 'production' # to load .env.production
-      WWWUSER: ${HOST_UID:-1000}
-      WWWGROUP: ${HOST_GID:-1000}
-      WITH_SSR: true
-  image: laravel/app
-  container_name: app
+  image: ghcr.io/andrewperoramas/urpuppyv2:staging
   user: "${HOST_UID:-1000}:${HOST_GID:-1000}"
   ulimits:
     nofile:
@@ -60,7 +49,10 @@ services:
       - "--accesslog=true"
       - "--api.dashboard=true"
       - "--providers.docker=true"
+      - "--providers.file.watch=true"
+      - "--providers.docker.watch=true"
       - "--providers.docker.exposedByDefault=false"
+      - "--providers.docker.watch=true"  # Ensure this is enabled
       - "--entryPoints.traefik.address=:8190"
       - "--entryPoints.app.address=:80"
       - "--entryPoints.app.http.redirections.entryPoint.to=app-secure"
@@ -103,13 +95,13 @@ services:
       traefik.http.routers.traefik.service: api@internal
       traefik.http.routers.traefik.entryPoints: traefik
       traefik.http.routers.traefik.middlewares: "traefik-auth,traefik-retry"
-
       traefik.http.middlewares.traefik-retry.retry.attempts: 4
       traefik.http.middlewares.traefik-retry.retry.initialinterval: 100ms
       traefik.http.middlewares.traefik-auth.basicauth.removeheader: true
       traefik.http.middlewares.traefik-auth.basicauth.users: "mobi35:$$2y$$05$$gWjYw6fNOFDRoSO3U709FuRB/jMsWvqwMLifTTAOEWIxX1HzkoeJS" # user:123456
   app:
     <<: *base
+    stop_grace_period: 30s  # Add this line
     healthcheck:
       test: [ "CMD", "curl", "--fail", "localhost:8000/up" ]
       interval: 3s
@@ -175,9 +167,9 @@ services:
     restart: always
     labels:
       traefik.enable: false
-  pgsql:
+  postgres:
     profiles: [app]
-    image: 'postgres:17-bookworm'
+    image: 'postgres:17'
     ulimits:
       nofile:
         soft: 20000
@@ -192,7 +184,7 @@ services:
       POSTGRES_PASSWORD: '${DB_PASSWORD}'
     volumes:
       # - './postgresql.conf:/etc/postgresql/postgresql.conf'
-      - 'stack-pgsql:/var/lib/postgresql/data'
+      # - 'stack-postgres:/var/lib/postgresql/data'
       - '../backup:/backup'
     networks:
       - stack
@@ -209,7 +201,6 @@ services:
       docker-volume-backup.archive-pre: /bin/sh -c 'pg_dump -U ${DB_USERNAME} -F t ${DB_DATABASE} > /backup/${DB_DATABASE}-database.tar'
   glances:
       profiles: [administration]
-      container_name: glances
       image: nicolargo/glances:latest-full
       pid: host
       security_opt:
@@ -239,12 +230,11 @@ services:
 
   pgadmin:
     profiles: [administration]
-    container_name: pgadmin
     image: 'dpage/pgadmin4:latest'
     security_opt:
       - no-new-privileges:true
     depends_on:
-      pgsql:
+      postgres:
         condition: service_healthy
     environment:
       PGADMIN_DEFAULT_EMAIL: '${PGADMIN_DEFAULT_EMAIL}'
@@ -273,11 +263,11 @@ services:
   #     security_opt:
   #       - no-new-privileges:true
   #     depends_on:
-  #       pgsql:
+  #       postgres:
   #         condition: service_healthy
   #     environment:
   #       PORT: 6660
-  #       DATABASE_URL: postgres://${DB_USERNAME}:${DB_PASSWORD}@pgsql:5432/${DB_DATABASE}
+  #       DATABASE_URL: postgres://${DB_USERNAME}:${DB_PASSWORD}@postgres:5432/${DB_DATABASE}
   #     networks:
   #       - stack
   #     restart: always
@@ -296,7 +286,6 @@ services:
 
   netdata:
     profiles: [administration]
-    container_name: netdatapuppy
     image: netdata/netdata
     restart: unless-stopped
     cap_add:
@@ -373,7 +362,7 @@ networks:
 volumes:
   lencrypt:
     driver: local
-  stack-pgsql:
+  stack-postgres:
     driver: local
   stack-redis:
     driver: local
@@ -389,3 +378,4 @@ volumes:
     driver: local
   stack-netdatacache:
     driver: local
+

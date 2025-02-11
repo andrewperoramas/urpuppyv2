@@ -420,6 +420,23 @@ try {
 
     }
 
+    public function getPhoneFormattedAttribute()
+{
+    if (!$this->phone) {
+        return "N/A"; // Default value if phone is null
+    }
+
+    // Remove country code (+1) if it exists
+    $phone = preg_replace('/^\+1/', '', $this->phone);
+
+    // Ensure it's exactly 10 digits
+    if (preg_match('/^(\d{3})(\d{3})(\d{4})$/', $phone, $matches)) {
+        return "{$matches[1]}-{$matches[2]}-{$matches[3]}";
+    }
+
+    return $this->phone; // Return original if not a valid 10-digit number
+}
+
     /*      static::pivotUpdated(function ($model, $relationName, $pivotIds, $pivotIdsAttributes) { */
     /*         echo 'pivotUpdated'; */
     /*         echo get_class($model); */

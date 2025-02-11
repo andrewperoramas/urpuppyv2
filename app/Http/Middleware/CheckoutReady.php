@@ -18,9 +18,7 @@ class CheckoutReady
         if (
         !$request->user()->company_phone &&
         !$request->user()->phone     ) {
-            return redirect()->route('home')->with([
-                'message.error' => 'Action not allowed.'
-            ]);
+            return error(message: "Action not allowed.");
         }
 
         return $next($request);

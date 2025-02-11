@@ -98,6 +98,34 @@ if (!function_exists('breed_options')) {
 }
 
 
+if (!function_exists('success')) {
+    function success(string $route = "home", string $message = null, $param = null) {
+        if ($message != null) {
+            session()->flash('message.success', $message);
+        }
+
+        if ($param == null) {
+            return inertia_location(route($route));
+        }
+        return inertia_location(route($route, $param));
+    }
+}
+
+if (!function_exists('error')) {
+    function error(string $route = "home", string $message = null, $param = null) {
+        if ($message != null) {
+            session()->flash('message.error', $message);
+        }
+
+        if ($param == null) {
+            return inertia_location(route($route));
+        }
+
+        return inertia_location(route($route, $param));
+    }
+}
+
+
 if (!function_exists('imgconv64')) {
     /**
      * Convert an image file to base64.

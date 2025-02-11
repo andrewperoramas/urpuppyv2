@@ -165,6 +165,9 @@ class Plan extends Model implements HasMedia, Sortable
 
     public function getMoneyFormattedAttribute(): string
     {
+        if ($this->interval === 'year') {
+            return Money::USD($this->price / 12)->formatByIntl();
+        }
         return Money::USD($this->price)->formatByIntl();
     }
 }

@@ -11,7 +11,7 @@ const PhoneNumberInput = ({...props}) => {
         countries={['US']}
         addInternationalOption={false}
         limitMaxLength={true}
-        class="form-control"
+        className="form-control"
         country="US"
         style={{
             }}

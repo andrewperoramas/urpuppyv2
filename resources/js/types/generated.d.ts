@@ -34,6 +34,7 @@ avatar: string;
 slug: string;
 email: string;
 phone: string | null;
+phone_formatted: string | null;
 address: string;
 short_address: string;
 member_since: string;
