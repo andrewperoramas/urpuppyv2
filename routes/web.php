@@ -47,21 +47,6 @@ Route::group(['prefix' => 'posts'], function () {
 
 });
 
-Route::get('adi', function () {
-    dd('your sskin and bones');
-
-    /* dd(auth()->user()->roles->first()); */
-
-});
-
-Route::get('modatax', function () {
-    dd('success din adrian gago');
-
-    /* dd(auth()->user()->roles->first()); */
-
-});
-
-
 Route::post('/create-intent', function (Request $request) {
     try {
         // Retrieve the user and the selected plan

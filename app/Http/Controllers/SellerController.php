@@ -42,7 +42,7 @@ class SellerController extends Controller
 
     public function create(Request $request,?int $id = null)
     {
-        if (!$request->user()?->breeder_plan && $request->user()->roles?->contains('breeder')) {
+        if (!$request->user()?->breeder_plan && $request->user()?->roles?->contains('breeder')) {
             return error('breeders.create', 'Register as a breeder to create puppies');
         }
 

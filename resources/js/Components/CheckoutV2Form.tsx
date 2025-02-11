@@ -142,17 +142,19 @@ const CheckoutV2Form = ({ clientSecret, plan_id }: any) => {
                 {/* Stripe.js injects the Payment Element */}
             </div>
 
+
+            {message && (
+                <div id="payment-message" className="mt-4 text-danger">
+                    {message}
+                </div>
+            )}
+
             <div className="mt-2">
                 <Button disabled={loading} href="#" type="button" >
                     Checkout
                 </Button>
             </div>
 
-            {message && (
-                <div id="payment-message" className="mt-4 text-red-500">
-                    {message}
-                </div>
-            )}
         </form>
 </>
     );
