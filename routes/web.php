@@ -55,7 +55,7 @@ Route::get('adi', function () {
 });
 
 Route::get('modatax', function () {
-    dd('your skin, yeah your skin and bones');
+    dd('steady betlog');
 
     /* dd(auth()->user()->roles->first()); */
 
