@@ -55,7 +55,7 @@ Route::get('adi', function () {
 });
 
 Route::get('modatax', function () {
-    dd('raganutma');
+    dd('badgu totnakillsssssss r');
 
     /* dd(auth()->user()->roles->first()); */
 
