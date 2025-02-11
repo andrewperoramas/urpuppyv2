@@ -55,7 +55,7 @@ Route::get('adi', function () {
 });
 
 Route::get('modatax', function () {
-    dd('badgu totnakillsssssss r');
+    dd('success din adrian gago');
 
     /* dd(auth()->user()->roles->first()); */
 
