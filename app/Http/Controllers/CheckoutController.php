@@ -83,6 +83,8 @@ class CheckoutController extends Controller
             $user->update(['is_breeder' => true]);
         } elseif ($plan->type == 'premium') {
             $user->update(['is_seller' => true]);
+        } elseif ($plan->type == 'free') {
+            $user->update(['is_seller' => true]);
         }
 
         return redirect()->route('profile.edit', [

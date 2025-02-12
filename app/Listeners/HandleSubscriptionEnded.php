@@ -51,6 +51,11 @@ class HandleSubscriptionEnded
                 'reason' => $subscription['metadata']['cancellation_reason'] ?? null,
             ]);
 
+            $user->is_breeder = false;
+            $user->is_seller = false;
+
+            $user->save();
+
             // Send email with cancellation reason (if provided)
             Mail::queue(new SubscriptionEnded($user, $subscription['metadata']['cancellation_reason'] ?? 'No reason provided'));
         }
