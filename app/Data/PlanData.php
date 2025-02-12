@@ -17,7 +17,7 @@ class PlanData extends Data
         public string $name,
         public string $price,
         public string $money_formatted,
-        public string $savings_label,
+        public ?string $savings_label,
         public int $trial_days,
         public string $interval,
         public string $type,

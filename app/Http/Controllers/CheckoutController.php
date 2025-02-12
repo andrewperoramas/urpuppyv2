@@ -93,7 +93,7 @@ class CheckoutController extends Controller
         }
     }
 
-    public function index(int $plan_id, Request $request)
+    public function index(int|string $plan_id, Request $request)
     {
 
         $setupIntentId = $request->query('setup_intent');

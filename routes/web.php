@@ -167,7 +167,10 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
 Route::group(['prefix' => 'checkout', 'middleware' => ['auth', 'verified', 'checkout.ready']], function () {
 
-    Route::get('{plan_id}', [CheckoutController::class, 'index'])->name('checkout.index');
+    Route::get('{plan_id}', [CheckoutController::class, 'index'])->name('checkout.index')->middleware([
+        'no.subscriber'
+    ]);
+
     Route::get('/', CheckoutController::class)->name('checkout.pay');
     Route::post('/complete', [CheckoutController::class, 'complete'])->name('checkout.complete');
     Route::get('/payment-methods', [CheckoutController::class, 'payment_methods'])->name('checkout.payment_methods');
