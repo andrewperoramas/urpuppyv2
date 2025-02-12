@@ -114,6 +114,7 @@ class CheckoutController extends Controller
     public function index(int|string $plan_id, Request $request)
     {
 
+        $user = $request->user();
         $setupIntentId = $request->query('setup_intent');
         $redirectStatus = $request->query('redirect_status');
 
@@ -151,6 +152,13 @@ class CheckoutController extends Controller
 
                 if (!$subscription) {
                     throw new \Exception('Subscription creation failed.');
+                }
+
+
+                if ($plan->type == 'breeder') {
+                    $user->update(['is_breeder' => true]);
+                } elseif ($plan->type == 'premium') {
+                    $user->update(['is_seller' => true]);
                 }
 
                 // Redirect to the success page
@@ -191,6 +199,11 @@ class CheckoutController extends Controller
 
     public function success(Request $request)
     {
+
+        $setupIntentId = $request->query('setup_intent');
+        $redirectStatus = $request->query('redirect_status');
+
+
         return Inertia::render('Checkout/Success', [
             /* 'setupIntent' => $setupIntent, */
             /* 'redirectStatus' => $redirectStatus, */

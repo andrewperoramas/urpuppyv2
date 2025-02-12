@@ -46,7 +46,7 @@ class BreederController extends Controller
 
         }
 
-        $breeders = $breeders->breeders()->orderBy('created_at')->paginate(12);
+        $breeders = $breeders->breeders()->orderBy('full_name')->reorder()->paginate(12);
 
         return inertia()->render('Breeders/Index', [
             'breeders' => BreederFullData::collect($breeders),

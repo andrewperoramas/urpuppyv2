@@ -44,11 +44,11 @@ class AppServiceProvider extends ServiceProvider
         Vite::prefetch(concurrency: 3);
 
 
-        Gate::define('viewPulse', function (User $user) {
-            return in_array($user->email, [
-                'admin@urpuppy.com',
-            ]);
-        });
+/*         Gate::define('viewPulse', function (User $user) { */
+/*             return in_array($user->email, [ */
+/*                 'admin@urpuppy.com', */
+/*             ]); */
+/*         }); */
 
         Gate::define('viewLogViewer', function (User $user) {
             return in_array($user->email, [

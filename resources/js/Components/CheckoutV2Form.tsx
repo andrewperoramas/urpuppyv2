@@ -101,7 +101,7 @@ const handleSubmit = async (e: any) => {
         confirmParams: {
             return_url: "https://urpuppy.com/checkout/" + plan_id, // Ensure this URL is correct
         },
-        // Remove `redirect: "if_required"` to allow Stripe to handle redirects for Apple Pay, Amazon Pay, etc.
+        redirect: "if_required"
     });
 
     if (error) {
