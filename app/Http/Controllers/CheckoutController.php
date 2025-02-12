@@ -33,65 +33,83 @@ class CheckoutController extends Controller
     }
 
     public function complete(Request $request)
-    {
-        // Validate the request to ensure plan_id and paymentMethod are present
-        $request->validate([
-            'plan_id' => 'required|exists:plans,id',
-            'paymentMethod' => 'required',
+{
+    $request->validate([
+        'plan_id' => 'required|exists:plans,id',
+        'paymentMethod' => 'required',
+    ]);
+
+    $plan = Plan::find($request->plan_id);
+
+    if (!$plan) {
+        return response()->json([
+            'message' => 'Plan not found',
+        ], 404);
+    }
+
+    try {
+        $user = $request->user();
+
+        // Attempt to create a subscription
+        $subscription = $user
+            ->newSubscription($plan->type, $plan->stripe_plan_id)
+            ->withMetadata([
+                'plan_id' => (string) $plan->id,
+                'plan_name' => (string) $plan->name,
+                'plan_price' => (string) $plan->price,
+                'user_id' => (string) $user->id,
+                'plan_type' => (string) $plan->type,
+            ])
+            ->create($request->paymentMethod, [
+                'email' => $user->email,
+            ]);
+
+        // Check if subscription requires additional authentication
+        if ($subscription->latest_invoice && $subscription->latest_invoice->payment_intent) {
+            $paymentIntent = \Stripe\PaymentIntent::retrieve(
+                $subscription->latest_invoice->payment_intent
+            );
+
+            if ($paymentIntent->status === 'requires_action' || $paymentIntent->status === 'requires_payment_method') {
+                return redirect()->route('billing.confirm', [
+                    'payment_intent' => $paymentIntent->id,
+                    'client_secret' => $paymentIntent->client_secret,
+                ]);
+            }
+        }
+
+        // Update user roles based on the plan type
+        if ($plan->type == 'breeder') {
+            $user->update(['is_breeder' => true]);
+        } elseif ($plan->type == 'premium') {
+            $user->update(['is_seller' => true]);
+        }
+
+        return redirect()->route('profile.edit', [
+            'tab' => 'My Subscription',
+            'message.success' => 'Successfully subscribed to ' . $plan->type . ' plan',
         ]);
 
-        // Find the plan
-        $plan = Plan::find($request->plan_id);
+    } catch (\Exception $e) {
+        \Log::error('Subscription Error: ' . $e->getMessage());
 
-        if (!$plan) {
-            return response()->json([
-                'message' => 'Plan not found',
-            ], 404);
-        }
-
-        // Create the subscription with metadata
-        try {
-            $subscription = $request->user()
-                ->newSubscription($plan->type, $plan->stripe_plan_id)
-                ->withMetadata([
-                    'plan_id' => (string) $plan->id,
-                    'plan_name' => (string) $plan->name,
-                    'plan_price' => (string) $plan->price,
-                    'user_id' => (string) $request->user()->id,
-                    'plan_type' => (string) $plan->type,
-                ])
-                ->create($request->paymentMethod, [
-                    'email' => $request->user()->email, // User's email for customer creation
-                ]);
-
-            if (!$subscription) {
-                throw new \Exception('Subscription creation failed.');
-            }
-
-            // Update user roles based on the plan type
-            if ($plan->type == 'breeder') {
-                $request->user()->update(['is_breeder' => true]);
-            } elseif ($plan->type == 'premium') {
-                $request->user()->update(['is_seller' => true]);
-            }
-
-            // Redirect with success message
-            return redirect()->route('profile.edit', [
-                'tab' => 'My Subscription',
-                'message.success' => 'Successfully subscribed to ' . $plan->type . ' plan',
-            ]);
-
-        } catch (\Exception $e) {
-            // Log the error for debugging
-            \Log::error('Subscription Error: ' . $e->getMessage());
-
-            // Redirect back with an error message
-            return redirect()->back()->with([
-                'tab' => 'My Subscription',
-                'message.error' => 'Something went wrong. Please try again later.',
-            ]);
-        }
+        return redirect()->back()->with([
+            'tab' => 'My Subscription',
+            'error' => 'Payment failed: ' . $e->getMessage(),
+        ]);
     }
+}
+
+
+    public function confirm(Request $request)
+{
+    return inertia('Subscription/BillingConfirmation', [
+        'payment_intent' => $request->query('payment_intent'),
+        'client_secret' => $request->query('client_secret'),
+    ]);
+}
+
+
 
     public function index(int|string $plan_id, Request $request)
     {
