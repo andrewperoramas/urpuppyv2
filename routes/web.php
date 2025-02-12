@@ -5,6 +5,7 @@ use App\Data\BreederData;
 use App\Data\BreederFullData;
 use App\Data\PuppyData;
 use App\Data\VideoData;
+use App\Http\Controllers\AboutController;
 use App\Http\Controllers\BreedController;
 use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\BreederController;
@@ -165,6 +166,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
 });
 
+Route::get('/about-us', [AboutController::class, 'index'])->name('about.index');
+
 Route::group(['prefix' => 'checkout', 'middleware' => ['auth', 'verified', 'checkout.ready']], function () {
 
     Route::get('{plan_id}', [CheckoutController::class, 'index'])->name('checkout.index')->middleware([
@@ -172,9 +175,7 @@ Route::group(['prefix' => 'checkout', 'middleware' => ['auth', 'verified', 'chec
     ]);
 
     Route::get('/', CheckoutController::class)->name('checkout.pay');
-    Route::post('/complete', [CheckoutController::class, 'complete'])->name('checkout.complete')->middleware([
-        'no.subscriber'
-    ]);
+    Route::post('/complete', [CheckoutController::class, 'complete'])->name('checkout.complete');
     Route::get('/payment-methods', [CheckoutController::class, 'payment_methods'])->name('checkout.payment_methods');
     Route::get('success', [CheckoutController::class, 'success'])->name('checkout.success');
 
