@@ -175,7 +175,9 @@ Route::group(['prefix' => 'checkout', 'middleware' => ['auth', 'verified', 'chec
     ]);
 
     Route::get('/', CheckoutController::class)->name('checkout.pay');
-    Route::post('/complete', [CheckoutController::class, 'complete'])->name('checkout.complete');
+    Route::post('/complete', [CheckoutController::class, 'complete'])->name('checkout.complete')->middleware([
+        'no.subscriber'
+    ]);
     Route::get('/payment-methods', [CheckoutController::class, 'payment_methods'])->name('checkout.payment_methods');
     Route::get('success', [CheckoutController::class, 'success'])->name('checkout.success');
 

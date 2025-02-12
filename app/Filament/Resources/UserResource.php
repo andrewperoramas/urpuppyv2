@@ -37,8 +37,12 @@ class UserResource extends Resource
 {
     protected static ?string $navigationIcon = 'heroicon-o-user';
 
-    protected static ?string $recordTitleAttribute = 'name';
+    protected static ?string $recordTitleAttribute = 'first_name';
 
+    public static function getGloballySearchableAttributes(): array
+    {
+        return ['first_name', 'last_name', 'email'];
+    }
 
     public static function getModel(): string
     {

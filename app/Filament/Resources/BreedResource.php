@@ -30,6 +30,13 @@ class BreedResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    protected static ?string $recordTitleAttribute = 'name';
+
+    public static function getGloballySearchableAttributes(): array
+    {
+        return ['name', 'description'];
+    }
+
     public static function getNavigationGroup(): ?string
     {
         return 'UrPuppy'; // This will group the resource under "Content"

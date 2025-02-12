@@ -20,6 +20,14 @@ class SubscriptionResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    protected static ?string $recordTitleAttribute = 'user.first_name';
+
+    public static function getGloballySearchableAttributes(): array
+    {
+        return ['user.first_name'];
+    }
+
+
     public static function canCreate(): bool
     {
         return false;
