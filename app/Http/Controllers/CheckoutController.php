@@ -191,6 +191,12 @@ class CheckoutController extends Controller
 
     public function success(Request $request)
     {
+        return Inertia::render('Checkout/Success', [
+            /* 'setupIntent' => $setupIntent, */
+            /* 'redirectStatus' => $redirectStatus, */
+            /* 'planId' => $planId, */
+        ]);
+
         // Retrieve the setup_intent and redirect_status from the query parameters
         $setupIntentId = $request->query('setup_intent');
         $redirectStatus = $request->query('redirect_status');
