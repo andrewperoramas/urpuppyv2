@@ -173,14 +173,11 @@ Route::get('/billing/confirm', [CheckoutController::class, 'confirm'])->name('bi
 
 Route::group(['prefix' => 'checkout', 'middleware' => ['auth', 'verified', 'checkout.ready']], function () {
 
+    Route::get('success', [CheckoutController::class, 'success'])->name('checkout.success');
     Route::get('{plan_id}', [CheckoutController::class, 'index'])->name('checkout.index');
-
     Route::get('/', CheckoutController::class)->name('checkout.pay');
     Route::post('/complete', [CheckoutController::class, 'complete']);
     Route::get('/payment-methods', [CheckoutController::class, 'payment_methods'])->name('checkout.payment_methods');
-    Route::get('success', [CheckoutController::class, 'success'])->name('checkout.success');
-
-
 
     Route::get('subscription/success', [CheckoutController::class, 'success'])->name('subscription.success');
 
