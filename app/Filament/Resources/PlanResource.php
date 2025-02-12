@@ -26,6 +26,11 @@ class PlanResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    public static function getNavigationGroup(): ?string
+    {
+        return 'Stripe'; // This will group the resource under "Content"
+    }
+
     public static function form(Form $form): Form
     {
         return $form
@@ -102,7 +107,7 @@ class PlanResource extends Resource
         return [
             'index' => ListPlans::route('/'),
             'create' => CreatePlan::route('/create'),
-            'edit' => EditPlan::route('/{record}/edit'),
+            /* 'edit' => EditPlan::route('/{record}/edit'), */
         ];
     }
 }

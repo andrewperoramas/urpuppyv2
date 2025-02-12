@@ -9,6 +9,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Model;
 
 class ReportResource extends Resource
 {
@@ -16,21 +17,37 @@ class ReportResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    public static function form(Form $form): Form
+    public static function getNavigationGroup(): ?string
     {
-        return $form
-            ->schema([
-                Forms\Components\TextInput::make('puppy_id')
-                    ->required()
-                    ->numeric(),
-                Forms\Components\Textarea::make('reason')
-                    ->required()
-                    ->columnSpanFull(),
-                Forms\Components\TextInput::make('user_id')
-                    ->required()
-                    ->numeric(),
-            ]);
+        return 'Messages'; // This will group the resource under "Content"
     }
+
+
+    public static function canCreate(): bool
+    {
+        return false;
+    }
+
+    public static function canEdit(Model $record): bool
+    {
+        return false;
+    }
+
+    /* public static function form(Form $form): Form */
+    /* { */
+    /*     return $form */
+    /*         ->schema([ */
+    /*             Forms\Components\TextInput::make('puppy_id') */
+    /*                 ->required() */
+    /*                 ->numeric(), */
+    /*             Forms\Components\Textarea::make('reason') */
+    /*                 ->required() */
+    /*                 ->columnSpanFull(), */
+    /*             Forms\Components\TextInput::make('user_id') */
+    /*                 ->required() */
+    /*                 ->numeric(), */
+    /*         ]); */
+    /* } */
 
     public static function table(Table $table): Table
     {
@@ -91,9 +108,9 @@ class ReportResource extends Resource
     {
         return [
             'index' => Pages\ListReports::route('/'),
-            'create' => Pages\CreateReport::route('/create'),
+            /* 'create' => Pages\CreateReport::route('/create'), */
             /* 'view' => Pages\ViewUser::route('/{record}'), */
-            'edit' => Pages\EditReport::route('/{record}/edit'),
+            /* 'edit' => Pages\EditReport::route('/{record}/edit'), */
         ];
     }
 }

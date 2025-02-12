@@ -37,6 +37,8 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->databaseNotifications()
             ->path('admin')
+            ->brandLogo('/logo-dark.svg')
+            ->darkModeBrandLogo('/logo.svg')
             ->login()
             ->colors([
                 'primary' => Color::Orange,
@@ -73,10 +75,10 @@ class AdminPanelProvider extends PanelProvider
             ])->plugins([
                 /* FilamentUsersPlugin::make(), */
                 BlogPlugin::make(),
-                FilamentGeneralSettingsPlugin::make()
-                    ->setSort(16)
-                    ->setIcon('heroicon-o-cog')
-                    ->setNavigationGroup('Settings'),
+                /* FilamentGeneralSettingsPlugin::make() */
+                /*     ->setSort(16) */
+                /*     ->setIcon('heroicon-o-cog') */
+                /*     ->setNavigationGroup('Settings'), */
 
                 SpatieLaravelTranslatablePlugin::make()->defaultLocales([config('app.locale')]),
                 /* SkyPlugin::make()->navigationGroupLabel('CMS')->hideResources([ */

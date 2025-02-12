@@ -20,6 +20,7 @@ use Filament\Tables\Actions\DeleteBulkAction;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Actions\ExportBulkAction;
 use Filament\Tables\Actions\ImportAction;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
@@ -28,6 +29,11 @@ class BreedResource extends Resource
     protected static ?string $model = Breed::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+
+    public static function getNavigationGroup(): ?string
+    {
+        return 'UrPuppy'; // This will group the resource under "Content"
+    }
 
     public static function form(Form $form): Form
     {
@@ -49,25 +55,32 @@ class BreedResource extends Resource
                 SpatieMediaLibraryFileUpload::make('image')
                     ->disk('media')
                     ->collection('media'),
-            ])]);
+            ])
+
+        ]);
     }
 
     public static function table(Table $table): Table
     {
         return $table
             ->defaultSort('created_at', 'desc')
-            ->headerActions([
-                ImportAction::make()
-                    ->importer(BreedImporter::class),
-            ])
+            /* ->headerActions([ */
+            /*     ImportAction::make() */
+            /*         ->importer(BreedImporter::class), */
+            /* ]) */
             ->columns([
-                TextColumn::make('name')->searchable(),
+                ImageColumn::make('image')->circular()->width(50)->height(50)->placeholder('/paw.svg')->defaultImageUrl('/paw.svg'),
+                TextColumn::make('name')->searchable()->sortable()->url(function ($record) {
+                    return route('breeds.show', $record->slug);
+                })->color('primary')->openUrlInNewTab(),
+                TextColumn::make('description')->limit(50)->searchable(),
             ])
+                ->defaultSort('name', 'asc')
             ->filters([
 
             ])
             ->actions([
-                EditAction::make(),
+                EditAction::make()->slideOver(),
 
             ])
             ->bulkActions([
@@ -90,8 +103,8 @@ class BreedResource extends Resource
     {
         return [
             'index' => ListBreeds::route('/'),
-            'create' => CreateBreed::route('/create'),
-            'edit' => EditBreed::route('/{record}/edit'),
+            /* 'create' => CreateBreed::route('/create'), */
+            /* 'edit' => EditBreed::route('/{record}/edit'), */
         ];
     }
 }
