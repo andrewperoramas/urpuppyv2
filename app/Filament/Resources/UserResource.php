@@ -23,6 +23,7 @@ use Filament\Forms\Components\Section as Card;
 use Filament\Tables\Actions\ForceDeleteAction;
 use Filament\Tables\Actions\RestoreBulkAction;
 use Filament\Tables\Actions\ForceDeleteBulkAction;
+use Filament\Tables\Columns\ImageColumn;
 use Phpsa\FilamentAuthentication\FilamentAuthentication;
 use Phpsa\FilamentAuthentication\Actions\ImpersonateLink;
 use Phpsa\FilamentAuthentication\Traits\CanRenewPassword;
@@ -123,27 +124,31 @@ class UserResource extends Resource
     {
         /* dd('adi'); */
         $columns = [
-            'first_name'              => TextColumn::make('first_name')
-                ->searchable()
+            'avatar' => ImageColumn::make('avatar')->circular()->label('Avatar')->toggleable()->width(50)->height(50),
+            'full_name'              => TextColumn::make('full_name')
                 ->sortable()
-                ->label('First Name'),
-            'last_name'              => TextColumn::make('last_name')
-                ->searchable()
-                ->sortable()
-                ->label('Last Name'),
+
+                ->toggleable()
+                ->label('Full Name'),
             'email'             => TextColumn::make('email')
                 ->searchable()
+
+                ->toggleable()
                 ->sortable()
                 ->label(strval(__('filament-authentication::filament-authentication.field.user.email'))),
 
             'email_verified_at' => IconColumn::make('email_verified_at')
             ->default(false)
                 ->boolean()
+                ->toggleable()
+                ->toggledHiddenByDefault()
                 ->label(strval(__('filament-authentication::filament-authentication.field.user.verified_at'))),
             'roles.name'        => TextColumn::make('roles.name')->badge()
                 ->label(strval(__('filament-authentication::filament-authentication.field.user.roles'))),
             'created_at'        => TextColumn::make('created_at')
                 ->dateTime('Y-m-d H:i:s')
+                ->toggleable()
+                ->toggledHiddenByDefault()
                 ->label(strval(__('filament-authentication::filament-authentication.field.user.created_at'))),
         ];
 
