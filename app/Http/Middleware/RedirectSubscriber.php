@@ -16,7 +16,7 @@ class RedirectSubscriber
     public function handle(Request $request, Closure $next): Response
     {
         if ($request->user()->subscriptions()->active()->count()) {
-            return success('You are already subscribed');
+            return success('home', 'You are already subscribed');
         }
 
         return $next($request);
