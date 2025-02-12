@@ -1,15 +1,14 @@
-import Button from '@/Components/ui/Button'
-import Layout from '@/Layouts/Layout'
-import { Link, router, usePage, usePoll } from '@inertiajs/react'
-import React from 'react'
-import PostCommentCard from './Partials/PostCommentCard'
-import BlogCommentForm from './Partials/PostCommentForm'
-import PostCommentForm from './Partials/PostCommentForm'
-import { PaginatedCollection } from '@/types/global'
-import { FacebookShareButton, TwitterShareButton } from 'react-share'
-import CopyToClipboard from '@/Components/CopyToClipboard'
-import MetaTags from '@/Components/MetaTags'
-
+import React, { useState } from 'react';
+import Button from '@/Components/ui/Button';
+import Layout from '@/Layouts/Layout';
+import { Link, router, usePage } from '@inertiajs/react';
+import PostCommentCard from './Partials/PostCommentCard';
+import PostCommentForm from './Partials/PostCommentForm';
+import { PaginatedCollection } from '@/types/global';
+import { FacebookShareButton, TwitterShareButton } from 'react-share';
+import CopyToClipboard from '@/Components/CopyToClipboard';
+import MetaTags from '@/Components/MetaTags';
+import Pagination from '@/Components/Pagination';
 
 interface ShowProps {
     post: App.Data.PostData;
@@ -18,14 +17,51 @@ interface ShowProps {
     is_unliked: boolean;
 }
 
-
-
 const Show: React.FC<ShowProps> = ({ post, comments, is_liked, is_unliked }) => {
     const { props } = usePage();
     const user = props.auth.user;
     const currentUrl = `https://urpuppy.com/posts/${post.slug}`;
 
-    usePoll(2000)
+    const [localLikeCount, setLocalLikeCount] = useState(post.like_count);
+    const [localUnlikeCount, setLocalUnlikeCount] = useState(post.unlike_count);
+    const [localIsLiked, setLocalIsLiked] = useState(is_liked);
+    const [localIsUnliked, setLocalIsUnliked] = useState(is_unliked);
+
+    const handleReact = (type: 'Like' | 'Unlike') => {
+        const previousLikeCount = localLikeCount;
+        const previousUnlikeCount = localUnlikeCount;
+        const previousIsLiked = localIsLiked;
+        const previousIsUnliked = localIsUnliked;
+
+        if (type === 'Like') {
+            setLocalLikeCount(previousIsLiked ? previousLikeCount - 1 : previousLikeCount + 1);
+            setLocalIsLiked(!previousIsLiked);
+            if (previousIsUnliked) {
+                setLocalUnlikeCount(previousUnlikeCount - 1);
+                setLocalIsUnliked(false);
+            }
+        } else {
+            setLocalUnlikeCount(previousIsUnliked ? previousUnlikeCount - 1 : previousUnlikeCount + 1);
+            setLocalIsUnliked(!previousIsUnliked);
+            if (previousIsLiked) {
+                setLocalLikeCount(previousLikeCount - 1);
+                setLocalIsLiked(false);
+            }
+        }
+
+        router.post(`/posts/${post.id}/react/${type}`, {}, {
+            onSuccess: () => {
+                // No need to do anything here since we already updated the state optimistically
+            },
+            onError: () => {
+                // Revert the state if the request fails
+                setLocalLikeCount(previousLikeCount);
+                setLocalUnlikeCount(previousUnlikeCount);
+                setLocalIsLiked(previousIsLiked);
+                setLocalIsUnliked(previousIsUnliked);
+            }
+        });
+    };
 
     return (
         <Layout navType="secondary">
@@ -64,22 +100,18 @@ const Show: React.FC<ShowProps> = ({ post, comments, is_liked, is_unliked }) => 
                                     className="bg-white border-0"
                                     onClick={(e) => {
                                         e.preventDefault();
-                                        router.post(`/posts/${post.id}/react/Like`, {} , {
-                                            onSuccess: () => {
-                                                router.reload();
-                                            }
-                                        });
+                                        handleReact('Like');
                                     }}
                                 >
                                     <img
-                                        style={{ filter: is_liked ? "brightness(0) saturate(100%) invert(43%) sepia(91%) saturate(2636%) hue-rotate(195deg) brightness(96%) contrast(104%)" : "" }}
+                                        style={{ filter: localIsLiked ? "brightness(0) saturate(100%) invert(43%) sepia(91%) saturate(2636%) hue-rotate(195deg) brightness(96%) contrast(104%)" : "" }}
                                         src="../images/svgs/icon-like.svg"
                                         alt=""
                                         width="18"
                                         height="18"
                                     />
                                 </a>
-                                <p style={{ marginBottom: '0.5px' }} className="fs-3">{post.like_count}</p>
+                                <p style={{ marginBottom: '0.5px' }} className="fs-3">{localLikeCount}</p>
                             </div>
 
                             <div style={{ width: "1px", background: "rgba(8, 49, 78, 0.4)", height: "12px" }}></div>
@@ -89,16 +121,12 @@ const Show: React.FC<ShowProps> = ({ post, comments, is_liked, is_unliked }) => 
                                     className="bg-white border-0"
                                     onClick={(e) => {
                                         e.preventDefault();
-                                        router.post(`/posts/${post.id}/react/Unlike`, {} , {
-                                            onSuccess: () => {
-                                                router.reload();
-                                            }
-                                        });
+                                        handleReact('Unlike');
                                     }}
                                 >
                                     <img src="../images/svgs/icon-dislike.svg" alt="" width="18" height="18" />
                                 </a>
-                                <p style={{ marginBottom: '0.5px' }} className="fs-3">{post.unlike_count}</p>
+                                <p style={{ marginBottom: '0.5px' }} className="fs-3">{localUnlikeCount}</p>
                             </div>
 
                             <div style={{ width: "1px", background: "rgba(8, 49, 78, 0.4)", height: "12px" }}></div>
@@ -149,7 +177,7 @@ const Show: React.FC<ShowProps> = ({ post, comments, is_liked, is_unliked }) => 
                         </div>
 
                         <div className="card border mt-4">
-                            <div className="card-body">
+                            <div className="card-body" id="comments">
                                 <h6 className="mb-4">Comments</h6>
 
                                 {user ? (
@@ -167,6 +195,8 @@ const Show: React.FC<ShowProps> = ({ post, comments, is_liked, is_unliked }) => 
                                         ))}
                                     </>
                                 )}
+
+                                <Pagination links={comments.links} target="comments" />
                             </div>
                         </div>
                     </div>

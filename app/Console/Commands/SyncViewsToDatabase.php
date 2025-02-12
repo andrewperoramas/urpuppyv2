@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Post;
 use App\Models\Puppy;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Redis;
@@ -18,6 +19,7 @@ class SyncViewsToDatabase extends Command
 
     protected $models = [
         Puppy::class,
+        Post::class
     ];
 
     /**
