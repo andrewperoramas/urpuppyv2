@@ -38,7 +38,7 @@ class PuppyUpdateRequest extends FormRequest
             'puppy_price' => ['required', 'numeric'],
             'puppy_gender' => ['required', 'string'],
             'puppy_about' => ['required', 'string'],
-            'puppy_birth_date' => ['required', 'string'],
+            'puppy_birth_date' => ['required', 'string', 'before_or_equal:today' ],
             'puppy_patterns' => ['required', 'array'],
             'puppy_breeds' => ['required', 'array'],
             'puppy_colors' => ['required', 'array'],
