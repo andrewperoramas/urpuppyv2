@@ -95,6 +95,67 @@ class CheckoutController extends Controller
 
     public function index(int $plan_id, Request $request)
     {
+
+        $setupIntentId = $request->query('setup_intent');
+        $redirectStatus = $request->query('redirect_status');
+
+       if ($setupIntentId && $redirectStatus) {
+        Stripe::setApiKey(env('STRIPE_SECRET'));
+
+        // Retrieve the SetupIntent from Stripe
+        $setupIntent = \Stripe\SetupIntent::retrieve($setupIntentId);
+
+        if ($setupIntent->status === 'succeeded') {
+            // Payment succeeded, process the payment
+            $paymentMethod = $setupIntent->payment_method;
+
+            // Create the subscription
+            $plan = Plan::find($plan_id);
+            if (!$plan) {
+                return response()->json([
+                    'message' => 'Plan not found',
+                ], 404);
+            }
+
+            try {
+                $subscription = $request->user()
+                    ->newSubscription($plan->type, $plan->stripe_plan_id)
+                    ->withMetadata([
+                        'plan_id' => (string) $plan->id,
+                        'plan_name' => (string) $plan->name,
+                        'plan_price' => (string) $plan->price,
+                        'user_id' => (string) $request->user()->id,
+                        'plan_type' => (string) $plan->type,
+                    ])
+                    ->create($paymentMethod, [
+                        'email' => $request->user()->email,
+                    ]);
+
+                if (!$subscription) {
+                    throw new \Exception('Subscription creation failed.');
+                }
+
+                // Redirect to the success page
+                return redirect()->route('checkout.success', [
+                    'plan_id' => $plan_id,
+                ]);
+            } catch (\Exception $e) {
+                // Log the error for debugging
+                \Log::error('Subscription Error: ' . $e->getMessage());
+
+                // Redirect back with an error message
+                return redirect()->route('checkout.index', [
+                    'plan_id' => $plan_id,
+                ])->with('error', 'Payment failed. Please try again.');
+            }
+        } else {
+            // Payment failed, redirect back with an error message
+            return redirect()->route('checkout.index', [
+                'plan_id' => $plan_id,
+            ])->with('error', 'Payment failed. Please try again.');
+        }
+    }
+
         $plan = Plan::find($plan_id);
 
         if (!$plan) {
