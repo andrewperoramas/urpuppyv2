@@ -1,11 +1,16 @@
-import { Link, router } from '@inertiajs/react'
+import { Link, router, usePage } from '@inertiajs/react'
 import React from 'react'
 
-const SubscriptionCard = ({plan, next_billing, cancel_at} : {
+const SubscriptionCard = ({plan, next_billing, cancel_at, trial_ends_at} : {
     plan: App.Data.PlanData
     next_billing?: string,
     cancel_at? : boolean
+    trial_ends_at?: string | null
 }) => {
+
+    const trial_ends_at_date = usePage().props.auth.user.trial_ends_at
+
+
   return (
 
                 <div className="card border">

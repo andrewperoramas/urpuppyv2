@@ -306,6 +306,7 @@ company_name: string | null;
 company_email_address: string | null;
 company_address: string | null;
 company_address_formatted: string | null;
+trial_ends_at: string | null;
 company_established_on: string | null;
 company_logo: string | null;
 };

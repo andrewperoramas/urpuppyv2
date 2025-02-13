@@ -5,7 +5,13 @@ namespace App\Http\Controllers;
 use App\Data\PlanData;
 use App\Models\Plan;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 use Stripe\Stripe;
+use Stripe\SetupIntent;
+use Stripe\PaymentIntent;
+use Stripe\PaymentMethod;
+use Laravel\Cashier\Subscription;
+use Illuminate\Support\Facades\Log;
 
 class CheckoutController extends Controller
 {
@@ -15,131 +21,189 @@ class CheckoutController extends Controller
     }
 
     public function payment_methods(Request $request)
-{
+    {
+        try {
+            $user = $request->user();
+            $payment_methods = $user->paymentMethods();
 
-/*         return inertia()->render('Subscription/PaymentMethod', [ */
-/*             'payment_methods' => '', */
-/*         ]); */
-/*         dd($request->user()->paymentMethods()); */
-    try {
-        /* Stripe::setApiKey(env('STRIPE_SECRET')); */
-
-        /* dd('adi'); */
-        $user = $request->user();
-            /* dd($user); */
-
-        $payment_methods = $user->paymentMethods();
-
-        return inertia()->render('Subscription/PaymentMethod', [
-            'payment_methods' => $payment_methods,
-        ]);
-    } catch (\Exception $e) {
-        return inertia()->render('Subscription/PaymentMethod', [
-            'error' => $e->getMessage(),
-        ]);
+            return Inertia::render('Subscription/PaymentMethod', [
+                'payment_methods' => $payment_methods,
+            ]);
+        } catch (\Exception $e) {
+            return Inertia::render('Subscription/PaymentMethod', [
+                'error' => $e->getMessage(),
+            ]);
+        }
     }
-}
 
     public function complete(Request $request)
-{
-    // Validate the request to ensure plan_id and paymentMethod are present
-    $request->validate([
-        'plan_id' => 'required|exists:plans,id',
-        'paymentMethod' => 'required',
-    ]);
+    {
+        $request->validate([
+            'plan_id' => 'required|exists:plans,id',
+            'paymentMethod' => 'required',
+        ]);
 
-    // Find the plan
-    $plan = Plan::find($request->plan_id);
+        $plan = Plan::find($request->plan_id);
 
-    if (!$plan) {
-        return response()->json([
-            'message' => 'Plan not found',
-        ], 404);
+        if (!$plan) {
+            return response()->json(['message' => 'Plan not found'], 404);
+        }
+
+        try {
+            $user = $request->user();
+
+            // Create the subscription
+            $subscription = $this->createSubscription($user, $plan, $request->paymentMethod);
+
+            // Handle payment authentication if required
+            if ($subscription->latest_invoice && $subscription->latest_invoice->payment_intent) {
+                $paymentIntent = PaymentIntent::retrieve($subscription->latest_invoice->payment_intent);
+
+                if (in_array($paymentIntent->status, ['requires_action', 'requires_payment_method'])) {
+                    return redirect()->route('billing.confirm', [
+                        'payment_intent' => $paymentIntent->id,
+                        'client_secret' => $paymentIntent->client_secret,
+                    ]);
+                }
+            }
+
+            // Update user roles based on the plan type
+            $this->updateUserRoles($user, $plan, $subscription);
+
+            return redirect()->route('profile.edit', [
+                'tab' => 'My Subscription',
+                'message.success' => 'Successfully subscribed to ' . $plan->type . ' plan',
+            ]);
+
+        } catch (\Exception $e) {
+            Log::error('Subscription Error: ' . $e->getMessage());
+
+            return redirect()->back()->with([
+                'tab' => 'My Subscription',
+                'error' => 'Payment failed: ' . $e->getMessage(),
+            ]);
+        }
     }
 
-    // Create the subscription with metadata
-    try {
-        $subscription = $request->user()
-            ->newSubscription($plan->type, $plan->stripe_plan_id)
+    public function confirm(Request $request)
+    {
+        return inertia('Subscription/BillingConfirmation', [
+            'payment_intent' => $request->query('payment_intent'),
+            'client_secret' => $request->query('client_secret'),
+        ]);
+    }
+
+    public function index(int|string $plan_id, Request $request)
+    {
+        $user = $request->user();
+        $setupIntentId = $request->query('setup_intent');
+        $redirectStatus = $request->query('redirect_status');
+
+        if ($setupIntentId && $redirectStatus) {
+            Stripe::setApiKey(env('STRIPE_SECRET'));
+
+            // Retrieve the SetupIntent from Stripe
+            $setupIntent = SetupIntent::retrieve($setupIntentId);
+
+            if ($setupIntent->status === 'succeeded') {
+                $paymentMethod = $setupIntent->payment_method;
+                $plan = Plan::find($plan_id);
+
+                if (!$plan) {
+                    return response()->json(['message' => 'Plan not found'], 404);
+                }
+
+                try {
+                    $subscription = $this->createSubscription($user, $plan, $paymentMethod);
+
+                    // Update user roles based on the plan type
+                    $this->updateUserRoles($user, $plan, $subscription);
+
+                    return redirect()->route('checkout.success', ['plan_id' => $plan_id]);
+
+                } catch (\Exception $e) {
+                    Log::error('Subscription Error: ' . $e->getMessage());
+
+                    return redirect()->route('checkout.index', ['plan_id' => $plan_id])
+                        ->with('error', 'Payment failed. Please try again.');
+                }
+            } else {
+                return redirect()->route('checkout.index', ['plan_id' => $plan_id])
+                    ->with('error', 'Payment failed. Please try again.');
+            }
+        }
+
+        $plan = Plan::find($plan_id);
+
+        if (!$plan) {
+            return response()->json(['message' => 'Plan not found'], 404);
+        }
+
+        return Inertia::render('Subscription/Checkout', [
+            'plan_id' => $plan->id,
+            'plan' => PlanData::from($plan),
+            'intent' => $user->createSetupIntent(),
+        ]);
+    }
+
+    public function success(Request $request)
+    {
+        $setupIntentId = $request->query('setup_intent');
+        $redirectStatus = $request->query('redirect_status');
+
+        if ($setupIntentId && $redirectStatus) {
+            Stripe::setApiKey(env('STRIPE_SECRET'));
+            $setupIntent = SetupIntent::retrieve($setupIntentId);
+
+            if ($setupIntent->status === 'succeeded') {
+                return Inertia::render('Checkout/Success', [
+                    'setupIntent' => $setupIntent,
+                    'redirectStatus' => $redirectStatus,
+                    'planId' => $request->query('plan_id'),
+                ]);
+            }
+        }
+
+        return Inertia::render('Checkout/Success', [
+            'error' => 'Payment failed. Please try again.',
+        ]);
+    }
+
+    /**
+     * Create a subscription for the user.
+     */
+    protected function createSubscription($user, $plan, $paymentMethod): Subscription
+    {
+        $subscription = $user->newSubscription($plan->type, $plan->stripe_plan_id)
             ->withMetadata([
                 'plan_id' => (string) $plan->id,
                 'plan_name' => (string) $plan->name,
                 'plan_price' => (string) $plan->price,
-                'user_id' => (string) $request->user()->id,
+                'user_id' => (string) $user->id,
                 'plan_type' => (string) $plan->type,
-            ])
-            ->create($request->paymentMethod, [
-                'email' => $request->user()->email, // User's email for customer creation
             ]);
 
-        if (!$subscription) {
-            throw new \Exception('Subscription creation failed.');
+        if ($plan->type == 'free') {
+            $subscription->trialDays(3);
         }
 
-        // Update user roles based on the plan type
+        return $subscription->create($paymentMethod, [
+                'email' => $user->email,
+        ]);;
+    }
+
+    /**
+     * Update user roles based on the plan type.
+     */
+    protected function updateUserRoles($user, $plan, $subscription): void
+    {
         if ($plan->type == 'breeder') {
-            $request->user()->update(['is_breeder' => true]);
+            $user->update(['is_breeder' => true]);
         } elseif ($plan->type == 'premium') {
-            $request->user()->update(['is_seller' => true]);
+            $user->update(['is_seller' => true]);
+        } elseif ($plan->type == 'free') {
+            $user->update(['is_seller' => true]);
+            $subscription->cancel();
         }
-
-        // Redirect with success message
-        return redirect()->route('profile.edit', [
-            'tab' => 'My Subscription',
-            'message.success' => 'Successfully subscribed to ' . $plan->type . ' plan',
-        ]);
-
-    } catch (\Exception $e) {
-        // Log the error for debugging
-        \Log::error('Subscription Error: ' . $e->getMessage());
-
-        // Redirect back with an error message
-        return redirect()->back()->with([
-            'tab' => 'My Subscription',
-            'message.error' => 'Something went wrong. Please try again later.',
-        ]);
-    }
-}
-
-
-    public function index(int $plan_id, Request $request)
-    {
-    $plan = Plan::find($plan_id);
-
-    if (! $plan) {
-        return response()->json([
-            'message' => 'Plan not found',
-        ]);
-    }
-
-    return inertia()->render('Subscription/Checkout', [
-            'plan_id' => $plan->id,
-            'plan' => PlanData::from($plan),
-            'intent' => auth()->user()->createSetupIntent()
-    ]);
-
-    return $subscription->checkout([
-        'success_url' => route('subscription.success'),
-        'cancel_url' => route('plans.index'),
-        'subscription_data' => [
-                 'metadata' => [
-                'plan_id' => (string) $plan->id, // Cast to string
-                'plan_name' => (string) $plan->name, // Ensure this is a string
-                'plan_price' => (string) $plan->price, // Cast to string
-                'user_id' => (string) $request->user()->id, // Cast to string
-                'plan_type' =>(string) $plan->type, // This is already a string
-            ],
-
-        ],
-    ]);
-}
-
-
-
-    public function success()
-    {
-        return inertia()->render('Checkout/Success', [
-
-        ]);
     }
 }

@@ -47,7 +47,7 @@ class BreedResource extends Resource
                 RichEditor::make('activities_description'),
                 RichEditor::make('content'),
                 SpatieMediaLibraryFileUpload::make('image')
-                    ->disk('media')
+                    ->disk('s3')
                     ->collection('media'),
             ])]);
     }
