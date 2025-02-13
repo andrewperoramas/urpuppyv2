@@ -51,7 +51,6 @@ export default function Index({
                 <FooterVideos videos={videos} />
             }
             </div>
-            <h1>Home Videos here test</h1>
             </Layout>
         </>
     );
