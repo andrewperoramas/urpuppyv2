@@ -78,8 +78,11 @@ const Show = ({breeder, puppies} : {
             <div className="andrews-listings mb-xl-4">
 
                 {puppies.length > 0 &&
-                                        <div className="d-flex justify-content-between">
-              <h5 className="mb-6 fs-5 mb-3 pb-1">{breeder.full_name} Listings</h5>
+                                        <div className="d-flex justify-content-between
+                                            align-items-center
+
+                                            ">
+              <h5 className="fs-5  ">{breeder.full_name} Listings</h5>
                                             <div>
                                                 <Button href={`/all-puppies/${breeder.slug}`} variant="white" >See All Listings</Button>
                                             </div>
@@ -90,7 +93,7 @@ const Show = ({breeder, puppies} : {
               <div className="row">
                 {puppies.length > 0 &&
                     puppies.map((puppy: App.Data.PuppyData, index: number) => (
-                        <PuppyCard className="col-md-6 col-xl-4 mb-4 mb-xl-0" key={index} puppy={puppy} />
+                        <PuppyCard className="col-md-6 col-xl-4 mb-4 mt-4 mb-xl-0" key={index} puppy={puppy} />
                     ))}
               </div>
             </div>

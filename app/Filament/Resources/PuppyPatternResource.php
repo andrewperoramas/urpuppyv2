@@ -19,6 +19,11 @@ class PuppyPatternResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    public static function getNavigationGroup(): ?string
+    {
+        return 'UrPuppy'; // This will group the resource under "Content"
+    }
+
     public static function form(Form $form): Form
     {
         return $form
@@ -48,7 +53,7 @@ class PuppyPatternResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()->slideOver(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -68,8 +73,8 @@ class PuppyPatternResource extends Resource
     {
         return [
             'index' => Pages\ListPuppyPatterns::route('/'),
-            'create' => Pages\CreatePuppyPattern::route('/create'),
-            'edit' => Pages\EditPuppyPattern::route('/{record}/edit'),
+            /* 'create' => Pages\CreatePuppyPattern::route('/create'), */
+            /* 'edit' => Pages\EditPuppyPattern::route('/{record}/edit'), */
         ];
     }
 }

@@ -4,6 +4,7 @@ import PaginationButton from "./PaginationButton";
 import { runOnClient } from "@/utils/runOnClient";
 
 interface PaginationProps {
+    target?: string,
     links: Array<{
         url: string | null;
         label: string;
@@ -11,28 +12,9 @@ interface PaginationProps {
     }>;
 }
 
-const Pagination: React.FC<PaginationProps> = ({ links }) => {
-    const handlePaginationClick = (event: React.MouseEvent) => {
-        runOnClient(() => {
+const Pagination: React.FC<PaginationProps> = ({ links, target = "scroll-target" }) => {
 
-        const scrollTarget = document.getElementById("scroll-target");
-
-        if (scrollTarget) {
-            const targetPosition =
-                scrollTarget.getBoundingClientRect().top + window.scrollY;
-            const offsetPosition = targetPosition - 100;
-
-            window.scrollTo({
-                top: offsetPosition,
-                behavior: "smooth",
-            });
-        }
-
-        })
-    };
-
-    const mergeQueryParams = (url: string) => {
-
+    const mergeQueryParams = (url: any) => {
         if (typeof window === "undefined") return url;
 
         const currentParams = new URLSearchParams(window.location.search);
@@ -64,9 +46,12 @@ const Pagination: React.FC<PaginationProps> = ({ links }) => {
                             >
                                 <Link
                                     href={mergeQueryParams(link.url)}
-                                    preserveState={true}
-                                    prefetch cacheFor="10s"
-                                    onClick={handlePaginationClick}
+                                    preserveScroll={true}
+                                    target={target}
+                                    // onClick={(e) => {
+                                    //     e.preventDefault(); // Prevent default navigation
+                                    //     handlePaginationClick(e, mergeQueryParams(link.url));
+                                    // }}
                                 >
                                     <PaginationButton
                                         className={`page-link ${link.active ? 'active' : ''} ${isFirst ? 'border-0 me-4 text-dark' : ''} ${isLast ? 'border-0 text-dark d-hidedn': ''} `}
@@ -83,4 +68,3 @@ const Pagination: React.FC<PaginationProps> = ({ links }) => {
 };
 
 export default Pagination;
-

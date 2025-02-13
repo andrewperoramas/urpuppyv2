@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Cknow\Money\Money;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model; // Correct Media class
 use Illuminate\Http\Request;
@@ -76,6 +77,14 @@ class Puppy extends Model implements HasMedia, Sitemapable
                 'source' => 'name',
             ],
         ];
+    }
+
+    protected function status(): Attribute
+    {
+        return Attribute::make(
+            get: fn (string $value) => $value=='published',
+            set: fn (string $value) => $value?'published':'draft',
+        );
     }
 
     public function registerMediaConversions(?Media $media = null): void
@@ -201,6 +210,8 @@ class Puppy extends Model implements HasMedia, Sitemapable
 
     public function scopeHasSubscribedUsers($query)
     {
+        $query->where('status', 'published');
+
            $query->whereHas('seller', function ($q) {
         $q->whereHas('subscriptions', function ($subQuery) {
             $subQuery->where('stripe_status', 'active');

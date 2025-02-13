@@ -182,6 +182,7 @@ class CheckoutController extends Controller
                 'user_id' => (string) $user->id,
                 'plan_type' => (string) $plan->type,
             ]);
+    }
 
         if ($plan->type == 'free') {
             $subscription->trialDays(3);

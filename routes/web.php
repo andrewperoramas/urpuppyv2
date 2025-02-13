@@ -5,6 +5,7 @@ use App\Data\BreederData;
 use App\Data\BreederFullData;
 use App\Data\PuppyData;
 use App\Data\VideoData;
+use App\Http\Controllers\AboutController;
 use App\Http\Controllers\BreedController;
 use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\BreederController;
@@ -75,6 +76,11 @@ Route::post('/create-intent', function (Request $request) {
             'error' => $e->getMessage(),
         ], 500);
     }
+});
+
+Route::get('adi', function () {
+
+    dd('updated');
 });
 
 Route::get('/saved-search/{id}', [SavedSearchController::class, 'destroy']);
@@ -165,15 +171,18 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
 });
 
+Route::get('/about-us', [AboutController::class, 'index'])->name('about.index');
+
+Route::get('/billing/confirm', [CheckoutController::class, 'confirm'])->name('billing.confirm');
+
+
 Route::group(['prefix' => 'checkout', 'middleware' => ['auth', 'verified', 'checkout.ready']], function () {
 
+    Route::get('success', [CheckoutController::class, 'success'])->name('checkout.success');
     Route::get('{plan_id}', [CheckoutController::class, 'index'])->name('checkout.index');
     Route::get('/', CheckoutController::class)->name('checkout.pay');
-    Route::post('/complete', [CheckoutController::class, 'complete'])->name('checkout.complete');
+    Route::post('/complete', [CheckoutController::class, 'complete']);
     Route::get('/payment-methods', [CheckoutController::class, 'payment_methods'])->name('checkout.payment_methods');
-    Route::get('success', [CheckoutController::class, 'success'])->name('checkout.success');
-
-
 
     Route::get('subscription/success', [CheckoutController::class, 'success'])->name('subscription.success');
 

@@ -5,7 +5,7 @@ const Success = () => {
   return (
         <Layout>
             <div>
-                success
+                Success
             </div>
         </Layout>
   )

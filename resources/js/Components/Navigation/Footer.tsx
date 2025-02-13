@@ -10,9 +10,9 @@ const Footer = () => {
         <div className="row">
           <div className="col-md-4 col-lg-2 mb-7 pb-1 pb-lg-0 mb-lg-0">
             <div className="footer-logo">
-              <a href="index.html">
+              <Link href="/">
                 <img loading="lazy" src="/logo.svg" alt="" />
-              </a>
+              </Link>
             </div>
           </div>
           <div className="col-6 col-md-4 col-lg-2 mb-7 pb-1 pb-lg-0 mb-lg-0 ps-lg-7">
@@ -46,7 +46,7 @@ const Footer = () => {
                 <Link href="/posts" className="fs-3 d-block fw-normal">Blog</Link>
               </li>
               <li className="mb-6">
-                <a href="#" className="fs-3 d-block fw-normal">About Us</a>
+                <Link href="/about-us" className="fs-3 d-block fw-normal">About Us</Link>
               </li>
               <li>
                 <Link href="/contact-us" className="fs-3 d-block fw-normal">Contact Us</Link>

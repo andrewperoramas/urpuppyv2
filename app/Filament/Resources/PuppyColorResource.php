@@ -23,6 +23,11 @@ class PuppyColorResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    public static function getNavigationGroup(): ?string
+    {
+        return 'UrPuppy'; // This will group the resource under "Content"
+    }
+
     public static function form(Form $form): Form
     {
         return $form
@@ -43,7 +48,7 @@ class PuppyColorResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()->slideOver(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -63,8 +68,8 @@ class PuppyColorResource extends Resource
     {
         return [
             'index' => Pages\ListPuppyColors::route('/'),
-            'create' => Pages\CreatePuppyColor::route('/create'),
-            'edit' => Pages\EditPuppyColor::route('/{record}/edit'),
+            /* 'create' => Pages\CreatePuppyColor::route('/create'), */
+            /* 'edit' => Pages\EditPuppyColor::route('/{record}/edit'), */
         ];
     }
 }
