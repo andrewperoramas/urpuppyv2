@@ -140,8 +140,14 @@ class User extends Authenticatable implements  HasMedia,  MustVerifyEmail, Sitem
     public function getPremiumPlanAttribute()
     {
 try {
+        $freePlan = $this->getActiveSubscriptions()?->where('type', 'free')->first();
+
+        if ($freePlan) {
+            return $freePlan;
+        }
 
         return $this->getActiveSubscriptions()?->where('type', 'premium')?->first();
+
 } catch (Exception $e) {
 
 
