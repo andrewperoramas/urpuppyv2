@@ -11,6 +11,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class SubscriptionResource extends Resource
@@ -18,6 +19,29 @@ class SubscriptionResource extends Resource
     protected static ?string $model = Subscription::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+
+    protected static ?string $recordTitleAttribute = 'user.first_name';
+
+    public static function getGloballySearchableAttributes(): array
+    {
+        return ['user.first_name'];
+    }
+
+
+    public static function canCreate(): bool
+    {
+        return false;
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return 'Stripe'; // This will group the resource under "Content"
+    }
+
+    public static function canEdit(Model $record): bool
+    {
+        return false;
+    }
 
     public static function form(Form $form): Form
     {
@@ -56,6 +80,7 @@ class SubscriptionResource extends Resource
                 Tables\Columns\TextColumn::make('plan.name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('stripe_status')
+                    ->badge()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('stripe_price')
                     ->searchable(),
@@ -76,7 +101,7 @@ class SubscriptionResource extends Resource
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-            ])
+            ])->defaultSort('created_at', 'desc')
             ->filters([
                 //
             ])

@@ -66,61 +66,52 @@ class PostController extends Controller
 
     }
 
-       public function toggleReaction(Request $request, $postId, $reactionType)
-    {
-        $user = $request->user();
-        $post = Post::findOrFail($postId);
+    public function toggleReaction(Request $request, $postId, $reactionType)
+{
+    $user = $request->user();
+    $post = Post::with(['author', 'category'])->findOrFail($postId);
 
+    if (!$user->isRegisteredAsLoveReacter()) {
+        $user->registerAsLoveReacter();
+    }
 
+    $reacterFacade = $user->viaLoveReacter();
 
-         if (!$user->isRegisteredAsLoveReacter()) {
-            $user->registerAsLoveReacter();
-         }
-
-
-        $reacterFacade = $user->viaLoveReacter();
-
-
-        if (!$post->isRegisteredAsLoveReactant()) {
+    if (!$post->isRegisteredAsLoveReactant()) {
         $post->registerAsLoveReactant();
-        }
+    }
 
-        /* $post->viaLoveReactant(); */
+    if (!in_array($reactionType, ['Like', 'Unlike'])) {
+        return response()->json(['error' => 'Invalid reaction type'], 400);
+    }
 
-        if (!in_array($reactionType, ['Like', 'Unlike'])) {
-            return response()->json(['error' => 'Invalid reaction type'], 400);
-        }
-
-         if (!ReactionType::where('name', $reactionType)->exists()) {
+    if (!ReactionType::where('name', $reactionType)->exists()) {
         return response()->json(['error' => "Reaction type `{$reactionType}` not exists."], 400);
     }
 
-        $oppositeType = $reactionType === 'Like' ? 'Unlike' : 'Like';
+    $oppositeType = $reactionType === 'Like' ? 'Unlike' : 'Like';
 
 
-          if ($reacterFacade->hasReactedTo($post, $oppositeType)) {
+    if ($reacterFacade->hasReactedTo($post, $oppositeType)) {
         $reacterFacade->unreactTo($post, $oppositeType);
     }
 
-    // Step 2: Toggle the current reaction
     if ($reacterFacade->hasReactedTo($post, $reactionType)) {
-        // If the user has already reacted with this type, unreact
         $reacterFacade->unreactTo($post, $reactionType);
     } else {
-        // If the user hasn't reacted with this type, react to it
         $reacterFacade->reactTo($post, $reactionType);
     }
 
-/*         return inertia()->render('Post/Show', [ */
 
-/*         ]); */
+    // Refresh the post data
+    $post->refresh();
 
-        return back();
-        /* return to_route('posts.show', $post->slug)->with([ */
-        /*     'message' => "{$reactionType} toggled", */
-        /*     /1* 'like_count' => $post->like_count, *1/ */
-        /*     /1* 'unlike_count' => $post->unlike_count *1/ */
-        /* ]); */
-    }
+    return redirect()->back()->with([
+        'post' => PostData::from($post),
+        'is_liked' => $reacterFacade->hasReactedTo($post, 'Like'),
+        'is_unliked' => $reacterFacade->hasReactedTo($post, 'Unlike'),
+    ]);
+}
+
 
 }

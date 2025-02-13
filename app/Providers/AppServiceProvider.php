@@ -3,7 +3,13 @@
 namespace App\Providers;
 
 use App\Models\User;
+use Filament\Actions\CreateAction;
+use Filament\Actions\EditAction;
+use Filament\Actions\ViewAction;
 use Illuminate\Auth\Notifications\VerifyEmail;
+use Filament\Tables\Actions\CreateAction as TablesAction;
+use Filament\Tables\Enums\FiltersLayout;
+use Filament\Tables\Table;
 use Illuminate\Notifications\Messages\MailMessage;
 use Spatie\SchemaOrg\Schema;
 use Illuminate\Support\Facades\Cache;
@@ -19,7 +25,15 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        CreateAction::configureUsing(function ($action) {
+            return $action->slideOver()->closeModalByClickingAway(false);
+        });
+
+        Table::configureUsing(function (Table $table): void {
+            $table
+                ->filtersLayout(FiltersLayout::AboveContentCollapsible)
+                ->paginationPageOptions([20, 40, 60, 80, 100, 120, 140, 160, 180, 'all']);
+        });
     }
 
     /**
@@ -30,11 +44,11 @@ class AppServiceProvider extends ServiceProvider
         Vite::prefetch(concurrency: 3);
 
 
-        Gate::define('viewPulse', function (User $user) {
-            return in_array($user->email, [
-                'admin@urpuppy.com',
-            ]);
-        });
+/*         Gate::define('viewPulse', function (User $user) { */
+/*             return in_array($user->email, [ */
+/*                 'admin@urpuppy.com', */
+/*             ]); */
+/*         }); */
 
         Gate::define('viewLogViewer', function (User $user) {
             return in_array($user->email, [
@@ -113,5 +127,7 @@ class AppServiceProvider extends ServiceProvider
 
                 return $mail;
         });
+
+
     }
 }

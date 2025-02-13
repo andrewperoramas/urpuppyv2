@@ -19,6 +19,17 @@ class ContactResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+
+    public static function getNavigationSort(): ?int
+    {
+        return 2;
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return 'Messages'; // This will group the resource under "Content"
+    }
+
     public static function form(Form $form): Form
     {
         return $form

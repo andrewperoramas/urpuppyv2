@@ -184,7 +184,7 @@ services:
       POSTGRES_PASSWORD: '${DB_PASSWORD}'
     volumes:
       # - './postgresql.conf:/etc/postgresql/postgresql.conf'
-      # - 'stack-postgres:/var/lib/postgresql/data'
+      - 'stack-postgres:/var/lib/postgresql/data'
       - '../backup:/backup'
     networks:
       - stack

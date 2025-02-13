@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Middleware\CheckoutReady;
+use App\Http\Middleware\RedirectSubscriber;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -32,6 +33,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'role' => \App\Http\Middleware\CheckRole::class,
             'admin' => IsSuperAdmin::class,
             'subscriber.only' => RedirectIfNotSubscribed::class,
+            'no.subscriber' => RedirectSubscriber::class,
             'redirect.external' => RedirectExternalUrl::class,
             'checkout.ready' => CheckoutReady::class,
         ]);

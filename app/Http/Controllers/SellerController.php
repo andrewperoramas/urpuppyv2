@@ -40,9 +40,9 @@ class SellerController extends Controller
         success('register.seller', 'Puppy deleted successfully');
     }
 
-    public function create(Request $request,?int $id = null)
+    public function create(Request $request, $id = null)
     {
-        if (!$request->user()?->breeder_plan && $request->user()->roles?->contains('breeder')) {
+        if (!$request->user()?->breeder_plan && $request->user()?->roles?->contains('breeder')) {
             return error('breeders.create', 'Register as a breeder to create puppies');
         }
 

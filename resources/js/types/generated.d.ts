@@ -111,7 +111,7 @@ id: number;
 name: string;
 price: string;
 money_formatted: string;
-savings_label: string;
+savings_label: string | null;
 trial_days: number;
 interval: string;
 type: string;

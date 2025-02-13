@@ -90,26 +90,34 @@ const CheckoutV2Form = ({ clientSecret, plan_id }: any) => {
         }
     }, [clientSecret]);
 
-    const handleSubmit = async (e: any) => {
-        e.preventDefault();
+const handleSubmit = async (e: any) => {
+    e.preventDefault();
 
-        if (!stripe || !elements) return;
-        setLoading(true);
-        const { setupIntent, error }: any = await stripe?.confirmSetup({
-            elements,
-            confirmParams: {
-                return_url: "https://urpuppy.com/checkout/" + plan_id,
-            },
-            redirect: "if_required",
-        });
+    if (!stripe || !elements) return;
+    setLoading(true);
 
-        if (error) {
-            if (error.type === "card_error" || error.type === "validation_error") {
-                setMessage(error.message);
-            } else {
-                setMessage("An unexpected error occurred.");
-            }
+    const { setupIntent, error }: any = await stripe.confirmSetup({
+        elements,
+        confirmParams: {
+            return_url: "https://urpuppy.com/checkout/" + plan_id, // Ensure this URL is correct
+        },
+        redirect: "if_required"
+    });
+
+    if (error) {
+        if (error.type === "card_error" || error.type === "validation_error") {
+            setMessage(error.message);
         } else {
+            setMessage("An unexpected error occurred.");
+        }
+        setLoading(false);
+    } else {
+        // If no error, check if the SetupIntent requires further action (e.g., redirect)
+        if (setupIntent.status === "requires_action") {
+            // Stripe will handle the redirect automatically
+            return;
+        } else if (setupIntent.status === "succeeded") {
+            // Payment succeeded, submit the data to your backend
             const data = {
                 paymentMethod: setupIntent.payment_method,
                 plan_id,
@@ -127,8 +135,12 @@ const CheckoutV2Form = ({ clientSecret, plan_id }: any) => {
                     setMessage("Payment details submitted successfully.");
                 },
             });
+        } else {
+            setMessage("Payment failed. Please try again.");
+            setLoading(false);
         }
-    };
+    }
+};
 
     const csrf = usePage().props.csrf_token as string;
 
@@ -142,17 +154,19 @@ const CheckoutV2Form = ({ clientSecret, plan_id }: any) => {
                 {/* Stripe.js injects the Payment Element */}
             </div>
 
+
+            {message && (
+                <div id="payment-message" className="mt-4 text-danger">
+                    {message}
+                </div>
+            )}
+
             <div className="mt-2">
                 <Button disabled={loading} href="#" type="button" >
                     Checkout
                 </Button>
             </div>
 
-            {message && (
-                <div id="payment-message" className="mt-4 text-red-500">
-                    {message}
-                </div>
-            )}
         </form>
 </>
     );
