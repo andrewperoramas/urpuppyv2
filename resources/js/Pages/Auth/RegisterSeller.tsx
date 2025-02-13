@@ -202,7 +202,7 @@ export default function RegisterSeller({puppy}: {
               </div>
               <div className="card login-right-card mb-0">
                 <div className="card-body">
-                    <PuppyCard key={puppy?.id} puppy={puppy} className="puppy-spotlight-item rounded-1 overflow-hidden" />
+                    <PuppyCard puppy={puppy} className="puppy-spotlight-item rounded-1 overflow-hidden" />
                 </div>
               </div>
             </div>
