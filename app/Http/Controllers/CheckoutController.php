@@ -85,6 +85,7 @@ class CheckoutController extends Controller
             $user->update(['is_seller' => true]);
         } elseif ($plan->type == 'free') {
             $user->update(['is_seller' => true]);
+            $subscription->cancel();
         }
 
         return redirect()->route('profile.edit', [
@@ -161,6 +162,9 @@ class CheckoutController extends Controller
                     $user->update(['is_breeder' => true]);
                 } elseif ($plan->type == 'premium') {
                     $user->update(['is_seller' => true]);
+                } elseif ($plan->type == 'free') {
+                    $user->update(['is_seller' => true]);
+                    $subscription->cancel();
                 }
 
                 // Redirect to the success page

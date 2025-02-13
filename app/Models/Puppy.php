@@ -210,6 +210,8 @@ class Puppy extends Model implements HasMedia, Sitemapable
 
     public function scopeHasSubscribedUsers($query)
     {
+        $query->where('status', 'published');
+
            $query->whereHas('seller', function ($q) {
         $q->whereHas('subscriptions', function ($subQuery) {
             $subQuery->where('stripe_status', 'active');
