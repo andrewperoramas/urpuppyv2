@@ -35,6 +35,8 @@ class PlanResource extends Resource
     {
         return $form
             ->schema([
+                TextInput::make('stripe_plan_id')->required(),
+                TextInput::make('stripe_product_id')->required(),
                 TextInput::make('name')->required(),
                 MoneyInput::make('price'),
                 Select::make('interval')->options([
@@ -56,7 +58,7 @@ class PlanResource extends Resource
 
                 Checkbox::make('is_breeder')->default(false),
                 SpatieMediaLibraryFileUpload::make('logo')
-                    ->disk('media')
+                    ->disk('s3')
                     ->collection('logo'),
                 Repeater::make('features')
                 ->schema([

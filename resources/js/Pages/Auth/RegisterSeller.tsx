@@ -6,7 +6,7 @@ import TextInput from '@/Components/TextInput';
 import Button from '@/Components/ui/Button';
 import GuestLayout from '@/Layouts/GuestLayout';
 import { Head, Link, useForm, usePage } from '@inertiajs/react';
-import { FormEventHandler, useEffect } from 'react';
+import { FormEventHandler, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 
 export default function RegisterSeller({puppy}: {
@@ -21,12 +21,16 @@ export default function RegisterSeller({puppy}: {
         password_confirmation: '',
     });
 
+
     const submit: FormEventHandler = (e) => {
+        setLoading(true)
         e.preventDefault();
 
         post('/register/seller', {
-            onFinish: () => reset('password', 'password_confirmation'),
+            onFinish: () => { reset('password', 'password_confirmation') },
+            onSuccess: () => setLoading(false)
         });
+
     };
 
     const { flash }: any = usePage().props;
@@ -48,6 +52,10 @@ export default function RegisterSeller({puppy}: {
             });
         }
     }, [flash]);
+
+      const [loading, setLoading] = useState(false); // State for loading
+
+
 
     return (
         <>
@@ -177,7 +185,7 @@ export default function RegisterSeller({puppy}: {
                 </div>
                 <p className="mb-4">By signing up for a urpuppy account, you confirm that you have read, understand and
                   agreed <Link className="text-decoration-underline fw-semibold" href="/terms-of-use">Terms of Service</Link></p>
-                <Button size="full" href="" type="button" >Signup</Button>
+                <Button loading={loading} size="full" href="" type="button" >Signup</Button>
 
                 <div className="d-flex align-items-center">
                   <p className="fs-4 mb-0">I already have an account?</p>
@@ -194,7 +202,7 @@ export default function RegisterSeller({puppy}: {
               </div>
               <div className="card login-right-card mb-0">
                 <div className="card-body">
-                    <PuppyCard key={puppy.id} puppy={puppy} className="puppy-spotlight-item rounded-1 overflow-hidden" />
+                    <PuppyCard puppy={puppy} className="puppy-spotlight-item rounded-1 overflow-hidden" />
                 </div>
               </div>
             </div>

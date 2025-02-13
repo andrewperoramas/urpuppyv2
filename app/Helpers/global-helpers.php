@@ -15,7 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
 if (!function_exists('guest_puppy')) {
-    function guest_puppy() : PuppyCardData {
+    function guest_puppy() : ?PuppyCardData {
         return PuppyCardData::optional(Puppy::with(['breeds', 'seller'])->whereHas('seller')->whereHas('breeds')->inRandomOrder()->first());
     }
 }

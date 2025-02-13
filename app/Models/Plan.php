@@ -27,6 +27,7 @@ class Plan extends Model implements HasMedia, Sortable
         'interval',
         'listing_limit',
         'stripe_plan_id',
+        'stripe_product_id',
         'trial_days',
         'is_featured',
         'is_highlight',
@@ -63,24 +64,29 @@ class Plan extends Model implements HasMedia, Sortable
     protected static function booted(): void
     {
         static::saving(function (self $model): void {
-            if (empty($model->stripe_plan_id)) {
-                $model->stripe_plan_id = '';
-            }
+            /* if (empty($model->stripe_plan_id)) { */
+            /*     $model->stripe_plan_id = ''; */
+            /* } */
         });
 
         static::saved(function (self $plan): void {
             Stripe::setApiKey(config('services.stripe.secret'));
+            /* $stripePlan = self::createStripePlan($plan); */
 
-            // If the plan does not have a stripe_plan_id and the price is set, create a new Stripe plan
             if (empty($plan->stripe_plan_id) && $plan->price > 0) {
+
                 $stripePlan = self::createStripePlan($plan);
-                $plan->updateQuietly(['stripe_plan_id' => $stripePlan->id]);
+                $plan->updateQuietly([
+                    'stripe_plan_id' => $stripePlan->id,
+                    'stripe_product_id' => $stripePlan->product
+                ]);
+
             } else {
-                // If the plan already exists on Stripe, create a new plan if the price has changed
-                if ($plan->wasChanged('price')) {
-                    $newStripePlan = self::createStripePlan($plan);
-                    $plan->updateQuietly(['stripe_plan_id' => $newStripePlan->id]);
-                }
+
+/*                 if ($plan->wasChanged('price')) { */
+/*                     $newStripePlan = self::createStripePlan($plan); */
+/*                     $plan->updateQuietly(['stripe_plan_id' => $newStripePlan->id]); */
+/*                 } */
             }
         });
     }
@@ -165,9 +171,10 @@ class Plan extends Model implements HasMedia, Sortable
 
     public function getMoneyFormattedAttribute(): string
     {
-        if ($this->interval === 'year') {
-            return Money::USD($this->price / 12)->formatByIntl();
-        }
+        /* if ($this->interval === 'year') { */
+        /*     return Money::USD($this->price / 12)->formatByIntl(); */
+        /* } */
+
         return Money::USD($this->price)->formatByIntl();
     }
 }

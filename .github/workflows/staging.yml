@@ -45,9 +45,9 @@ jobs:
       - name: Add ssh private key
         uses: webfactory/ssh-agent@v0.7.0
         with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          ssh-private-key: ${{ secrets.SSH_STAGING }}
 
       - name: Run Command on VPS
-        run: ssh -o StrictHostKeyChecking=no -p 143 ubuntu@157.180.16.108 "cd /home/andrew/urpuppyv2 && make rollout"
+        run: ssh -o StrictHostKeyChecking=no andrew@157.180.16.108 "cd /home/andrew/urpuppyv2 && make rollout"
 
 

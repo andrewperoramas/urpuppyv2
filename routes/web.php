@@ -48,6 +48,11 @@ Route::group(['prefix' => 'posts'], function () {
 
 });
 
+Route::get('awe', function () {
+
+    dd('wew sherupak');
+});
+
 Route::post('/create-intent', function (Request $request) {
     try {
         // Retrieve the user and the selected plan

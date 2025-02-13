@@ -174,17 +174,23 @@ class CheckoutController extends Controller
      */
     protected function createSubscription($user, $plan, $paymentMethod): Subscription
     {
-        return $user->newSubscription($plan->type, $plan->stripe_plan_id)
+        $subscription = $user->newSubscription($plan->type, $plan->stripe_plan_id)
             ->withMetadata([
                 'plan_id' => (string) $plan->id,
                 'plan_name' => (string) $plan->name,
                 'plan_price' => (string) $plan->price,
                 'user_id' => (string) $user->id,
                 'plan_type' => (string) $plan->type,
-            ])
-            ->create($paymentMethod, [
-                'email' => $user->email,
             ]);
+    }
+
+        if ($plan->type == 'free') {
+            $subscription->trialDays(3);
+        }
+
+        return $subscription->create($paymentMethod, [
+                'email' => $user->email,
+        ]);;
     }
 
     /**
