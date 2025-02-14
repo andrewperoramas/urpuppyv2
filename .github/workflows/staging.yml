@@ -1,12 +1,15 @@
 name: Build and Push Docker Image
 
 on:
-  merge:
+  pull_request:
+    types:
+      - closed
     branches:
       - staging
 
 jobs:
   build:
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
 
     steps:
@@ -31,7 +34,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-buildx-
 
-
       - name: Build and Push Docker Image
         uses: docker/build-push-action@v4
         with:
@@ -42,12 +44,11 @@ jobs:
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
 
-      - name: Add ssh private key
+      - name: Add SSH private key
         uses: webfactory/ssh-agent@v0.7.0
         with:
           ssh-private-key: ${{ secrets.SSH_STAGING }}
 
-      - name: Run Command on VPS
+      - name: Deploy to VPS
         run: ssh -o StrictHostKeyChecking=no andrew@157.180.16.108 "cd /home/andrew/urpuppyv2 && make rollout"
-
 
