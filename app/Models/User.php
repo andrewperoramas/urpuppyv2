@@ -423,7 +423,7 @@ try {
 
     public function getTrialEndsAtAttribute()
     {
-        return $this->getActiveSubscriptions()->first()->trial_ends_at->format('d M Y');
+        return $this->getActiveSubscriptions()?->first()?->trial_ends_at?->format('d M Y');
     }
 
     public function getRolesAttribute()

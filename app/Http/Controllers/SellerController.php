@@ -50,6 +50,10 @@ class SellerController extends Controller
             return error('register.seller', 'You are not logged in');
         }
 
+        if (!$request->user()->email_verified_at) {
+            return error('verification.notice', 'Verify first.');
+        }
+
         if (! $request->user()?->roles->contains('seller') && ! $request->user()->roles?->contains('breeder')) {
             return error('home', 'You are not a seller/breeder');
         }
