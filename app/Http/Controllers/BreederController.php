@@ -67,6 +67,10 @@ class BreederController extends Controller
             return redirect()->to(route('register.breeder'));
         }
 
+        if (!$request->user()->email_verified_at) {
+            return error('verification.notice', 'Verify first.');
+        }
+
         if (! $request->user()->roles->contains('breeder')) {
             return redirect()->to(route('home'))->with([
                 'message.error' => 'You are not a breeder'
