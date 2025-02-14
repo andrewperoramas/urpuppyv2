@@ -29,6 +29,7 @@ const UserProfile = () => {
         company_email_address?: string | null,
         company_about?: string | null
         company_phone?: string | null
+        has_usda_registration?: boolean
 
 
     }>({
@@ -51,6 +52,7 @@ const UserProfile = () => {
         kennel_name: user.kennel_name ?? "",
         company_zip_code: user.company_zip_code ?? "",
         company_state: user.company_state ?? null,
+        has_usda_registration: user.has_usda_registration,
         company_city: user.company_city ?? null,
         company_phone: user.company_phone ?? null,
         company_address: user.company_address ?? null,
@@ -136,7 +138,7 @@ const UserProfile = () => {
                         </div>
                       </div>
                     {
-                        user?.breeder_plan && <>
+                        user?.roles?.includes('breeder') && <>
                       <div className="pb-4 mb-4 border-bottom">
                         <h5 className="mb-4 fs-7">Company Details</h5>
                         <div className="row">
@@ -258,6 +260,23 @@ const UserProfile = () => {
                 {errors.company_address && <InputError message={errors.company_zip_code} /> }
                             </div>
                           </div>
+
+
+                          <div className="col-lg-6">
+                            <div className="mb-3 pb-1">
+                    <InputLabel isRequired={true} value="Has Usda Registration"/>
+                          <div className="form-check form-switch">
+                            <input
+                                    onChange={e => setData('has_usda_registration', e.target.checked)} className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked"
+                                    checked={data.has_usda_registration}
+                               />
+                            </div>
+
+                {errors.has_usda_registration && <InputError message={errors.has_usda_registration} /> }
+                            </div>
+                          </div>
+
+
 
                           <div className="col-lg-12">
                             <div className="mb-3 pb-1">

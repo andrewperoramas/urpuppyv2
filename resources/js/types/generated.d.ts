@@ -305,6 +305,7 @@ company_phone: string | null;
 company_name: string | null;
 company_email_address: string | null;
 company_address: string | null;
+has_usda_registration: boolean;
 company_address_formatted: string | null;
 trial_ends_at: string | null;
 company_established_on: string | null;

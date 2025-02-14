@@ -84,6 +84,12 @@ Route::get('adi', function () {
     dd('updated');
 });
 
+Route::post('/breeder/request/retry', function (Request $request) {
+    $request->user()->breeder_requests()->latest()->first()->update(['status' => 'pending', 'message' => 'We are currently reviewing your application.']);
+
+    return success('profile.edit', 'Your request has been resubmitted.');
+});
+
 Route::get('/saved-search/{id}', [SavedSearchController::class, 'destroy']);
 Route::get('/saved-search', [SavedSearchController::class, 'show']);
 Route::post('/saved-search', [SavedSearchController::class, 'store']);

@@ -8,10 +8,12 @@ use App\Data\BreederFullData;
 use App\Data\BreedOptionData;
 use App\Http\Requests\BreederRegistrationRequest;
 use App\Jobs\GenerateVideoThumbnail;
+use App\Mail\AdminNotifyMail;
 use App\Models\Breed;
 use App\Models\State;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class BreederController extends Controller
 {
@@ -90,6 +92,11 @@ class BreederController extends Controller
 
     public function store(BreederRegistrationRequest $request)
     {
+        if (! $request->user()->roles->contains('breeder')) {
+            return error('home', 'You are not a breeder');
+        }
+
+
         $data = $request->validated();
         $user = $request->user();
 
@@ -111,11 +118,14 @@ class BreederController extends Controller
         $user->breeds()->attach($data['breeds']);
 
 
+        $b = $user->breeder_requests()->create([
+            'message' => 'Reviewing your application',
+            'status' => 'pending'
+        ]);
+
         collect($data['gallery'])->each(function ($image) use ($user) {
             $user->addMedia($image)->toMediaCollection('gallery');
         });
-
-
 
 
         if (isset($data['videos'])) {
@@ -139,16 +149,22 @@ class BreederController extends Controller
 
         $user->addMedia($data['company_logo'])->toMediaCollection('company_logo');
 
+
+        Mail::queue(new AdminNotifyMail([
+            'subject' => 'New Breeder Application',
+            'message' => 'You have a new breeder application. Please go to admin page to review',
+        ]));
+
         /* if (!$request->user()->is_subscribed && $request->user()->puppies()->count() == 1) { */
         /* return redirect()->to(route('plans.index'))->with([ */
         /*     'message.success' => 'Subscribe to any plan to activate your listing' */
         /* ]); */
         /* } */
+        return success('home', 'Your application has been submitted for review');
 
-
-        return redirect()->to(route('plans.breeder'))->with([
-            'message.success' => 'Subscribe to activate your breeders account'
-        ]);
+        /* return redirect()->to(route('plans.breeder'))->with([ */
+        /*     'message.success' => 'Subscribe to activate your breeders account' */
+        /* ]); */
 
     }
 

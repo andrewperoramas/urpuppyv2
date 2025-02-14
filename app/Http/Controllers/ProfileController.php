@@ -59,6 +59,7 @@ class ProfileController extends Controller
         'plan_cancel_at' => $this->getStripeCancelStatus($user?->premium_plan),
         'breeder_next_billing' => $this->getStripeDate($user?->breeder_plan),
         'breeder_cancel_at' => $this->getStripeCancelStatus($user?->breeder_plan),
+        'breeder_requests' => $user->breeder_requests()->latest()->first(),
         'tab' => $request->tab ?? 'Account Settings',
         'breeds' => $breeds,
         'states' => $states,

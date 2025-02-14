@@ -32,12 +32,14 @@ export default function Edit({
 
     breeder_next_billing,
     breeder_cancel_at,
+    breeder_requests,
     tab
 }: PageProps<{ mustVerifyEmail: boolean;
         plan_cancel_at: boolean;
         plan_next_billing: string,
         breeder_cancel_at: boolean;
         breeder_next_billing: string,
+        breeder_requests: any,
         status?: string, plan: App.Data.PlanData,  breeder_plan: App.Data.PlanData,  tab: string, puppies: PaginatedCollection<App.Data.PuppyData>, saved_searches: App.Data.SavedSearchData[] }>) {
 
 
@@ -57,6 +59,40 @@ export default function Edit({
 
     <section className="account-settings py-7 py-md-5 py-xl-9">
       <div className="container">
+                        {
+                           (  breeder_requests && breeder_requests?.status != 'approved' ) &&
+                                <>
+                                    {
+                                breeder_requests?.status == 'pending' &&
+                        <AlertDismissible variant="primary" heading="Pending Breeder Request" message={<> <p>
+                                    {breeder_requests.message}
+                                </p> </>} />
+                                    }
+
+                                    {
+                                breeder_requests?.status == 'rejected' &&
+                        <AlertDismissible variant="danger" heading="Your Breeder Request has been rejected" message={<> <p>
+                                    {breeder_requests.message}
+                                                <br/>
+                                    <Link method="post"
+  className="border-0 bg-transparent text-primary text-decoration-underline "
+                                                    href="/breeder/request/retry"> Request Again</Link>
+                                </p> </>} />
+                                    }
+
+                                </>
+
+                        }
+                                    {
+
+                                (!user?.breeder_plan && breeder_requests?.status == 'approved') &&
+                        <AlertDismissible variant="success" heading="Your application has been approved" message={<> <p>
+                                    You can now proceed to payment for your breeder plan <Link href="/plans/breeder">Choose a plan</Link>
+                                                <br/>
+                                </p> </>} />
+                                    }
+
+
                         {
                             mustVerifyEmail && user.email_verified_at == null &&
                         <AlertDismissible variant="primary" heading="Verify your email" message={<> <p> Before you get started, could you verify your email address by clicking on the link we just emailed to you? If you didn't receive the email, we will gladly send you another.

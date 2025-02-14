@@ -52,6 +52,7 @@ class UserData extends Data
         public ?string $company_name,
         public ?string $company_email_address,
         public ?string $company_address,
+        public bool $has_usda_registration,
         public ?string $company_address_formatted,
         public ?string $trial_ends_at,
         public ?string $company_established_on,

@@ -461,4 +461,16 @@ try {
     /* { */
     /*     return $this->attributes()->get()->pluck('value', 'title'); */
     /* } */
+
+    public function breeder_requests()
+    {
+        return $this->hasMany(BreederRequest::class);
+    }
+
+    public function getIsApprovedAttribute()
+    {
+        return $this->breeder_requests()->where('status', 'approved')->latest()->first() ? true : false;
+
+    }
 }
+
