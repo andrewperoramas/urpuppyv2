@@ -73,13 +73,11 @@ const Footer = () => {
                   <img loading="lazy" src="/images/svgs/icon-twitter.svg" alt="" />
                 </a>
               </li>
-                                {/*
               <li>
-                <a href="#" data-bs-toggle="tooltip" data-bs-title="Facebook" className="bg-white bg-opacity-10 d-flex align-items-center justify-content-center round-40 rounded-circle">
+                <a href="https://www.facebook.com/UrPuppyLLC" target="_blank" data-bs-toggle="tooltip" data-bs-title="Facebook" className="bg-white bg-opacity-10 d-flex align-items-center justify-content-center round-40 rounded-circle">
                   <img loading="lazy" src="/images/svgs/icon-facebook.svg" alt="" />
                 </a>
               </li>
-*/}
               <li>
                 <a href="https://www.instagram.com/urpupppydotcom" data-bs-toggle="tooltip" data-bs-title="Instagram" className="bg-white bg-opacity-10 d-flex align-items-center justify-content-center round-40 rounded-circle">
                   <img loading="lazy" src="/images/svgs/icon-instagram.svg" alt="" />
