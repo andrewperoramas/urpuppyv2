@@ -132,12 +132,13 @@ class User extends Authenticatable implements  HasMedia,  MustVerifyEmail, Sitem
         return route('breeders.show', $this->slug);
     }
 
-    public function getActiveSubscriptions()
+   public function getActiveSubscriptions()
     {
-        return Subscription::where('stripe_status', 'active')->where('user_id', $this->id)->get();
-    }
+        return Subscription::where(function ($query) {
+            $query->where('stripe_status', 'active')->orWhere('stripe_status', 'trialing');
+        })->where('user_id', $this->id)->get();
 
-    public function getPremiumPlanAttribute()
+    }    public function getPremiumPlanAttribute()
     {
 try {
         $freePlan = $this->getActiveSubscriptions()?->where('type', 'free')->first();
@@ -418,6 +419,11 @@ try {
     public function saved_searches()
     {
         return $this->hasMany(SavedSearch::class);
+    }
+
+    public function getTrialEndsAtAttribute()
+    {
+        return $this->getActiveSubscriptions()->first()->trial_ends_at->format('d M Y');
     }
 
     public function getRolesAttribute()

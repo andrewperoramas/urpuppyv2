@@ -9,6 +9,7 @@ type ButtonProps = React.HTMLAttributes<HTMLButtonElement> & {
     size?: 'sm' | 'md' | 'lg' | 'full'
     type?: 'button' | 'a'
     disabled?: boolean
+    loading?: boolean
 }
 
 const Button = ({ type = 'a', className, size = 'md', variant, ...props }: ButtonProps) => {

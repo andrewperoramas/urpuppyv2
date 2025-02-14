@@ -53,7 +53,7 @@ class RegisteredUserController extends Controller
         }
 
 
-        $request->validate([
+        $validated = $request->validate([
             'first_name' => 'required|string|max:40',
             'last_name' => 'required|string|max:40',
             'state_id' => '',
@@ -64,10 +64,14 @@ class RegisteredUserController extends Controller
             /* 'captcha' => 'required|captcha' */
         ]);
 
+        if (User::where('email', $validated['email'])->exists()) {
+            return response()->json(['error' => 'Email exist'], 400);
+        }
+
         $user = User::create([
             'first_name' => ucwords($request->first_name),
             'last_name' => ucwords($request->last_name),
-            'email' => strtolower( $request->email),
+            'email' => strtolower($validated['email']),
             'state_id' => $request?->state_id,
             'city_id' => $request?->city_id,
             'zip_code' => $request->zip_code,

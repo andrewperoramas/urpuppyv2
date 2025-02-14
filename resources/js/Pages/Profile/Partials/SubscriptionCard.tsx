@@ -1,11 +1,16 @@
-import { Link, router } from '@inertiajs/react'
+import { Link, router, usePage } from '@inertiajs/react'
 import React from 'react'
 
-const SubscriptionCard = ({plan, next_billing, cancel_at} : {
+const SubscriptionCard = ({plan, next_billing, cancel_at, trial_ends_at} : {
     plan: App.Data.PlanData
     next_billing?: string,
     cancel_at? : boolean
+    trial_ends_at?: string | null
 }) => {
+
+    const trial_ends_at_date = usePage().props.auth.user.trial_ends_at
+
+
   return (
 
                 <div className="card border">
@@ -17,10 +22,15 @@ const SubscriptionCard = ({plan, next_billing, cancel_at} : {
                           <img src={plan.logo ?? ''} alt="" width="48" height="48" />
                           <p className="text-dark fs-5 mb-0">{plan.name}</p>
                         </div>
+                        { plan.type !== 'free' &&
                         <h2 className="mb-2">{plan.money_formatted}<span className="fs-5 text-muted">/{plan.plan_days}</span></h2>
+}
                                                 <>
 
-                        <p className="mb-0 text-dark">{cancel_at ? "Ends at: " : "Next Billing Date:"} {next_billing}</p>
+                        <p className="mb-0 text-dark">{trial_ends_at_date ? "Trial ends at: " : ""} {trial_ends_at_date}</p>
+
+                        {!trial_ends_at_date &&
+                        <p className="mb-0 text-dark">{ cancel_at ? "Ends at: " : "Next Billing Date:"} {next_billing}</p> }
 </>
                         {
                         cancel_at &&

@@ -8,6 +8,7 @@ import { PuppyToaster } from './Components/PuppyToaster';
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
  router.on('error', (errors: any) => {
+   console.log(errors)
 
    if (errors?.response.status === 422) {
     router.reload({ only: ['errors'] });
