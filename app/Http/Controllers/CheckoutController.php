@@ -49,40 +49,39 @@ class CheckoutController extends Controller
             return response()->json(['message' => 'Plan not found'], 404);
         }
 
-        try {
+        /* try { */
             $user = $request->user();
 
             // Create the subscription
             $subscription = $this->createSubscription($user, $plan, $request->paymentMethod);
 
             // Handle payment authentication if required
-            if ($subscription->latest_invoice && $subscription->latest_invoice->payment_intent) {
-                $paymentIntent = PaymentIntent::retrieve($subscription->latest_invoice->payment_intent);
+        //
+            /* if ($subscription->latest_invoice && $subscription->latest_invoice->payment_intent) { */
+            /*     $paymentIntent = PaymentIntent::retrieve($subscription->latest_invoice->payment_intent); */
 
-                if (in_array($paymentIntent->status, ['requires_action', 'requires_payment_method'])) {
-                    return redirect()->route('billing.confirm', [
-                        'payment_intent' => $paymentIntent->id,
-                        'client_secret' => $paymentIntent->client_secret,
-                    ]);
-                }
-            }
+            /*     if (in_array($paymentIntent->status, ['requires_action', 'requires_payment_method'])) { */
+            /*         return redirect()->route('billing.confirm', [ */
+            /*             'payment_intent' => $paymentIntent->id, */
+            /*             'client_secret' => $paymentIntent->client_secret, */
+            /*         ]); */
+            /*     } */
+            /* } */
 
             // Update user roles based on the plan type
             $this->updateUserRoles($user, $plan, $subscription);
 
-            return redirect()->route('profile.edit', [
-                'tab' => 'My Subscription',
-                'message.success' => 'Successfully subscribed to ' . $plan->type . ' plan',
-            ]);
 
-        } catch (\Exception $e) {
-            Log::error('Subscription Error: ' . $e->getMessage());
+            return success('profile.edit', 'Successfully subscribed to ' . $plan->type . ' plan');
 
-            return redirect()->back()->with([
-                'tab' => 'My Subscription',
-                'error' => 'Payment failed: ' . $e->getMessage(),
-            ]);
-        }
+        /* } catch (\Exception $e) { */
+        /*     Log::error('Subscription Error: ' . $e->getMessage()); */
+
+        /*     return redirect()->back()->with([ */
+        /*         'tab' => 'My Subscription', */
+        /*         'error' => 'Payment failed: ' . $e->getMessage(), */
+        /*     ]); */
+        /* } */
     }
 
     public function confirm(Request $request)
@@ -95,12 +94,19 @@ class CheckoutController extends Controller
 
     public function index(int|string $plan_id, Request $request)
     {
+
         $user = $request->user();
+
+        if ($user->isSubscribed()) {
+            return error('profile.edit', 'You are already subscribed to a plan.');
+        }
+
         $setupIntentId = $request->query('setup_intent');
         $redirectStatus = $request->query('redirect_status');
 
         if ($setupIntentId && $redirectStatus) {
-            Stripe::setApiKey(env('STRIPE_SECRET'));
+            /* Stripe::setApiKey(env('STRIPE_SECRET')); */
+            Stripe::setApiKey(config('services.stripe.secret'));
 
             // Retrieve the SetupIntent from Stripe
             $setupIntent = SetupIntent::retrieve($setupIntentId);
@@ -152,7 +158,8 @@ class CheckoutController extends Controller
         $redirectStatus = $request->query('redirect_status');
 
         if ($setupIntentId && $redirectStatus) {
-            Stripe::setApiKey(env('STRIPE_SECRET'));
+            Stripe::setApiKey(config('services.stripe.secret'));
+
             $setupIntent = SetupIntent::retrieve($setupIntentId);
 
             if ($setupIntent->status === 'succeeded') {
@@ -181,10 +188,10 @@ class CheckoutController extends Controller
                 'plan_price' => (string) $plan->price,
                 'user_id' => (string) $user->id,
                 'plan_type' => (string) $plan->type,
-            ]);
+        ]);
 
         if ($plan->type == 'free') {
-            $subscription->trialDays(3);
+            $subscription->trialDays($plan->trial_days);
         }
 
         return $subscription->create($paymentMethod, [
@@ -203,7 +210,7 @@ class CheckoutController extends Controller
             $user->update(['is_seller' => true]);
         } elseif ($plan->type == 'free') {
             $user->update(['is_seller' => true]);
-            $subscription->cancel();
+            /* $subscription->cancel(); */
         }
     }
 }

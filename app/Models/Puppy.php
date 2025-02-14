@@ -213,8 +213,11 @@ class Puppy extends Model implements HasMedia, Sitemapable
         $query->where('status', 'published');
 
            $query->whereHas('seller', function ($q) {
+
         $q->whereHas('subscriptions', function ($subQuery) {
-            $subQuery->where('stripe_status', 'active');
+                $subQuery->where(function ($query) {
+                    $query->where('stripe_status', 'active')->orWhere('stripe_status', 'trialing');
+                });
         });
     });
         /* $query->whereHas('seller', function ($q) { */

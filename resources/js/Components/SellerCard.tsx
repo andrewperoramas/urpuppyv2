@@ -39,29 +39,27 @@ const SellerCard = ({
                   <div>
       {/* Email Button */}
       {!emailVisible ? (
-        <a
+        <span
           onClick={() => setEmailVisible(true)}
           style={{ userSelect: "text" }}
-          className="btn btn-outline-extralight btn-white text-dark hstack justify-content-center gap-2 mb-6"
-          href="#"
+          className="btn btn-outline-extralight btn-white text-dark hstack justify-content-center gap-2 mb-6 pointer"
         >
           <img src="/images/svgs/icon-mail-dark.svg" alt="" />
           Show Email Address
-        </a>
+        </span>
       ) : (
         <div className=" btn-outline-extralight btn-white text-dark hstack justify-content-center gap-2 mb-6">{seller.email}</div>
       )}
 
       {/* Phone Button */}
       {!phoneVisible ? (
-        <a
+        <span
           onClick={() => setPhoneVisible(true)}
           className="btn btn-outline-extralight btn-white text-dark hstack justify-content-center gap-2 mb-4"
-          href="#"
         >
           <img src="/images/svgs/icon-call.svg" alt="" />
           Show Phone Number
-        </a>
+        </span>
       ) : (
         <div className=" btn-outline-extralight btn-white text-dark hstack justify-content-center gap-2 mb-6">{seller.phone_formatted}</div>
       )}

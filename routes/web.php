@@ -60,7 +60,8 @@ Route::post('/create-intent', function (Request $request) {
         $plan = Plan::findOrFail($request->plan_id);
 
         // Set up Stripe API key
-        Stripe::setApiKey(env('STRIPE_SECRET'));
+        //
+        Stripe::setApiKey(config('services.stripe.secret'));
 
         // Create a SetupIntent for the user
         $setupIntent = $user->createSetupIntent();
