@@ -23,7 +23,6 @@ if (!function_exists('guest_puppy')) {
 
 if (!function_exists('get_videos')) {
     function get_videos() : Collection {
-        return collect([]);
 
          $user = User::query()->with(['media' => function ($query) {
 
