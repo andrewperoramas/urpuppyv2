@@ -328,7 +328,7 @@ try {
     public function getAddressAttribute()
     {
         $state = $this->state?->abbreviation ?? $this->state?->name;
-        $address = $this->city . ', ' . $state ;
+        $address = $this->city . ' ' . $state ;
         if ($this->city == null &&  $state == null) {
             return $this->company_address_formatted;
         }
@@ -342,12 +342,12 @@ try {
         $city_name = substr($this->city ?? "", 0, 6) . (strlen($this->city ?? "") > 6 ? '.' : '');
 
         if (!empty($state) && !empty($city_name)) {
-            return  $city_name . ', ' . $state ;
+            return  $city_name . ' ' . $state ;
         }
 
         $state = $this->company_state?->abbreviation ?? $this->company_state?->name;
         $city_name = substr($this->company_city ?? "", 0, 6) . (strlen($this->company_city ?? "") > 6 ? '.' : '');
-        return  $city_name . ', ' . $state ;
+        return  $city_name . ' ' . $state ;
     }
 
     public function getOriginalCompanyAddressAttribute($value)
@@ -359,7 +359,7 @@ try {
     {
 
         $state = $this->company_state?->abbreviation ?? $this->company_state?->name;
-        return  ( $value ?? "" ) .', '. $this->company_city . ', ' . $state ;
+        return  ( $value ?? "" ) .', '. $this->company_city . ' ' . $state ;
     }
 
     public function isSubscribed()
