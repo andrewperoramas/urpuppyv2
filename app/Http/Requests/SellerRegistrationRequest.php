@@ -64,7 +64,7 @@ class SellerRegistrationRequest extends FormRequest
     ],
         ];
 
-        $puppies_count = $request->user()->puppies()->count();
+        $puppies_count = $request->user()?->puppies()?->count() ?? false;
 
         if (!$puppies_count) {
             $rules['phone'] = ['required', 'string', 'max:100'];

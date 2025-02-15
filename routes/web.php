@@ -201,7 +201,7 @@ Route::get('/all-puppies/{slug}', [SellerController::class, 'show'])->name('sell
 Route::group(['prefix' => 'seller'], function () {
     Route::get('create/{id?}', [SellerController::class, 'create'])->name('seller.create');
     Route::delete('delete/{id?}', [SellerController::class, 'destroy'])->name('seller.delete')->middleware('auth');
-    Route::post('store', [SellerController::class, 'store'])->name('seller.store');
+    Route::post('store', [SellerController::class, 'store'])->name('seller.store')->middleware('auth');
     Route::post('update/{id}', [SellerController::class, 'update'])->name('seller.update')->middleware('auth');
 });
 
