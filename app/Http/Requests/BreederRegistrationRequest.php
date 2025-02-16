@@ -33,7 +33,7 @@ class BreederRegistrationRequest extends FormRequest
             'zip_code' => ['required' ],
             'breeds' => ['required', 'array', 'max:4'],
             'established_date' => ['required', 'string', 'max:100', 'before_or_equal:today'],
-            'about_company' => ['required', 'string', 'max:255'],
+            'about_company' => ['required', 'string', 'max:255', 'min:40'],
 
             'has_usda_registration' => [''],
             'company_logo' => ['required'],

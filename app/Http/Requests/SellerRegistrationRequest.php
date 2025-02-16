@@ -39,7 +39,7 @@ class SellerRegistrationRequest extends FormRequest
             'puppy_name' => ['required', 'string', 'max:100'],
             'puppy_price' => ['required', 'numeric'],
             'puppy_gender' => ['required', 'string'],
-            'puppy_about' => ['required', 'string'],
+            'puppy_about' => ['required', 'string', 'max:255', 'min:40'],
             'puppy_birth_date' => ['required', 'string', 'before_or_equal:today'],
             'puppy_patterns' => ['required', 'array', 'max:3'],
             'puppy_breeds' => ['required', 'array', 'max:3'],

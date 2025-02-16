@@ -47,7 +47,7 @@ class ProfileUpdateRequest extends FormRequest
             $rules['company_zip_code'] = ['required'];
             $rules['company_email_address'] = ['required'];
             $rules['company_name'] = ['required'];
-            $rules['company_about'] = ['required'];
+            $rules['company_about'] = ['required', 'string', 'max:255', 'min:40'];
             $rules['company_state'] = ['required'];
             $rules['company_city'] = ['required'];
             $rules['has_usda_registration'] = [''];
