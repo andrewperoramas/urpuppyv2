@@ -81,7 +81,7 @@ Route::post('/create-intent', function (Request $request) {
 
 Route::get('adi', function () {
 
-    dd('updated');
+    dd('updated samson');
 });
 
 Route::post('/breeder/request/retry', function (Request $request) {
