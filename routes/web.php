@@ -152,6 +152,7 @@ Route::group(['prefix' => 'breeds'], function () {
 
 Route::group(['prefix' => 'breeders'], function () {
     Route::post('/', [BreederController::class, 'store'])->name('breeders.store');
+    /* Route::post('/{id?}', [BreederController::class, 'store'])->name('breeders.create'); */
     Route::get('/', [BreederController::class, 'index'])->name('breeders.index');
     Route::get('create', [BreederController::class, 'create'])->name('breeders.create');
     Route::get('/{slug}', [BreederController::class, 'show'])->name('breeders.show');

@@ -85,110 +85,113 @@ class SellerController extends Controller
 
     public function store(SellerRegistrationRequest $request)
 {
-    // Start the transaction
-    DB::beginTransaction();
-
     try {
-        if (
-            !$request->user()?->breeder_plan &&
-            !$request->user()?->premium_plan &&
-            $request->user()->puppies()->count() > 1
-        ) {
-            return success('plans.index', 'Subscribe to any plan to activate your listing');
-        }
+        return DB::transaction(function () use ($request) {
+            $user = $request->user();
 
-        $data = $request->validated();
-        $user = $request->user();
+            // Check if the user needs to subscribe to a plan
+            if (
+                !$user->breeder_plan &&
+                !$user->premium_plan &&
+                $user->puppies()->count() > 1
+            ) {
+                return success('plans.index', 'Subscribe to any plan to activate your listing');
+            }
 
-        if (!$user->profile_completed) {
-            $user->update([
-                'phone' => $data['phone'],
-                'website' => $data['website'],
-                'social_fb' => $data['social_fb'],
-                'social_ig' => $data['social_ig'],
-                'social_tiktok' => $data['social_tiktok'],
-                'social_x' => $data['social_x'],
-                'city' => $data['city'],
-                'state_id' => $data['state_id'],
-                'zip_code' => $data['zip_code'],
-                'profile_completed' => true
+            $data = $request->validated();
+
+            // Update user profile if not completed
+            if (!$user->profile_completed) {
+                $user->update([
+                    'phone' => $data['phone'],
+                    'website' => $data['website'],
+                    'social_fb' => $data['social_fb'],
+                    'social_ig' => $data['social_ig'],
+                    'social_tiktok' => $data['social_tiktok'],
+                    'social_x' => $data['social_x'],
+                    'city' => $data['city'],
+                    'state_id' => $data['state_id'],
+                    'zip_code' => $data['zip_code'],
+                    'profile_completed' => true,
+                ]);
+            }
+
+            // Check listing limit based on the user's plan
+            $current_plan = $user->premium_plan?->plan;
+            if ($user->puppies()->count() >= $current_plan?->listing_limit && $current_plan?->listing_limit != 0) {
+                return error('home', 'You have reached your listing limit');
+            }
+
+            // Create the puppy
+            $created_puppy = $user->puppies()->create([
+                'name' => ucwords($data['puppy_name']),
+                'gender' => $data['puppy_gender'],
+                'description' => $data['puppy_about'],
+                'birth_date' => $data['puppy_birth_date'],
+                'price' => $data['puppy_price'],
+                'has_vaccine' => $data['has_vaccine'] == 'yes',
+                'has_health_certificate' => $data['has_health_certificate'] == 'yes',
+                'has_vet_exam' => $data['has_vet_exam'] == 'yes',
+                'has_travel_ready' => $data['has_travel_ready'] == 'yes',
+                'has_delivery_included' => $data['has_delivery_included'] == 'yes',
             ]);
-        }
 
-        $current_plan = $user?->premium_plan?->plan;
+            // Attach relationships
+            $created_puppy->puppy_patterns()->attach($data['puppy_patterns']);
+            $created_puppy->breeds()->attach($data['puppy_breeds']);
+            $created_puppy->puppy_colors()->attach($data['puppy_colors']);
 
-        if ($user->puppies()->count() >= $current_plan?->listing_limit && $current_plan?->listing_limit != 0) {
-            return error('home', 'You have reached your listing limit');
-        }
+            // Attach siblings if provided
+            if (isset($data['puppy_siblings']) && $data['puppy_siblings']) {
+                $created_puppy->attachSiblings($data['puppy_siblings']);
+            }
 
-        $created_puppy = $user->puppies()->create([
-            'name' => ucwords($data['puppy_name']),
-            'gender' => $data['puppy_gender'],
-            'description' => $data['puppy_about'],
-            'birth_date' => $data['puppy_birth_date'],
-            'price' => $data['puppy_price'],
-            'has_vaccine' => $data['has_vaccine'] == 'yes' ? true : false,
-            'has_health_certificate' => $data['has_health_certificate'] == 'yes' ? true : false,
-            'has_vet_exam' => $data['has_vet_exam'] == 'yes' ? true : false,
-            'has_travel_ready' => $data['has_travel_ready'] == 'yes' ? true : false,
-            'has_delivery_included' => $data['has_delivery_included'] == 'yes' ? true : false,
-        ]);
+            // Process videos
+            if (isset($data['videos'])) {
+                collect($data['videos'])->each(function ($video) use ($created_puppy) {
+                    try {
+                        $media = $created_puppy->addMedia($video)->toMediaCollection('video');
+                        GenerateVideoThumbnail::dispatch($media);
+                    } catch (\Exception $e) {
+                        Log::error('Error adding media: ' . $e->getMessage());
+                        throw $e; // Re-throw the exception to trigger a rollback
+                    }
+                });
+            }
 
-        $created_puppy->puppy_patterns()->attach($data['puppy_patterns']);
-        $created_puppy->breeds()->attach($data['puppy_breeds']);
-        $created_puppy->puppy_colors()->attach($data['puppy_colors']);
-
-
-        if (isset($data['puppy_siblings']) && $data['puppy_siblings']) {
-            $created_puppy->attachSiblings($data['puppy_siblings']);
-        }
-
-        if (isset($data['videos'])) {
-            collect($data['videos'])->each(function ($image) use ($created_puppy) {
-                try {
-                    $media = $created_puppy->addMedia($image)->toMediaCollection('video');
-                    GenerateVideoThumbnail::dispatch($media);
-                } catch (\Exception $e) {
-                    Log::error('Error adding media: ' . $e->getMessage());
-                    throw $e; // Re-throw the exception to trigger a rollback
-                }
+            // Process images
+            collect($data['images'])->each(function ($image) use ($created_puppy) {
+                $created_puppy->addMedia($image)->toMediaCollection('puppy_files');
             });
-        }
 
-        collect($data['images'])->each(function ($image) use ($created_puppy) {
-            $created_puppy->addMedia($image)->toMediaCollection('puppy_files');
+            // Final check for plan subscription
+            if (
+                !$user->breeder_plan &&
+                !$user->premium_plan &&
+                $user->profile_completed
+            ) {
+                return success('plans.index', 'Subscribe to any plan to activate your listing');
+            }
+
+            // Return success response
+            return success('puppies.show', 'Puppy created successfully', $created_puppy->slug);
         });
-
-        if (
-            !$request->user()?->breeder_plan &&
-            !$request->user()?->premium_plan &&
-            $user->profile_completed
-                    ) {
-            return success('plans.index', 'Subscribe to any plan to activate your listing');
-        }
-
-
-        // Commit the transaction
-        DB::commit();
-
-        return success('puppies.show', 'Puppy created successfully', $created_puppy->slug);
-
     } catch (\Exception $e) {
-        // Rollback the transaction in case of an exception
-        DB::rollBack();
+        // Log the error and return an error response
         Log::error('Error in store method: ' . $e->getMessage());
-
-        // Return an error response
         return error('home', 'An error occurred while creating the puppy. Please try again.');
     }
 }
 
+
     public function update(PuppyUpdateRequest $request, int $id)
 {
     // Start the transaction
-    DB::beginTransaction();
+    /* DB::beginTransaction(); */
 
     try {
+        return DB::transaction(function () use ($request, $id) {
+
         $data = $request->validated();
         $user = $request->user();
 
@@ -266,13 +269,15 @@ class SellerController extends Controller
         }
 
         // Commit the transaction
-        DB::commit();
+        /* DB::commit(); */
 
         return success('puppies.show', 'Puppy updated successfully', $update_puppy->slug);
 
+        });
+
     } catch (\Exception $e) {
         // Rollback the transaction in case of an exception
-        DB::rollBack();
+        /* DB::rollBack(); */
         Log::error('Error in update method: ' . $e->getMessage());
 
         // Return an error response

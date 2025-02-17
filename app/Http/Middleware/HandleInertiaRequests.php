@@ -34,6 +34,8 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+
+
     $min = Puppy::min('price') ?? 1;
     $max = Puppy::max('price') ?? 500;
     $agent = new Agent();
@@ -45,7 +47,7 @@ class HandleInertiaRequests extends Middleware
         return [
             ...parent::share($request),
             'auth' => [
-                'user' => UserData::optional($request->user()?->load('state', 'company_state', 'media')),
+                'user' => UserData::optional($request->user()?->load('state', 'company_state', 'media', 'breeds')),
             ],
             'price_filter_range' => [$min, $max],
             'csrf_token' => csrf_token(),

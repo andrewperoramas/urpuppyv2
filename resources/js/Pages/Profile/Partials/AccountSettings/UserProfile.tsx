@@ -140,7 +140,10 @@ const UserProfile = () => {
                     {
                         user?.roles?.includes('breeder') && <>
                       <div className="pb-4 mb-4 border-bottom">
+                        <div className="d-flex justify-content-between">
                         <h5 className="mb-4 fs-7">Company Details</h5>
+                        <Button href={`/breeders/create`} variant="white">Edit More Details</Button>
+                                </div>
                         <div className="row">
 
 

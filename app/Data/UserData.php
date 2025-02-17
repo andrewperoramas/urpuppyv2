@@ -43,7 +43,8 @@ class UserData extends Data
         public bool $enable_notification,
         public ?SubscriptionData $premium_plan,
         public ?SubscriptionData $breeder_plan,
-
+        /** @var \App\Data\OptionData[] */
+        public DataCollection $breeds,
         public ?string $kennel_name,
         public ?StateData $company_state,
         public ?string $company_city,
@@ -57,7 +58,10 @@ class UserData extends Data
         public ?string $company_address_formatted,
         public ?string $trial_ends_at,
         public ?string $company_established_on,
-        public ?string $company_logo
+        public ?string $company_logo,
+        public ?string $video,
+        /** @var string[] */
+        public Collection $gallery,
     ) {
 
 

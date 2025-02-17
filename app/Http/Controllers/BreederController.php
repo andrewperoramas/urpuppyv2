@@ -13,6 +13,7 @@ use App\Models\Breed;
 use App\Models\State;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 
 class BreederController extends Controller
@@ -92,6 +93,10 @@ class BreederController extends Controller
 
     public function store(BreederRegistrationRequest $request)
     {
+
+        return DB::transaction(function () use ($request) {
+
+
         if (! $request->user()->roles->contains('breeder')) {
             return error('home', 'You are not a breeder');
         }
@@ -116,18 +121,29 @@ class BreederController extends Controller
 
         ]);
 
-        $user->breeds()->attach($data['breeds']);
+        if ($breeds = $data['breeds']) {
+                $user->breeds()->detach();
+                $garm = collect($breeds)->map(function ($breed) use ($user) {
+                    return is_array($breed) ?  $breed['value'] : $breed;
+                });
+                $user->breeds()->attach($garm);
+        }
 
-
+            /* dd('adi'); */
         $b = $user->breeder_requests()->create([
             'message' => 'Reviewing your application',
             'status' => 'pending'
         ]);
 
-        collect($data['gallery'])->each(function ($image) use ($user) {
-            $user->addMedia($image)->toMediaCollection('gallery');
-        });
+        /* dd($data['gallery']); */
 
+        if (isset($data['gallery'])) {
+            $user->clearMediaCollection('gallery');
+
+            collect($data['gallery'])->each(function ($image) use ($user) {
+                $user->addMedia($image)->toMediaCollection('gallery');
+            });
+        }
 
         if (isset($data['videos'])) {
             $user->clearMediaCollection('videos');
@@ -148,7 +164,11 @@ class BreederController extends Controller
         /* $media = $user->addMedia($video)->toMediaCollection('videos'); */
         /* GenerateVideoThumbnail::dispatch($media); */
 
-        $user->addMedia($data['company_logo'])->toMediaCollection('company_logo');
+        if (!empty($data['company_logo'])) {
+            $user->clearMediaCollection('company_logo');
+            $user->addMedia($data['company_logo'])->toMediaCollection('company_logo');
+        }
+
 
 
         Mail::queue(new AdminNotifyMail([
@@ -161,7 +181,11 @@ class BreederController extends Controller
         /*     'message.success' => 'Subscribe to any plan to activate your listing' */
         /* ]); */
         /* } */
+
         return success('home', 'Your application has been submitted for review');
+
+        });
+
 
         /* return redirect()->to(route('plans.breeder'))->with([ */
         /*     'message.success' => 'Subscribe to activate your breeders account' */
@@ -189,7 +213,7 @@ class BreederController extends Controller
             /* }, */
         ])->find($userId);
 
-        if ($breeder->is_breeder == false) {
+        if ($breeder->roles->contains('breeder') == false) {
             return redirect()->back()->with([
                 'message.error' => 'This user is not a breeder'
             ]);

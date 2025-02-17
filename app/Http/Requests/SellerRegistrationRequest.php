@@ -87,6 +87,13 @@ class SellerRegistrationRequest extends FormRequest
             'email.unique' => 'The email address is already taken.',
             'puppy_price.min' => 'The puppy price must be a positive value.',
             'puppy_gender.in' => 'Please choose a valid gender for the puppy (male, female, other).',
+
+            'social_fb.url' => 'Please enter a valid Facebook URL.',
+            'social_ig.url' => 'Please enter a valid Instagram URL.',
+            'social_tiktok.url' => 'Please enter a valid TikTok URL.',
+            'social_x.url' => 'Please enter a valid X URL.',
+
+
         ];
     }
 }

@@ -177,6 +177,34 @@ export default function Edit({
                 <Link href="/plans/breeder" method="get" as="button" className="btn btn-primary">Choose Plan</Link>
                                                                     </h6>  }
 
+                { ( !user?.profile_completed ) && <h6 className="mb-4">
+                                        {
+                                            user?.roles?.includes('breeder') && <>
+
+                                                                <h6>
+                                                                            <Link href="/breeders/create" method="get" as="button" className="btn btn-primary">Complete Profile</Link>
+
+                                                                            </h6>
+
+                                                                        </>
+
+                                                                    }
+
+                                        {
+                                            user?.roles?.includes('seller') && <>
+                                                                            <h6>
+
+                                                                            <Link href="/seller/create" method="get" as="button" className="btn btn-primary">Complete Profile</Link>
+                                                                            </h6>
+
+                                                                        </>
+
+                                                                    }
+
+
+
+                                                                    </h6>  }
+
 
                     </div>
                   </div>

@@ -22,7 +22,7 @@ class BreederRegistrationRequest extends FormRequest
 
         public function rules(): array
     {
-        return [
+        $rules =  [
             'fullname' => ['required', 'string', 'max:100'],
             'kennel_name' => ['required', 'string', 'max:100'],
             'company_phone' => ['required', 'string', 'max:20'], // Phone number validation
@@ -32,13 +32,12 @@ class BreederRegistrationRequest extends FormRequest
             'state_id' => ['required', 'integer', 'exists:states,id'], // Ensure state_id exists in the states table
             'zip_code' => ['required', 'string'], // Validate US zip code format
             'breeds' => ['required', 'array', 'max:4'], // Limit breeds to a maximum of 4
-            'breeds.*' => ['integer', 'exists:breeds,id'], // Ensure each breed exists in the breeds table
+            /* 'breeds.*' => ['exists:breeds,id'], // Ensure each breed exists in the breeds table */
             'established_date' => ['required', 'date', 'before_or_equal:today'], // Validate date format
             'about_company' => ['required', 'string', 'max:255', 'min:40'],
 
             'has_usda_registration' => ['nullable'], // Optional boolean field
-            'company_logo' => ['required', 'image', 'mimes:jpeg,png,jpg', 'max:12048'], // Validate logo file
-
+            'company_logo' =>  ['nullable', 'image', 'mimes:jpeg,png,jpg', 'max:12048'],
             'gallery' => ['required', 'array', 'max:10'], // Limit gallery to a maximum of 10 images
             'gallery.*' => [
                 'required',
@@ -53,6 +52,13 @@ class BreederRegistrationRequest extends FormRequest
                 'max:51200', // 50MB max per video
             ],
         ];
+
+
+/*         if (!empty(request()->get('company_logo'))) */
+/*         { */
+        /* } */
+
+        return $rules;
     }
 
 

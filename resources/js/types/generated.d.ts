@@ -297,6 +297,7 @@ roles: Array<string> | null;
 enable_notification: boolean;
 premium_plan: App.Data.SubscriptionData | null;
 breeder_plan: App.Data.SubscriptionData | null;
+breeds: Array<App.Data.OptionData>;
 kennel_name: string | null;
 company_state: App.Data.StateData | null;
 company_city: string | null;
@@ -311,6 +312,8 @@ company_address_formatted: string | null;
 trial_ends_at: string | null;
 company_established_on: string | null;
 company_logo: string | null;
+video: string | null;
+gallery: Array<string>;
 };
 export type VideoData = {
 title: string;

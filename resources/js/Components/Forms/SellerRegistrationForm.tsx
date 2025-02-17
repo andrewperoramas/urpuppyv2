@@ -103,18 +103,21 @@ const SellerRegistrationForm = ({
                     <div className="mb-4">
                      <InputLabel isRequired={true} value="First Name "/>
                      <TextInput  onChange={(e: any) => setData('first_name', e.target.value)} value={data.first_name}/>
+                    {errors.first_name && <InputError message={errors.first_name} /> }
                     </div>
                   </div>
                   <div className="col-lg-4">
                     <div className="mb-4">
                       <InputLabel isRequired={true} value="Last Name"/>
                      <TextInput  onChange={(e: any) => setData('last_name', e.target.value)} value={data.last_name}/>
+                    {errors.last_name && <InputError message={errors.last_name} /> }
                     </div>
                   </div>
                   <div className="col-lg-4">
                     <div className="mb-4">
                       <InputLabel isRequired={true} value="Email"/>
                      <TextInput onChange={(e: any) => setData('email', e.target.value)}  value={data.email}/>
+                    {errors.email && <InputError message={errors.email} /> }
                     </div>
                   </div>
                   <div className="col-lg-4">
@@ -131,6 +134,7 @@ onChange={(e: any) => setData('phone', e)}
                     <div className="mb-4">
                       <InputLabel value="Website (Optional)"/>
                       <TextInput type="text" onChange={(e: any) => setData('website', e.target.value)}  />
+                      {errors.website && <InputError message={errors.website} /> }
                     </div>
                   </div>
                   <div className="col-lg-4">
@@ -150,6 +154,11 @@ onChange={(e: any) => setData('phone', e)}
                             <IconInput onChange={(e: any) => setData('social_ig', e.target.value)} icon="/images/svgs/icon-instagram-dark.svg" />
                         </li>
                       </ul>
+
+                        {errors.social_fb && <InputError message={errors.social_fb} /> }
+                        {errors.social_tiktok && <InputError message={errors.social_tiktok} /> }
+                        {errors.social_ig && <InputError message={errors.social_ig} /> }
+                        {errors.social_x && <InputError message={errors.social_x} /> }
                     </div>
                   </div>
                 </div>

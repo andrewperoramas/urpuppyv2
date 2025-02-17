@@ -271,7 +271,19 @@ try {
 
     public function scopeBreeders($query)
     {
-        $query->where('is_breeder', true);
+
+       return  $query->where('is_breeder', true)
+                  ->whereHas('breeder_requests', function ($q) {
+                      $q->where('id', function ($subquery) {
+                          $subquery->select('id')
+                                   ->from('breeder_requests')
+                                   ->whereColumn('breeder_requests.user_id', 'users.id') // Adjust based on your relationship
+                                   ->orderByDesc('created_at')
+                                   ->limit(1);
+                      })->where('status', 'approved');
+                  });
+
+
     }
 
     public function getHasPasswordAttribute()
