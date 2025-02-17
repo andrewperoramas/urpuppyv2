@@ -48,6 +48,11 @@ class ProfileController extends Controller
 
     $breeds = BreedResource::collection(Breed::select('id', 'name')->orderBy('name')->get());
 
+    \Log::info('ambroshio');
+    \Log::info($user?->premium_plan?->plan);
+    \Log::info($user?->breeder_plan?->plan);
+
+
     return Inertia::render('Profile/Edit', [
         'mustVerifyEmail' => $user instanceof MustVerifyEmail,
         'puppies' => $user->puppies()->with('breeds', 'seller')->paginate(12),

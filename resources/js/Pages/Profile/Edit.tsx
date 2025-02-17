@@ -161,7 +161,7 @@ export default function Edit({
                                     <>
               <div className={` tab-pane fade ${currentTab == 'My Subscription' ? 'show active' : ''} `}  id="pills-my-subscription" role="tabpanel"
                 aria-labelledby="pills-my-subscription-tab" tabIndex={0}>
-                    {plan ? <SubscriptionCard key="plan" next_billing={plan_next_billing} cancel_at={plan_cancel_at}  plan={plan}/> : ""}
+                    {plan && <SubscriptionCard key="plan" next_billing={plan_next_billing} cancel_at={plan_cancel_at}  plan={plan}/> }
                     {breeder_plan && <SubscriptionCard key="breeder_plan" next_billing={breeder_next_billing} cancel_at={breeder_cancel_at}  plan={breeder_plan}/> }
 
                     {(!plan && !breeder_plan) &&
