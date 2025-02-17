@@ -15,7 +15,7 @@ class CheckoutReady
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!$request->user()->profile_completed) {
+        if ($request->user() && !$request->user()->profile_completed) {
             return error(message: "Action not allowed.");
         }
 

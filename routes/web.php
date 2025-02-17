@@ -183,7 +183,7 @@ Route::get('/about-us', [AboutController::class, 'index'])->name('about.index');
 Route::get('/billing/confirm', [CheckoutController::class, 'confirm'])->name('billing.confirm');
 
 
-Route::group(['prefix' => 'checkout', 'middleware' => ['auth', 'verified', 'checkout.ready']], function () {
+Route::group(['prefix' => 'checkout', 'middleware' => ['auth', 'verified']], function () {
 
     Route::get('success', [CheckoutController::class, 'success'])->name('checkout.success');
     Route::get('{plan_id}', [CheckoutController::class, 'index'])->name('checkout.index');
