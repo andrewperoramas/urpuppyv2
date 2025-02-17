@@ -100,7 +100,7 @@ class SellerController extends Controller
         $data = $request->validated();
         $user = $request->user();
 
-        if (!$request->user()?->premium_plan || $request->user()?->breeder_plan && $request->user()->puppies()->count() == 0) {
+        if (!$user->profile_completed) {
             $user->update([
                 'phone' => $data['phone'],
                 'website' => $data['website'],
