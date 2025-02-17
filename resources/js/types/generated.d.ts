@@ -288,6 +288,7 @@ short_address: string;
 initial_name: string;
 email_verified_at: string | null;
 member_since: string;
+profile_completed: boolean | null;
 social_fb: string | null;
 social_ig: string | null;
 social_tiktok: string | null;

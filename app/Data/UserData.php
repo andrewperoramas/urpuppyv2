@@ -33,6 +33,7 @@ class UserData extends Data
         public string $initial_name,
         public ?string $email_verified_at,
         public string $member_since,
+        public ?bool $profile_completed,
         public ?string $social_fb,
         public ?string $social_ig,
         public ?string $social_tiktok,

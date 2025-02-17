@@ -149,6 +149,9 @@ class BreederController extends Controller
 
         $user->addMedia($data['company_logo'])->toMediaCollection('company_logo');
 
+        $user->update([
+            'profile_completed' => true
+        ]);
 
         Mail::queue(new AdminNotifyMail([
             'subject' => 'New Breeder Application',

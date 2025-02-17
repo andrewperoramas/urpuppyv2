@@ -79,6 +79,7 @@ class User extends Authenticatable implements  HasMedia,  MustVerifyEmail, Sitem
         'company_phone',
         'company_email_address',
         'company_zip_code',
+        'profile_completed',
         'company_city_id',
         'company_city',
         'city',

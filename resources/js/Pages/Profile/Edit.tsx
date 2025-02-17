@@ -125,7 +125,7 @@ export default function Edit({
 
                                             if (item.name == 'My Subscription' || item.name == 'My Puppies' ) {
 
-                                                if (!plan && !breeder_plan) {
+                                                if (user?.roles?.includes('buyer')) {
                                                     return
                                                 }
 
@@ -164,12 +164,20 @@ export default function Edit({
                     {plan ? <SubscriptionCard key="plan" next_billing={plan_next_billing} cancel_at={plan_cancel_at}  plan={plan}/> : ""}
                     {breeder_plan && <SubscriptionCard key="breeder_plan" next_billing={breeder_next_billing} cancel_at={breeder_cancel_at}  plan={breeder_plan}/> }
 
-                    {!plan && !breeder_plan &&
+                    {(!plan && !breeder_plan) &&
                 <div className="card border">
                   <div className="card-body pb-0">
                     <div className="row">
-<h6 className="mb-4">
-                                            No Subscription</h6>
+
+                { ( user?.roles?.includes('seller') && user?.profile_completed ) && <h6 className="mb-4">
+                <Link href="/plans" method="get" as="button" className="btn btn-primary">Choose Plan</Link>
+                                                                    </h6>  }
+
+                { ( user?.roles?.includes('breeder') && user?.profile_completed ) && <h6 className="mb-4">
+                <Link href="/plans/breeder" method="get" as="button" className="btn btn-primary">Choose Plan</Link>
+                                                                    </h6>  }
+
+
                     </div>
                   </div>
                 </div>
