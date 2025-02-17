@@ -19,7 +19,7 @@ class EmailVerificationPromptController extends Controller
         $route = 'home';
 
         if ($user->roles()->where('name', 'breeder')->exists()) {
-            $route = 'breeder.create';
+            $route = 'breeders.create';
         } else if ($user->roles()->where('name', 'seller')->exists()) {
             $route = 'seller.create';
         }
