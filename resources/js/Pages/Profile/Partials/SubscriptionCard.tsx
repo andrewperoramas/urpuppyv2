@@ -11,7 +11,7 @@ const SubscriptionCard = ({plan, next_billing, cancel_at, trial_ends_at} : {
     const trial_ends_at_date = usePage().props.auth.user.trial_ends_at
 
 
-  return (
+  return plan && (
 
                 <div className="card border">
                   <div className="card-body">
