@@ -111,6 +111,7 @@ class SellerController extends Controller
                 'city' => $data['city'],
                 'state_id' => $data['state_id'],
                 'zip_code' => $data['zip_code'],
+                'profile_completed' => true
             ]);
         }
 
@@ -161,14 +162,11 @@ class SellerController extends Controller
         if (
             !$request->user()?->breeder_plan &&
             !$request->user()?->premium_plan &&
-            $request->user()->puppies()->count() > 0
-        ) {
+            $user->profile_completed
+                    ) {
             return success('plans.index', 'Subscribe to any plan to activate your listing');
         }
 
-        $user->update([
-            'profile_completed' => true
-        ]);
 
         // Commit the transaction
         DB::commit();

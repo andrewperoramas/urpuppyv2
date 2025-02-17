@@ -111,7 +111,8 @@ class BreederController extends Controller
             'company_established_on' => $data['established_date'],
             'company_zip_code' => $data['zip_code'],
             'company_about' => $data['about_company'],
-            'has_usda_registration' => $data['has_usda_registration'] == 'yes' ? true : false
+            'has_usda_registration' => $data['has_usda_registration'] == 'yes' ? true : false,
+            'profile_completed' => true
 
         ]);
 
@@ -149,9 +150,6 @@ class BreederController extends Controller
 
         $user->addMedia($data['company_logo'])->toMediaCollection('company_logo');
 
-        $user->update([
-            'profile_completed' => true
-        ]);
 
         Mail::queue(new AdminNotifyMail([
             'subject' => 'New Breeder Application',
