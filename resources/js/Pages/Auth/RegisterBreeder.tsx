@@ -60,8 +60,7 @@ export default function RegisterBreeder({puppy}: {
           <div className="col-lg-7 order-last order-lg-first">
             <div className="login-info d-flex flex-column justify-content-center h-100 py-5 px-3 ps-lg-0">
               <h2>Breeder Registration</h2>
-              <p className="mb-4 pb-2">Explore the best dog breeds! Signup
-                to discover more.</p>
+              <p className="mb-4 pb-2">Become a Part of Our Breeding Community – List Your Business!</p>
             <form onSubmit={submit}>
                 <div className="row">
                   <div className="col-lg-6">
