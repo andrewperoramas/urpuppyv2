@@ -820,12 +820,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/andrewperoramas/filament-blog.git",
-                "reference": "fea8266437950d233daaa111e3e973864933292e"
+                "reference": "a81dc61359cd28dedbd4035b9387f07516a962a9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/andrewperoramas/filament-blog/zipball/fea8266437950d233daaa111e3e973864933292e",
-                "reference": "fea8266437950d233daaa111e3e973864933292e",
+                "url": "https://api.github.com/repos/andrewperoramas/filament-blog/zipball/a81dc61359cd28dedbd4035b9387f07516a962a9",
+                "reference": "a81dc61359cd28dedbd4035b9387f07516a962a9",
                 "shasum": ""
             },
             "require": {
@@ -914,7 +914,7 @@
                     "url": "https://github.com/stephenjude"
                 }
             ],
-            "time": "2025-02-19T21:00:27+00:00"
+            "time": "2025-02-19T21:59:49+00:00"
         },
         {
             "name": "anhskohbo/no-captcha",
@@ -4776,16 +4776,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v11.43.1",
+            "version": "v11.43.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "053f26afb699c845945e7380b407dd019a0a2c74"
+                "reference": "99d1573698abc42222f04d25fcd5b213d0eedf21"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/053f26afb699c845945e7380b407dd019a0a2c74",
-                "reference": "053f26afb699c845945e7380b407dd019a0a2c74",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/99d1573698abc42222f04d25fcd5b213d0eedf21",
+                "reference": "99d1573698abc42222f04d25fcd5b213d0eedf21",
                 "shasum": ""
             },
             "require": {
@@ -4987,7 +4987,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2025-02-19T16:06:03+00:00"
+            "time": "2025-02-19T21:53:48+00:00"
         },
         {
             "name": "laravel/horizon",
