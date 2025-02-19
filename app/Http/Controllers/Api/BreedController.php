@@ -4,31 +4,39 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Breed;
-use App\Models\Country;
 use Illuminate\Http\Request;
 
 class BreedController extends Controller
 {
     public function __invoke(Request $request)
     {
+        // Start the query
         $breedsQuery = Breed::query();
 
+        // Apply search filter if 'search' parameter is provided
         if ($request->filled('search')) {
             $searchTerm = strtolower($request->search);
-            $breeds = $breedsQuery->whereRaw('LOWER(name) LIKE ?', ['%' . $searchTerm . '%']);
+            $breedsQuery->whereRaw('LOWER(name) LIKE ?', ['%' . $searchTerm . '%']);
         }
 
+        // Apply sorting by name
+        $breedsQuery->orderBy('name');
+
+        // Determine pagination size
         $pagination = $request->has('all') ? 1000 : 10;
 
-        $breeds = $breedsQuery->select('id', 'name')->orderBy('name')->paginate($pagination);
+        // Paginate the results
+        $breeds = $breedsQuery->select('id', 'name')->paginate($pagination);
 
-        $breeds->getCollection()->transform(function ($city) {
+        // Transform the data
+        $breeds->getCollection()->transform(function ($breed) {
             return [
-                'value' => $city->id,
-                'label' => ucwords($city->name),
+                'value' => $breed->id,
+                'label' => ucwords($breed->name),
             ];
         });
 
+        // Prepend 'All' option if 'all' parameter is present
         if ($request->has('all')) {
             $breeds->prepend([
                 'value' => 'All',
@@ -36,7 +44,7 @@ class BreedController extends Controller
             ]);
         }
 
-
+        // Return the JSON response
         return response()->json($breeds);
     }
 }
