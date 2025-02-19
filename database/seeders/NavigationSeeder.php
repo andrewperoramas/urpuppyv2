@@ -6,7 +6,6 @@ use App\Models\Page;
 use App\Models\User;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 use Illuminate\Database\Seeder;
-use LaraZeus\Sky\Models\Navigation;
 
 class NavigationSeeder extends Seeder
 {
@@ -132,17 +131,17 @@ class NavigationSeeder extends Seeder
 /*             'children' => [], */
 /*         ]; */
 
-        Navigation::create([
-            'name' => 'Store',
-            'handle' => 'store',
-            'items' => $items,
-        ]);
+        /* Navigation::create([ */
+        /*     'name' => 'Store', */
+        /*     'handle' => 'store', */
+        /*     'items' => $items, */
+        /* ]); */
 
-        Navigation::create([
-            'name' => 'Footer Links 1',
-            'handle' => 'footer-links-1',
-            'items' => $items
-        ]);
+        /* Navigation::create([ */
+        /*     'name' => 'Footer Links 1', */
+        /*     'handle' => 'footer-links-1', */
+        /*     'items' => $items */
+        /* ]); */
 
     }
 }

@@ -7,7 +7,6 @@ use App\Models\Plan;
 use App\Models\User;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 use Illuminate\Database\Seeder;
-use LaraZeus\Sky\Models\Navigation;
 
 class CustomPageSeeder extends Seeder
 {
@@ -132,11 +131,11 @@ class CustomPageSeeder extends Seeder
             'children' => [],
         ];
 
-        Navigation::create([
-            'name' => 'Footer Links 2',
-            'handle' => 'footer-links-2',
-            'items' => $items
-        ]);
+        /* Navigation::create([ */
+        /*     'name' => 'Footer Links 2', */
+        /*     'handle' => 'footer-links-2', */
+        /*     'items' => $items */
+        /* ]); */
 
     }
 
