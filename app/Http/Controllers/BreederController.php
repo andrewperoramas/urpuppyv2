@@ -110,14 +110,19 @@ class BreederController extends Controller
             'company_name' => $data['fullname'],
             'company_email_address' => $data['company_email_address'],
             'company_phone' => $data['company_phone'],
-            'company_address' => $data['company_address'],
-            'company_city' => $data['city'],
-            'company_state_id' => $data['state_id'],
             'company_established_on' => $data['established_date'],
-            'company_zip_code' => $data['zip_code'],
+
             'company_about' => $data['about_company'],
             'has_usda_registration' => $data['has_usda_registration'] == 'yes' ? true : false,
-            'profile_completed' => true
+            'profile_completed' => true,
+
+
+            'company_address' => @$data['gmap_payload']['address'],
+            'company_city' => @$data['gmap_payload']['city'],
+            'company_street' => @$data['gmap_payload']['street'],
+            'company_state' => @$data['gmap_payload']['state'],
+            'company_short_state' => @$data['gmap_payload']['shortState'],
+            'company_zip_code' => @$data['gmap_payload']['zipCode'],
 
         ]);
 

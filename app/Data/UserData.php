@@ -26,9 +26,9 @@ class UserData extends Data
         public string $email,
         public ?string $phone,
         public ?string $city,
-        public ?StateData $state,
+        /* public ?StateData $state, */
         public ?string $zip_code,
-        public string $address,
+        public ?string $address,
         public string $short_address,
         public string $initial_name,
         public ?string $email_verified_at,
@@ -46,7 +46,7 @@ class UserData extends Data
         /** @var \App\Data\OptionData[] */
         public DataCollection $breeds,
         public ?string $kennel_name,
-        public ?StateData $company_state,
+        /* public ?StateData $company_state, */
         public ?string $company_city,
         public ?string $company_zip_code,
         public ?string $company_about,

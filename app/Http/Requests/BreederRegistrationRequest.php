@@ -25,12 +25,13 @@ class BreederRegistrationRequest extends FormRequest
         $rules =  [
             'fullname' => ['required', 'string', 'max:100'],
             'kennel_name' => ['required', 'string', 'max:100'],
+            'gmap_payload' => ['required'],
             'company_phone' => ['required', 'string', 'max:20'], // Phone number validation
-            'company_address' => ['required', 'string', 'max:255'],
+            /* 'company_address' => ['required', 'string', 'max:255'], */
             'company_email_address' => ['required', 'email', 'string', 'max:100'],
-            'city' => ['required', 'string', 'max:100'],
-            'state_id' => ['required', 'integer', 'exists:states,id'], // Ensure state_id exists in the states table
-            'zip_code' => ['required', 'string'], // Validate US zip code format
+            /* 'city' => ['required', 'string', 'max:100'], */
+            /* 'state_id' => ['required', 'integer', 'exists:states,id'], // Ensure state_id exists in the states table */
+            /* 'zip_code' => ['required', 'string'], // Validate US zip code format */
             'breeds' => ['required', 'array', 'max:4'], // Limit breeds to a maximum of 4
             /* 'breeds.*' => ['exists:breeds,id'], // Ensure each breed exists in the breeds table */
             'established_date' => ['required', 'date', 'before_or_equal:today'], // Validate date format
@@ -66,9 +67,9 @@ class BreederRegistrationRequest extends FormRequest
     {
         return [
             'company_phone.required' => 'Phone number is required',
-            'city.required' => 'City field is required',
-            'state_id.required' => 'State field is required',
-
+            /* 'city.required' => 'City field is required', */
+            /* 'state_id.required' => 'State field is required', */
+            'gmap_payload.required' => 'Location field is required',
         ];
     }
 

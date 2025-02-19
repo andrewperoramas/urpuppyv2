@@ -31,6 +31,7 @@ class ProfileUpdateRequest extends FormRequest
             'social_ig' => [''],
             'social_tiktok' => [''],
             'social_x' => [''],
+            'gmap_payload' => [''],
             'phone' => [''],
             'email' => [
                 'string',

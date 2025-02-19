@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import TextInput from '../TextInput'
 import InputLabel from '../InputLabel'
 import IconInput from '../IconInput'
@@ -14,6 +14,7 @@ import CheckoutV2Form from '../CheckoutV2Form'
 import InputError from '../InputError'
 import { parseInt } from 'lodash'
 import PhoneNumberInput from '../PhoneNumberInput'
+import MapInput from '../MapInput'
 
 
 
@@ -62,6 +63,7 @@ const SellerRegistrationForm = ({
         puppy_birth_date: puppy_edit?.birth_date ?? '',
         puppy_siblings: puppy_edit?.siblings ?? [],
         image_upload: [],
+        gmap_payload: null
    })
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -85,6 +87,15 @@ const SellerRegistrationForm = ({
         post(`/seller/store`);
     }
 };
+
+
+    const [selectedGMap, setSelectedGMap] = useState<any | null>(null);
+
+    useEffect(() => {
+        if (selectedGMap) {
+            setData('gmap_payload', selectedGMap);
+        }
+    }, [selectedGMap]);
 
 
 
@@ -165,7 +176,9 @@ onChange={(e: any) => setData('phone', e)}
               </div>
               <div className="location-details border-bottom mb-4">
                 <SemiHeading title="Location Details"/>
-                <StateCityDropdown errors={errors} formData={data} setFormData={setData}/>
+                <MapInput
+                        initialAddress={user.address ?? ""}
+                        onLocationSelect={setSelectedGMap} />
               </div>
                     </> }
               <div className="puppy-details border-bottom mb-4">

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import TextInput from '../TextInput'
 import InputLabel from '../InputLabel'
 import IconInput from '../IconInput'
@@ -12,6 +12,7 @@ import InputError from '../InputError'
 import DateInput from '../DateInput'
 import StateCityDropdown from '../StateCityDropdown'
 import PhoneNumberInput from '../PhoneNumberInput'
+import MapInput from '../MapInput'
 
 const BreederRegistrationForm = ({breeds}: { breeds: App.Data.BreedOptionData[]}) => {
 
@@ -39,11 +40,24 @@ const BreederRegistrationForm = ({breeds}: { breeds: App.Data.BreedOptionData[]}
     gallery: user?.gallery ?? [],
     company_logo: null,
     videos: user?.video != null?  [user?.video] : [],
+    gmap_payload: null
 
 
 
 
    })
+
+
+    const [selectedGMap, setSelectedGMap] = useState<any | null>(null);
+
+    useEffect(() => {
+        if (selectedGMap) {
+            setData('gmap_payload', selectedGMap);
+        }
+    }, [selectedGMap]);
+
+
+
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -165,15 +179,9 @@ const BreederRegistrationForm = ({breeds}: { breeds: App.Data.BreedOptionData[]}
 
               <div className="location-details border-bottom mb-4">
                 <SemiHeading title="Location Details"/>
-                  <div className="col-lg-12">
-                    <div className="mb-6">
-                    <InputLabel isRequired={true} value="Address"/>
-                <TextInput  value={data.company_address} onChange={(e: any) => setData('company_address', e.target.value)} />
-
-                {errors.company_address && <InputError message={errors.company_address} /> }
-                    </div>
-                  </div>
-                <StateCityDropdown errors={errors} setFormData={setData}/>
+                <MapInput
+                        initialAddress={user.company_address ?? ""}
+                        onLocationSelect={setSelectedGMap} />
               </div>
 
               <div className="location-details border-bottom mb-4">

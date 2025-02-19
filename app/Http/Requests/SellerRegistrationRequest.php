@@ -33,8 +33,9 @@ class SellerRegistrationRequest extends FormRequest
             'social_ig' => ['nullable', 'string', 'max:100', 'url'],
             'social_tiktok' => ['nullable', 'string', 'max:100', 'url'],
             'social_x' => ['nullable', 'string', 'max:100', 'url'],
-            'city' => ['nullable', 'string', 'max:100'],
-            'state_id' => ['nullable', 'exists:states,id'], // Ensuring state_id exists in states table
+            /* 'city' => ['nullable', 'string', 'max:100'], */
+            /* 'state_id' => ['nullable', 'exists:states,id'], // Ensuring state_id exists in states table */
+            'gmap_payload' => ['required'],
             'zip_code' => ['nullable', 'string', 'max:20'],
             'puppy_name' => ['required', 'string', 'max:100'],
             'puppy_price' => ['required', 'numeric', 'min:0'], // Ensuring the price is a positive number
@@ -62,9 +63,9 @@ class SellerRegistrationRequest extends FormRequest
         if ($puppies_count == 0) {
             // If no puppies are registered, enforce these fields
             $rules['phone'] = ['required', 'string', 'max:100', 'regex:/^\+?[1-9]\d{1,14}$/'];
-            $rules['city'] = ['required', 'string', 'max:100'];
-            $rules['zip_code'] = ['required', 'string', 'max:20'];
-            $rules['state_id'] = ['required', 'exists:states,id'];
+            /* $rules['city'] = ['required', 'string', 'max:100']; */
+            /* $rules['zip_code'] = [ 'string', 'max:20']; */
+            /* $rules['state_id'] = ['exists:states,id']; */
         } else {
             // If there are puppies, adjust based on premium plan
             $plan = $user?->premium_plan?->plan;
@@ -82,8 +83,9 @@ class SellerRegistrationRequest extends FormRequest
     {
         return [
             'phone.required' => 'Phone number is required.',
-            'city.required' => 'City is required.',
-            'state_id.required' => 'State is required.',
+            /* 'city.required' => 'City is required.', */
+            'gmap_payload.required' => 'Location field is required',
+            /* 'state_id.required' => 'State is required.', */
             'email.unique' => 'The email address is already taken.',
             'puppy_price.min' => 'The puppy price must be a positive value.',
             'puppy_gender.in' => 'Please choose a valid gender for the puppy (male, female, other).',

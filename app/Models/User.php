@@ -94,6 +94,16 @@ class User extends Authenticatable implements  HasMedia,  MustVerifyEmail, Sitem
 
         'enable_notification',
 
+        'lat',
+        'lng',
+        'state',
+        'short_state',
+        'street',
+        'company_street',
+        'company_state',
+        'company_short_state',
+        'gmap_address',
+        'gmap_id',
     ];
 
     /**
@@ -340,25 +350,27 @@ try {
 
     public function getAddressAttribute()
     {
-        $state = $this->state?->abbreviation ?? $this->state?->name;
-        $address = $this->city . ' ' . $state ;
-        if ($this->city == null &&  $state == null) {
-            return $this->company_address_formatted;
-        }
+        return $this->city . ' ' . $this->short_state;
+        return $this->gmap_address;
+        /* $state = $this->state?->abbreviation ?? $this->state?->name; */
+        /* $address = $this->city . ' ' . $state ; */
+        /* if ($this->city == null &&  $state == null) { */
+        /*     return $this->company_address_formatted; */
+        /* } */
 
-        return $address;
+        /* return $address; */
     }
 
     public function getShortAddressAttribute()
     {
-        $state = $this->state?->abbreviation ?? $this->state?->name;
+        $state = $this->short_state;
         $city_name = substr($this->city ?? "", 0, 6) . (strlen($this->city ?? "") > 6 ? '.' : '');
 
         if (!empty($state) && !empty($city_name)) {
             return  $city_name . ' ' . $state ;
         }
 
-        $state = $this->company_state?->abbreviation ?? $this->company_state?->name;
+        $state = $this->short_company_state;
         $city_name = substr($this->company_city ?? "", 0, 6) . (strlen($this->company_city ?? "") > 6 ? '.' : '');
         return  $city_name . ' ' . $state ;
     }
@@ -370,9 +382,9 @@ try {
 
     public function getCompanyAddressFormattedAttribute($value)
     {
-
-        $state = $this->company_state?->abbreviation ?? $this->company_state?->name;
-        return  ( $value ?? "" ) .', '. $this->company_city . ' ' . $state ;
+        return $this->company_address;
+        /* $state = $this->company_state?->abbreviation ?? $this->company_state?->name; */
+        /* return  ( $value ?? "" ) .', '. $this->company_city . ' ' . $state ; */
     }
 
     public function isSubscribed()

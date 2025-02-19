@@ -40,7 +40,7 @@ export default function Edit({
         breeder_cancel_at: boolean;
         breeder_next_billing: string,
         breeder_requests: any,
-        status?: string, plan: App.Data.PlanData,  breeder_plan: App.Data.PlanData,  tab: string, puppies: PaginatedCollection<App.Data.PuppyData>, saved_searches: App.Data.SavedSearchData[] }>) {
+        status?: string, plan: App.Data.PlanData,  breeder_plan: App.Data.PlanData,  tab: string, puppies: PaginatedCollection<App.Data.PuppyCardData>, saved_searches: App.Data.SavedSearchData[] }>) {
 
 
 

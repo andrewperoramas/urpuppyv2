@@ -109,9 +109,14 @@ class SellerController extends Controller
                     'social_ig' => $data['social_ig'],
                     'social_tiktok' => $data['social_tiktok'],
                     'social_x' => $data['social_x'],
-                    'city' => $data['city'],
-                    'state_id' => $data['state_id'],
-                    'zip_code' => $data['zip_code'],
+
+                    'gmap_address' => @$data['gmap_payload']['address'],
+                    'city' => @$data['gmap_payload']['city'],
+                    'street' => @$data['gmap_payload']['street'],
+                    'state' => @$data['gmap_payload']['state'],
+                    'short_state' => @$data['gmap_payload']['shortState'],
+                    'zip_code' => @$data['gmap_payload']['zipCode'],
+
                     'profile_completed' => true,
                 ]);
             }
