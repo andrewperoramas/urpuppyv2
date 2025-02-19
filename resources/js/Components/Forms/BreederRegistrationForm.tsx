@@ -10,7 +10,6 @@ import FileUpload from '../FileUpload'
 import SelectInput from '../SelectInput'
 import InputError from '../InputError'
 import DateInput from '../DateInput'
-import StateCityDropdown from '../StateCityDropdown'
 import PhoneNumberInput from '../PhoneNumberInput'
 import MapInput from '../MapInput'
 
