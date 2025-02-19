@@ -6,7 +6,7 @@ import Button from '@/Components/ui/Button'
 import { Link, router } from '@inertiajs/react'
 
 const MyPuppies = ({puppies} : {
-    puppies: PaginatedCollection<App.Data.PuppyData>
+    puppies: PaginatedCollection<App.Data.PuppyCardData>
     // states: App.Data.StateData[],
     // breeds: App.Data.BreedData[]
 }) => {
@@ -17,7 +17,7 @@ const MyPuppies = ({puppies} : {
 
                     <div className="row">
                 {
-                    puppies?.data && puppies.data.length ? puppies?.data.map((puppy: App.Data.PuppyData) => (
+                    puppies?.data && puppies.data.length ? puppies?.data.map((puppy: App.Data.PuppyCardData) => (
                         <div key={puppy.id}  className="col-md-6 col-lg-5 col-xl-5 mb-4">
 
                         <PuppyCard className="" puppy={puppy}/>

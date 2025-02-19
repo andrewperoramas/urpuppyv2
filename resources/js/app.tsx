@@ -5,7 +5,7 @@
  import { createRoot, hydrateRoot } from 'react-dom/client';
 import { PuppyToaster } from './Components/PuppyToaster';
 
-const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
+const appName = import.meta.env.VITE_APP_NAME || 'UrPuppy';
 
  router.on('error', (errors: any) => {
    console.log(errors)

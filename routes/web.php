@@ -81,7 +81,13 @@ Route::post('/create-intent', function (Request $request) {
 
 Route::get('adi', function () {
 
-    dd('updated');
+    dd('kamlon boy');
+});
+
+Route::post('/breeder/request/retry', function (Request $request) {
+    $request->user()->breeder_requests()->latest()->first()->update(['status' => 'pending', 'message' => 'We are currently reviewing your application.']);
+
+    return success('profile.edit', 'Your request has been resubmitted.');
 });
 
 Route::get('/saved-search/{id}', [SavedSearchController::class, 'destroy']);
@@ -146,6 +152,7 @@ Route::group(['prefix' => 'breeds'], function () {
 
 Route::group(['prefix' => 'breeders'], function () {
     Route::post('/', [BreederController::class, 'store'])->name('breeders.store');
+    /* Route::post('/{id?}', [BreederController::class, 'store'])->name('breeders.create'); */
     Route::get('/', [BreederController::class, 'index'])->name('breeders.index');
     Route::get('create', [BreederController::class, 'create'])->name('breeders.create');
     Route::get('/{slug}', [BreederController::class, 'show'])->name('breeders.show');
@@ -177,7 +184,7 @@ Route::get('/about-us', [AboutController::class, 'index'])->name('about.index');
 Route::get('/billing/confirm', [CheckoutController::class, 'confirm'])->name('billing.confirm');
 
 
-Route::group(['prefix' => 'checkout', 'middleware' => ['auth', 'verified', 'checkout.ready']], function () {
+Route::group(['prefix' => 'checkout', 'middleware' => ['auth', 'verified']], function () {
 
     Route::get('success', [CheckoutController::class, 'success'])->name('checkout.success');
     Route::get('{plan_id}', [CheckoutController::class, 'index'])->name('checkout.index');
@@ -195,7 +202,7 @@ Route::get('/all-puppies/{slug}', [SellerController::class, 'show'])->name('sell
 Route::group(['prefix' => 'seller'], function () {
     Route::get('create/{id?}', [SellerController::class, 'create'])->name('seller.create');
     Route::delete('delete/{id?}', [SellerController::class, 'destroy'])->name('seller.delete')->middleware('auth');
-    Route::post('store', [SellerController::class, 'store'])->name('seller.store');
+    Route::post('store', [SellerController::class, 'store'])->name('seller.store')->middleware('auth');
     Route::post('update/{id}', [SellerController::class, 'update'])->name('seller.update')->middleware('auth');
 });
 

@@ -31,6 +31,7 @@ class ProfileUpdateRequest extends FormRequest
             'social_ig' => [''],
             'social_tiktok' => [''],
             'social_x' => [''],
+            'gmap_payload' => [''],
             'phone' => [''],
             'email' => [
                 'string',
@@ -42,14 +43,15 @@ class ProfileUpdateRequest extends FormRequest
 
         $user = $request->user();
 
-        if ($user?->breeder_plan) {
+        if ($user?->roles()->where('name', 'breeder')->exists()) {
             $rules['kennel_name'] = ['required', 'string', 'max:100'];
             $rules['company_zip_code'] = ['required'];
             $rules['company_email_address'] = ['required'];
             $rules['company_name'] = ['required'];
-            $rules['company_about'] = ['required'];
+            $rules['company_about'] = ['required', 'string', 'max:255', 'min:40'];
             $rules['company_state'] = ['required'];
             $rules['company_city'] = ['required'];
+            $rules['has_usda_registration'] = [''];
             /* $rules['company_city_id'] = ['']; */
             $rules['company_address'] = ['required'];
             $rules['company_established_on'] = ['required'];

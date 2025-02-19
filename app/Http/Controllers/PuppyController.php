@@ -130,7 +130,7 @@ public function index(Request $request, PuppyService $puppyService)
         ]);
 
         } catch (\Exception $e) {
-            dd($e->getMessage());
+            /* dd($e->getMessage()); */
             return redirect()->route('home')->with([
                 'message.error' => 'This puppy is not available',
             ]);

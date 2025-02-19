@@ -8,10 +8,13 @@ use App\Data\BreederFullData;
 use App\Data\BreedOptionData;
 use App\Http\Requests\BreederRegistrationRequest;
 use App\Jobs\GenerateVideoThumbnail;
+use App\Mail\AdminNotifyMail;
 use App\Models\Breed;
 use App\Models\State;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class BreederController extends Controller
 {
@@ -90,6 +93,15 @@ class BreederController extends Controller
 
     public function store(BreederRegistrationRequest $request)
     {
+
+        return DB::transaction(function () use ($request) {
+
+
+        if (! $request->user()->roles->contains('breeder')) {
+            return error('home', 'You are not a breeder');
+        }
+
+
         $data = $request->validated();
         $user = $request->user();
 
@@ -98,25 +110,45 @@ class BreederController extends Controller
             'company_name' => $data['fullname'],
             'company_email_address' => $data['company_email_address'],
             'company_phone' => $data['company_phone'],
-            'company_address' => $data['company_address'],
-            'company_city' => $data['city'],
-            'company_state_id' => $data['state_id'],
             'company_established_on' => $data['established_date'],
-            'company_zip_code' => $data['zip_code'],
+
             'company_about' => $data['about_company'],
-            'has_usda_registration' => $data['has_usda_registration'] == 'yes' ? true : false
+            'has_usda_registration' => $data['has_usda_registration'] == 'yes' ? true : false,
+            'profile_completed' => true,
+
+
+            'company_address' => @$data['gmap_payload']['address'],
+            'company_city' => @$data['gmap_payload']['city'],
+            'company_street' => @$data['gmap_payload']['street'],
+            'company_state' => @$data['gmap_payload']['state'],
+            'company_short_state' => @$data['gmap_payload']['shortState'],
+            'company_zip_code' => @$data['gmap_payload']['zipCode'],
 
         ]);
 
-        $user->breeds()->attach($data['breeds']);
+        if ($breeds = $data['breeds']) {
+                $user->breeds()->detach();
+                $garm = collect($breeds)->map(function ($breed) use ($user) {
+                    return is_array($breed) ?  $breed['value'] : $breed;
+                });
+                $user->breeds()->attach($garm);
+        }
 
+            /* dd('adi'); */
+        $b = $user->breeder_requests()->create([
+            'message' => 'Reviewing your application',
+            'status' => 'pending'
+        ]);
 
-        collect($data['gallery'])->each(function ($image) use ($user) {
-            $user->addMedia($image)->toMediaCollection('gallery');
-        });
+        /* dd($data['gallery']); */
 
+        if (isset($data['gallery'])) {
+            $user->clearMediaCollection('gallery');
 
-
+            collect($data['gallery'])->each(function ($image) use ($user) {
+                $user->addMedia($image)->toMediaCollection('gallery');
+            });
+        }
 
         if (isset($data['videos'])) {
             $user->clearMediaCollection('videos');
@@ -137,7 +169,17 @@ class BreederController extends Controller
         /* $media = $user->addMedia($video)->toMediaCollection('videos'); */
         /* GenerateVideoThumbnail::dispatch($media); */
 
-        $user->addMedia($data['company_logo'])->toMediaCollection('company_logo');
+        if (!empty($data['company_logo'])) {
+            $user->clearMediaCollection('company_logo');
+            $user->addMedia($data['company_logo'])->toMediaCollection('company_logo');
+        }
+
+
+
+        Mail::queue(new AdminNotifyMail([
+            'subject' => 'New Breeder Application',
+            'message' => 'You have a new breeder application. Please go to admin page to review',
+        ]));
 
         /* if (!$request->user()->is_subscribed && $request->user()->puppies()->count() == 1) { */
         /* return redirect()->to(route('plans.index'))->with([ */
@@ -145,10 +187,14 @@ class BreederController extends Controller
         /* ]); */
         /* } */
 
+        return success('home', 'Your application has been submitted for review');
 
-        return redirect()->to(route('plans.breeder'))->with([
-            'message.success' => 'Subscribe to activate your breeders account'
-        ]);
+        });
+
+
+        /* return redirect()->to(route('plans.breeder'))->with([ */
+        /*     'message.success' => 'Subscribe to activate your breeders account' */
+        /* ]); */
 
     }
 
@@ -172,7 +218,7 @@ class BreederController extends Controller
             /* }, */
         ])->find($userId);
 
-        if ($breeder->is_breeder == false) {
+        if ($breeder->roles->contains('breeder') == false) {
             return redirect()->back()->with([
                 'message.error' => 'This user is not a breeder'
             ]);

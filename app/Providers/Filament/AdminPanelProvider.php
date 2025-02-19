@@ -11,7 +11,7 @@ use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
-use Filament\SpatieLaravelTranslatablePlugin;
+/* use Filament\SpatieLaravelTranslatablePlugin; */
 use Filament\Support\Colors\Color;
 use Filament\Widgets;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
@@ -21,10 +21,6 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
-use Joaopaulolndev\FilamentGeneralSettings\FilamentGeneralSettingsPlugin;
-use LaraZeus\Sky\Filament\Resources\LibraryResource;
-use LaraZeus\Sky\Filament\Resources\PostResource;
-use LaraZeus\Sky\SkyPlugin;
 use Phpsa\FilamentAuthentication\Widgets\LatestUsersWidget;
 use Stephenjude\FilamentBlog\BlogPlugin;
 
@@ -80,7 +76,7 @@ class AdminPanelProvider extends PanelProvider
                 /*     ->setIcon('heroicon-o-cog') */
                 /*     ->setNavigationGroup('Settings'), */
 
-                SpatieLaravelTranslatablePlugin::make()->defaultLocales([config('app.locale')]),
+                /* SpatieLaravelTranslatablePlugin::make()->defaultLocales([config('app.locale')]), */
                 /* SkyPlugin::make()->navigationGroupLabel('CMS')->hideResources([ */
                 /*     LibraryResource::class, */
                 /* ]), */

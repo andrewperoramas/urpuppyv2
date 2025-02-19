@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Resources\UserResource\Pages\ViewUser;
 use Filament\Forms\Get;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
@@ -20,16 +21,18 @@ use Filament\Tables\Actions\RestoreAction;
 use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Actions\DeleteBulkAction;
 use Filament\Forms\Components\Section as Card;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
+use Filament\Forms\Components\Toggle;
 use Filament\Tables\Actions\ForceDeleteAction;
 use Filament\Tables\Actions\RestoreBulkAction;
 use Filament\Tables\Actions\ForceDeleteBulkAction;
 use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Phpsa\FilamentAuthentication\FilamentAuthentication;
 use Phpsa\FilamentAuthentication\Actions\ImpersonateLink;
 use Phpsa\FilamentAuthentication\Traits\CanRenewPassword;
 use Phpsa\FilamentAuthentication\Traits\LogsAuthentication;
 use Phpsa\FilamentAuthentication\Resources\UserResource\Pages\EditUser;
-use Phpsa\FilamentAuthentication\Resources\UserResource\Pages\ViewUser;
 use Phpsa\FilamentAuthentication\Resources\UserResource\Pages\ListUsers;
 use Phpsa\FilamentAuthentication\Resources\UserResource\Pages\CreateUser;
 use Phpsa\FilamentAuthentication\Resources\UserResource\RelationManager\AuthenticationLogsRelationManager;
@@ -48,6 +51,11 @@ class UserResource extends Resource
     public static function getModel(): string
     {
         return FilamentAuthentication::getPlugin()->getModel('User');
+    }
+
+    public static function canCreate(): bool
+    {
+        return false;
     }
 
     public static function getNavigationGroup(): ?string
@@ -83,39 +91,66 @@ class UserResource extends Resource
     {
 
         return $form
+    ->schema([
+        Card::make()
             ->schema([
-                Card::make()
-                    ->schema([
-                        'name'                 => TextInput::make('name')
-                            ->label(strval(__('filament-authentication::filament-authentication.field.user.name')))
-                            ->required(),
-                        'email'                => TextInput::make('email')
-                            ->required()
-                            ->email()
-                            ->unique(table: static::$model, ignorable: fn ($record) => $record)
-                            ->label(strval(__('filament-authentication::filament-authentication.field.user.email'))),
-                        'password'             => TextInput::make('password')
-                            ->same('passwordConfirmation')
-                            ->hiddenOn('view')
-                            ->live(debounce: 250)
-                            ->password()
-                            ->maxLength(255)
-                            ->required(fn ($component, $get, $livewire, $model, $record, $set, $state) => $record === null)
-                            ->dehydrateStateUsing(fn ($state) => ! empty($state) ? Hash::make($state) : '')
-                            ->label(strval(__('filament-authentication::filament-authentication.field.user.password'))),
-                        'passwordConfirmation' => TextInput::make('passwordConfirmation')
-                            ->password()
-                            ->dehydrated(false)
-                            ->visible(fn(Get $get) => filled($get('password')))
-                            ->maxLength(255)
-                            ->label(strval(__('filament-authentication::filament-authentication.field.user.confirm_password'))),
-                        'roles'                => Select::make('roles')
-                            ->multiple()
-                            ->relationship('roles', 'name')
-                            ->preload(FilamentAuthentication::getPlugin()->getPreloadRoles())
-                            ->label(strval(__('filament-authentication::filament-authentication.field.user.roles'))),
-                    ])->columns(2),
-            ]);
+                SpatieMediaLibraryFileUpload::make('avatar')->disk('s3')->collection('avatars')->circleCropper(),
+                TextInput::make('first_name'),
+                TextInput::make('last_name'),
+
+                TextInput::make('email')
+                    ->required()
+                    ->email()
+                    ->unique(table: static::$model, ignorable: fn ($record) => $record)
+                    ->label(strval(__('filament-authentication::filament-authentication.field.user.email'))),
+
+                TextInput::make('password')
+                    ->same('passwordConfirmation')
+                    ->hiddenOn('view')
+                    ->live(debounce: 250)
+                    ->password()
+                    ->maxLength(255)
+                    ->required(fn ($record) => $record === null) // Ensure password is required only on create
+                    ->dehydrateStateUsing(fn ($state) => !empty($state) ? Hash::make($state) : '')
+                    ->label(strval(__('filament-authentication::filament-authentication.field.user.password'))),
+
+                TextInput::make('passwordConfirmation')
+                    ->password()
+                    ->dehydrated(false)
+                    ->visible(fn (Get $get) => filled($get('password')))
+                    ->maxLength(255)
+                    ->label(strval(__('filament-authentication::filament-authentication.field.user.confirm_password'))),
+
+                Select::make('roles')
+                    ->multiple()
+                    ->relationship('roles', 'name')
+                    ->preload(FilamentAuthentication::getPlugin()->getPreloadRoles())
+                    ->label(strval(__('filament-authentication::filament-authentication.field.user.roles'))),
+            ])
+            ->columns(2), // Ensure all fields inside this Card share 2 columns
+
+        Card::make()
+            ->schema([
+                TextInput::make('kennel_name'),
+                TextInput::make('company_name'),
+
+                TextInput::make('company_about'),
+                TextInput::make('has_usda_registration'),
+                TextInput::make('company_address'),
+                    TextInput::make('company_established_on'),
+
+                    SpatieMediaLibraryFileUpload::make('company_logo')->disk('s3')->collection('company_logo')
+,
+
+                    SpatieMediaLibraryFileUpload::make('video')->disk('s3')->collection('videos')->multiple(),
+                    SpatieMediaLibraryFileUpload::make('gallery')->collection('gallery')->multiple()->disk('s3')->columns(2),
+
+            ])
+                ->columns(2),
+
+        ]);
+
+
     }
 
 
@@ -173,7 +208,19 @@ class UserResource extends Resource
         $filters =  [
             'email_verified_at' => TernaryFilter::make('email_verified_at')
                 ->label(strval(__('filament-authentication::filament-authentication.filter.verified')))
-                ->nullable(),
+            ->nullable(),
+
+                'roles' => SelectFilter::make('roles')
+        ->relationship('roles', 'name') // Use the Spatie relationship
+        /* ->multiple() // Allows selecting multiple roles */
+        ->label('Role')
+        ->options([
+            'buyer' => 'Buyer',
+            'seller' => 'Seller',
+            'breeder' => 'Breeder',
+        ]),
+
+                    /* ->attribute('role_id'), */
         ];
 
         if (FilamentAuthentication::getPlugin()->usesSoftDeletes()) {
@@ -224,6 +271,8 @@ class UserResource extends Resource
             AuthenticationLogsRelationManager::class
         ];
     }
+
+
 
     public static function getPages(): array
     {

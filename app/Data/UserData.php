@@ -26,13 +26,14 @@ class UserData extends Data
         public string $email,
         public ?string $phone,
         public ?string $city,
-        public ?StateData $state,
+        /* public ?StateData $state, */
         public ?string $zip_code,
-        public string $address,
+        public ?string $address,
         public string $short_address,
         public string $initial_name,
         public ?string $email_verified_at,
         public string $member_since,
+        public ?bool $profile_completed,
         public ?string $social_fb,
         public ?string $social_ig,
         public ?string $social_tiktok,
@@ -42,9 +43,10 @@ class UserData extends Data
         public bool $enable_notification,
         public ?SubscriptionData $premium_plan,
         public ?SubscriptionData $breeder_plan,
-
+        /** @var \App\Data\OptionData[] */
+        public DataCollection $breeds,
         public ?string $kennel_name,
-        public ?StateData $company_state,
+        /* public ?StateData $company_state, */
         public ?string $company_city,
         public ?string $company_zip_code,
         public ?string $company_about,
@@ -52,10 +54,14 @@ class UserData extends Data
         public ?string $company_name,
         public ?string $company_email_address,
         public ?string $company_address,
+        public bool $has_usda_registration,
         public ?string $company_address_formatted,
         public ?string $trial_ends_at,
         public ?string $company_established_on,
-        public ?string $company_logo
+        public ?string $company_logo,
+        public ?string $video,
+        /** @var string[] */
+        public Collection $gallery,
     ) {
 
 

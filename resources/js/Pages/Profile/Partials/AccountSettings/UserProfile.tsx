@@ -1,22 +1,23 @@
 import InputLabel from '@/Components/InputLabel'
 import TextInput from '@/Components/TextInput'
 import { Link, useForm, usePage } from '@inertiajs/react'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import AvatarInput from './UserAvatar'
 import PrimaryButton from '@/Components/PrimaryButton'
 import Button from '@/Components/ui/Button'
 import InputError from '@/Components/InputError'
-import StateCityDropdown from '@/Components/StateCityDropdown'
 import IconInput from '@/Components/IconInput'
 import DeleteAccountModal from '@/Components/Modals/DeleteAccountModal'
 import StateDropdown from '@/Components/StateDropdown'
 import DateInput from '@/Components/DateInput'
 import PhoneNumberInput from '@/Components/PhoneNumberInput'
+import MapInput from '@/Components/MapInput'
 
 const UserProfile = () => {
 
     const user = usePage().props.auth.user
 
+    const [selectedGMap, setSelectedGMap] = useState<google.maps.LatLngLiteral | null>(null);
     const { post, data, setData, errors } = useForm<{
         first_name: string,
         last_name: string,
@@ -29,6 +30,8 @@ const UserProfile = () => {
         company_email_address?: string | null,
         company_about?: string | null
         company_phone?: string | null
+        has_usda_registration?: boolean
+        gmap_payload?: any
 
 
     }>({
@@ -40,9 +43,6 @@ const UserProfile = () => {
         current_password: '',
         new_password: '',
         new_password_confirmation: '',
-        state: user?.state ?? null,
-        city: user?.city ?? null,
-        zip_code: user.zip_code ?? "",
         social_fb: user?.social_fb ?? "",
         social_ig: user?.social_ig ?? "",
         social_tiktok: user?.social_tiktok ?? "",
@@ -51,21 +51,30 @@ const UserProfile = () => {
         kennel_name: user.kennel_name ?? "",
         company_zip_code: user.company_zip_code ?? "",
         company_state: user.company_state ?? null,
+        has_usda_registration: user.has_usda_registration,
         company_city: user.company_city ?? null,
         company_phone: user.company_phone ?? null,
         company_address: user.company_address ?? null,
         company_established_on: user.company_established_on ?? null,
         company_logo: user.company_logo ?? "",
-
         company_name: user.company_name ?? null,
         company_email_address: user.company_email_address ?? null,
         company_about: user.company_about ?? null,
+        gmap_payload: null
     });
 
     const handleSubmit = (e: React.SyntheticEvent) => {
         e.preventDefault();
+        // setData('gmap_payload', selectedGMap);
         post('/profile');
     };
+
+
+    useEffect(() => {
+        if (selectedGMap) {
+            setData('gmap_payload', selectedGMap);
+        }
+    }, [selectedGMap]);
 
 
 
@@ -132,13 +141,20 @@ const UserProfile = () => {
                       <div className="pb-4 mb-4 border-bottom">
                         <h5 className="mb-4 fs-7">Location Details</h5>
                         <div className="row">
-                            <StateCityDropdown formData={data} errors={errors} setFormData={setData} />
+                            <div className="col-md-12">
+                            <MapInput
+                                    initialAddress={user.address ?? ""}
+                                    onLocationSelect={setSelectedGMap} />
+                            </div>
                         </div>
                       </div>
                     {
-                        user?.breeder_plan && <>
+                        user?.roles?.includes('breeder') && <>
                       <div className="pb-4 mb-4 border-bottom">
+                        <div className="d-flex justify-content-between">
                         <h5 className="mb-4 fs-7">Company Details</h5>
+                        <Button href={`/breeders/create`} variant="white">Edit More Details</Button>
+                                </div>
                         <div className="row">
 
 
@@ -221,43 +237,19 @@ const UserProfile = () => {
 
                           <div className="col-lg-6">
                             <div className="mb-3 pb-1">
-                    <InputLabel isRequired={true} value="Address"/>
-                <TextInput  value={data.company_address ?? ""} onChange={(e: any) => setData('company_address', e.target.value)} />
+                    <InputLabel isRequired={true} value="Has Usda Registration"/>
+                          <div className="form-check form-switch">
+                            <input
+                                    onChange={e => setData('has_usda_registration', e.target.checked)} className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked"
+                                    checked={data.has_usda_registration}
+                               />
+                            </div>
 
-                {errors.company_address && <InputError message={errors.company_address} /> }
+                {errors.has_usda_registration && <InputError message={errors.has_usda_registration} /> }
                             </div>
                           </div>
 
-                          <div className="col-lg-6">
-                            <div className="mb-3 pb-1">
-                    <InputLabel isRequired={true} value="City"/>
-                <TextInput  value={data.company_city ?? ""} onChange={(e: any) => setData('company_city', e.target.value)} />
 
-                {errors.company_address && <InputError message={errors.company_city} /> }
-                            </div>
-                          </div>
-
-                          <div className="col-lg-6">
-                            <div className="mb-3 pb-1">
-                    <InputLabel isRequired={true} value="State"/>
-                                    <StateDropdown
-                                        defaultValue={{
-                                            value: data?.company_state?.id,
-                                            label: data?.company_state?.name
-                                        }}
-                                        onChange={(e: any) => setData('company_state', e)}
-                                    />
-                            </div>
-                          </div>
-
-                          <div className="col-lg-6">
-                            <div className="mb-3 pb-1">
-                    <InputLabel isRequired={true} value="Zip Code"/>
-                <TextInput  value={data.company_zip_code ?? ""} onChange={(e: any) => setData('company_zip_code', e.target.value)} />
-
-                {errors.company_address && <InputError message={errors.company_zip_code} /> }
-                            </div>
-                          </div>
 
                           <div className="col-lg-12">
                             <div className="mb-3 pb-1">

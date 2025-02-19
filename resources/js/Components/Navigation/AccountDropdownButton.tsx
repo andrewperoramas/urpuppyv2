@@ -29,7 +29,7 @@ const AccountDropdownButton = ({user} : { user: App.Data.UserData }) => {
               </div>
               <li><Link prefetch className="dropdown-item rounded py-2" href="/profile">Settings</Link></li>
                 {
-                    (user.premium_plan != null || user.breeder_plan != null) &&
+                    (!user?.roles?.includes('buyer')) &&
               <li><Link className="dropdown-item rounded py-2" href="/profile" data={{
                     tab: 'My Subscription'
                 }}>My Subscriptions</Link></li>
@@ -45,7 +45,7 @@ const AccountDropdownButton = ({user} : { user: App.Data.UserData }) => {
 
                 {
 
-                (user.premium_plan != null || user.breeder_plan != null) &&
+              (!user?.roles?.includes('buyer')) &&
               <li><Link className="dropdown-item rounded py-2" href="/profile" data={{
                     tab: 'My Puppies'
                 }} >My Puppies</Link></li>

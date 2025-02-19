@@ -1,43 +1,62 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import TextInput from '../TextInput'
 import InputLabel from '../InputLabel'
 import IconInput from '../IconInput'
 import SemiHeading from '../SemiHeading'
 import YesOrNoRadioInput from '../YesOrNoRadioInput'
-import { useForm } from '@inertiajs/react'
+import { useForm, usePage } from '@inertiajs/react'
 import Dropzone from 'react-dropzone'
 import FileUpload from '../FileUpload'
 import SelectInput from '../SelectInput'
 import InputError from '../InputError'
 import DateInput from '../DateInput'
-import StateCityDropdown from '../StateCityDropdown'
 import PhoneNumberInput from '../PhoneNumberInput'
+import MapInput from '../MapInput'
 
 const BreederRegistrationForm = ({breeds}: { breeds: App.Data.BreedOptionData[]}) => {
+
+   const user = usePage().props.auth.user as App.Data.UserData;
 
    const { data, setData, post, errors } = useForm({
     health_certificate: 'yes',
     vaccinated: 'yes',
-    company_address: '',
+    company_address: user.company_address ??  '',
     vet_exam: 'yes',
     has_usda_registration: 'no',
-    about_company: '',
-    established_date: '',
-    company_phone: '',
-    kennel_name: '',
-    fullname: '',
-    company_email_address: '',
+    about_company: user?.company_about ?? '',
+    established_date: user?.company_established_on ?? '',
+    company_phone: user?.company_phone ?? '',
+    kennel_name: user?.kennel_name ?? '',
+    fullname: user?.company_name ?? '',
+    company_email_address: user?.company_email_address ?? '',
     travel_ready: 'yes',
     delivery_included: 'yes',
-    breeds: [],
+    breeds: user?.breeds ?? [],
     city: null,
     state_id: null,
     zip_code: '',
     are_you_a_breeder: 'yes',
-    gallery: [],
+    gallery: user?.gallery ?? [],
     company_logo: null,
-    videos: []
+    videos: user?.video != null?  [user?.video] : [],
+    gmap_payload: null
+
+
+
+
    })
+
+
+    const [selectedGMap, setSelectedGMap] = useState<any | null>(null);
+
+    useEffect(() => {
+        if (selectedGMap) {
+            setData('gmap_payload', selectedGMap);
+        }
+    }, [selectedGMap]);
+
+
+
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -70,7 +89,7 @@ const BreederRegistrationForm = ({breeds}: { breeds: App.Data.BreedOptionData[]}
                   <div className="col-lg-12">
                     <div className="mb-4">
                      <InputLabel isRequired={true} value="Full Name"/>
-                     <TextInput onChange={(e: any) => setData('fullname', e.target.value)} />
+                     <TextInput value={data.fullname} onChange={(e: any) => setData('fullname', e.target.value)} />
 
                     {errors.fullname && <InputError message={errors.fullname} /> }
                     </div>
@@ -83,7 +102,7 @@ const BreederRegistrationForm = ({breeds}: { breeds: App.Data.BreedOptionData[]}
                   <div className="col-lg-6">
                     <div className="mb-4">
                      <InputLabel isRequired={true} value="Kennel Name"/>
-                     <TextInput onChange={(e: any) => setData('kennel_name', e.target.value)} />
+                     <TextInput value={data.kennel_name} onChange={(e: any) => setData('kennel_name', e.target.value)} />
 
                     {errors.kennel_name && <InputError message={errors.kennel_name} /> }
                     </div>
@@ -111,7 +130,7 @@ const BreederRegistrationForm = ({breeds}: { breeds: App.Data.BreedOptionData[]}
                   <div className="col-lg-6">
                     <div className="mb-4">
                      <InputLabel isRequired={true} value="Email"/>
-                     <TextInput type="email" onChange={(e: any) => setData('company_email_address', e.target.value)} />
+                     <TextInput value={data.company_email_address} type="email" onChange={(e: any) => setData('company_email_address', e.target.value)} />
 
                     {errors.company_email_address && <InputError message={errors.company_email_address} /> }
                     </div>
@@ -119,7 +138,7 @@ const BreederRegistrationForm = ({breeds}: { breeds: App.Data.BreedOptionData[]}
                   <div className="col-lg-6">
                     <div className="mb-4">
                      <InputLabel isRequired={true} value="Phone"/>
-                      <PhoneNumberInput onChange={(e: any) => setData('company_phone', e)}
+                      <PhoneNumberInput value={data.company_phone} onChange={(e: any) => setData('company_phone', e)}
                  className="phone-input form-control"
                                     />
 
@@ -159,15 +178,9 @@ const BreederRegistrationForm = ({breeds}: { breeds: App.Data.BreedOptionData[]}
 
               <div className="location-details border-bottom mb-4">
                 <SemiHeading title="Location Details"/>
-                  <div className="col-lg-12">
-                    <div className="mb-6">
-                    <InputLabel isRequired={true} value="Address"/>
-                <TextInput  value={data.company_address} onChange={(e: any) => setData('company_address', e.target.value)} />
-
-                {errors.company_address && <InputError message={errors.company_address} /> }
-                    </div>
-                  </div>
-                <StateCityDropdown errors={errors} setFormData={setData}/>
+                <MapInput
+                        initialAddress={user.company_address ?? ""}
+                        onLocationSelect={setSelectedGMap} />
               </div>
 
               <div className="location-details border-bottom mb-4">
@@ -178,7 +191,7 @@ const BreederRegistrationForm = ({breeds}: { breeds: App.Data.BreedOptionData[]}
                                         <span>Breed Type <span className="fs-1"> ( Max 4 Type ) </span></span>
 
                                     } isRequired={true}/>
-                        <SelectInput name="breeds" setData={setData} multiple={true} options={breeds} />
+                        <SelectInput value={data.breeds} name="breeds" setData={setData} multiple={true} options={breeds} />
                     {errors.breeds && <InputError message={errors.breeds} /> }
                     </div>
                   </div>
@@ -194,7 +207,7 @@ const BreederRegistrationForm = ({breeds}: { breeds: App.Data.BreedOptionData[]}
                     <div className="mb-4">
                       <InputLabel value="About Us" isRequired={true}/>
 
-                     <TextInput onChange={(e: any) => setData('about_company', e.target.value)} />
+                     <TextInput value={data.about_company} onChange={(e: any) => setData('about_company', e.target.value)} />
 
                     {errors.about_company && <InputError message={errors.about_company} /> }
                     </div>
@@ -216,6 +229,7 @@ const BreederRegistrationForm = ({breeds}: { breeds: App.Data.BreedOptionData[]}
                     <FileUpload
                               errors={errors}
                              setData={(name, files: any) => setData('gallery', files)}
+                                    defaultUrls={data.gallery}
                                     name="gallery" required={true} />
                     {errors.gallery && <InputError message={errors.gallery} /> }
 
@@ -225,7 +239,7 @@ const BreederRegistrationForm = ({breeds}: { breeds: App.Data.BreedOptionData[]}
                     <FileUpload
                                     name="videos"
                              setData={(name, files: any) => setData('videos', files)}
-
+                                    defaultUrls={data.videos}
                                      required={true} />
                     {errors.videos && <InputError message={errors.videos} /> }
                   </div>

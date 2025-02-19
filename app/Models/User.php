@@ -79,6 +79,7 @@ class User extends Authenticatable implements  HasMedia,  MustVerifyEmail, Sitem
         'company_phone',
         'company_email_address',
         'company_zip_code',
+        'profile_completed',
         'company_city_id',
         'company_city',
         'city',
@@ -93,6 +94,16 @@ class User extends Authenticatable implements  HasMedia,  MustVerifyEmail, Sitem
 
         'enable_notification',
 
+        'lat',
+        'lng',
+        'state',
+        'short_state',
+        'street',
+        'company_street',
+        'company_state',
+        'company_short_state',
+        'gmap_address',
+        'gmap_id',
     ];
 
     /**
@@ -270,7 +281,19 @@ try {
 
     public function scopeBreeders($query)
     {
-        $query->where('is_breeder', true);
+
+       return  $query->where('is_breeder', true)
+                  ->whereHas('breeder_requests', function ($q) {
+                      $q->where('id', function ($subquery) {
+                          $subquery->select('id')
+                                   ->from('breeder_requests')
+                                   ->whereColumn('breeder_requests.user_id', 'users.id') // Adjust based on your relationship
+                                   ->orderByDesc('created_at')
+                                   ->limit(1);
+                      })->where('status', 'approved');
+                  });
+
+
     }
 
     public function getHasPasswordAttribute()
@@ -327,27 +350,29 @@ try {
 
     public function getAddressAttribute()
     {
-        $state = $this->state?->abbreviation ?? $this->state?->name;
-        $address = $this->city . ', ' . $state ;
-        if ($this->city == null &&  $state == null) {
-            return $this->company_address_formatted;
-        }
+        return $this->city . ' ' . $this->short_state;
+        return $this->gmap_address;
+        /* $state = $this->state?->abbreviation ?? $this->state?->name; */
+        /* $address = $this->city . ' ' . $state ; */
+        /* if ($this->city == null &&  $state == null) { */
+        /*     return $this->company_address_formatted; */
+        /* } */
 
-        return $address;
+        /* return $address; */
     }
 
     public function getShortAddressAttribute()
     {
-        $state = $this->state?->abbreviation ?? $this->state?->name;
+        $state = $this->short_state;
         $city_name = substr($this->city ?? "", 0, 6) . (strlen($this->city ?? "") > 6 ? '.' : '');
 
         if (!empty($state) && !empty($city_name)) {
-            return  $city_name . ', ' . $state ;
+            return  $city_name . ' ' . $state ;
         }
 
-        $state = $this->company_state?->abbreviation ?? $this->company_state?->name;
+        $state = $this->short_company_state;
         $city_name = substr($this->company_city ?? "", 0, 6) . (strlen($this->company_city ?? "") > 6 ? '.' : '');
-        return  $city_name . ', ' . $state ;
+        return  $city_name . ' ' . $state ;
     }
 
     public function getOriginalCompanyAddressAttribute($value)
@@ -357,9 +382,9 @@ try {
 
     public function getCompanyAddressFormattedAttribute($value)
     {
-
-        $state = $this->company_state?->abbreviation ?? $this->company_state?->name;
-        return  ( $value ?? "" ) .', '. $this->company_city . ', ' . $state ;
+        return $this->company_address;
+        /* $state = $this->company_state?->abbreviation ?? $this->company_state?->name; */
+        /* return  ( $value ?? "" ) .', '. $this->company_city . ' ' . $state ; */
     }
 
     public function isSubscribed()
@@ -461,4 +486,16 @@ try {
     /* { */
     /*     return $this->attributes()->get()->pluck('value', 'title'); */
     /* } */
+
+    public function breeder_requests()
+    {
+        return $this->hasMany(BreederRequest::class);
+    }
+
+    public function getIsApprovedAttribute()
+    {
+        return $this->breeder_requests()->where('status', 'approved')->latest()->first() ? true : false;
+
+    }
 }
+

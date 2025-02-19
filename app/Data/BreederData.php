@@ -23,7 +23,7 @@ class BreederData extends Data
         public string $email,
         public ?string $phone,
         public ?string $phone_formatted,
-        public string $address,
+        public ?string $address,
         public string $short_address,
         public string $member_since,
         /** @var \App\Data\BreedDataCollection[] */

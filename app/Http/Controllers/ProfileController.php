@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Data\PlanData;
+use App\Data\PuppyCardData;
 use App\Data\SavedSearchData;
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Http\Resources\BreedResource;
@@ -48,9 +49,10 @@ class ProfileController extends Controller
 
     $breeds = BreedResource::collection(Breed::select('id', 'name')->orderBy('name')->get());
 
+
     return Inertia::render('Profile/Edit', [
         'mustVerifyEmail' => $user instanceof MustVerifyEmail,
-        'puppies' => $user->puppies()->with('breeds', 'seller')->paginate(12),
+        'puppies' => PuppyCardData::collect($user->puppies()->with('breeds', 'seller')->paginate(12)),
         'status' => session('status'),
         'plan' => PlanData::optional($user?->premium_plan?->plan),
         'breeder_plan' => PlanData::optional($user?->breeder_plan?->plan),
@@ -59,6 +61,7 @@ class ProfileController extends Controller
         'plan_cancel_at' => $this->getStripeCancelStatus($user?->premium_plan),
         'breeder_next_billing' => $this->getStripeDate($user?->breeder_plan),
         'breeder_cancel_at' => $this->getStripeCancelStatus($user?->breeder_plan),
+        'breeder_requests' => $user->breeder_requests()->latest()->first(),
         'tab' => $request->tab ?? 'Account Settings',
         'breeds' => $breeds,
         'states' => $states,
@@ -127,6 +130,9 @@ private function getStripeCancelStatus($plan)
         $input = $request->validated();
         $avatar = $input['avatar'];
 
+
+
+
         /* unset($input['avatar']); */
         /* /1* unset($input['company_logo']); *1/ */
 
@@ -146,7 +152,18 @@ private function getStripeCancelStatus($plan)
             $input['city'] = $input['city'];
         }
 
+        if (is_array(@$input['gmap_payload'])) {
+            $map = $input['gmap_payload'];
+            $input['city'] = $map['city'];
+            $input['state'] = $map['state'];
+            $input['street'] = $map['street'];
+            $input['short_state'] = $map['shortState'];
+            $input['zip_code'] = $map['zipCode'];
+            $input['gmap_address'] = $map['address'];
+        }
+
         $request->user()->fill($input);
+
 
         if ($request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;

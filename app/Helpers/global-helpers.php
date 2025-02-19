@@ -13,6 +13,7 @@ use App\Models\PuppyPattern;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Inertia\Inertia;
 
 if (!function_exists('guest_puppy')) {
     function guest_puppy() : ?PuppyCardData {
@@ -23,7 +24,6 @@ if (!function_exists('guest_puppy')) {
 
 if (!function_exists('get_videos')) {
     function get_videos() : Collection {
-        return collect([]);
 
          $user = User::query()->with(['media' => function ($query) {
 
@@ -105,9 +105,9 @@ if (!function_exists('success')) {
         }
 
         if ($param == null) {
-            return inertia_location(route($route));
+            return redirect()->route($route);
         }
-        return inertia_location(route($route, $param));
+        return redirect()->route($route, $param);
     }
 }
 
@@ -118,10 +118,12 @@ if (!function_exists('error')) {
         }
 
         if ($param == null) {
-            return inertia_location(route($route));
+
+            return redirect()->route($route);
         }
 
-        return inertia_location(route($route, $param));
+        return redirect()->route($route, $param);
+
     }
 }
 

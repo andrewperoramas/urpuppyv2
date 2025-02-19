@@ -32,13 +32,15 @@ export default function Edit({
 
     breeder_next_billing,
     breeder_cancel_at,
+    breeder_requests,
     tab
 }: PageProps<{ mustVerifyEmail: boolean;
         plan_cancel_at: boolean;
         plan_next_billing: string,
         breeder_cancel_at: boolean;
         breeder_next_billing: string,
-        status?: string, plan: App.Data.PlanData,  breeder_plan: App.Data.PlanData,  tab: string, puppies: PaginatedCollection<App.Data.PuppyData>, saved_searches: App.Data.SavedSearchData[] }>) {
+        breeder_requests: any,
+        status?: string, plan: App.Data.PlanData,  breeder_plan: App.Data.PlanData,  tab: string, puppies: PaginatedCollection<App.Data.PuppyCardData>, saved_searches: App.Data.SavedSearchData[] }>) {
 
 
 
@@ -57,6 +59,40 @@ export default function Edit({
 
     <section className="account-settings py-7 py-md-5 py-xl-9">
       <div className="container">
+                        {
+                           (  breeder_requests && breeder_requests?.status != 'approved' ) &&
+                                <>
+                                    {
+                                breeder_requests?.status == 'pending' &&
+                        <AlertDismissible variant="primary" heading="Pending Breeder Request" message={<> <p>
+                                    {breeder_requests.message}
+                                </p> </>} />
+                                    }
+
+                                    {
+                                breeder_requests?.status == 'rejected' &&
+                        <AlertDismissible variant="danger" heading="Your Breeder Request has been rejected" message={<> <p>
+                                    {breeder_requests.message}
+                                                <br/>
+                                    <Link method="post"
+  className="border-0 bg-transparent text-primary text-decoration-underline "
+                                                    href="/breeder/request/retry"> Request Again</Link>
+                                </p> </>} />
+                                    }
+
+                                </>
+
+                        }
+                                    {
+
+                                (!user?.breeder_plan && breeder_requests?.status == 'approved') &&
+                        <AlertDismissible variant="success" heading="Your application has been approved" message={<> <p>
+                                    You can now proceed to payment for your breeder plan <Link href="/plans/breeder">Choose a plan</Link>
+                                                <br/>
+                                </p> </>} />
+                                    }
+
+
                         {
                             mustVerifyEmail && user.email_verified_at == null &&
                         <AlertDismissible variant="primary" heading="Verify your email" message={<> <p> Before you get started, could you verify your email address by clicking on the link we just emailed to you? If you didn't receive the email, we will gladly send you another.
@@ -89,7 +125,7 @@ export default function Edit({
 
                                             if (item.name == 'My Subscription' || item.name == 'My Puppies' ) {
 
-                                                if (!plan && !breeder_plan) {
+                                                if (user?.roles?.includes('buyer')) {
                                                     return
                                                 }
 
@@ -125,15 +161,51 @@ export default function Edit({
                                     <>
               <div className={` tab-pane fade ${currentTab == 'My Subscription' ? 'show active' : ''} `}  id="pills-my-subscription" role="tabpanel"
                 aria-labelledby="pills-my-subscription-tab" tabIndex={0}>
-                    {plan ? <SubscriptionCard key="plan" next_billing={plan_next_billing} cancel_at={plan_cancel_at}  plan={plan}/> : ""}
+                    {plan && <SubscriptionCard key="plan" next_billing={plan_next_billing} cancel_at={plan_cancel_at}  plan={plan}/> }
                     {breeder_plan && <SubscriptionCard key="breeder_plan" next_billing={breeder_next_billing} cancel_at={breeder_cancel_at}  plan={breeder_plan}/> }
 
-                    {!plan && !breeder_plan &&
+                    {(!plan && !breeder_plan) &&
                 <div className="card border">
                   <div className="card-body pb-0">
                     <div className="row">
-<h6 className="mb-4">
-                                            No Subscription</h6>
+
+                { ( user?.roles?.includes('seller') && user?.profile_completed ) && <h6 className="mb-4">
+                <Link href="/plans" method="get" as="button" className="btn btn-primary">Choose Plan</Link>
+                                                                    </h6>  }
+
+                { ( user?.roles?.includes('breeder') && user?.profile_completed ) && <h6 className="mb-4">
+                <Link href="/plans/breeder" method="get" as="button" className="btn btn-primary">Choose Plan</Link>
+                                                                    </h6>  }
+
+                { ( !user?.profile_completed ) && <h6 className="mb-4">
+                                        {
+                                            user?.roles?.includes('breeder') && <>
+
+                                                                <h6>
+                                                                            <Link href="/breeders/create" method="get" as="button" className="btn btn-primary">Complete Profile</Link>
+
+                                                                            </h6>
+
+                                                                        </>
+
+                                                                    }
+
+                                        {
+                                            user?.roles?.includes('seller') && <>
+                                                                            <h6>
+
+                                                                            <Link href="/seller/create" method="get" as="button" className="btn btn-primary">Complete Profile</Link>
+                                                                            </h6>
+
+                                                                        </>
+
+                                                                    }
+
+
+
+                                                                    </h6>  }
+
+
                     </div>
                   </div>
                 </div>

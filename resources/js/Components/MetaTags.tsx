@@ -11,8 +11,8 @@ const MetaTags = ({
   siteName = "UrPuppy"
 }) => {
   return (
-    <Head title={title}>
-      {/* Primary Meta Tags */}
+    <Head>
+      <title>{title}</title>
       <meta name="description" content={description} />
 
       {/* Twitter Card Tags */}

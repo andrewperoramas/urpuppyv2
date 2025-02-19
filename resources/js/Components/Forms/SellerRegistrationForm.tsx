@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import TextInput from '../TextInput'
 import InputLabel from '../InputLabel'
 import IconInput from '../IconInput'
@@ -8,12 +8,12 @@ import { useForm, usePage } from '@inertiajs/react'
 import Dropzone from 'react-dropzone'
 import FileUpload from '../FileUpload'
 import DateInput from '../DateInput'
-import StateCityDropdown from '../StateCityDropdown'
 import SelectInput, { Option } from '../SelectInput'
 import CheckoutV2Form from '../CheckoutV2Form'
 import InputError from '../InputError'
 import { parseInt } from 'lodash'
 import PhoneNumberInput from '../PhoneNumberInput'
+import MapInput from '../MapInput'
 
 
 
@@ -62,6 +62,7 @@ const SellerRegistrationForm = ({
         puppy_birth_date: puppy_edit?.birth_date ?? '',
         puppy_siblings: puppy_edit?.siblings ?? [],
         image_upload: [],
+        gmap_payload: null
    })
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -87,6 +88,15 @@ const SellerRegistrationForm = ({
 };
 
 
+    const [selectedGMap, setSelectedGMap] = useState<any | null>(null);
+
+    useEffect(() => {
+        if (selectedGMap) {
+            setData('gmap_payload', selectedGMap);
+        }
+    }, [selectedGMap]);
+
+
 
 
   return (
@@ -103,18 +113,21 @@ const SellerRegistrationForm = ({
                     <div className="mb-4">
                      <InputLabel isRequired={true} value="First Name "/>
                      <TextInput  onChange={(e: any) => setData('first_name', e.target.value)} value={data.first_name}/>
+                    {errors.first_name && <InputError message={errors.first_name} /> }
                     </div>
                   </div>
                   <div className="col-lg-4">
                     <div className="mb-4">
                       <InputLabel isRequired={true} value="Last Name"/>
                      <TextInput  onChange={(e: any) => setData('last_name', e.target.value)} value={data.last_name}/>
+                    {errors.last_name && <InputError message={errors.last_name} /> }
                     </div>
                   </div>
                   <div className="col-lg-4">
                     <div className="mb-4">
                       <InputLabel isRequired={true} value="Email"/>
                      <TextInput onChange={(e: any) => setData('email', e.target.value)}  value={data.email}/>
+                    {errors.email && <InputError message={errors.email} /> }
                     </div>
                   </div>
                   <div className="col-lg-4">
@@ -131,6 +144,7 @@ onChange={(e: any) => setData('phone', e)}
                     <div className="mb-4">
                       <InputLabel value="Website (Optional)"/>
                       <TextInput type="text" onChange={(e: any) => setData('website', e.target.value)}  />
+                      {errors.website && <InputError message={errors.website} /> }
                     </div>
                   </div>
                   <div className="col-lg-4">
@@ -150,13 +164,20 @@ onChange={(e: any) => setData('phone', e)}
                             <IconInput onChange={(e: any) => setData('social_ig', e.target.value)} icon="/images/svgs/icon-instagram-dark.svg" />
                         </li>
                       </ul>
+
+                        {errors.social_fb && <InputError message={errors.social_fb} /> }
+                        {errors.social_tiktok && <InputError message={errors.social_tiktok} /> }
+                        {errors.social_ig && <InputError message={errors.social_ig} /> }
+                        {errors.social_x && <InputError message={errors.social_x} /> }
                     </div>
                   </div>
                 </div>
               </div>
               <div className="location-details border-bottom mb-4">
                 <SemiHeading title="Location Details"/>
-                <StateCityDropdown errors={errors} formData={data} setFormData={setData}/>
+                <MapInput
+                        initialAddress={user.address ?? ""}
+                        onLocationSelect={setSelectedGMap} />
               </div>
                     </> }
               <div className="puppy-details border-bottom mb-4">

@@ -22,27 +22,15 @@ class PuppyUpdateRequest extends FormRequest
     public function rules(): array
     {
         $rules =  [
-            /* 'first_name' => ['required', 'string', 'max:100'], */
-            /* 'last_name' => ['required', 'string', 'max:100'], */
-            /* 'email' => ['required', 'string', 'max:100'], */
-            /* 'phone' => ['max:100'], */
-            /* 'website' => ['max:100', 'nullable'], */
-            /* 'social_fb' => ['string', 'nullable',  'max:100'], */
-            /* 'social_ig' => ['string', 'nullable',  'max:100'], */
-            /* 'social_tiktok' => ['string', 'nullable',  'max:100'], */
-            /* 'social_x' => ['string', 'nullable', 'max:100'], */
-            /* 'city_id' => ['nullable' ], */
-            /* 'state_id' => ['nullable' ], */
-            /* 'zip_code' => ['nullable' ], */
             'puppy_name' => ['required', 'string', 'max:100'],
-            'puppy_price' => ['required', 'numeric'],
-            'puppy_gender' => ['required', 'string'],
-            'puppy_about' => ['required', 'string'],
-            'puppy_birth_date' => ['required', 'string', 'before_or_equal:today' ],
-            'puppy_patterns' => ['required', 'array'],
-            'puppy_breeds' => ['required', 'array'],
-            'puppy_colors' => ['required', 'array'],
-            'puppy_siblings' => ['array' ],
+            'puppy_price' => ['required', 'numeric', 'min:0'], // Ensuring the price is a positive number
+            'puppy_gender' => ['required', 'string', 'in:Male,Female,other'], // Define possible values
+            'puppy_about' => ['required', 'string', 'min:40', 'max:255'],
+            'puppy_birth_date' => ['required', 'date', 'before_or_equal:today'],
+            'puppy_patterns' => ['required', 'array', 'max:3'],
+            'puppy_breeds' => ['required', 'array', 'max:3'],
+            'puppy_colors' => ['required', 'array', 'max:3'],
+            'puppy_siblings' => ['nullable', 'array', 'max:10'],
             'has_vaccine' => [''],
             'has_health_certificate' => [''],
             'has_vet_exam' => [''],
@@ -53,6 +41,7 @@ class PuppyUpdateRequest extends FormRequest
         ];
         $user = $this->user();
         $plan = $user?->premium_plan?->plan;
+
 
         if ($plan) {
             $rules['images'] = "required|array|max:$plan->image_per_listing";
