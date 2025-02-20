@@ -68,7 +68,7 @@ class SellerRegistrationRequest extends FormRequest
             /* $rules['state_id'] = ['exists:states,id']; */
         } else {
             // If there are puppies, adjust based on premium plan
-            $plan = $user?->premium_plan?->plan;
+            $plan = $user?->premium_plan?->plan ?? $user?->breeder_plan?->plan;
 
             if ($plan) {
                 $rules['images'] = "required|array|max:$plan->image_per_listing";
