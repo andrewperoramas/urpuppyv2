@@ -24,7 +24,13 @@ const FooterVideos = ({videos} : { videos: App.Data.VideoData[] }) => {
                 </button>
                     }>
                     <div>
-                        <video controls className="w-100" autoPlay>
+                        <video controls className="w-100" autoPlay
+                            style={{
+                                                            height: "auto",
+                                                            maxHeight: '60vh',
+                                                            objectFit: "contain",
+                                                        }}
+                                                >
                             <source src={video.url} />
                         </video>
                     </div>

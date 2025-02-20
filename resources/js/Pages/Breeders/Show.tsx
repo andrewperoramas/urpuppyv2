@@ -152,7 +152,11 @@ const Show = ({breeder, puppies} : {
                 </button>
                     }>
                     <div>
-                        <video controls className="w-100" autoPlay>
+                        <video controls className="w-100 " autoPlay style={{
+                                                            height: "auto",
+                                                            maxHeight: '60vh',
+                                                            objectFit: "contain",
+                                                        }}>
                             <source src={breeder.video} />
                         </video>
                     </div>

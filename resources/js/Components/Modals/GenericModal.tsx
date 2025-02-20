@@ -42,7 +42,10 @@ function GenericModal({ title, buttonTitle, children, setIsModalOpen, handleOk, 
                     {buttonTitle}
                 </div>
                 <Modal show={show} className="modal-lg" {...props} onHide={handleClose}>
-                    <Modal.Body className="py-8 px-4">
+                    <Modal.Body className="py-8 px-4" style={{
+                        maxHeight: '60vh',
+                        overflow: 'hidden'
+                    }}>
                         <h3 className="mb-3 text-center text-primary">{title}</h3>
                         {children}
                     </Modal.Body>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Head } from '@inertiajs/react';
+import { Head, usePage } from '@inertiajs/react';
 
 
 const MetaTags = ({
@@ -10,9 +10,11 @@ const MetaTags = ({
   twitterHandle = "@UrpuppyDotCom",
   siteName = "UrPuppy"
 }) => {
+
+    const current_url = usePage().props.url as string ?? url;
+
   return (
-    <Head>
-      <title>{title}</title>
+    <Head title={title}>
       <meta name="description" content={description} />
 
       {/* Twitter Card Tags */}
@@ -27,7 +29,7 @@ const MetaTags = ({
       <meta property="og:type" content="website" />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
-      <meta property="og:url" content={url} />
+      <meta property="og:url" content={current_url} />
       <meta property="og:image" content={image} />
       <meta property="og:image:alt" content={title} />
       <meta property="og:site_name" content={siteName} />

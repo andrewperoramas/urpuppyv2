@@ -54,6 +54,7 @@ class HandleInertiaRequests extends Middleware
             'flash' => [
                 'message' => fn () => $request->session()->get('message'),
             ],
+           'url' => fn () => $request->fullUrl(),
            'isMobile' => $agent->isMobile(),
 
 
