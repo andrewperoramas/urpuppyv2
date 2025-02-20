@@ -80,11 +80,11 @@ class BreederController extends Controller
             ]);
         }
 
-        if ($request->user()->is_breeder) {
-            return redirect()->to(route('home'))->with([
-                'message.error' => 'You are already a breeder'
-            ]);
-        }
+        /* if ($request->user()->is_breeder) { */
+        /*     return redirect()->to(route('home'))->with([ */
+        /*         'message.error' => 'You are already a breeder' */
+        /*     ]); */
+        /* } */
 
         return inertia('Breeders/Registration', [
             'breeds' => BreedOptionData::collect(Breed::query()->get())
