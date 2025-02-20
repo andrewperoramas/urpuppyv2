@@ -60,7 +60,7 @@ class SellerRegistrationRequest extends FormRequest
         // Check the user's puppies count
         $puppies_count = $request->user()?->puppies()?->count() ?? 0;
 
-        if ($puppies_count == 0) {
+        if ($puppies_count == 0 && $user->roles()->where('name', 'seller')->exists()) {
             // If no puppies are registered, enforce these fields
             $rules['phone'] = ['required', 'string', 'max:100', 'regex:/^\+?[1-9]\d{1,14}$/'];
             /* $rules['city'] = ['required', 'string', 'max:100']; */
