@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Data\BreedData;
 use App\Data\BreederFullData;
+use App\Data\PostData;
 use App\Data\PuppyData;
 use App\Http\Resources\BreedResource;
 use App\Models\Breed;
 use App\Models\City;
+use App\Models\Post;
 use App\Models\Puppy;
 use App\Models\State;
 use App\Models\User;
@@ -76,6 +78,7 @@ class HomeController extends Controller
         'trusted_breeders' => BreederFullData::collect(User::with(['breeds' => fn ($q) => $q->select('name') ])->breeders()->take(4)->inRandomOrder()->get()),
         'new_arrivals' => $new,
         'featured_breeds' => BreedData::collect(Breed::with('media')->inRandomOrder()->take(8)->get()),
+        'post_data' => PostData::collect(Post::with(['category', 'author'])->orderBy('created_at', 'desc')->take(4)->get()),
 
         /* 'canLogin' => Route::has('login'), */
         /* 'canRegister' => Route::has('register'), */
