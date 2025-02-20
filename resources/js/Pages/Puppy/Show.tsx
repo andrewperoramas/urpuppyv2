@@ -20,7 +20,7 @@ const Show = ({ related_puppies, puppy, siblings }: {
 
     return (
             <Layout>
-            <MetaTags title={puppy.name} description={puppy.description} image={puppy.preview_images[0]} />
+            <MetaTags title={`${puppy?.breeds[0]?.name} - ${puppy.name}`} description={puppy.description} image={puppy.preview_images[0]} />
   <div className="page-wrapper position-relative overflow-hidden">
 
     <section
