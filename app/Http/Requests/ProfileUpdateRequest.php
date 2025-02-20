@@ -45,15 +45,15 @@ class ProfileUpdateRequest extends FormRequest
 
         if ($user?->roles()->where('name', 'breeder')->exists()) {
             $rules['kennel_name'] = ['required', 'string', 'max:100'];
-            $rules['company_zip_code'] = ['required'];
+            /* $rules['company_zip_code'] = ['required']; */
             $rules['company_email_address'] = ['required'];
             $rules['company_name'] = ['required'];
             $rules['company_about'] = ['required', 'string', 'max:255', 'min:40'];
-            $rules['company_state'] = ['required'];
-            $rules['company_city'] = ['required'];
+            /* $rules['company_state'] = ['required']; */
+            /* $rules['company_city'] = ['required']; */
             $rules['has_usda_registration'] = [''];
             /* $rules['company_city_id'] = ['']; */
-            $rules['company_address'] = ['required'];
+            /* $rules['company_address'] = ['required']; */
             $rules['company_established_on'] = ['required'];
             $rules['company_logo'] = [''];
         }
