@@ -99,10 +99,10 @@ const fetchCoordinates = async (address: string) => {
   if (initialAddress && inputRef.current) {
     inputRef.current.value = initialAddress;
   }
-}, [initialAddress]);
+}, []);
 
   // Fetch address from coordinates
-  const fetchAddress = async ({ lat, lng }: Location) => {
+  const fetchAddress = async ({ lat, lng}: Location) => {
     try {
       const response = await fetch(
         `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=AIzaSyAouIjqr5Keqg40KQm9LT0uY-wZUAcT7oc`

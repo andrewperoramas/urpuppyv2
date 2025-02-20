@@ -25,7 +25,7 @@ const UserProfile = () => {
         avatar: File | null,
         current_password?: string, new_password?: string, new_password_confirmation?: string, state?: App.Data.StateData| null, city?: string | null, zip_code?: string,
         social_fb?: string, social_ig?: string, social_tiktok?: string, social_x?: string, enable_notification:  boolean ,
-        kennel_name?: string, company_state?:  App.Data.StateData | null, company_city?: string | null, company_address?: string | null, company_established_on?: string | null, company_logo?: any | null, company_zip_code: string | null, phone: string,
+        kennel_name?: string, company_state?:  string | null, company_city?: string | null, company_address?: string | null, company_established_on?: string | null, company_logo?: any | null, company_zip_code: string | null, phone: string,
         company_name?: string | null,
         company_email_address?: string | null,
         company_about?: string | null
@@ -143,7 +143,7 @@ const UserProfile = () => {
                         <div className="row">
                             <div className="col-md-12">
                             <MapInput
-                                    initialAddress={user.address ?? ""}
+                                    initialAddress={user.gmap_address ?? ""}
                                     onLocationSelect={setSelectedGMap} />
                             </div>
                         </div>
