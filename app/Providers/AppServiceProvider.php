@@ -41,7 +41,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Vite::prefetch(concurrency: 3);
+        Vite::useAggressivePrefetching();
+        /* Vite::prefetch(concurrency: 3); */
+
+         \DB::prohibitDestructiveCommands(
+            $this->app->isProduction()
+        );
 
 
 /*         Gate::define('viewPulse', function (User $user) { */

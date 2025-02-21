@@ -58,7 +58,7 @@ export default function Index({
 
             <BlogShowcase post_data={post_data} />
 
-            <section className="bg-extralight  py-md-5 ">
+            <section className="bg-extralight  py-md-5 py-4">
               <div className="container">
                             <SecondaryJumbotron />
               </div>

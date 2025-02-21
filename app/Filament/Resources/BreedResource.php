@@ -60,6 +60,12 @@ class BreedResource extends Resource
                 RichEditor::make('activities_description'),
                 RichEditor::make('content'),
                 SpatieMediaLibraryFileUpload::make('image')
+                    ->rules([
+                        'max:10040'
+                    ])
+                    ->validationMessages([
+                        'max' => 'Image size should be less than 10MB',
+                    ])
                     ->disk('s3')
                     ->collection('media'),
             ])

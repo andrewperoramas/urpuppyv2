@@ -58,6 +58,12 @@ class PlanResource extends Resource
 
                 Checkbox::make('is_breeder')->default(false),
                 SpatieMediaLibraryFileUpload::make('logo')
+                    ->rules([
+                        'max:10040'
+                    ])
+                    ->validationMessages([
+                        'max' => 'Image size should be less than 10MB',
+                    ])
                     ->disk('s3')
                     ->collection('logo'),
                 Repeater::make('features')
